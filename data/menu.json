@@ -1,0 +1,34 @@
+{
+  "sections": [
+    {
+      "title": "Casados",
+      "items": [
+        {
+          "name": "Casado Caribeño",
+          "price": "₡4800",
+          "description": "Arroz, frijoles, plátano maduro, ensalada, pollo a la plancha."
+        },
+        {
+          "name": "Casado de Cerdo",
+          "price": "₡5000",
+          "description": "Cerdo en salsa, arroz, frijoles, y ensalada fresca."
+        }
+      ]
+    },
+    {
+      "title": "Bebidas",
+      "items": [
+        {
+          "name": "Jugo Natural",
+          "price": "₡1500",
+          "description": "Maracuyá, tamarindo o piña, preparado al momento."
+        },
+        {
+          "name": "Café de la Casa",
+          "price": "₡1200",
+          "description": "Café chorreado de grano local."
+        }
+      ]
+    }
+  ]
+}

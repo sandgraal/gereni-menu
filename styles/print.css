@@ -1,0 +1,17 @@
+@media print {
+  body {
+    background: white;
+    color: black;
+    font-size: 12pt;
+  }
+  .btn, footer {
+    display: none;
+  }
+  section {
+    box-shadow: none;
+    border: none;
+  }
+  .hero-strip img, .emblem img {
+    opacity: 1;
+  }
+}

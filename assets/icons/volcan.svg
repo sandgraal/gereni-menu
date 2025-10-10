@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="192" viewBox="0 0 512 192" fill="none">
+  <title>Volcán</title>
+  <g stroke="#0077B6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 164 L176 84 L208 120 L240 84 L384 164 Z" fill="none"/>
+    <path d="M176 84 Q192 68 208 84" />
+    <path d="M208 84 Q224 68 240 84" />
+    <path d="M208 48 c0 -14 10 -26 24 -26 s24 12 24 26" />
+    <path d="M208 48 c-8 -10 -18 -14 -28 -10" />
+    <path d="M256 48 c8 -10 18 -14 28 -10" />
+    <path d="M56 164 L112 132 M144 140 L176 124 M336 140 L368 152 M272 140 L304 132" />
+  </g>
+</svg>
