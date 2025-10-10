@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="192" viewBox="0 0 512 192" fill="none">
+  <title>Hoja de Plátano</title>
+  <g stroke="#2A9D8F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 132 C120 100 220 92 420 76 C440 74 456 86 468 100" />
+    <path d="M40 132 C64 120 84 116 116 114" />
+    <path d="M160 112 L180 94 M200 110 L222 90 M242 108 L266 88 M286 106 L312 86 M330 104 L358 86 M374 102 L404 86" />
+  </g>
+</svg>
