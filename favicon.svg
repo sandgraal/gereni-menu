@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="192" viewBox="0 0 512 192" fill="none">
+  <title>Tucán</title>
+  <g stroke="#F25F5C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M180 120 C200 84 252 72 304 84 C340 92 372 92 404 78" />
+    <path d="M404 78 C428 70 452 72 472 84 C452 96 428 98 404 90" fill="none"/>
+    <circle cx="340" cy="96" r="6" fill="#333"/>
+    <path d="M182 118 C168 132 160 148 162 164" />
+  </g>
+</svg>
