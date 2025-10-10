@@ -1,0 +1,24 @@
+{
+  "name": "gereni-menu",
+  "version": "1.0.0",
+  "description": "Menú editable de Restaurante Gereni, sincronizado desde Markdown hacia web e impresión.",
+  "main": "index.js",
+  "scripts": {
+    "check:menu": "node tools/check-menu-render.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandgraal/gereni-menu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sandgraal/gereni-menu/issues"
+  },
+  "homepage": "https://github.com/sandgraal/gereni-menu#readme",
+  "devDependencies": {
+    "jsdom": "^27.0.0"
+  }
+}

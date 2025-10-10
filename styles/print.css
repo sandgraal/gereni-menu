@@ -3,6 +3,12 @@
     background: white;
     color: black;
     font-size: 12pt;
+    line-height: 1.35;
+  }
+  header {
+    background: transparent;
+    padding-bottom: 0.5rem;
+    box-shadow: none;
   }
   .btn, footer {
     display: none;
@@ -10,8 +16,19 @@
   section {
     box-shadow: none;
     border: none;
+    margin: 0 0 1.2rem;
+    padding: 0.75rem 0;
   }
   .hero-strip img, .emblem img {
     opacity: 1;
+  }
+  .dish {
+    border-bottom: 0.5pt solid #999;
+  }
+  .dish-price {
+    color: #000;
+  }
+  .description {
+    color: #444;
   }
 }

@@ -1,17 +1,268 @@
 {
+  "updatedAt": "2025-10-10T19:41:52.155Z",
   "sections": [
     {
-      "title": "Casados",
+      "title": "Gustitos",
       "items": [
         {
-          "name": "Casado Caribeño",
-          "price": "₡4800",
-          "description": "Arroz, frijoles, plátano maduro, ensalada, pollo a la plancha."
+          "name": "Fajitas Mixtas",
+          "description": "Acompañadas con papas y ensalada.",
+          "price": "₡4.800"
         },
         {
-          "name": "Casado de Cerdo",
-          "price": "₡5000",
-          "description": "Cerdo en salsa, arroz, frijoles, y ensalada fresca."
+          "name": "Fajitas de Pollo o Carne",
+          "description": "Acompañadas con papas y ensalada.",
+          "price": "₡4.500"
+        },
+        {
+          "name": "Nuggets de Pollo",
+          "description": "Acompañadas con papas y ensalada.",
+          "price": "₡3.700"
+        },
+        {
+          "name": "Dedos de Pescado",
+          "description": "Acompañados de papas y ensalada.",
+          "price": "₡3.500"
+        },
+        {
+          "name": "Ceviche de Pescado",
+          "description": "Preparado fresco del día.",
+          "price": "₡3.000"
+        },
+        {
+          "name": "Ceviche Mixto",
+          "description": "Selección de mariscos del día.",
+          "price": "₡3.700"
+        },
+        {
+          "name": "Sopa Azteca",
+          "description": "Caldo tradicional con tortilla y queso.",
+          "price": "₡4.000"
+        },
+        {
+          "name": "Sopa Negra",
+          "description": "Acompañada de arroz.",
+          "price": "₡2.000"
+        },
+        {
+          "name": "Carne en Salsa",
+          "description": "Acompañada de arroz.",
+          "price": "₡2.500"
+        },
+        {
+          "name": "Garbanzos / Frijoles Blancos / Pozol",
+          "description": "Porción casera del día.",
+          "price": "₡2.000"
+        },
+        {
+          "name": "Canelones",
+          "description": "2 unidades bañadas en salsa de tomate.",
+          "price": "₡1.200"
+        }
+      ]
+    },
+    {
+      "title": "Con arroz",
+      "items": [
+        {
+          "name": "Casados",
+          "description": "Con arroz, frijoles, picadillo, ensalada y una carne.",
+          "price": "₡3.390"
+        },
+        {
+          "name": "Casado Criollo",
+          "description": "Arroz, frijoles, picadillo, ensalada, huevo, queso y refresco.",
+          "price": "₡2.500"
+        },
+        {
+          "name": "Arroz de la Casa",
+          "description": "Cerdo, pollo, camarones, chorizo, ensalada y papas.",
+          "price": "₡4.750"
+        },
+        {
+          "name": "Arroz con Pollo",
+          "description": "Acompañado de papas y ensalada.",
+          "price": "₡3.995"
+        },
+        {
+          "name": "Arroz con Camarones",
+          "description": "Acompañado de papas y ensalada.",
+          "price": "₡4.520"
+        }
+      ]
+    },
+    {
+      "title": "Antojitos",
+      "items": [
+        {
+          "name": "Nachos",
+          "description": "Carne o pollo.",
+          "price": "₡3.500"
+        },
+        {
+          "name": "Chalupa",
+          "description": "Carne o pollo.",
+          "price": "₡2.000"
+        },
+        {
+          "name": "Chicharrones",
+          "description": "Porción crujiente de la casa.",
+          "price": "₡4.000"
+        },
+        {
+          "name": "Hamburguesa Sencilla",
+          "description": "Acompañada con papas.",
+          "price": "₡2.500"
+        },
+        {
+          "name": "Hamburguesa Gereni",
+          "description": "Torta de huevo, tocineta, carne, cebolla caramelizada, jamón y queso.",
+          "price": "₡4.200"
+        },
+        {
+          "name": "Patacones",
+          "description": "Con frijoles molidos.",
+          "price": "₡2.260"
+        },
+        {
+          "name": "Papas Fiesta",
+          "description": "Papas con topping especial de la casa.",
+          "price": "₡4.100"
+        },
+        {
+          "name": "Papas Fritas",
+          "description": "Orden individual de papas.",
+          "price": "₡2.500"
+        },
+        {
+          "name": "Plato Surtido",
+          "description": "Chicharrones, chorizo, pollo, salchichón, verdura y pico de gallo.",
+          "price": "₡8.100"
+        },
+        {
+          "name": "Brochetas de Camarón",
+          "description": "Con patacones y pico de gallo.",
+          "price": "₡4.700"
+        },
+        {
+          "name": "Alitas de Pollo (4 piezas)",
+          "description": "Salsa a elegir, acompañadas de papas.",
+          "price": "₡5.000"
+        },
+        {
+          "name": "Alitas de Pollo (6 piezas)",
+          "description": "Salsa a elegir, acompañadas de papas.",
+          "price": "₡7.000"
+        },
+        {
+          "name": "Alitas de Pollo (8 piezas)",
+          "description": "Salsa a elegir, acompañadas de papas.",
+          "price": "₡9.000"
+        }
+      ]
+    },
+    {
+      "title": "Especialidades",
+      "items": [
+        {
+          "name": "Costillas BBQ",
+          "description": "De cerdo en salsa BBQ con arroz y ensalada.",
+          "price": "₡5.850"
+        },
+        {
+          "name": "Filet de Pargo",
+          "description": "Preparado al gusto con papas y ensalada.",
+          "price": "₡5.200"
+        },
+        {
+          "name": "Filet de Tilapia",
+          "description": "Al gusto, con papas y ensalada.",
+          "price": "₡5.085"
+        },
+        {
+          "name": "Pollo Agridulce",
+          "description": "Trocitos de pollo en salsa agridulce con arroz y ensalada.",
+          "price": "₡5.000"
+        },
+        {
+          "name": "Filet de Pollo",
+          "description": "Al gusto, con papas y ensalada.",
+          "price": "₡5.200"
+        },
+        {
+          "name": "Pastas (Alfredo, Bechamel o Tomate)",
+          "description": "Servidas con pan de ajo.",
+          "price": "₡3.500"
+        },
+        {
+          "name": "Filete de Pollo en Salsa Bechamel",
+          "description": "Con arroz y ensalada.",
+          "price": "₡4.520"
+        },
+        {
+          "name": "Filet Miñon",
+          "description": "Lomito recubierto con tocineta en salsa de vino.",
+          "price": "₡7.150"
+        },
+        {
+          "name": "Medallones de Lomito",
+          "description": "En salsa con papa asada y ensalada.",
+          "price": "₡7.500"
+        },
+        {
+          "name": "Tomahawk / Ribeye / New York",
+          "description": "Acompañado de papa asada y ensalada.",
+          "price": "₡13.000"
+        },
+        {
+          "name": "Lengua en Salsa",
+          "description": "Medallones en salsa de tomate con arroz y ensalada.",
+          "price": "₡5.650"
+        },
+        {
+          "name": "Gordon Bleu",
+          "description": "Pechuga de pollo con jamón, queso mozarela, puré y ensalada.",
+          "price": "₡5.650"
+        }
+      ]
+    },
+    {
+      "title": "Para el café",
+      "items": [
+        {
+          "name": "Club Sandwich",
+          "description": "Capas de pan, pollo y vegetales.",
+          "price": "₡4.200"
+        },
+        {
+          "name": "Sandwich",
+          "description": "Carne, pollo o jamón con queso.",
+          "price": "₡2.300"
+        },
+        {
+          "name": "Tortilla de Queso",
+          "description": "Con natilla.",
+          "price": "₡2.500"
+        },
+        {
+          "name": "Tortilla con Torta de Huevo",
+          "description": "Preparada a la plancha.",
+          "price": "₡1.200"
+        },
+        {
+          "name": "Prensadas",
+          "description": "Tortillas fritas con queso.",
+          "price": "₡1.200"
+        },
+        {
+          "name": "Empanadas",
+          "description": "Rellenas al gusto.",
+          "price": "₡1.800"
+        },
+        {
+          "name": "Arepas con Natilla o Mermelada",
+          "description": "Dulce casero para acompañar el café.",
+          "price": "₡1.700"
         }
       ]
     },
@@ -19,14 +270,34 @@
       "title": "Bebidas",
       "items": [
         {
-          "name": "Jugo Natural",
-          "price": "₡1500",
-          "description": "Maracuyá, tamarindo o piña, preparado al momento."
+          "name": "Café",
+          "description": "Taza de café chorreado.",
+          "price": "₡1.200"
         },
         {
-          "name": "Café de la Casa",
-          "price": "₡1200",
-          "description": "Café chorreado de grano local."
+          "name": "Agua Dulce",
+          "description": "Bebida tradicional de tapa de dulce.",
+          "price": "₡900"
+        },
+        {
+          "name": "Chocolate",
+          "description": "Chocolate caliente.",
+          "price": "₡1.200"
+        },
+        {
+          "name": "Té Negro",
+          "description": "Infusión caliente.",
+          "price": "₡800"
+        },
+        {
+          "name": "Batidos en Leche",
+          "description": "Sabores a elección.",
+          "price": "₡2.300"
+        },
+        {
+          "name": "Frescos Naturales",
+          "description": "Jugos naturales del día.",
+          "price": "₡2.000"
         }
       ]
     }

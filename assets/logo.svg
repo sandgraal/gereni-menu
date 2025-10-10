@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" fill="none">
+  <title>Logotipo Restaurante Gereni</title>
+  <circle cx="160" cy="160" r="148" fill="#F3E8D5" stroke="#5B3A29" stroke-width="8"/>
+  <path d="M74 214 C104 158 156 136 214 148 C250 156 286 154 308 140" stroke="#5B3A29" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M308 140 C322 132 318 124 300 118 C284 112 262 112 244 120" stroke="#4B6A3D" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="210" cy="160" r="12" fill="#1C1A18"/>
+  <path d="M74 212 C60 228 52 246 54 266" stroke="#4B6A3D" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M46 236 L106 176 L142 208 L194 152 L274 224" stroke="#4B6A3D" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

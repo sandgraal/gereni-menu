@@ -20,10 +20,10 @@
 - Separadores sutiles en color café claro o textura de papel.
 - Uso moderado de iconos o viñetas; priorizar jerarquía tipográfica.
 
-## QR y Sección de Bebidas
-- Reservar un bloque de 60 × 60 mm para el QR.
-- Texto acompañante: “Consulte opciones y precios”.
-- Incluir nota opcional: “Actualizamos la carta de bebidas cada semana”.
+## QR de Alimentos y Bebidas
+- Reservar un bloque de 60 × 60 mm para el QR de alimentos y bebidas.
+- Texto acompañante: “Consulte opciones y precios de alimentos y bebidas”.
+- Incluir nota opcional: “Actualizamos la carta de alimentos y bebidas cada semana”.
 
 ## Exportación
 - PDF Print: exportar con sangrado y marcas de corte activadas.
@@ -35,4 +35,4 @@
 - [ ] Jerarquía clara entre secciones principales.
 - [ ] Consistencia en formato de precios y uso de negritas.
 - [ ] Revisión ortográfica antes de exportar.
-- [ ] Verificar que el QR enlace a la URL actual.
+- [ ] Verificar que el QR de alimentos y bebidas enlace a la URL actual.

@@ -1,0 +1,6 @@
+# Dependencias de Node
+node_modules/
+
+# Archivos generados
+output/menu_page_*.png
+.DS_Store

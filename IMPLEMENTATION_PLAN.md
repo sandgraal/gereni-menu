@@ -42,7 +42,7 @@ Proyecto para rediseñar y mantener el menú oficial de Bar & Restaurante Geren�
 
 - Crear el documento principal en tamaño Carta con márgenes y sangrado de 3 mm.
 - Aplicar estilos definidos a cada sección del menú; incluir jerarquía visual clara y suficiente espacio en blanco.
-- Reservar espacio para el QR dinámico en la sección de Bebidas con texto “Consulte opciones y precios”.
+- Reservar espacio para el QR dinámico de alimentos y bebidas con texto “Consulte opciones y precios”.
 - Validar legibilidad y contraste en pantalla y mediante impresión de prueba doméstica.
 
 ### Entregables
@@ -52,13 +52,15 @@ Proyecto para rediseñar y mantener el menú oficial de Bar & Restaurante Geren�
 
 ## 4. Automatizar QR y Actualizaciones
 
-- Crear instructivo en `tools/qr/README.md` para generar y actualizar el código QR (herramienta y URL de destino).
+- Crear instructivo en `tools/qr/README.md` para generar y actualizar el código QR de alimentos y bebidas (herramienta y URL de destino).
+- Crear script para sincronizar `content/menu.md` con `data/menu.json` y documentar su uso (`tools/sync-menu.js`).
 - Documentar proceso de exportación de PDF Print y PDF digital, incluyendo ajustes de compresión y nombre de archivo.
 - Definir convención de ramas y etiquetas (`feat/`, `fix/`, `vYYYY.MM.menu`) y agregarla a la guía de contribución rápida.
 
 ### Entregables
 
 - `tools/qr/` con script o guía paso a paso.
+- `tools/sync-menu.js` con instrucciones de ejecución.
 - Documento `workflow.md` en la raíz con flujo de commits, exportes y publicación.
 
 ## 5. Exportar y Validar
@@ -94,7 +96,7 @@ Proyecto para rediseñar y mantener el menú oficial de Bar & Restaurante Geren�
 
 ## Riesgos y Mitigaciones (vivos)
 
-- Cambios frecuentes de bebidas → Mantener QR dinámico y rangos de precio desde `₡x`.
+- Cambios frecuentes de alimentos o bebidas → Mantener QR dinámico y rangos de precio desde `₡x`.
 - Diferencias de color en impresión → Probar en papel sin brillo, coordinar conversión a CMYK con imprenta.
 - Saturación de información → Priorizar platos “de la casa” y evaluar inserto estacional.
 - Falta de disciplina en versiones → Checklist de commits/etiquetas y capacitación inicial.

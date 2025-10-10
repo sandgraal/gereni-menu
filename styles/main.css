@@ -1,91 +1,209 @@
-styles/main.css:root {
-  --cr-blue:#0077B6;
-  --cr-green:#2A9D8F;
-  --cr-coral:#F25F5C;
-  --cr-gray:#333333;
-  --cr-ow:#FAF7F2;
+:root {
+  --gereni-brown:#5B3A29;
+  --gereni-green:#4B6A3D;
+  --gereni-cream:#F3E8D5;
+  --gereni-card:#FFFFFF;
+  --gereni-text:#1C1A18;
+  --gereni-muted:#6B625A;
+  --card-shadow:0 8px 24px rgba(27,19,13,0.08);
+}
+
+* {
+  box-sizing:border-box;
 }
 
 body {
-  font-family:'Nunito', sans-serif;
+  font-family:'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   margin:0;
-  background-color:var(--cr-ow);
-  color:var(--cr-gray);
+  min-height:100vh;
+  background-color:var(--gereni-cream);
+  color:var(--gereni-text);
+  line-height:1.5;
+}
+
+body.inicio {
+  display:flex;
+  flex-direction:column;
   text-align:center;
 }
 
-h1,h2 {
-  font-family:'Montserrat', sans-serif;
-  color:var(--cr-blue);
+main {
+  padding:2rem 1rem 3rem;
+}
+
+body.inicio main {
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+h1,
+h2 {
+  font-family:'Alegreya', 'Times New Roman', serif;
+  color:var(--gereni-brown);
+  letter-spacing:0.02em;
+}
+
+h1 {
+  font-size:2.5rem;
+  margin:0.5rem 0 0;
+}
+
+h2 {
+  font-size:1.75rem;
+  margin:0 0 0.75rem;
+}
+
+p {
+  margin:0.25rem 0 0.75rem;
+  color:var(--gereni-muted);
 }
 
 header {
-  padding:1rem;
-  background-color:#fff;
+  padding:2rem 1rem 1rem;
+  background:linear-gradient(135deg, rgba(91,58,41,0.12), rgba(75,106,61,0.08));
+  text-align:center;
+}
+
+.menu-header {
+  text-align:center;
 }
 
 .logo {
-  max-width:120px;
+  max-width:140px;
   margin:0 auto;
   display:block;
+  filter:drop-shadow(0 4px 8px rgba(91,58,41,0.18));
 }
 
 .btn {
-  background-color:var(--cr-green);
+  background-color:var(--gereni-green);
   color:#fff;
-  padding:0.8em 1.5em;
-  border-radius:8px;
+  padding:0.95em 2.4em;
+  border-radius:999px;
   text-decoration:none;
-  font-weight:bold;
+  font-weight:600;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  transition:transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow:0 12px 24px rgba(75,106,61,0.25);
+}
+
+.btn:hover,
+.btn:focus {
+  transform:translateY(-2px);
+  box-shadow:0 16px 30px rgba(75,106,61,0.28);
 }
 
 section {
   margin:1.5rem auto;
-  padding:1rem;
-  max-width:800px;
-  background-color:#fff;
-  border-radius:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
+  padding:1.5rem;
+  max-width:900px;
+  background-color:var(--gereni-card);
+  border-radius:18px;
+  box-shadow:var(--card-shadow);
+  text-align:left;
 }
 
 .dish {
   display:flex;
   justify-content:space-between;
-  font-size:1.1rem;
-  border-bottom:1px dashed #ccc;
-  padding:0.4em 0;
+  align-items:flex-start;
+  gap:1.5rem;
+  font-size:1.05rem;
+  border-bottom:1px solid rgba(91,58,41,0.12);
+  padding:0.75rem 0;
+}
+
+.dish:last-of-type {
+  border-bottom:none;
+}
+
+.dish-name {
+  display:block;
+  font-weight:600;
+  color:var(--gereni-text);
+}
+
+.dish-price {
+  font-weight:600;
+  color:var(--gereni-green);
 }
 
 .description {
   font-style:italic;
+  font-size:0.95rem;
+  color:var(--gereni-muted);
+  padding-bottom:0.75rem;
+  margin-top:-0.5rem;
+}
+
+.note {
+  font-size:0.95rem;
+  color:var(--gereni-muted);
+  margin:0.5rem 0;
+}
+
+footer {
+  text-align:center;
+  padding:1.5rem;
+  color:var(--gereni-muted);
   font-size:0.9rem;
-  color:#555;
 }
 
 /* Hero strip and emblem */
 .hero-strip {
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:.5rem;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:1.5rem;
   align-items:center;
   justify-items:center;
   max-width:900px;
-  margin:0.5rem auto 1rem;
+  margin:0.5rem auto 1.5rem;
+  padding:0 1rem;
 }
+
 .hero-strip img {
   width:100%;
-  max-width:440px;
+  max-width:420px;
   height:auto;
-  opacity:0.9;
+  opacity:0.95;
 }
 
 .emblem img {
-  width:140px;
+  width:160px;
   height:auto;
-  margin:.25rem auto 0.75rem;
+  margin:0.5rem auto 1rem;
   display:block;
 }
 
-.hero-strip img, .emblem img {
-  filter:saturate(1);
+.hero-strip img,
+.emblem img {
+  filter:saturate(1.05);
+}
+
+@media (max-width:600px) {
+  header {
+    padding:1.5rem 1rem 0.75rem;
+  }
+
+  h1 {
+    font-size:2rem;
+  }
+
+  section {
+    border-radius:14px;
+    padding:1.25rem;
+    margin:1rem;
+  }
+
+  .dish {
+    flex-direction:column;
+    gap:0.35rem;
+  }
+
+  .dish-price {
+    align-self:flex-start;
+  }
 }
