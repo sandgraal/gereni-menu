@@ -1,62 +1,95 @@
-# Menú — Bar & Restaurante Gerení
+# Implementation Plan — Menú Gerení
 
-Proyecto para rediseñar y mantener el **menú oficial** de Gerení en un formato **editable, imprimible y fácil de actualizar**, con estética **rústica de montaña (Cartago/CR)**.  
-Se trabaja con **Canva** para edición por el dueño, y **GitHub** para control de versiones y respaldo.  
-Formato de precios del local: **₡5.650**. Logo en **Café oscuro (#5B3A29)**.  
-En “Bebidas” se mantiene **“Consulte opciones y precios”**, con mejoras vía **QR** y rangos orientativos.
+Proyecto para rediseñar y mantener el menú oficial de Bar & Restaurante Gerení en un formato editable, imprimible y fácil de actualizar. Se trabaja con Canva para que el dueño mantenga el contenido y con GitHub como fuente de verdad y control de versiones. El estilo visual busca un tono rústico de montaña (Cartago, Costa Rica) con paleta café/verde y precios formateados como `₡5.650`.
 
-## Objetivos
-- Que el dueño pueda **editar** platos y precios sin depender de un diseñador.
-- Entregar un **PDF Print** de alta calidad (con sangrado) y un **PDF digital** liviano.
-- Consolidar todo en un **repositorio** con historial claro (qué cambió y cuándo).
-- Alinear la identidad visual a un **estilo tico rústico** (papel, madera, café, verde montaña).
+## 0. Preparación
+- Validar objetivos y alcance con el dueño (edición autónoma, PDF Print + digital, repositorio vivo, estética rústica).
+- Reunir requisitos previos: logo original, acceso a Canva y GitHub, lista validada de platos/precios, restricciones de alérgenos.
+- Configurar repositorio con estructura base (`content/`, `design/`, `assets/`, `output/`, `tools/`).
+- Crear documentación corta del flujo de trabajo y criterios de éxito para alinear expectativas.
 
-## Alcance (incluye)
-- **Plantilla en Canva** con estilos, paleta y tipografías (Alegreya + Source Sans 3).
-- **Contenido normalizado** en `content/menu.md` (fuente de verdad en español).
-- **PDF Print** (300 dpi, sangrado 3 mm) y **PDF digital** optimizado.
-- **Recolor del logo** a Café oscuro y versión blanca para fondos oscuros.
-- **Guía de impresión** (tamaño Carta, papel sin brillo, prueba dura) y **checklist**.
-- **QR dinámico** para la sección “Bebidas” (lista viva de marcas/promos).
-- **Estructura de repo** para cambios seguros (ramas, tags por versión).
+### Entregables
+- README (este plan) y backlog de tareas abiertas.
+- Lista de riesgos priorizados y responsables de mitigación.
 
-## Fuera de alcance (por ahora)
-- Sesión de fotos profesional o ilustraciones a la medida.
-- Impresión física (se coordina con imprenta externa).
-- Traducción a otros idiomas.
-- Desarrollo de sitio web completo (más allá de alojar el PDF/QR).
+## 1. Normalizar Contenido
+- Volcar el menú actual y revisar duplicados, nombres y tildes.
+- Definir secciones oficiales: Gustitos, Con arroz, Antojitos, Especialidades, Para el café, Bebidas.
+- Escribir `content/menu.md` como fuente única de verdad con formato consistente (`₡5.650`) y notas necesarias (alérgenos, promos).
+- Documentar reglas de estilo lingüístico (capitalización, abreviaturas permitidas, tono).
 
-## Entregables
-- `/design/canva/` plantilla y guía de maquetación.
-- `/content/menu.md` con secciones **Gustitos, Con arroz, Antojitos, Especialidades, Para el café, Bebidas**.
-- `/assets/` logo recoloreado, texturas e imágenes stock con licencia apta.
-- `/output/Menu_Gereni_print.pdf` y `/output/Menu_Gereni_digital.pdf`.
-- `/tools/qr/` instructivo para regenerar el QR sin reimprimir.
+### Entregables
+- `content/menu.md` listo para importarse o copiarse a Canva.
+- Checklist lingüístico y de formato para futuras actualizaciones.
 
-## Flujo de trabajo (simple)
-1. Editar texto en `content/menu.md` o directo en Canva (manteniendo estilos).
-2. Exportar **PDF Print** (con sangrado) + **PDF digital**.
-3. Guardar en `/output/` y hacer commit con mensaje claro (p. ej., `feat: actualiza precios Antojitos`).
-4. Etiquetar versión para la imprenta (`vYYYY.MM.menu`).
+## 2. Construir Sistema Visual
+- Definir paleta de color (incluye Café oscuro #5B3A29) y tipografías (Alegreya + Source Sans 3) dentro de Canva.
+- Recolorear el logo y generar versión en blanco para fondos oscuros; guardar ambos en `assets/`.
+- Preparar texturas e imágenes stock con licencias verificadas y documentadas.
+- Configurar estilos de párrafo, títulos, precios y notas en la plantilla Canva.
 
-## Requisitos previos
-- Logo original (PNG/SVG si está disponible).
-- Acceso a **Canva** y al **repositorio** (puede ser privado y administrado por el equipo).
-- Lista de platos/precios validados y cualquier restricción de alérgenos.
+### Entregables
+- `design/canva/` con plantilla y guía de maquetación (capturas o notas).
+- `assets/` con logos finales y texturas aprobadas.
 
-## Criterios de éxito
-- **Legibilidad** en ambiente de restaurante (tamaño de letra y contraste).
-- **Actualización en < 5 minutos** por cambio de precio o plato.
-- **Consistencia** de formato (precios en `₡5.650`, tildes correctas, estilos).
-- **Impresión** sin sorpresas (prueba dura aprobada).
+## 3. Maquetar en Canva
+- Crear el documento principal en tamaño Carta con márgenes y sangrado de 3 mm.
+- Aplicar estilos definidos a cada sección del menú; incluir jerarquía visual clara y suficiente espacio en blanco.
+- Reservar espacio para el QR dinámico en la sección de Bebidas con texto “Consulte opciones y precios”.
+- Validar legibilidad y contraste en pantalla y mediante impresión de prueba doméstica.
 
-## Riesgos y cómo los mitigamos
-- *Colores se ven distintos al imprimir:* exportar prueba, usar papel **sin brillo** y ajustar si hace falta.
-- *Canva exporta en RGB:* avisar a imprenta para conversión a CMYK con prueba.
-- *Precios de bebidas cambian seguido:* usar **QR dinámico** y/o **rangos** (“desde ₡…”) para no reimprimir.
-- *Demasiada información por página:* priorizar platos “de la casa” y usar inserto estacional 1/3 de página.
+### Entregables
+- Plantilla Canva lista para edición por el dueño.
+- Documento de control visual (capturas + notas de decisiones clave) en `design/canva/guide.md`.
 
-## Licencias
-- Tipografías: **Google Fonts** (libres).
-- Imágenes/íconos: **stock libre** para uso comercial (en `assets/` se guarda fuente/URL).
-- Contenido y marca: **propiedad de Bar & Restaurante Gerení**.
+## 4. Automatizar QR y Actualizaciones
+- Crear instructivo en `tools/qr/README.md` para generar y actualizar el código QR (herramienta y URL de destino).
+- Documentar proceso de exportación de PDF Print y PDF digital, incluyendo ajustes de compresión y nombre de archivo.
+- Definir convención de ramas y etiquetas (`feat/`, `fix/`, `vYYYY.MM.menu`) y agregarla a la guía de contribución rápida.
+
+### Entregables
+- `tools/qr/` con script o guía paso a paso.
+- Documento `workflow.md` en la raíz con flujo de commits, exportes y publicación.
+
+## 5. Exportar y Validar
+- Exportar desde Canva en dos variantes: Print (300 dpi, CMYK o aviso a imprenta) con sangrado, y Digital optimizado (RGB, peso bajo).
+- Guardar archivos en `output/Menu_Gereni_print.pdf` y `output/Menu_Gereni_digital.pdf`.
+- Revisar checklist de impresión (papel sin brillo, prueba dura, colores consistentes).
+- Obtener aprobación final del dueño y registrar la versión (`git tag vYYYY.MM.menu`).
+
+### Entregables
+- PDFs finales en `output/` con control de versiones.
+- Registro de validación (resultado de prueba de impresión y feedback del dueño).
+
+## 6. Handoff y Mantenimiento
+- Capacitar al dueño (breve sesión o video) para editar textos en Canva y actualizar `content/menu.md`.
+- Documentar procedimiento para cambios rápidos (<5 minutos) y publicación de actualizaciones.
+- Crear board de tareas recurrentes (revisión de precios de bebidas, actualización de promociones estacionales).
+- Programar revisiones periódicas de licencias de imágenes y consistencia visual.
+
+### Entregables
+- Guía de uso para el dueño (`handoff.md`).
+- Agenda de mantenimiento trimestral o mensual.
+
+## Roles y Responsables
+- **Diseño/Maquetación:** prepara sistema visual y plantilla Canva.
+- **Contenido:** mantiene `content/menu.md` y valida precios.
+- **Dueño del local:** aprueba cambios, inicia actualizaciones y opera Canva.
+- **Soporte técnico:** asegura estructura del repositorio, versiones y backups.
+
+## Riesgos y Mitigaciones (vivos)
+- Cambios frecuentes de bebidas → Mantener QR dinámico y rangos de precio desde `₡x`.
+- Diferencias de color en impresión → Probar en papel sin brillo, coordinar conversión a CMYK con imprenta.
+- Saturación de información → Priorizar platos “de la casa” y evaluar inserto estacional.
+- Falta de disciplina en versiones → Checklist de commits/etiquetas y capacitación inicial.
+
+## Criterios de Hecho
+- Menú es legible en ambiente de restaurante y sigue formato de precios `₡5.650`.
+- Exportar y publicar una actualización menor toma menos de 5 minutos.
+- Repositorio registra qué cambió y cuándo, con PDFs almacenados en `output/`.
+- Imprenta produce resultado consistente con la maqueta tras la prueba dura.
+
+## Próximos Pasos Inmediatos
+1. Confirmar objetivos con el dueño y obtener logo + lista de platos.
+2. Configurar repositorio con la estructura indicada y crear `content/menu.md`.
+3. Comenzar la definición de paleta/tipografías en Canva para acelerar la maquetación.
