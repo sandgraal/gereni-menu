@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="192" viewBox="0 0 512 192" fill="none">
+  <title>Rama de Café</title>
+  <g stroke="#2A9D8F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 144 C160 120 256 104 488 48" />
+    <ellipse cx="128" cy="120" rx="14" ry="10" />
+    <ellipse cx="154" cy="112" rx="14" ry="10" />
+    <ellipse cx="182" cy="108" rx="14" ry="10" />
+    <path d="M220 90 C210 72 188 64 170 70" />
+    <path d="M260 80 C280 62 308 60 328 70" />
+    <path d="M360 64 C372 46 396 40 412 46" />
+  </g>
+</svg>
