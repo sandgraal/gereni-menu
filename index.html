@@ -13,6 +13,8 @@
 <link href="favicon.svg" rel="icon" type="image/svg+xml"/>
 <script defer="" src="scripts/i18n.js">
 </script>
+<script defer="" src="scripts/facebookFeed.js">
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -69,12 +71,41 @@
 <p data-i18n-es="Sigue las últimas actualizaciones, eventos y promociones directamente desde nuestra página oficial." data-i18n-en="Follow the latest updates, events, and promotions right from our official page.">
       Sigue las últimas actualizaciones, eventos y promociones directamente desde nuestra página oficial.
      </p>
-<div class="fb-page" data-adapt-container-width="true" data-height="" data-hide-cover="false" data-show-facepile="true" data-small-header="false" data-tabs="timeline" data-width="">
+<div class="facebook-card">
+<div aria-live="polite" class="facebook-loading" data-facebook-loading="" data-i18n-en="Loading updates…" data-i18n-es="Cargando novedades…" hidden="">
+        Cargando novedades…
+       </div>
+<div class="fb-page" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-small-header="false" data-tabs="timeline" hidden="">
 <blockquote class="fb-xfbml-parse-ignore">
 <a href="#">
-          Gerení Bar y Restaurante
-         </a>
+            Gerení Bar y Restaurante
+           </a>
 </blockquote>
+</div>
+<div class="facebook-fallback" data-facebook-fallback="" hidden="">
+<p data-i18n-es="No pudimos mostrar el feed en este momento." data-i18n-en="We couldn’t display the feed right now.">
+          No pudimos mostrar el feed en este momento.
+         </p>
+<p data-i18n-es="Visita la página en Facebook para ver las últimas novedades." data-i18n-en="Visit our Facebook page to see the latest updates.">
+          Visita la página en Facebook para ver las últimas novedades.
+         </p>
+<a data-facebook-open="" data-i18n-en="Open Facebook" data-i18n-es="Abrir Facebook" href="https://www.facebook.com/baryrestaurantegereni" rel="noopener" target="_blank">
+          Abrir Facebook
+         </a>
+</div>
+<noscript>
+<div class="facebook-fallback">
+<p>
+            Activa JavaScript / Enable JavaScript para ver las novedades de Facebook.
+           </p>
+<p>
+            También puedes visitar la página directamente / You can also visit the page directly.
+           </p>
+<a href="https://www.facebook.com/baryrestaurantegereni" rel="noopener" target="_blank">
+            Abrir Facebook
+           </a>
+</div>
+</noscript>
 </div>
 </section>
 </div>
@@ -84,29 +115,5 @@
     © 2025 Gereni Bar y Restaurante. Todos los derechos reservados.
    </p>
 </footer>
-<script type="text/javascript">
-(function() {
-  var section = document.querySelector('.social-section');
-  if (!section) return;
-  var pageUrl = section.getAttribute('data-facebook-page');
-  if (!pageUrl) return;
-  var pageEmbed = section.querySelector('.fb-page');
-  if (pageEmbed) {
-    pageEmbed.setAttribute('data-href', pageUrl);
-    var embedWidth = Math.max(320, Math.floor(section.getBoundingClientRect().width));
-    pageEmbed.setAttribute('data-width', embedWidth);
-    var blockquote = pageEmbed.querySelector('blockquote');
-    if (blockquote) {
-      blockquote.setAttribute('cite', pageUrl);
-      var link = blockquote.querySelector('a');
-      if (link) {
-        link.setAttribute('href', pageUrl);
-      }
-    }
-  }
-})();
-</script>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&amp;version=v19.0" type="text/javascript">
-</script>
 </body>
 </html>
