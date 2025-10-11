@@ -114,7 +114,7 @@ header {
 
 section {
   margin:1.5rem auto;
-  padding:1.5rem;
+  padding:1.25rem;
   max-width:900px;
   background-color:var(--gereni-card);
   border-radius:18px;
@@ -197,6 +197,19 @@ footer {
 .hero-strip img,
 .emblem img {
   filter:saturate(1.05);
+}
+
+@media (min-width: 960px) {
+  #menu-container {
+    display:grid;
+    grid-template-columns:repeat(2, minmax(320px, 1fr));
+    gap:1.5rem;
+    align-items:start;
+  }
+  #menu-container section {
+    margin:0;
+    max-width:none;
+  }
 }
 
 @media (max-width:600px) {
