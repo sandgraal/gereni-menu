@@ -24,7 +24,7 @@ Proyecto para rediseñar y mantener el menú oficial de Bar & Restaurante Geren�
 ### Entregables
 
 - `content/menu.md` listo para importarse o copiarse a Canva.
-- Checklist lingüístico y de formato para futuras actualizaciones.
+- Checklist lingüístico y de formato para futuras actualizaciones (`content/style-checklist.md`).
 
 ## 2. Construir Sistema Visual
 

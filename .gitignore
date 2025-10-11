@@ -2,5 +2,6 @@
 node_modules/
 
 # Archivos generados
-output/
+output/*
+!output/README.md
 .DS_Store
