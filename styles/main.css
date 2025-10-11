@@ -119,6 +119,29 @@ header {
   justify-content:center;
 }
 
+.secondary-links {
+  display:flex;
+  gap:1rem;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.link-download {
+  color:var(--gereni-green);
+  font-weight:600;
+  text-decoration:none;
+  padding:0.75rem 1.5rem;
+  border:2px solid var(--gereni-green);
+  border-radius:999px;
+  transition:background-color 0.2s ease, color 0.2s ease;
+}
+
+.link-download:hover,
+.link-download:focus {
+  background-color:var(--gereni-green);
+  color:#fff;
+}
+
 section {
   margin:1.5rem auto;
   padding:1.25rem;
