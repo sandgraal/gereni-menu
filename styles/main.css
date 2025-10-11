@@ -70,6 +70,22 @@ header {
   text-align:center;
 }
 
+.home-link {
+  display:inline-block;
+  margin-top:0.75rem;
+  color:var(--gereni-green);
+  font-weight:600;
+  text-decoration:none;
+  letter-spacing:0.03em;
+  transition:color 0.2s ease;
+}
+
+.home-link:hover,
+.home-link:focus {
+  color:var(--gereni-brown);
+  text-decoration:underline;
+}
+
 .logo {
   max-width:200px;
   margin:0 auto;

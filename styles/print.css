@@ -13,6 +13,9 @@
   .btn, footer {
     display: none;
   }
+  .home-link {
+    display: none;
+  }
   section {
     box-shadow: none;
     border: none;
