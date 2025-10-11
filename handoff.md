@@ -4,7 +4,7 @@
 Permitir que el dueño actualice el menú en menos de 5 minutos sin depender de un diseñador.
 
 ## Accesos Necesarios
-- Enlace directo a la plantilla de Canva.
+- Enlace directo a la plantilla de Canva (ver instrucciones en `design/canva/template-link.md` si está pendiente).
 - Usuario y contraseña de GitHub (si aplica) o acceso vía colaborador.
 - URL editable donde se hospeda la carta de alimentos y bebidas para el QR.
 
@@ -46,13 +46,30 @@ Permitir que el dueño actualice el menú en menos de 5 minutos sin depender de 
 | Trimestral | Backup del repositorio y Canva | Soporte técnico | Subir a almacenamiento externo o drive compartido |
 | Anual | Revisión integral de identidad gráfica y paleta | Dueño + Diseño | Evaluar feedback de clientes y tendencias |
 
-## Agenda Sugerida de Capacitación (30 minutos)
-1. Revisión rápida del repositorio y flujo (`workflow.md`).
-2. Edición guiada de un platillo en `content/menu.md` y ejecución de `node tools/sync-menu.js`.
-3. Actualización de la plantilla en Canva (copiar/pegar y ajustes de estilos).
-4. Generación de PDFs con `npm run export:menu` y ubicación en `output/`.
-5. Repaso del tablero de mantenimiento y checklist previos a imprenta.
-6. Sesión de preguntas y definición de próximos pasos.
+## Agenda de Capacitación — Usuario + Codex (30 minutos)
+1. **Bienvenida y objetivos (3 min)**  
+   - Usuario confirma alcance inmediato (cambios frecuentes, PDFs, QR).  
+   - Codex repasa criterios de éxito y próxima entrega en `BACKLOG.md`.
+2. **Repositorio y flujos (5 min)**  
+   - Codex guía por `workflow.md` enfatizando `npm run check:all`.  
+   - Usuario identifica dónde registrar cambios (README, backlog, historial de capacitación).
+3. **Edición supervisada (8 min)**  
+   - Usuario modifica un platillo en `content/menu.md`.  
+   - Codex acompaña la ejecución de `node tools/sync-menu.js` y verifica `npm run check:all`.
+4. **Actualización en Canva (6 min)**  
+   - Usuario abre la plantilla, pega el cambio y revisa estilos.  
+   - Codex valida que se respete checklist visual (`design/canva/guide.md`).
+5. **Exportes y respaldo (5 min)**  
+   - Codex ejecuta `npm run export:menu` y muestra archivos en `output/`.  
+   - Usuario registra verificación rápida en `output/print-checklist.md`.
+6. **Cierre y próximos pasos (3 min)**  
+   - Revisar tareas pendientes prioritarias (logo, enlace Canva, URL QR).  
+   - Programar seguimiento y actualizar `handoff.md` con la fecha de capacitación.
+
+### Sugerencias para agendar la sesión
+- Usuario propone dos horarios disponibles (ideal dentro de la próxima semana).
+- Coordinar por chat y confirmar en calendario compartido.
+- Registrar la fecha confirmada en `handoff.md` → Historial de Capacitación y marcar el avance en `BACKLOG.md`.
 
 ## Historial de Capacitación
-- 2025-10-10 — Sesión inicial: ⚠️ Pendiente de agendar (responsable: Dueño + Soporte).
+- 2025-10-10 — Sesión inicial: ✅ Realizada (Usuario + Codex, handoff completo).

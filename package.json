@@ -4,7 +4,9 @@
   "description": "Menú editable de Gereni Bar y Restaurante, sincronizado desde Markdown hacia web e impresión.",
   "main": "index.js",
   "scripts": {
+    "check:all": "npm run check:prices && npm run check:menu",
     "check:menu": "node tools/check-menu-render.js",
+    "check:prices": "node tools/validate-prices.js",
     "export:menu": "node tools/export-menu.js"
   },
   "repository": {

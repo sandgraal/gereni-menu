@@ -1,5 +1,7 @@
 # Implementation Plan — Menú Gerení
 
+> Estado: ✅ Completo al 2025-10-10. Mantener para referencia histórica.
+
 Proyecto para rediseñar y mantener el menú oficial de Bar & Restaurante Gerení en un formato editable, imprimible y fácil de actualizar. Se trabaja con Canva para que el dueño mantenga el contenido y con GitHub como fuente de verdad y control de versiones. El estilo visual busca un tono rústico de montaña (Cartago, Costa Rica) con paleta café/verde y precios formateados como `₡5.650`.
 
 ## 0. Preparación
@@ -11,7 +13,7 @@ Proyecto para rediseñar y mantener el menú oficial de Bar & Restaurante Geren�
 
 ### Entregables
 
-- README (este plan) y backlog de tareas abiertas.
+- README (este plan) y backlog de tareas abiertas (`BACKLOG.md`).
 - Lista de riesgos priorizados y responsables de mitigación.
 
 ## 1. Normalizar Contenido
@@ -93,6 +95,8 @@ Proyecto para rediseñar y mantener el menú oficial de Bar & Restaurante Geren�
 - **Contenido:** mantiene `content/menu.md` y valida precios.
 - **Dueño del local:** aprueba cambios, inicia actualizaciones y opera Canva.
 - **Soporte técnico:** asegura estructura del repositorio, versiones y backups.
+
+> Nota práctica: Actualmente estas funciones se reparten entre el Usuario (dueño) y Codex (soporte/diseño). Coordinar cada entrega considerando esta dupla.
 
 ## Riesgos y Mitigaciones (vivos)
 

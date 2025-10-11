@@ -54,6 +54,17 @@
 - PDF Digital: duplicar la página, remover sangrado y optimizar peso (RGB).
 - Nombrar archivos como `Menu_Gereni_print.pdf` y `Menu_Gereni_digital.pdf`.
 
+## Registro de Licencias y Recursos
+Completa esta tabla cuando recibas material nuevo (logos, texturas, fotografías).
+
+| Recurso | Origen / Autor | Tipo de licencia | Evidencia (URL o archivo) | Notas |
+|---------|----------------|------------------|---------------------------|-------|
+| Logo principal | (pendiente) | (pendiente) | (adjuntar enlace/carpeta) | Preparar versión en blanco al recibir archivo vectorial. |
+| Texturas de fondo | (pendiente) | (pendiente) | (adjuntar enlace/carpeta) | Confirmar que permiten uso comercial. |
+| Iconografía | (pendiente) | (pendiente) | (adjuntar enlace/carpeta) | Documentar fuente (Flaticon, Noun Project, etc.). |
+
+> Consejo: Guarda capturas o PDFs de las licencias en `design/canva/licenses/` (ver `design/canva/licenses/README.md`) junto con un `README` que describa cambios relevantes.
+
 ## Checklist Visual
 - [ ] Contraste suficiente en títulos y descripciones.
 - [ ] Jerarquía clara entre secciones principales.

@@ -16,3 +16,12 @@ Guarda aquí las versiones finales exportadas desde Canva. Mantén solo los arch
 ## Registro
 - Anota la fecha y descripción del cambio en el commit que agrega los PDF.
 - Crea tag `vYYYY.MM.menu` si la versión se entrega a imprenta.
+
+## Cómo archivar versiones anteriores
+1. Crea una carpeta dentro de `output/archive/` con formato `YYYY-MM` (ej. `output/archive/2025-10/`).
+2. Mueve allí los PDFs previos (`Menu_Gereni_print.pdf`, `Menu_Gereni_digital.pdf`) conservando el nombre original.
+3. Añade un archivo `NOTAS.md` en la carpeta (puedes copiar `output/archive/NOTAS_TEMPLATE.md`) con fecha, motivo del reemplazo y responsable.
+4. Actualiza `BACKLOG.md` o el commit con referencia a la carpeta archivada.
+5. (Opcional) Comprime la carpeta archivada y súbela a la nube como respaldo adicional.
+
+> Consejo: Mantén solo la última versión vigente en la raíz de `output/` para evitar confusiones al compartir archivos.

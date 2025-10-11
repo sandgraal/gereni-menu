@@ -12,7 +12,11 @@ data/menu.json → Archivo generado para la web
 styles/ → Estilos visuales  
 scripts/ → Código para cargar el menú  
 assets/ → Imágenes e íconos  
+assets/README.md → Pasos para recibir logos y texturas  
 tools/sync-menu.js → Script para sincronizar Markdown → JSON
+tools/validate-prices.js → Valida que los precios sigan el formato `₡0.000`
+design/canva/licenses/README.md → Registro detallado de licencias y evidencias  
+workflow/reminders.md → Agenda propuesta para recordatorios operativos
 
 ## ⚙️ Requisitos
 
@@ -23,10 +27,13 @@ tools/sync-menu.js → Script para sincronizar Markdown → JSON
 
 1. Abre `content/menu.md` y actualiza nombres, precios o descripciones (formato `₡5.650`).
 2. Ejecuta `node tools/sync-menu.js` para regenerar `data/menu.json`.
-3. Haz commit y sube los cambios.
-4. Espera 1‑2 minutos y revisa tu sitio en:
+3. Ejecuta `npm run check:all` (valida precios y render).
+4. Haz commit y sube los cambios.
+5. Espera 1‑2 minutos y revisa tu sitio en:
 
 👉 `https://sandgraal.github.io/gereni-menu/menu.html`
+
+- Si la plantilla de Canva aún no tiene acceso compartido, sigue `design/canva/template-link.md` para habilitar el enlace editable antes de copiar texto.
 
 ## 🖰️ Versión para impresión
 

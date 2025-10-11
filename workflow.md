@@ -11,22 +11,27 @@
 - Etiquetas de entrega a imprenta: `vYYYY.MM.menu`.
 
 ## Proceso de Actualización
+0. Revisar y actualizar `BACKLOG.md` para reflejar pendientes y responsables antes de comenzar.
 1. Actualizar `content/menu.md` con los cambios aprobados.
 2. Ejecutar `node tools/sync-menu.js` para reflejar el contenido en `data/menu.json`.
-3. Sincronizar la plantilla de Canva (copiar/pegar texto o ajustar directamente).
-4. Revisar checklist visual y ortográfico.
-5. Exportar `Menu_Gereni_print.pdf` y `Menu_Gereni_digital.pdf` con `npm run export:menu`.
-6. Guardar PDFs en `output/`.
-7. Hacer commit describiendo el cambio (`feat: actualiza precios Antojitos`).
-8. Si la versión es para imprenta, crear tag `vYYYY.MM.menu`.
+3. Correr `npm run check:all` (valida precios y render web).
+4. Sincronizar la plantilla de Canva (copiar/pegar texto o ajustar directamente; validar enlaces según `design/canva/template-link.md`).
+5. Revisar checklist visual y ortográfico.
+6. Exportar `Menu_Gereni_print.pdf` y `Menu_Gereni_digital.pdf` con `npm run export:menu`.
+7. Guardar PDFs en `output/`.
+8. Hacer commit describiendo el cambio (`feat: actualiza precios Antojitos`).
+9. Si la versión es para imprenta, crear tag `vYYYY.MM.menu`.
 
 ## Checklist de Publicación
 - [ ] `content/menu.md` actualizado y revisado.
 - [ ] Template de Canva sincronizado.
 - [ ] QR de alimentos y bebidas verificado y vigente.
+- [ ] `npm run check:all` sin errores.
 - [ ] PDFs exportados y verificados visualmente.
 - [ ] Commit y tag creados (si aplica).
 - [ ] Notificar al dueño sobre la actualización.
+- [ ] Licencias/evidencias actualizadas en `design/canva/licenses/README.md` (si se añadieron recursos).
+- [ ] Revisar recordatorios vigentes (`workflow/reminders.md`) al cierre de la sesión.
 
 ## Emergencias / Cambios Rápidos
 - Foco en secciones afectadas (p. ej., cambio de precio puntual).
