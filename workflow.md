@@ -15,7 +15,7 @@
 2. Ejecutar `node tools/sync-menu.js` para reflejar el contenido en `data/menu.json`.
 3. Sincronizar la plantilla de Canva (copiar/pegar texto o ajustar directamente).
 4. Revisar checklist visual y ortográfico.
-5. Exportar `Menu_Gereni_print.pdf` (con sangrado) y `Menu_Gereni_digital.pdf`.
+5. Exportar `Menu_Gereni_print.pdf` y `Menu_Gereni_digital.pdf` con `npm run export:menu`.
 6. Guardar PDFs en `output/`.
 7. Hacer commit describiendo el cambio (`feat: actualiza precios Antojitos`).
 8. Si la versión es para imprenta, crear tag `vYYYY.MM.menu`.

@@ -30,8 +30,9 @@ tools/sync-menu.js → Script para sincronizar Markdown → JSON
 
 ## 🖰️ Versión para impresión
 
-Abre `menu.html`, presiona **Ctrl + P** y selecciona “Guardar como PDF”.  
-Los estilos de impresión (`styles/print.css`) se aplican automáticamente.
+- Ejecuta `npm run export:menu` para generar `output/Menu_Gereni_print.pdf` y `output/Menu_Gereni_digital.pdf`.
+- Alternativamente, abre `menu.html`, presiona **Ctrl + P** y selecciona “Guardar como PDF”.  
+  Los estilos de impresión (`styles/print.css`) se aplican automáticamente.
 
 ## 🎨 Créditos
 

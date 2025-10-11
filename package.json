@@ -4,7 +4,8 @@
   "description": "Menú editable de Gereni Bar y Restaurante, sincronizado desde Markdown hacia web e impresión.",
   "main": "index.js",
   "scripts": {
-    "check:menu": "node tools/check-menu-render.js"
+    "check:menu": "node tools/check-menu-render.js",
+    "export:menu": "node tools/export-menu.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/sandgraal/gereni-menu#readme",
   "devDependencies": {
-    "jsdom": "^27.0.0"
+    "jsdom": "^27.0.0",
+    "puppeteer": "^24.24.0"
   }
 }
