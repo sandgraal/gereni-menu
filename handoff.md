@@ -53,3 +53,6 @@ Permitir que el dueño actualice el menú en menos de 5 minutos sin depender de 
 4. Generación de PDFs con `npm run export:menu` y ubicación en `output/`.
 5. Repaso del tablero de mantenimiento y checklist previos a imprenta.
 6. Sesión de preguntas y definición de próximos pasos.
+
+## Historial de Capacitación
+- 2025-10-10 — Sesión inicial: ⚠️ Pendiente de agendar (responsable: Dueño + Soporte).

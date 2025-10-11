@@ -37,10 +37,10 @@
 - Fondos opcionales: textura sutil en opacidad <12% o ilustraciones semitransparentes en las esquinas.
 
 ## Recursos de la Plantilla
-- Enlace Canva (editar o duplicar): `https://www.canva.com/design/DAFxyz12345/share/link`.
-- Capturas clave (pueden actualizarse según sea necesario):
-  - [Portada y cabecera](https://www.canva.com/design/DAFxyz12345/view?utm_source=shared_link#page=1)
-  - [Detalle de columnas](https://www.canva.com/design/DAFxyz12345/view?utm_source=shared_link#page=2)
+- Enlace Canva (editar o duplicar): ver `design/canva/template-link.md`.
+- Capturas locales:
+  - `design/canva/screenshots/portada.png`
+  - `design/canva/screenshots/detalle-columnas.png`
 - Exportes de referencia: conservar la última versión aprobada en `design/canva/exports/` (PDF Print y PDF digital).
 - Para actualizar capturas, usa la opción de descarga en Canva (`Archivo → Descargar → PNG`) y reemplaza los archivos manteniendo el mismo nombre.
 
