@@ -13,6 +13,9 @@
   .btn, footer, .hero-strip, .emblem {
     display: none;
   }
+  .language-toggle {
+    display: none !important;
+  }
   .home-link {
     display: none;
   }

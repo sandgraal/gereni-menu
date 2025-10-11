@@ -4,13 +4,15 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>
+<title data-i18n-es="Menú | Gereni Bar y Restaurante" data-i18n-en="Menu | Gereni Bar &amp; Restaurant">
    Menú | Gereni Bar y Restaurante
   </title>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="styles/main.css" rel="stylesheet"/>
 <link href="styles/print.css" media="print" rel="stylesheet"/>
 <link href="favicon.svg" rel="icon" type="image/svg+xml"/>
+<script defer="" src="scripts/i18n.js">
+</script>
 <script defer="" src="scripts/loadMenu.js">
 </script>
 <script type="application/ld+json">
@@ -660,11 +662,19 @@
 </head>
 <body>
 <header class="menu-header">
+<div class="language-toggle" data-lang-toggle="" role="group" data-i18n-es="Seleccionar idioma" data-i18n-en="Choose language" data-i18n-attr="aria-label" aria-label="Seleccionar idioma">
+<button aria-pressed="true" data-lang-option="es" data-i18n-es="Cambiar a español" data-i18n-en="Switch to Spanish" data-i18n-attr="aria-label" type="button">
+      ES
+     </button>
+<button aria-pressed="false" data-lang-option="en" data-i18n-es="Cambiar a inglés" data-i18n-en="Switch to English" data-i18n-attr="aria-label" type="button">
+      EN
+     </button>
+</div>
 <img alt="Logo de Gereni Bar y Restaurante" class="logo" src="assets/logo-gereni-bar-restaurant.png"/>
-<h1>
+<h1 data-i18n-es="Menú" data-i18n-en="Menu">
     Menú
    </h1>
-<a class="home-link" href="index.html">
+<a class="home-link" data-i18n-es="← Volver al inicio" data-i18n-en="← Back to home" href="index.html">
     ← Volver al inicio
    </a>
 </header>
@@ -681,7 +691,7 @@
 <footer>
 <p class="note" id="menu-updated">
 </p>
-<p>
+<p data-i18n-es="© 2025 Gereni Bar y Restaurante" data-i18n-en="© 2025 Gereni Bar &amp; Restaurant">
     © 2025 Gereni Bar y Restaurante
    </p>
 </footer>

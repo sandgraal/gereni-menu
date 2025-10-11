@@ -15,6 +15,23 @@ const JSON_PATH = path.join(ROOT, 'data', 'menu.json');
 const SECTION_HEADING = /^##\s+(.*)$/;
 const ITEM_PATTERN = /^-\s+\*\*(.+?)\*\*\s+—\s+(.*)\s+\((₡[\d.]+)\)\s*$/;
 
+function splitBilingual(raw, fallback = '') {
+  if (!raw) {
+    return { es: fallback, en: fallback };
+  }
+  const parts = raw.split('|').map(part => part.trim()).filter(Boolean);
+  if (parts.length === 0) {
+    return { es: fallback, en: fallback };
+  }
+  if (parts.length === 1) {
+    return { es: parts[0], en: parts[0] };
+  }
+  return {
+    es: parts[0],
+    en: parts.slice(1).join(' | ')
+  };
+}
+
 function parseMenuMarkdown(markdown) {
   const lines = markdown.split(/\r?\n/);
   const sections = [];
@@ -39,12 +56,13 @@ function parseMenuMarkdown(markdown) {
 
     const sectionMatch = SECTION_HEADING.exec(line);
     if (sectionMatch) {
-      const title = sectionMatch[1].trim();
-      if (title.toLowerCase() === 'notas') {
+      const titleRaw = sectionMatch[1].trim();
+      const titleKey = titleRaw.split('|')[0]?.trim().toLowerCase();
+      if (titleKey === 'notas') {
         currentSection = null;
         break;
       }
-      currentSection = { title, items: [] };
+      currentSection = { title: splitBilingual(titleRaw), items: [] };
       sections.push(currentSection);
       continue;
     }
@@ -57,8 +75,8 @@ function parseMenuMarkdown(markdown) {
     if (itemMatch) {
       const [, name, description, price] = itemMatch;
       currentSection.items.push({
-        name: name.trim(),
-        description: description.trim().replace(/\s{2,}/g, ' '),
+        name: splitBilingual(name.trim()),
+        description: splitBilingual(description.trim().replace(/\s{2,}/g, ' ')),
         price: price.trim()
       });
       continue;

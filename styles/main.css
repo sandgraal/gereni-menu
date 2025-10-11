@@ -84,6 +84,7 @@ p {
 }
 
 header {
+  position:relative;
   padding:2.5rem 1.5rem 1.25rem;
   background:rgba(243,232,213,0.85);
   backdrop-filter:blur(6px);
@@ -283,6 +284,48 @@ footer {
   width:100%;
 }
 
+.language-toggle {
+  position:absolute;
+  top:1rem;
+  right:1.5rem;
+  display:flex;
+  gap:0.35rem;
+  padding:0.35rem;
+  border-radius:999px;
+  background-color:rgba(255,255,255,0.85);
+  box-shadow:0 6px 18px rgba(27,19,13,0.12);
+  backdrop-filter:blur(8px);
+}
+
+.language-toggle button {
+  border:none;
+  background:transparent;
+  color:var(--gereni-muted);
+  font-weight:600;
+  font-size:0.85rem;
+  padding:0.35rem 0.75rem;
+  border-radius:999px;
+  cursor:pointer;
+  transition:background-color 0.2s ease, color 0.2s ease;
+}
+
+.language-toggle button:hover,
+.language-toggle button:focus-visible {
+  background-color:rgba(75,106,61,0.15);
+  color:var(--gereni-brown);
+  outline:none;
+}
+
+.language-toggle button.active {
+  background-color:var(--gereni-green);
+  color:#fff;
+}
+
+.language-toggle button.active:hover,
+.language-toggle button.active:focus-visible {
+  background-color:var(--gereni-brown);
+}
+
 @media (min-width: 720px) {
   #menu-container {
     display:grid;
@@ -299,6 +342,11 @@ footer {
 @media (max-width:600px) {
   header {
     padding:1.5rem 1rem 0.75rem;
+  }
+
+  .language-toggle {
+    top:0.75rem;
+    right:1rem;
   }
 
   h1 {

@@ -4,13 +4,15 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>
+<title data-i18n-es="Gereni Bar y Restaurante" data-i18n-en="Gereni Bar &amp; Restaurant">
    Gereni Bar y Restaurante
   </title>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="styles/main.css" rel="stylesheet"/>
 <link href="styles/print.css" media="print" rel="stylesheet"/>
 <link href="favicon.svg" rel="icon" type="image/svg+xml"/>
+<script defer="" src="scripts/i18n.js">
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -38,25 +40,33 @@
 <div id="fb-root">
 </div>
 <header>
+<div class="language-toggle" data-lang-toggle="" role="group" data-i18n-es="Seleccionar idioma" data-i18n-en="Choose language" data-i18n-attr="aria-label" aria-label="Seleccionar idioma">
+<button aria-pressed="true" data-lang-option="es" data-i18n-es="Cambiar a español" data-i18n-en="Switch to Spanish" data-i18n-attr="aria-label" type="button">
+      ES
+     </button>
+<button aria-pressed="false" data-lang-option="en" data-i18n-es="Cambiar a inglés" data-i18n-en="Switch to English" data-i18n-attr="aria-label" type="button">
+      EN
+     </button>
+</div>
 <img alt="Logo de Gereni Bar y Restaurante" class="logo" src="assets/logo-gereni-bar-restaurant.png"/>
 </header>
 <main>
 <div class="home-panel">
 <div class="cta">
-<a class="btn" href="menu.html">
+<a class="btn" data-i18n-es="Ver el Menú" data-i18n-en="View the Menu" href="menu.html">
       Ver el Menú
      </a>
 </div>
 <div class="secondary-links">
-<a class="link-download" href="output/Menu_Gereni_digital.pdf" rel="noopener" target="_blank">
+<a class="link-download" data-i18n-es="Descargar Menú en PDF" data-i18n-en="Download Menu PDF" href="output/Menu_Gereni_digital.pdf" rel="noopener" target="_blank">
       Descargar Menú en PDF
      </a>
 </div>
 <section aria-labelledby="facebook-feed-heading" class="social-section" data-facebook-page="https://www.facebook.com/baryrestaurantegereni">
-<h2 id="facebook-feed-heading">
+<h2 data-i18n-es="Novedades en Facebook" data-i18n-en="Updates on Facebook" id="facebook-feed-heading">
       Novedades en Facebook
      </h2>
-<p>
+<p data-i18n-es="Sigue las últimas actualizaciones, eventos y promociones directamente desde nuestra página oficial." data-i18n-en="Follow the latest updates, events, and promotions right from our official page.">
       Sigue las últimas actualizaciones, eventos y promociones directamente desde nuestra página oficial.
      </p>
 <div class="fb-page" data-adapt-container-width="true" data-height="" data-hide-cover="false" data-show-facepile="true" data-small-header="false" data-tabs="timeline" data-width="">
@@ -70,7 +80,7 @@
 </div>
 </main>
 <footer>
-<p>
+<p data-i18n-es="© 2025 Gereni Bar y Restaurante. Todos los derechos reservados." data-i18n-en="© 2025 Gereni Bar &amp; Restaurant. All rights reserved.">
     © 2025 Gereni Bar y Restaurante. Todos los derechos reservados.
    </p>
 </footer>

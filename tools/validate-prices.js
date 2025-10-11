@@ -51,9 +51,11 @@ function checkJson(errors) {
   try {
     const data = JSON.parse(raw);
     (data.sections || []).forEach((section, sectionIndex) => {
+      const sectionTitle = (section.title && (section.title.es || section.title.en)) || '[sin título]';
       (section.items || []).forEach((item, itemIndex) => {
         const price = item.price;
-        const context = `data/menu.json → sección ${sectionIndex + 1} "${section.title}", item ${itemIndex + 1} "${item.name}"`;
+        const itemName = (item.name && (item.name.es || item.name.en)) || '[sin nombre]';
+        const context = `data/menu.json → sección ${sectionIndex + 1} "${sectionTitle}", item ${itemIndex + 1} "${itemName}"`;
         if (typeof price !== 'string' || price.trim().length === 0) {
           errors.push(`${context} carece de precio en formato string.`);
           return;

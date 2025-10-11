@@ -1,302 +1,644 @@
 {
-  "updatedAt": "2025-10-11T03:38:50.611Z",
+  "updatedAt": "2025-10-11T05:41:06.621Z",
   "sections": [
     {
-      "title": "Gustitos",
+      "title": {
+        "es": "Gustitos",
+        "en": "Starters"
+      },
       "items": [
         {
-          "name": "Fajitas Mixtas",
-          "description": "Acompañadas con papas y ensalada.",
+          "name": {
+            "es": "Fajitas Mixtas",
+            "en": "Mixed Fajitas"
+          },
+          "description": {
+            "es": "Acompañadas con papas y ensalada.",
+            "en": "Served with fries and salad."
+          },
           "price": "₡4.800"
         },
         {
-          "name": "Fajitas de Pollo o Carne",
-          "description": "Acompañadas con papas y ensalada.",
+          "name": {
+            "es": "Fajitas de Pollo o Carne",
+            "en": "Chicken or Beef Fajitas"
+          },
+          "description": {
+            "es": "Acompañadas con papas y ensalada.",
+            "en": "Served with fries and salad."
+          },
           "price": "₡4.500"
         },
         {
-          "name": "Nuggets de Pollo",
-          "description": "Acompañadas con papas y ensalada.",
+          "name": {
+            "es": "Nuggets de Pollo",
+            "en": "Chicken Nuggets"
+          },
+          "description": {
+            "es": "Acompañadas con papas y ensalada.",
+            "en": "Served with fries and salad."
+          },
           "price": "₡3.700"
         },
         {
-          "name": "Dedos de Pescado",
-          "description": "Acompañados de papas y ensalada.",
+          "name": {
+            "es": "Dedos de Pescado",
+            "en": "Fish Sticks"
+          },
+          "description": {
+            "es": "Acompañados de papas y ensalada.",
+            "en": "Served with fries and salad."
+          },
           "price": "₡3.500"
         },
         {
-          "name": "Ceviche de Pescado",
-          "description": "Preparado fresco del día.",
+          "name": {
+            "es": "Ceviche de Pescado",
+            "en": "Fish Ceviche"
+          },
+          "description": {
+            "es": "Preparado fresco del día.",
+            "en": "Prepared fresh each day."
+          },
           "price": "₡3.000"
         },
         {
-          "name": "Ceviche Mixto",
-          "description": "Selección de mariscos del día.",
+          "name": {
+            "es": "Ceviche Mixto",
+            "en": "Mixed Ceviche"
+          },
+          "description": {
+            "es": "Selección de mariscos del día.",
+            "en": "Chef's daily seafood selection."
+          },
           "price": "₡3.700"
         },
         {
-          "name": "Sopa Azteca",
-          "description": "Caldo tradicional con tortilla y queso.",
+          "name": {
+            "es": "Sopa Azteca",
+            "en": "Aztec Soup"
+          },
+          "description": {
+            "es": "Caldo tradicional con tortilla y queso.",
+            "en": "Traditional broth with tortilla and cheese."
+          },
           "price": "₡4.000"
         },
         {
-          "name": "Sopa Negra",
-          "description": "Acompañada de arroz.",
+          "name": {
+            "es": "Sopa Negra",
+            "en": "Black Bean Soup"
+          },
+          "description": {
+            "es": "Acompañada de arroz.",
+            "en": "Served with rice."
+          },
           "price": "₡2.000"
         },
         {
-          "name": "Carne en Salsa",
-          "description": "Acompañada de arroz.",
+          "name": {
+            "es": "Carne en Salsa",
+            "en": "Beef in Sauce"
+          },
+          "description": {
+            "es": "Acompañada de arroz.",
+            "en": "Served with rice."
+          },
           "price": "₡2.500"
         },
         {
-          "name": "Garbanzos / Frijoles Blancos / Pozol",
-          "description": "Porción casera del día.",
+          "name": {
+            "es": "Garbanzos / Frijoles Blancos / Pozol",
+            "en": "Chickpeas / White Beans / Pozol"
+          },
+          "description": {
+            "es": "Porción casera del día.",
+            "en": "Homestyle portion of the day."
+          },
           "price": "₡2.000"
         },
         {
-          "name": "Canelones",
-          "description": "2 unidades bañadas en salsa de tomate.",
+          "name": {
+            "es": "Canelones",
+            "en": "Cannelloni"
+          },
+          "description": {
+            "es": "2 unidades bañadas en salsa de tomate.",
+            "en": "Two pieces covered in tomato sauce."
+          },
           "price": "₡1.200"
         }
       ]
     },
     {
-      "title": "Con arroz",
+      "title": {
+        "es": "Con arroz",
+        "en": "With Rice"
+      },
       "items": [
         {
-          "name": "Casados",
-          "description": "Con arroz, frijoles, picadillo, ensalada y una carne.",
+          "name": {
+            "es": "Casados",
+            "en": "Casados Plate"
+          },
+          "description": {
+            "es": "Con arroz, frijoles, picadillo, ensalada y una carne.",
+            "en": "Rice, beans, picadillo, salad, and your choice of protein."
+          },
           "price": "₡3.390"
         },
         {
-          "name": "Casado Criollo",
-          "description": "Arroz, frijoles, picadillo, ensalada, huevo, queso y refresco.",
+          "name": {
+            "es": "Casado Criollo",
+            "en": "Criollo Casado"
+          },
+          "description": {
+            "es": "Arroz, frijoles, picadillo, ensalada, huevo, queso y refresco.",
+            "en": "Rice, beans, picadillo, salad, egg, cheese, and a drink."
+          },
           "price": "₡2.500"
         },
         {
-          "name": "Arroz de la Casa",
-          "description": "Cerdo, pollo, camarones, chorizo, ensalada y papas.",
+          "name": {
+            "es": "Arroz de la Casa",
+            "en": "House Special Rice"
+          },
+          "description": {
+            "es": "Cerdo, pollo, camarones, chorizo, ensalada y papas.",
+            "en": "Pork, chicken, shrimp, chorizo, salad, and fries."
+          },
           "price": "₡4.750"
         },
         {
-          "name": "Arroz con Pollo",
-          "description": "Acompañado de papas y ensalada.",
+          "name": {
+            "es": "Arroz con Pollo",
+            "en": "Chicken Rice"
+          },
+          "description": {
+            "es": "Acompañado de papas y ensalada.",
+            "en": "Served with fries and salad."
+          },
           "price": "₡3.995"
         },
         {
-          "name": "Arroz con Camarones",
-          "description": "Acompañado de papas y ensalada.",
+          "name": {
+            "es": "Arroz con Camarones",
+            "en": "Shrimp Rice"
+          },
+          "description": {
+            "es": "Acompañado de papas y ensalada.",
+            "en": "Served with fries and salad."
+          },
           "price": "₡4.520"
         }
       ]
     },
     {
-      "title": "Antojitos",
+      "title": {
+        "es": "Antojitos",
+        "en": "Cravings"
+      },
       "items": [
         {
-          "name": "Nachos",
-          "description": "Carne o pollo.",
+          "name": {
+            "es": "Nachos",
+            "en": "Nachos"
+          },
+          "description": {
+            "es": "Carne o pollo.",
+            "en": "Beef or chicken."
+          },
           "price": "₡3.500"
         },
         {
-          "name": "Chalupa",
-          "description": "Carne o pollo.",
+          "name": {
+            "es": "Chalupa",
+            "en": "Chalupa"
+          },
+          "description": {
+            "es": "Carne o pollo.",
+            "en": "Beef or chicken."
+          },
           "price": "₡2.000"
         },
         {
-          "name": "Chicharrones",
-          "description": "Porción crujiente de la casa.",
+          "name": {
+            "es": "Chicharrones",
+            "en": "Crispy Pork Bites"
+          },
+          "description": {
+            "es": "Porción crujiente de la casa.",
+            "en": "House crispy pork portion."
+          },
           "price": "₡4.000"
         },
         {
-          "name": "Hamburguesa Sencilla",
-          "description": "Acompañada con papas.",
+          "name": {
+            "es": "Hamburguesa Sencilla",
+            "en": "Classic Burger"
+          },
+          "description": {
+            "es": "Acompañada con papas.",
+            "en": "Served with fries."
+          },
           "price": "₡2.500"
         },
         {
-          "name": "Hamburguesa Gereni",
-          "description": "Torta de huevo, tocineta, carne, cebolla caramelizada, jamón y queso.",
+          "name": {
+            "es": "Hamburguesa Gereni",
+            "en": "Gereni Burger"
+          },
+          "description": {
+            "es": "Torta de huevo, tocineta, carne, cebolla caramelizada, jamón y queso.",
+            "en": "Egg patty, bacon, beef, caramelized onion, ham, and cheese."
+          },
           "price": "₡4.200"
         },
         {
-          "name": "Patacones",
-          "description": "Con frijoles molidos.",
+          "name": {
+            "es": "Patacones",
+            "en": "Patacones"
+          },
+          "description": {
+            "es": "Con frijoles molidos.",
+            "en": "With refried beans."
+          },
           "price": "₡2.260"
         },
         {
-          "name": "Papas Fiesta",
-          "description": "Papas con topping especial de la casa.",
+          "name": {
+            "es": "Papas Fiesta",
+            "en": "Fiesta Fries"
+          },
+          "description": {
+            "es": "Papas con topping especial de la casa.",
+            "en": "Fries with our house topping."
+          },
           "price": "₡4.100"
         },
         {
-          "name": "Papas Fritas",
-          "description": "Orden individual de papas.",
+          "name": {
+            "es": "Papas Fritas",
+            "en": "French Fries"
+          },
+          "description": {
+            "es": "Orden individual de papas.",
+            "en": "Individual order of fries."
+          },
           "price": "₡2.500"
         },
         {
-          "name": "Plato Surtido",
-          "description": "Chicharrones, chorizo, pollo, salchichón, verdura y pico de gallo.",
+          "name": {
+            "es": "Plato Surtido",
+            "en": "Sampler Platter"
+          },
+          "description": {
+            "es": "Chicharrones, chorizo, pollo, salchichón, verdura y pico de gallo.",
+            "en": "Pork bites, chorizo, chicken, sausage, veggies, and pico de gallo."
+          },
           "price": "₡8.100"
         },
         {
-          "name": "Brochetas de Camarón",
-          "description": "Con patacones y pico de gallo.",
+          "name": {
+            "es": "Brochetas de Camarón",
+            "en": "Shrimp Skewers"
+          },
+          "description": {
+            "es": "Con patacones y pico de gallo.",
+            "en": "Served with patacones and pico de gallo."
+          },
           "price": "₡4.700"
         },
         {
-          "name": "Alitas de Pollo (4 piezas)",
-          "description": "Salsa a elegir, acompañadas de papas.",
+          "name": {
+            "es": "Alitas de Pollo (4 piezas)",
+            "en": "Chicken Wings (4 pieces)"
+          },
+          "description": {
+            "es": "Salsa a elegir, acompañadas de papas.",
+            "en": "Your choice of sauce, served with fries."
+          },
           "price": "₡5.000"
         },
         {
-          "name": "Alitas de Pollo (6 piezas)",
-          "description": "Salsa a elegir, acompañadas de papas.",
+          "name": {
+            "es": "Alitas de Pollo (6 piezas)",
+            "en": "Chicken Wings (6 pieces)"
+          },
+          "description": {
+            "es": "Salsa a elegir, acompañadas de papas.",
+            "en": "Your choice of sauce, served with fries."
+          },
           "price": "₡7.000"
         },
         {
-          "name": "Alitas de Pollo (8 piezas)",
-          "description": "Salsa a elegir, acompañadas de papas.",
+          "name": {
+            "es": "Alitas de Pollo (8 piezas)",
+            "en": "Chicken Wings (8 pieces)"
+          },
+          "description": {
+            "es": "Salsa a elegir, acompañadas de papas.",
+            "en": "Your choice of sauce, served with fries."
+          },
           "price": "₡9.000"
         }
       ]
     },
     {
-      "title": "Especialidades",
+      "title": {
+        "es": "Especialidades",
+        "en": "Specialties"
+      },
       "items": [
         {
-          "name": "Costillas BBQ",
-          "description": "De cerdo en salsa BBQ con arroz y ensalada.",
+          "name": {
+            "es": "Costillas BBQ",
+            "en": "BBQ Ribs"
+          },
+          "description": {
+            "es": "De cerdo en salsa BBQ con arroz y ensalada.",
+            "en": "Pork ribs in BBQ sauce with rice and salad."
+          },
           "price": "₡5.850"
         },
         {
-          "name": "Filet de Pargo",
-          "description": "Preparado al gusto con papas y ensalada.",
+          "name": {
+            "es": "Filet de Pargo",
+            "en": "Red Snapper Fillet"
+          },
+          "description": {
+            "es": "Preparado al gusto con papas y ensalada.",
+            "en": "Cooked to taste with fries and salad."
+          },
           "price": "₡5.200"
         },
         {
-          "name": "Filet de Tilapia",
-          "description": "Al gusto, con papas y ensalada.",
+          "name": {
+            "es": "Filet de Tilapia",
+            "en": "Tilapia Fillet"
+          },
+          "description": {
+            "es": "Al gusto, con papas y ensalada.",
+            "en": "Cooked to taste with fries and salad."
+          },
           "price": "₡5.085"
         },
         {
-          "name": "Pollo Agridulce",
-          "description": "Trocitos de pollo en salsa agridulce con arroz y ensalada.",
+          "name": {
+            "es": "Pollo Agridulce",
+            "en": "Sweet and Sour Chicken"
+          },
+          "description": {
+            "es": "Trocitos de pollo en salsa agridulce con arroz y ensalada.",
+            "en": "Chicken bites in sweet and sour sauce with rice and salad."
+          },
           "price": "₡5.000"
         },
         {
-          "name": "Filet de Pollo",
-          "description": "Al gusto, con papas y ensalada.",
+          "name": {
+            "es": "Filet de Pollo",
+            "en": "Chicken Fillet"
+          },
+          "description": {
+            "es": "Al gusto, con papas y ensalada.",
+            "en": "Cooked to taste with fries and salad."
+          },
           "price": "₡5.200"
         },
         {
-          "name": "Pastas (Alfredo, Bechamel o Tomate)",
-          "description": "Servidas con pan de ajo.",
+          "name": {
+            "es": "Pastas (Alfredo, Bechamel o Tomate)",
+            "en": "Pasta (Alfredo, Béchamel or Tomato)"
+          },
+          "description": {
+            "es": "Servidas con pan de ajo.",
+            "en": "Served with garlic bread."
+          },
           "price": "₡3.500"
         },
         {
-          "name": "Filete de Pollo en Salsa Bechamel",
-          "description": "Con arroz y ensalada.",
+          "name": {
+            "es": "Filete de Pollo en Salsa Bechamel",
+            "en": "Chicken Fillet in Béchamel Sauce"
+          },
+          "description": {
+            "es": "Con arroz y ensalada.",
+            "en": "With rice and salad."
+          },
           "price": "₡4.520"
         },
         {
-          "name": "Filet Miñon",
-          "description": "Lomito recubierto con tocineta en salsa de vino.",
+          "name": {
+            "es": "Filet Miñon",
+            "en": "Filet Mignon"
+          },
+          "description": {
+            "es": "Lomito recubierto con tocineta en salsa de vino.",
+            "en": "Tenderloin wrapped in bacon with wine sauce."
+          },
           "price": "₡7.150"
         },
         {
-          "name": "Medallones de Lomito",
-          "description": "En salsa con papa asada y ensalada.",
+          "name": {
+            "es": "Medallones de Lomito",
+            "en": "Tenderloin Medallions"
+          },
+          "description": {
+            "es": "En salsa con papa asada y ensalada.",
+            "en": "In sauce with baked potato and salad."
+          },
           "price": "₡7.500"
         },
         {
-          "name": "Tomahawk / Ribeye / New York",
-          "description": "Acompañado de papa asada y ensalada.",
+          "name": {
+            "es": "Tomahawk / Ribeye / New York",
+            "en": "Tomahawk / Ribeye / New York"
+          },
+          "description": {
+            "es": "Acompañado de papa asada y ensalada.",
+            "en": "Served with baked potato and salad."
+          },
           "price": "₡13.000"
         },
         {
-          "name": "Lengua en Salsa",
-          "description": "Medallones en salsa de tomate con arroz y ensalada.",
+          "name": {
+            "es": "Lengua en Salsa",
+            "en": "Beef Tongue in Sauce"
+          },
+          "description": {
+            "es": "Medallones en salsa de tomate con arroz y ensalada.",
+            "en": "Slices in tomato sauce with rice and salad."
+          },
           "price": "₡5.650"
         },
         {
-          "name": "Gordon Bleu",
-          "description": "Pechuga de pollo con jamón, queso mozarela, puré y ensalada.",
+          "name": {
+            "es": "Gordon Bleu",
+            "en": "Cordon Bleu"
+          },
+          "description": {
+            "es": "Pechuga de pollo con jamón, queso mozarela, puré y ensalada.",
+            "en": "Chicken breast with ham, mozzarella, mash, and salad."
+          },
           "price": "₡5.650"
         }
       ]
     },
     {
-      "title": "Para el café",
+      "title": {
+        "es": "Para el café",
+        "en": "Coffee Time"
+      },
       "items": [
         {
-          "name": "Club Sandwich",
-          "description": "Capas de pan, pollo y vegetales.",
+          "name": {
+            "es": "Club Sandwich",
+            "en": "Club Sandwich"
+          },
+          "description": {
+            "es": "Capas de pan, pollo y vegetales.",
+            "en": "Layers of bread, chicken, and vegetables."
+          },
           "price": "₡4.200"
         },
         {
-          "name": "Sandwich",
-          "description": "Carne, pollo o jamón con queso.",
+          "name": {
+            "es": "Sandwich",
+            "en": "Sandwich"
+          },
+          "description": {
+            "es": "Carne, pollo o jamón con queso.",
+            "en": "Beef, chicken, or ham with cheese."
+          },
           "price": "₡2.300"
         },
         {
-          "name": "Tortilla de Queso",
-          "description": "Con natilla.",
+          "name": {
+            "es": "Tortilla de Queso",
+            "en": "Cheese Tortilla"
+          },
+          "description": {
+            "es": "Con natilla.",
+            "en": "Served with sour cream."
+          },
           "price": "₡2.500"
         },
         {
-          "name": "Tortilla con Torta de Huevo",
-          "description": "Preparada a la plancha.",
+          "name": {
+            "es": "Tortilla con Torta de Huevo",
+            "en": "Tortilla with Egg Patty"
+          },
+          "description": {
+            "es": "Preparada a la plancha.",
+            "en": "Griddled to order."
+          },
           "price": "₡1.200"
         },
         {
-          "name": "Prensadas",
-          "description": "Tortillas fritas con queso.",
+          "name": {
+            "es": "Prensadas",
+            "en": "Fried Cheese Tortillas"
+          },
+          "description": {
+            "es": "Tortillas fritas con queso.",
+            "en": "Fried tortillas with cheese."
+          },
           "price": "₡1.200"
         },
         {
-          "name": "Empanadas",
-          "description": "Rellenas al gusto.",
+          "name": {
+            "es": "Empanadas",
+            "en": "Empanadas"
+          },
+          "description": {
+            "es": "Rellenas al gusto.",
+            "en": "Filled to your liking."
+          },
           "price": "₡1.800"
         },
         {
-          "name": "Arepas con Natilla o Mermelada",
-          "description": "Dulce casero para acompañar el café.",
+          "name": {
+            "es": "Arepas con Natilla o Mermelada",
+            "en": "Arepas with Cream or Jam"
+          },
+          "description": {
+            "es": "Dulce casero para acompañar el café.",
+            "en": "Homemade sweet treat for your coffee."
+          },
           "price": "₡1.700"
         }
       ]
     },
     {
-      "title": "Bebidas",
+      "title": {
+        "es": "Bebidas",
+        "en": "Drinks"
+      },
       "items": [
         {
-          "name": "Café",
-          "description": "Taza de café chorreado.",
+          "name": {
+            "es": "Café",
+            "en": "Coffee"
+          },
+          "description": {
+            "es": "Taza de café chorreado.",
+            "en": "Pour-over coffee cup."
+          },
           "price": "₡1.200"
         },
         {
-          "name": "Agua Dulce",
-          "description": "Bebida tradicional de tapa de dulce.",
+          "name": {
+            "es": "Agua Dulce",
+            "en": "Agua Dulce"
+          },
+          "description": {
+            "es": "Bebida tradicional de tapa de dulce.",
+            "en": "Traditional sugarcane drink."
+          },
           "price": "₡900"
         },
         {
-          "name": "Chocolate",
-          "description": "Chocolate caliente.",
+          "name": {
+            "es": "Chocolate",
+            "en": "Hot Chocolate"
+          },
+          "description": {
+            "es": "Chocolate caliente.",
+            "en": "Hot chocolate."
+          },
           "price": "₡1.200"
         },
         {
-          "name": "Té Negro",
-          "description": "Infusión caliente.",
+          "name": {
+            "es": "Té Negro",
+            "en": "Black Tea"
+          },
+          "description": {
+            "es": "Infusión caliente.",
+            "en": "Hot infusion."
+          },
           "price": "₡800"
         },
         {
-          "name": "Batidos en Leche",
-          "description": "Sabores a elección.",
+          "name": {
+            "es": "Batidos en Leche",
+            "en": "Milk Shakes"
+          },
+          "description": {
+            "es": "Sabores a elección.",
+            "en": "Choice of flavors."
+          },
           "price": "₡2.300"
         },
         {
-          "name": "Frescos Naturales",
-          "description": "Jugos naturales del día.",
+          "name": {
+            "es": "Frescos Naturales",
+            "en": "Fresh Juices"
+          },
+          "description": {
+            "es": "Jugos naturales del día.",
+            "en": "Daily natural juices."
+          },
           "price": "₡2.000"
         }
       ]
