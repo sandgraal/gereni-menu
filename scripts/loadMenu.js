@@ -49,28 +49,53 @@
       sectionEl.appendChild(title);
 
       (section.items || []).forEach(item => {
-        const dish = document.createElement('div');
+        const dish = document.createElement('article');
         dish.classList.add('dish');
+
+        if (item.image) {
+          const figure = document.createElement('figure');
+          figure.classList.add('dish-photo');
+
+          const img = document.createElement('img');
+          img.src = item.image;
+          img.alt = resolveText(item.name, lang);
+          img.loading = 'lazy';
+
+          figure.appendChild(img);
+          dish.appendChild(figure);
+          dish.classList.add('has-image');
+        }
+
+        const textWrapper = document.createElement('div');
+        textWrapper.classList.add('dish-content');
+
+        const header = document.createElement('div');
+        header.classList.add('dish-header');
 
         const nameSpan = document.createElement('span');
         nameSpan.classList.add('dish-name');
         nameSpan.textContent = resolveText(item.name, lang);
+        header.appendChild(nameSpan);
 
-        const priceSpan = document.createElement('span');
-        priceSpan.classList.add('dish-price');
-        priceSpan.textContent = item.price;
+        if (item.price) {
+          const priceSpan = document.createElement('span');
+          priceSpan.classList.add('dish-price');
+          priceSpan.textContent = item.price;
+          header.appendChild(priceSpan);
+        }
 
-        dish.appendChild(nameSpan);
-        dish.appendChild(priceSpan);
-        sectionEl.appendChild(dish);
+        textWrapper.appendChild(header);
 
         const descriptionText = resolveText(item.description, lang);
         if (descriptionText) {
-          const desc = document.createElement('div');
-          desc.classList.add('description');
+          const desc = document.createElement('p');
+          desc.classList.add('dish-description');
           desc.textContent = descriptionText;
-          sectionEl.appendChild(desc);
+          textWrapper.appendChild(desc);
         }
+
+        dish.appendChild(textWrapper);
+        sectionEl.appendChild(dish);
       });
 
       container.appendChild(sectionEl);

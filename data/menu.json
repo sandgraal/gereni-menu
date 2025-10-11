@@ -82,6 +82,7 @@
             "es": "Caldo tradicional con tortilla y queso.",
             "en": "Traditional broth with tortilla and cheese."
           },
+          "image": "assets/photos/gustitos-sopa-azteca.png",
           "price": "₡4.000"
         },
         {
@@ -145,6 +146,7 @@
             "es": "Con arroz, frijoles, picadillo, ensalada y una carne.",
             "en": "Rice, beans, picadillo, salad, and your choice of protein."
           },
+          "image": "assets/photos/con-arroz-casados.png",
           "price": "₡3.390"
         },
         {
@@ -167,6 +169,7 @@
             "es": "Cerdo, pollo, camarones, chorizo, ensalada y papas.",
             "en": "Pork, chicken, shrimp, chorizo, salad, and fries."
           },
+          "image": "assets/photos/con-arroz-arroz-de-la-casa.png",
           "price": "₡4.750"
         },
         {
@@ -208,6 +211,7 @@
             "es": "Carne o pollo.",
             "en": "Beef or chicken."
           },
+          "image": "assets/photos/antojitos-nachos.png",
           "price": "₡3.500"
         },
         {
@@ -219,6 +223,7 @@
             "es": "Carne o pollo.",
             "en": "Beef or chicken."
           },
+          "image": "assets/photos/antojitos-chalupa.png",
           "price": "₡2.000"
         },
         {
@@ -252,6 +257,7 @@
             "es": "Torta de huevo, tocineta, carne, cebolla caramelizada, jamón y queso.",
             "en": "Egg patty, bacon, beef, caramelized onion, ham, and cheese."
           },
+          "image": "assets/photos/antojitos-hamburguesa-gereni.png",
           "price": "₡4.200"
         },
         {
@@ -403,6 +409,7 @@
             "es": "Al gusto, con papas y ensalada.",
             "en": "Cooked to taste with fries and salad."
           },
+          "image": "assets/photos/especialidades-filet-de-pollo.png",
           "price": "₡5.200"
         },
         {
@@ -499,6 +506,7 @@
             "es": "Capas de pan, pollo y vegetales.",
             "en": "Layers of bread, chicken, and vegetables."
           },
+          "image": "assets/photos/para-el-cafe-club-sandwich.png",
           "price": "₡4.200"
         },
         {
@@ -584,6 +592,7 @@
             "es": "Taza de café chorreado.",
             "en": "Pour-over coffee cup."
           },
+          "image": "assets/photos/bebidas-cafe.png",
           "price": "₡1.200"
         },
         {
