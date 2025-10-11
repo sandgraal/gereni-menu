@@ -1,6 +1,6 @@
-# 🍽️ Restaurante Gereni – Menú Editable
+# 🍽️ Gereni Bar y Restaurante – Menú Editable
 
-Este repositorio contiene el menú oficial del Restaurante Gereni.
+Este repositorio contiene el menú oficial del Gereni Bar y Restaurante.
 Está diseñado para que cualquier persona pueda **editar precios, platos o descripciones fácilmente**.
 
 ## 📂 Estructura

@@ -61,7 +61,7 @@ p {
 }
 
 header {
-  padding:2rem 1rem 1rem;
+  padding:3rem 1rem 1.25rem;
   background:linear-gradient(135deg, rgba(91,58,41,0.12), rgba(75,106,61,0.08));
   text-align:center;
 }
@@ -71,7 +71,7 @@ header {
 }
 
 .logo {
-  max-width:140px;
+  max-width:200px;
   margin:0 auto;
   display:block;
   filter:drop-shadow(0 4px 8px rgba(91,58,41,0.18));

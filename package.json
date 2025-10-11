@@ -1,7 +1,7 @@
 {
   "name": "gereni-menu",
   "version": "1.0.0",
-  "description": "Menú editable de Restaurante Gereni, sincronizado desde Markdown hacia web e impresión.",
+  "description": "Menú editable de Gereni Bar y Restaurante, sincronizado desde Markdown hacia web e impresión.",
   "main": "index.js",
   "scripts": {
     "check:menu": "node tools/check-menu-render.js"
