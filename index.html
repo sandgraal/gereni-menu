@@ -61,6 +61,8 @@
   var pageEmbed = section.querySelector('.fb-page');
   if (pageEmbed) {
     pageEmbed.setAttribute('data-href', pageUrl);
+    var embedWidth = Math.max(320, Math.floor(section.getBoundingClientRect().width));
+    pageEmbed.setAttribute('data-width', embedWidth);
     var blockquote = pageEmbed.querySelector('blockquote');
     if (blockquote) {
       blockquote.setAttribute('cite', pageUrl);
