@@ -33,3 +33,7 @@
 - Actualizar Canva y `content/menu.md`.
 - Exportar únicamente PDF digital si la versión impresa no cambia.
 - Comunicar en registro de cambios qué versión en papel sigue vigente.
+
+## Registro de Validación de PDFs
+- 2025-10-10 — Digital: ✅ Revisado por soporte (exporte de 4 páginas).
+- 2025-10-10 — Print: ✅ Revisado en pantalla; pendiente prueba de impresión doméstica.

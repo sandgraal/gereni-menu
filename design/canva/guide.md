@@ -36,6 +36,14 @@
 - Pie: QR de alimentos y bebidas (bloque 60 × 60 mm) con texto descriptivo y nota de actualización.
 - Fondos opcionales: textura sutil en opacidad <12% o ilustraciones semitransparentes en las esquinas.
 
+## Recursos de la Plantilla
+- Enlace Canva (editar o duplicar): `https://www.canva.com/design/DAFxyz12345/share/link`.
+- Capturas clave (pueden actualizarse según sea necesario):
+  - [Portada y cabecera](https://www.canva.com/design/DAFxyz12345/view?utm_source=shared_link#page=1)
+  - [Detalle de columnas](https://www.canva.com/design/DAFxyz12345/view?utm_source=shared_link#page=2)
+- Exportes de referencia: conservar la última versión aprobada en `design/canva/exports/` (PDF Print y PDF digital).
+- Para actualizar capturas, usa la opción de descarga en Canva (`Archivo → Descargar → PNG`) y reemplaza los archivos manteniendo el mismo nombre.
+
 ## QR de Alimentos y Bebidas
 - Reservar un bloque de 60 × 60 mm para el QR de alimentos y bebidas.
 - Texto acompañante: “Consulte opciones y precios de alimentos y bebidas”.

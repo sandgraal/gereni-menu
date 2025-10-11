@@ -45,3 +45,11 @@ Permitir que el dueño actualice el menú en menos de 5 minutos sin depender de 
 | Trimestral | Ajustar diseño en Canva y exportar PDFs nuevos | Diseño/Maquetación | Guardar exportes en `output/` y taggear versión |
 | Trimestral | Backup del repositorio y Canva | Soporte técnico | Subir a almacenamiento externo o drive compartido |
 | Anual | Revisión integral de identidad gráfica y paleta | Dueño + Diseño | Evaluar feedback de clientes y tendencias |
+
+## Agenda Sugerida de Capacitación (30 minutos)
+1. Revisión rápida del repositorio y flujo (`workflow.md`).
+2. Edición guiada de un platillo en `content/menu.md` y ejecución de `node tools/sync-menu.js`.
+3. Actualización de la plantilla en Canva (copiar/pegar y ajustes de estilos).
+4. Generación de PDFs con `npm run export:menu` y ubicación en `output/`.
+5. Repaso del tablero de mantenimiento y checklist previos a imprenta.
+6. Sesión de preguntas y definición de próximos pasos.
