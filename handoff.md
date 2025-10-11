@@ -35,3 +35,13 @@ Permitir que el dueño actualice el menú en menos de 5 minutos sin depender de 
 - Comunicar cambios mayores vía WhatsApp o correo con el equipo de soporte.
 - Mantener los PDFs en `output/` y respaldos en la nube si es posible.
 - Programar revisión trimestral del diseño para mantener frescura y consistencia.
+
+## Board de Mantenimiento Recurrente
+| Frecuencia | Tarea | Responsable | Notas |
+|------------|-------|-------------|-------|
+| Semanal | Revisar abastecimiento y precios variables (bebidas, mariscos) | Dueño / Contenido | Actualizar `content/menu.md` y Canva si hay cambios |
+| Mensual | Verificar QR de alimentos y bebidas | Soporte técnico | Regenerar con `tools/qr/generate.py` si la URL cambió |
+| Mensual | Repasar ortografía y tildes con checklist lingüística | Contenido | Usar `content/style-checklist.md` |
+| Trimestral | Ajustar diseño en Canva y exportar PDFs nuevos | Diseño/Maquetación | Guardar exportes en `output/` y taggear versión |
+| Trimestral | Backup del repositorio y Canva | Soporte técnico | Subir a almacenamiento externo o drive compartido |
+| Anual | Revisión integral de identidad gráfica y paleta | Dueño + Diseño | Evaluar feedback de clientes y tendencias |
