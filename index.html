@@ -13,18 +13,59 @@
 <link href="favicon.svg" rel="icon" type="image/svg+xml"/>
 </head>
 <body class="inicio">
+<div id="fb-root">
+</div>
 <header>
 <img alt="Logo de Gereni Bar y Restaurante" class="logo" src="assets/logo-gereni-bar-restaurant.png"/>
 </header>
 <main>
+<div class="cta">
 <a class="btn" href="menu.html">
-    Ver el Menú
-   </a>
+      Ver el Menú
+     </a>
+</div>
+<section aria-labelledby="facebook-feed-heading" class="social-section" data-facebook-page="https://www.facebook.com/baryrestaurantegereni">
+<h2 id="facebook-feed-heading">
+      Novedades en Facebook
+     </h2>
+<p>
+      Sigue las últimas actualizaciones, eventos y promociones directamente desde nuestra página oficial.
+     </p>
+<div class="fb-page" data-adapt-container-width="true" data-height="" data-hide-cover="false" data-show-facepile="true" data-small-header="false" data-tabs="timeline" data-width="">
+<blockquote class="fb-xfbml-parse-ignore">
+<a href="#">
+          Gerení Bar y Restaurante
+         </a>
+</blockquote>
+</div>
+</section>
 </main>
 <footer>
 <p>
     © 2025 Gereni Bar y Restaurante. Todos los derechos reservados.
    </p>
 </footer>
+<script type="text/javascript">
+(function() {
+  var section = document.querySelector('.social-section');
+  if (!section) return;
+  var pageUrl = section.getAttribute('data-facebook-page');
+  if (!pageUrl) return;
+  var pageEmbed = section.querySelector('.fb-page');
+  if (pageEmbed) {
+    pageEmbed.setAttribute('data-href', pageUrl);
+    var blockquote = pageEmbed.querySelector('blockquote');
+    if (blockquote) {
+      blockquote.setAttribute('cite', pageUrl);
+      var link = blockquote.querySelector('a');
+      if (link) {
+        link.setAttribute('href', pageUrl);
+      }
+    }
+  }
+})();
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&amp;version=v19.0" type="text/javascript">
+</script>
 </body>
 </html>

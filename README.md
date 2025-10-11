@@ -34,6 +34,7 @@ workflow/reminders.md → Agenda propuesta para recordatorios operativos
 👉 `https://sandgraal.github.io/gereni-menu/menu.html`
 
 - Si la plantilla de Canva aún no tiene acceso compartido, sigue `design/canva/template-link.md` para habilitar el enlace editable antes de copiar texto.
+- Para mostrar el feed correcto, reemplaza la URL de `data-facebook-page` en `index.html` con la página oficial de Facebook.
 
 ## 🖰️ Versión para impresión
 
