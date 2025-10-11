@@ -13,8 +13,17 @@
   let sdkRequested = false;
   let timeoutId = null;
   let resizeId = null;
+  let renderListenerAttached = false;
+
+  const clearFallbackTimer = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  };
 
   const showEmbed = () => {
+    clearFallbackTimer();
     if (fallbackEl) fallbackEl.hidden = true;
     if (loadingEl) loadingEl.hidden = true;
     if (pageEmbed) pageEmbed.hidden = false;
@@ -27,10 +36,7 @@
   };
 
   const showFallback = () => {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-      timeoutId = null;
-    }
+    clearFallbackTimer();
     if (fallbackEl) fallbackEl.hidden = false;
     if (loadingEl) loadingEl.hidden = true;
     if (pageEmbed) pageEmbed.hidden = true;
@@ -55,13 +61,42 @@
     }
   };
 
+  const normalizeUrl = (value) => {
+    if (!value) return '';
+    try {
+      const parsed = new URL(value, window.location.href);
+      return `${parsed.origin}${parsed.pathname}`.replace(/\/$/, '');
+    } catch (err) {
+      return value.replace(/[#?].*$/, '').replace(/\/$/, '');
+    }
+  };
+
+  const attachRenderListener = () => {
+    if (renderListenerAttached) return;
+    if (!window.FB || !window.FB.Event || typeof window.FB.Event.subscribe !== 'function') {
+      return;
+    }
+    window.FB.Event.subscribe('xfbml.render', event => {
+      if (!event || !event.href) {
+        showEmbed();
+        return;
+      }
+      const normalizedHref = normalizeUrl(event.href);
+      const normalizedPage = normalizeUrl(pageUrl);
+      if (normalizedHref === normalizedPage) {
+        showEmbed();
+      }
+    });
+    renderListenerAttached = true;
+  };
+
   const tryRenderFeed = () => {
     if (!pageEmbed) return false;
     if (window.FB && window.FB.XFBML && typeof window.FB.XFBML.parse === 'function') {
       pageEmbed.hidden = false;
+      attachRenderListener();
       try {
         window.FB.XFBML.parse(section);
-        showEmbed();
       } catch (error) {
         console.error('No se pudo renderizar el feed de Facebook:', error);
         showFallback();
@@ -99,10 +134,8 @@
         xfbml: false,
         version: 'v19.0'
       });
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-        timeoutId = null;
-      }
+      attachRenderListener();
+      clearFallbackTimer();
       if (!tryRenderFeed()) {
         showFallback();
       }
@@ -147,5 +180,5 @@
     requestSdk();
   }
 
-  if (fallbackEl) fallbackEl.hidden = false;
+  if (fallbackEl) fallbackEl.hidden = true;
 })();
