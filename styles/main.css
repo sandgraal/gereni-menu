@@ -26,7 +26,7 @@ body.inicio {
   display:flex;
   flex-direction:column;
   text-align:center;
-  background-image:linear-gradient(rgba(243,232,213,0.78), rgba(243,232,213,0.82)), url('assets/El_Rancho.jpg');
+  background-image:linear-gradient(rgba(243,232,213,0.78), rgba(243,232,213,0.82)), url('../assets/El_Rancho.jpg');
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
