@@ -17,6 +17,7 @@ tools/sync-menu.js → Script para sincronizar Markdown → JSON
 tools/validate-prices.js → Valida que los precios sigan el formato `₡0.000`
 design/canva/licenses/README.md → Registro detallado de licencias y evidencias  
 workflow/reminders.md → Agenda propuesta para recordatorios operativos
+docs/extract-images-from-pdf.md → Guía para extraer y limpiar fotos del menú original
 
 ## ⚙️ Requisitos
 
