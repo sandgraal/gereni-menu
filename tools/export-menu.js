@@ -32,6 +32,62 @@ const MIME_TYPES = {
   '.ico': 'image/x-icon'
 };
 
+const NO_SANDBOX_FLAGS = ['--no-sandbox', '--disable-setuid-sandbox'];
+
+function parseEnvArgs(value) {
+  if (!value) {
+    return [];
+  }
+  return value
+    .split(/\s+/)
+    .map(arg => arg.trim())
+    .filter(Boolean);
+}
+
+function envFlagIsTrue(value) {
+  if (!value) {
+    return false;
+  }
+  return ['1', 'true', 'yes'].includes(value.toLowerCase());
+}
+
+function isSandboxLaunchError(error) {
+  if (!error || typeof error.message !== 'string') {
+    return false;
+  }
+  return /No usable sandbox/.test(error.message) || /zygote_host_impl_linux\.cc/.test(error.message);
+}
+
+async function launchBrowser() {
+  const extraArgs = parseEnvArgs(process.env.PUPPETEER_EXTRA_ARGS);
+  const buildOptions = additionalArgs => {
+    const args = [...extraArgs];
+    if (additionalArgs && additionalArgs.length > 0) {
+      args.push(...additionalArgs);
+    }
+    const options = { headless: 'new' };
+    if (args.length > 0) {
+      options.args = args;
+    }
+    return options;
+  };
+
+  if (envFlagIsTrue(process.env.PUPPETEER_DISABLE_SANDBOX)) {
+    return puppeteer.launch(buildOptions(NO_SANDBOX_FLAGS));
+  }
+
+  try {
+    return await puppeteer.launch(buildOptions());
+  } catch (error) {
+    if (!isSandboxLaunchError(error)) {
+      throw error;
+    }
+    console.warn('Chromium sandbox unavailable; retrying Puppeteer launch without it.');
+    console.warn('Set PUPPETEER_DISABLE_SANDBOX=true to skip the initial attempt.');
+    return puppeteer.launch(buildOptions(NO_SANDBOX_FLAGS));
+  }
+}
+
 function createStaticServer() {
   return http.createServer((req, res) => {
     const urlPath = decodeURI(req.url.split('?')[0]);
@@ -109,11 +165,10 @@ async function exportMenu() {
   const { port } = server.address();
   const baseUrl = `http://127.0.0.1:${port}`;
 
-  const browser = await puppeteer.launch({
-    headless: 'new'
-  });
+  let browser;
 
   try {
+    browser = await launchBrowser();
     const page = await browser.newPage();
 
     // Generar PDFs digitales en todas las combinaciones de idioma/tema
@@ -160,7 +215,9 @@ async function exportMenu() {
     });
     console.log('✔ Generado output/Menu_Gereni_print.pdf');
   } finally {
-    await browser.close();
+    if (browser) {
+      await browser.close();
+    }
     server.close();
   }
 }
