@@ -39,9 +39,10 @@ docs/extract-images-from-pdf.md → Guía para extraer y limpiar fotos del menú
 
 ## 🖰️ Versión para impresión
 
-- Ejecuta `npm run export:menu` para generar `output/Menu_Gereni_print.pdf` y `output/Menu_Gereni_digital.pdf`.
+- Ejecuta `npm run export:menu` para generar `output/Menu_Gereni_print.pdf` y las variantes digitales sincronizadas con temas e idiomas (`Menu_Gereni_digital_es_dark.pdf`, `Menu_Gereni_digital_es_light.pdf`, `Menu_Gereni_digital_en_dark.pdf`, `Menu_Gereni_digital_en_light.pdf`). El archivo `Menu_Gereni_digital.pdf` se mantiene como alias de la versión en español oscuro para compatibilidad.
 - Alternativamente, abre `menu.html`, presiona **Ctrl + P** y selecciona “Guardar como PDF”.  
   Los estilos de impresión (`styles/print.css`) se aplican automáticamente.
+- Cada push en `main` dispara el flujo **Update Menu Artifacts** en GitHub Actions. Este sincroniza `data/menu.json`, regenera los PDFs y los commitea si hay cambios. También puedes lanzarlo manualmente desde la pestaña “Actions”.
 
 ## 🎨 Créditos
 

@@ -3,7 +3,10 @@
 Coloca en esta carpeta las versiones aprobadas que descargues desde la plantilla de Canva.
 
 - `Menu_Gereni_print.pdf`: Exporte con sangrado y marcas de corte.
-- `Menu_Gereni_digital.pdf`: Exporte optimizado para compartir en línea.
+- `Menu_Gereni_digital_es_dark.pdf`: Exporte digital en español con tema oscuro (referencia principal).
+- `Menu_Gereni_digital_es_light.pdf`: Exporte digital en español con tema claro.
+- `Menu_Gereni_digital_en_dark.pdf`: Exporte digital en inglés con tema oscuro.
+- `Menu_Gereni_digital_en_light.pdf`: Exporte digital en inglés con tema claro.
 - Prefiere nombrar archivos con `YYYY-MM` para mantener historial si conservas versiones anteriores.
 
 ## Sugerencia de archivo histórico

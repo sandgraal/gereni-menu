@@ -33,7 +33,7 @@
 ## 4. Integración
 - **Web (`menu.html` / `styles/`):** Inserta la imagen en la sección correspondiente y ajusta estilos para mantener consistencia visual.
 - **Canva:** Sube el PNG transparente y colócalo donde corresponda, respetando la jerarquía visual.
-- **Exportes PDF:** Regenera `Menu_Gereni_print.pdf` y `Menu_Gereni_digital.pdf` si los cambios impactan la versión final.
+- **Exportes PDF:** Regenera `Menu_Gereni_print.pdf` y las variantes digitales (`Menu_Gereni_digital_es_dark.pdf`, `Menu_Gereni_digital_es_light.pdf`, `Menu_Gereni_digital_en_dark.pdf`, `Menu_Gereni_digital_en_light.pdf`) si los cambios impactan la versión final.
 
 ## Checklist rápido
 - [ ] Imagen extraída del PDF con la mayor resolución disponible.

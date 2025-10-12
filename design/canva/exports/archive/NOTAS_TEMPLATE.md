@@ -4,7 +4,7 @@
 - Responsable: (Usuario / Codex)
 - Archivos movidos:
   - `Menu_Gereni_print_XXXX.pdf`
-  - `Menu_Gereni_digital_XXXX.pdf`
+  - `Menu_Gereni_digital_<idioma>_<tema>_XXXX.pdf`
 - Cambios destacados en la nueva versión:
 - Enlace al commit/tag correspondiente:
 - Observaciones (ajustes de diseño, notas del dueño, etc.):

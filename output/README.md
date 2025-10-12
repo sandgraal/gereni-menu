@@ -3,8 +3,11 @@
 Guarda aquí las versiones finales exportadas desde Canva. Mantén solo los archivos vigentes y registra reemplazos en el historial de commits.
 
 ## Convenciones de Archivos
-- `Menu_Gereni_print.pdf`: Versión para imprenta (CMYK o perfil según imprenta, 300 dpi, con sangrado y marcas).
-- `Menu_Gereni_digital.pdf`: Versión optimizada para compartir en línea (RGB, peso reducido, sin sangrado).
+- `Menu_Gereni_print.pdf`: Versión para imprenta (CMYK o perfil según imprenta, 300 dpi, con sangrado y marcas).
+- `Menu_Gereni_digital_es_dark.pdf`: Versión digital en español con tema oscuro (valor por defecto). También se publica como `Menu_Gereni_digital.pdf` para compatibilidad.
+- `Menu_Gereni_digital_es_light.pdf`: Versión digital en español con tema claro.
+- `Menu_Gereni_digital_en_dark.pdf`: Versión digital en inglés con tema oscuro.
+- `Menu_Gereni_digital_en_light.pdf`: Versión digital en inglés con tema claro.
 - Versiones anteriores deben moverse a una subcarpeta con la fecha (`archivo/2024-10/Menu_Gereni_print.pdf`) si necesitan conservarse.
 
 ## Checklist Antes de Exportar
@@ -19,7 +22,7 @@ Guarda aquí las versiones finales exportadas desde Canva. Mantén solo los arch
 
 ## Cómo archivar versiones anteriores
 1. Crea una carpeta dentro de `output/archive/` con formato `YYYY-MM` (ej. `output/archive/2025-10/`).
-2. Mueve allí los PDFs previos (`Menu_Gereni_print.pdf`, `Menu_Gereni_digital.pdf`) conservando el nombre original.
+2. Mueve allí los PDFs previos (`Menu_Gereni_print.pdf`, `Menu_Gereni_digital_es_dark.pdf`, `Menu_Gereni_digital_es_light.pdf`, `Menu_Gereni_digital_en_dark.pdf`, `Menu_Gereni_digital_en_light.pdf`) conservando el nombre original.
 3. Añade un archivo `NOTAS.md` en la carpeta (puedes copiar `output/archive/NOTAS_TEMPLATE.md`) con fecha, motivo del reemplazo y responsable.
 4. Actualiza `BACKLOG.md` o el commit con referencia a la carpeta archivada.
 5. (Opcional) Comprime la carpeta archivada y súbela a la nube como respaldo adicional.

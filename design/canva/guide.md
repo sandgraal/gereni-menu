@@ -52,7 +52,7 @@
 ## Exportación
 - PDF Print: exportar con sangrado y marcas de corte activadas.
 - PDF Digital: duplicar la página, remover sangrado y optimizar peso (RGB).
-- Nombrar archivos como `Menu_Gereni_print.pdf` y `Menu_Gereni_digital.pdf`.
+- Nombrar archivos como `Menu_Gereni_print.pdf` y `Menu_Gereni_digital_<idioma>_<tema>.pdf` (ej. `Menu_Gereni_digital_es_dark.pdf`).
 
 ## Registro de Licencias y Recursos
 Completa esta tabla cuando recibas material nuevo (logos, texturas, fotografías).

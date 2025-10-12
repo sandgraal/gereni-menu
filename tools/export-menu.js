@@ -12,6 +12,13 @@ const puppeteer = require('puppeteer');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUTPUT_DIR = path.join(ROOT, 'output');
+const SCREEN_VARIATIONS = [
+  { lang: 'es', theme: 'dark' },
+  { lang: 'es', theme: 'light' },
+  { lang: 'en', theme: 'dark' },
+  { lang: 'en', theme: 'light' }
+];
+const DEFAULT_SCREEN_VARIATION = SCREEN_VARIATIONS[0];
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -51,6 +58,47 @@ function createStaticServer() {
   });
 }
 
+function getDigitalFileName(lang, theme) {
+  return `Menu_Gereni_digital_${lang}_${theme}.pdf`;
+}
+
+async function applyPreferences(page, { lang, theme }) {
+  await page.evaluate(
+    ({ lang, theme }) => {
+      const safeLang = lang === 'en' ? 'en' : 'es';
+      const safeTheme = theme === 'light' ? 'light' : 'dark';
+
+      if (window.GereniTheme && typeof window.GereniTheme.set === 'function') {
+        window.GereniTheme.set(safeTheme);
+      } else {
+        document.documentElement.setAttribute('data-theme', safeTheme);
+        if (document.body) {
+          document.body.setAttribute('data-theme', safeTheme);
+        }
+      }
+
+      if (window.GereniLang && typeof window.GereniLang.set === 'function') {
+        window.GereniLang.set(safeLang);
+      } else {
+        document.documentElement.setAttribute('lang', safeLang);
+      }
+    },
+    { lang, theme }
+  );
+
+  await page.waitForFunction(
+    ({ lang, theme }) => {
+      const expectedLang = lang === 'en' ? 'en' : 'es';
+      const expectedTheme = theme === 'light' ? 'light' : 'dark';
+      const docLang = document.documentElement.getAttribute('lang');
+      const bodyTheme = document.body ? document.body.getAttribute('data-theme') : null;
+      return docLang === expectedLang && bodyTheme === expectedTheme;
+    },
+    {},
+    { lang, theme }
+  );
+}
+
 async function exportMenu() {
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -68,20 +116,36 @@ async function exportMenu() {
   try {
     const page = await browser.newPage();
 
-    // Generar PDF Digital (estilos de pantalla)
+    // Generar PDFs digitales en todas las combinaciones de idioma/tema
     await page.goto(`${baseUrl}/menu.html`, { waitUntil: 'networkidle0' });
     await page.emulateMediaType('screen');
-    await page.pdf({
-      path: path.join(OUTPUT_DIR, 'Menu_Gereni_digital.pdf'),
-      format: 'Letter',
-      printBackground: true,
-      preferCSSPageSize: true
-    });
-    console.log('✔ Generado output/Menu_Gereni_digital.pdf');
+    for (const variant of SCREEN_VARIATIONS) {
+      await applyPreferences(page, variant);
+      const fileName = getDigitalFileName(variant.lang, variant.theme);
+      await page.pdf({
+        path: path.join(OUTPUT_DIR, fileName),
+        format: 'Letter',
+        printBackground: true,
+        preferCSSPageSize: true
+      });
+      console.log(`✔ Generado output/${fileName}`);
+    }
+
+    const defaultFileName = getDigitalFileName(
+      DEFAULT_SCREEN_VARIATION.lang,
+      DEFAULT_SCREEN_VARIATION.theme
+    );
+    const defaultFilePath = path.join(OUTPUT_DIR, defaultFileName);
+    const legacyFilePath = path.join(OUTPUT_DIR, 'Menu_Gereni_digital.pdf');
+    if (fs.existsSync(defaultFilePath)) {
+      fs.copyFileSync(defaultFilePath, legacyFilePath);
+      console.log('Copied output/Menu_Gereni_digital.pdf for compatibility');
+    }
 
     // Generar PDF Print (estilos @media print)
     await page.emulateMediaType('print');
     await page.reload({ waitUntil: 'networkidle0' });
+    await applyPreferences(page, DEFAULT_SCREEN_VARIATION);
     await page.pdf({
       path: path.join(OUTPUT_DIR, 'Menu_Gereni_print.pdf'),
       format: 'Letter',

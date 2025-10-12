@@ -17,7 +17,7 @@
 3. Correr `npm run check:all` (valida precios y render web).
 4. Sincronizar la plantilla de Canva (copiar/pegar texto o ajustar directamente; validar enlaces según `design/canva/template-link.md`).
 5. Revisar checklist visual y ortográfico.
-6. Exportar `Menu_Gereni_print.pdf` y `Menu_Gereni_digital.pdf` con `npm run export:menu`.
+6. Exportar `Menu_Gereni_print.pdf` y las variantes digitales (`Menu_Gereni_digital_es_dark.pdf`, `Menu_Gereni_digital_es_light.pdf`, `Menu_Gereni_digital_en_dark.pdf`, `Menu_Gereni_digital_en_light.pdf`) con `npm run export:menu`.
 7. Guardar PDFs en `output/`.
 8. Hacer commit describiendo el cambio (`feat: actualiza precios Antojitos`).
 9. Si la versión es para imprenta, crear tag `vYYYY.MM.menu`.
@@ -36,7 +36,7 @@
 ## Emergencias / Cambios Rápidos
 - Foco en secciones afectadas (p. ej., cambio de precio puntual).
 - Actualizar Canva y `content/menu.md`.
-- Exportar únicamente PDF digital si la versión impresa no cambia.
+- Exportar únicamente la variante digital necesaria (p. ej. `Menu_Gereni_digital_es_dark.pdf`) si la versión impresa no cambia.
 - Comunicar en registro de cambios qué versión en papel sigue vigente.
 
 ## Registro de Validación de PDFs

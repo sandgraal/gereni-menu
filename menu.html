@@ -13,6 +13,10 @@
 <link href="favicon.svg" rel="icon" type="image/svg+xml"/>
 <script defer="" src="scripts/i18n.js">
 </script>
+<script defer="" src="scripts/theme.js">
+</script>
+<script defer="" src="scripts/headerControls.js">
+</script>
 <script defer="" src="scripts/loadMenu.js">
 </script>
 <script type="application/ld+json">
@@ -660,21 +664,65 @@
 }
 </script>
 </head>
-<body>
+<body class="menu-page">
+<div class="menu-surface">
 <header class="menu-header">
-<img alt="Bandera de Costa Rica" class="flag-badge" src="assets/photos/Flag_of_Costa_Rica.svg"/>
-<div class="language-toggle" data-lang-toggle="" role="group" data-i18n-es="Seleccionar idioma" data-i18n-en="Choose language" data-i18n-attr="aria-label" aria-label="Seleccionar idioma">
-<button aria-pressed="true" data-lang-option="es" data-i18n-es="Cambiar a español" data-i18n-en="Switch to Spanish" data-i18n-attr="aria-label" type="button">
-      ES
+<div class="menu-header__controls">
+<div class="control-dropdown" data-controls-dropdown="">
+<button aria-controls="menu-preferences" aria-expanded="false" aria-haspopup="true" class="control-dropdown__trigger" data-controls-toggle="" data-i18n-attr="aria-label" data-i18n-en="Open language and style options" data-i18n-es="Abrir opciones de idioma y estilo" type="button">
+      <span data-i18n-en="Language &amp; style" data-i18n-es="Idioma y estilo">
+        Idioma y estilo
+       </span>
+      <span aria-hidden="true" class="control-dropdown__icon">
+        &#9662;
+       </span>
      </button>
-<button aria-pressed="false" data-lang-option="en" data-i18n-es="Cambiar a inglés" data-i18n-en="Switch to English" data-i18n-attr="aria-label" type="button">
-      EN
-     </button>
-</div>
-<img alt="Logo de Gereni Bar y Restaurante" class="logo" src="assets/logo-gereni-bar-restaurant.png"/>
+<div class="control-dropdown__panel" data-controls-menu="" hidden="" id="menu-preferences">
+<div class="control-section">
+<p class="control-section__title" data-i18n-en="Visual style" data-i18n-es="Estilo visual">
+          Estilo visual
+         </p>
+<div aria-label="Cambiar estilo visual" class="theme-toggle" data-i18n-attr="aria-label" data-i18n-en="Switch visual theme" data-i18n-es="Cambiar estilo visual" data-theme-toggle="" role="group">
+<button aria-label="Usar el tema oscuro" aria-pressed="true" data-i18n-attr="aria-label" data-i18n-en="Use the dark theme" data-i18n-es="Usar el tema oscuro" data-theme-option="dark" type="button">
+            <span data-i18n-en="Dark" data-i18n-es="Oscuro">
+              Oscuro
+             </span>
+           </button>
+<button aria-label="Usar el tema claro" aria-pressed="false" data-i18n-attr="aria-label" data-i18n-en="Use the light theme" data-i18n-es="Usar el tema claro" data-theme-option="light" type="button">
+            <span data-i18n-en="Light" data-i18n-es="Claro">
+              Claro
+             </span>
+           </button>
+         </div>
+       </div>
+<div class="control-section">
+<p class="control-section__title" data-i18n-en="Language" data-i18n-es="Idioma">
+          Idioma
+         </p>
+<div aria-label="Seleccionar idioma" class="language-toggle" data-i18n-attr="aria-label" data-i18n-en="Choose language" data-i18n-es="Seleccionar idioma" data-lang-toggle="" role="group">
+<button aria-label="Cambiar a español" aria-pressed="true" data-i18n-attr="aria-label" data-i18n-en="Switch to Spanish" data-i18n-es="Cambiar a español" data-lang-option="es" type="button">
+            ES
+           </button>
+<button aria-label="Cambiar a inglés" aria-pressed="false" data-i18n-attr="aria-label" data-i18n-en="Switch to English" data-i18n-es="Cambiar a inglés" data-lang-option="en" type="button">
+            EN
+           </button>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+<div class="menu-header__inner">
+<img alt="Logo de Gereni Bar y Restaurante" class="menu-header__logo" src="assets/logo-gereni-bar-restaurant.png"/>
+<p class="menu-header__tagline" data-i18n-es="Bar y Restaurante" data-i18n-en="Bar &amp; Restaurant">
+      Bar y Restaurante
+     </p>
 <h1 data-i18n-es="Menú" data-i18n-en="Menu">
-    Menú
-   </h1>
+      Menú
+     </h1>
+<p class="menu-header__location" data-i18n-es="Atirro, Provincia de Cartago, Costa Rica" data-i18n-en="Atirro, Cartago Province, Costa Rica">
+      Atirro, Cartago Province, Costa Rica
+     </p>
+</div>
 <a class="home-link" data-i18n-es="← Volver al inicio" data-i18n-en="← Back to home" href="index.html">
     ← Volver al inicio
    </a>
@@ -682,15 +730,29 @@
 <div class="hero-graphic">
 <img alt="Cócteles artesanales del bar Gereni" src="assets/photos/cocktails-600x441.png"/>
 </div>
-<main id="menu-container">
+<main class="menu-main">
+<div class="menu-columns" id="menu-container">
 <!-- Contenido cargado dinámicamente desde menu.json -->
+</div>
 </main>
-<footer>
+<footer class="menu-footer">
+<div class="menu-qr">
+<img alt="Código QR del menú digital" class="menu-qr__image" src="assets/qr/gereni-menu-qr.png"/>
+<div class="menu-qr__text">
+<p class="menu-qr__title" data-i18n-es="Carta digital" data-i18n-en="Digital menu">
+          Carta digital
+         </p>
+<p class="menu-qr__description" data-i18n-es="Escanee el código para consultar alimentos y bebidas actualizados." data-i18n-en="Scan to see the latest food and drink options.">
+          Escanee el código para consultar alimentos y bebidas actualizados.
+         </p>
+</div>
+</div>
 <p class="note" id="menu-updated">
 </p>
-<p data-i18n-es="© 2025 Gereni Bar y Restaurante" data-i18n-en="© 2025 Gereni Bar &amp; Restaurant">
+<p class="menu-footer__legal" data-i18n-es="© 2025 Gereni Bar y Restaurante" data-i18n-en="© 2025 Gereni Bar &amp; Restaurant">
     © 2025 Gereni Bar y Restaurante
    </p>
 </footer>
+</div>
 </body>
 </html>

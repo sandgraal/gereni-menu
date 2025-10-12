@@ -24,10 +24,6 @@
     } catch (err) {
       console.warn('No se pudo leer el idioma guardado:', err);
     }
-    const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-    if (browserLang) {
-      return sanitizeLanguage(browserLang);
-    }
     return DEFAULT_LANG;
   }
 

@@ -37,69 +37,141 @@
     }
   }
 
+  function createSectionTitle(section, primaryLang, secondaryLang) {
+    const title = document.createElement('h2');
+    title.classList.add('menu-section__title');
+
+    const primaryText = resolveText(section.title, primaryLang);
+    const fallback = resolveText(section.title, secondaryLang);
+    const mainText = primaryText || fallback;
+
+    const primarySpan = document.createElement('span');
+    primarySpan.classList.add('menu-section__title-primary');
+    primarySpan.textContent = mainText;
+    title.appendChild(primarySpan);
+
+    const secondaryText = secondaryLang && resolveText(section.title, secondaryLang);
+    if (secondaryText && secondaryText !== mainText) {
+      const secondarySpan = document.createElement('span');
+      secondarySpan.classList.add('menu-section__title-secondary');
+      secondarySpan.textContent = secondaryText;
+      title.appendChild(secondarySpan);
+    }
+
+    return title;
+  }
+
+  function createDish(item, primaryLang, secondaryLang) {
+    const dish = document.createElement('article');
+    dish.classList.add('dish');
+
+    let media = null;
+    if (item.image) {
+      media = document.createElement('figure');
+      media.classList.add('dish-media');
+
+      const img = document.createElement('img');
+      img.src = item.image;
+      img.alt = resolveText(item.name, primaryLang) || resolveText(item.name, secondaryLang) || '';
+      img.loading = 'lazy';
+
+      media.appendChild(img);
+      dish.classList.add('dish--with-image');
+      dish.appendChild(media);
+    }
+
+    const textWrapper = document.createElement('div');
+    textWrapper.classList.add('dish-content');
+
+    const header = document.createElement('div');
+    header.classList.add('dish-header');
+
+    const primaryName = resolveText(item.name, primaryLang);
+    const fallbackName = resolveText(item.name, secondaryLang);
+    const displayName = primaryName || fallbackName;
+
+    const nameSpan = document.createElement('span');
+    nameSpan.classList.add('dish-name');
+    nameSpan.textContent = displayName;
+    header.appendChild(nameSpan);
+
+    if (item.price) {
+      const leader = document.createElement('span');
+      leader.classList.add('dish-leader');
+      leader.setAttribute('aria-hidden', 'true');
+      header.appendChild(leader);
+
+      const priceSpan = document.createElement('span');
+      priceSpan.classList.add('dish-price');
+      priceSpan.textContent = item.price;
+      header.appendChild(priceSpan);
+    }
+
+    textWrapper.appendChild(header);
+
+    const secondaryName = secondaryLang && resolveText(item.name, secondaryLang);
+    if (secondaryName && secondaryName !== displayName) {
+      const secondaryNameSpan = document.createElement('span');
+      secondaryNameSpan.classList.add('dish-name-alt');
+      secondaryNameSpan.textContent = secondaryName;
+      textWrapper.appendChild(secondaryNameSpan);
+    }
+
+    const primaryDescription = resolveText(item.description, primaryLang);
+    const fallbackDescription = resolveText(item.description, secondaryLang);
+    const descriptionText = primaryDescription || fallbackDescription;
+
+    if (descriptionText) {
+      const desc = document.createElement('p');
+      desc.classList.add('dish-description');
+      desc.textContent = descriptionText;
+      textWrapper.appendChild(desc);
+    }
+
+    if (secondaryLang) {
+      const secondaryDescription = resolveText(item.description, secondaryLang);
+      if (secondaryDescription && secondaryDescription !== descriptionText) {
+        const descAlt = document.createElement('p');
+        descAlt.classList.add('dish-description', 'dish-description--alt');
+        descAlt.textContent = secondaryDescription;
+        textWrapper.appendChild(descAlt);
+      }
+    }
+
+    dish.appendChild(textWrapper);
+    return dish;
+  }
+
   function renderMenu(lang) {
     if (!container || !menuData) return;
     clearElement(container);
 
+    const columns = [
+      document.createElement('div'),
+      document.createElement('div')
+    ];
+    columns[0].classList.add('menu-column', 'menu-column--left');
+    columns[1].classList.add('menu-column', 'menu-column--right');
+
     const sections = Array.isArray(menuData.sections) ? menuData.sections : [];
-    sections.forEach(section => {
+    const splitIndex = Math.ceil(sections.length / 2);
+    const secondaryLang = lang === 'es' ? 'en' : 'es';
+
+    sections.forEach((section, sectionIndex) => {
       const sectionEl = document.createElement('section');
-      const title = document.createElement('h2');
-      title.textContent = resolveText(section.title, lang);
-      sectionEl.appendChild(title);
+      sectionEl.classList.add('menu-section');
+      sectionEl.appendChild(createSectionTitle(section, lang, secondaryLang));
 
       (section.items || []).forEach(item => {
-        const dish = document.createElement('article');
-        dish.classList.add('dish');
-
-        if (item.image) {
-          const figure = document.createElement('figure');
-          figure.classList.add('dish-photo');
-
-          const img = document.createElement('img');
-          img.src = item.image;
-          img.alt = resolveText(item.name, lang);
-          img.loading = 'lazy';
-
-          figure.appendChild(img);
-          dish.appendChild(figure);
-          dish.classList.add('has-image');
-        }
-
-        const textWrapper = document.createElement('div');
-        textWrapper.classList.add('dish-content');
-
-        const header = document.createElement('div');
-        header.classList.add('dish-header');
-
-        const nameSpan = document.createElement('span');
-        nameSpan.classList.add('dish-name');
-        nameSpan.textContent = resolveText(item.name, lang);
-        header.appendChild(nameSpan);
-
-        if (item.price) {
-          const priceSpan = document.createElement('span');
-          priceSpan.classList.add('dish-price');
-          priceSpan.textContent = item.price;
-          header.appendChild(priceSpan);
-        }
-
-        textWrapper.appendChild(header);
-
-        const descriptionText = resolveText(item.description, lang);
-        if (descriptionText) {
-          const desc = document.createElement('p');
-          desc.classList.add('dish-description');
-          desc.textContent = descriptionText;
-          textWrapper.appendChild(desc);
-        }
-
-        dish.appendChild(textWrapper);
+        const dish = createDish(item, lang, secondaryLang);
         sectionEl.appendChild(dish);
       });
 
-      container.appendChild(sectionEl);
+      const columnIndex = sectionIndex < splitIndex ? 0 : 1;
+      columns[columnIndex].appendChild(sectionEl);
     });
+
+    columns.forEach(col => container.appendChild(col));
 
     if (!updatedLabel) {
       updatedLabel = document.getElementById('menu-updated');
