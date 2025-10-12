@@ -15,6 +15,63 @@ const JSON_PATH = path.join(ROOT, 'data', 'menu.json');
 const SECTION_HEADING = /^##\s+(.*)$/;
 const ITEM_PATTERN = /^-\s+\*\*(.+?)\*\*\s+—\s+(.*)\s+\((₡[\d.]+)\)\s*$/;
 
+function normalizeKey(value) {
+  return typeof value === 'string' ? value.trim().toLowerCase() : '';
+}
+
+function resolvePrimaryText(entry) {
+  if (!entry) {
+    return '';
+  }
+  if (typeof entry === 'string') {
+    return entry;
+  }
+  if (typeof entry === 'object') {
+    return entry.es || entry.en || '';
+  }
+  return '';
+}
+
+function buildSectionKey(title) {
+  return normalizeKey(resolvePrimaryText(title));
+}
+
+function buildItemKey(sectionKey, name) {
+  const itemName = normalizeKey(resolvePrimaryText(name));
+  if (!sectionKey || !itemName) {
+    return '';
+  }
+  return `${sectionKey}::${itemName}`;
+}
+
+function createImageLookup(existingData) {
+  const lookup = new Map();
+  if (!existingData || !Array.isArray(existingData.sections)) {
+    return lookup;
+  }
+
+  existingData.sections.forEach(section => {
+    if (!section || !Array.isArray(section.items)) {
+      return;
+    }
+    const sectionKey = buildSectionKey(section.title);
+    if (!sectionKey) {
+      return;
+    }
+    section.items.forEach(item => {
+      if (!item || !item.image) {
+        return;
+      }
+      const itemKey = buildItemKey(sectionKey, item.name);
+      if (itemKey) {
+        lookup.set(itemKey, item.image);
+      }
+    });
+  });
+
+  return lookup;
+}
+
 function splitBilingual(raw, fallback = '') {
   if (!raw) {
     return { es: fallback, en: fallback };
@@ -92,6 +149,11 @@ function main() {
     process.exit(1);
   }
 
+  const existingData = fs.existsSync(JSON_PATH)
+    ? JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'))
+    : null;
+  const imageLookup = createImageLookup(existingData);
+
   const markdown = fs.readFileSync(MARKDOWN_PATH, 'utf8');
   const sections = parseMenuMarkdown(markdown);
 
@@ -99,6 +161,26 @@ function main() {
     console.warn('No se encontraron platillos en el Markdown. JSON no fue modificado.');
     return;
   }
+
+  sections.forEach(section => {
+    const sectionKey = buildSectionKey(section.title);
+    if (!sectionKey || !Array.isArray(section.items)) {
+      return;
+    }
+    section.items.forEach(item => {
+      if (!item || item.image) {
+        return;
+      }
+      const itemKey = buildItemKey(sectionKey, item.name);
+      if (!itemKey) {
+        return;
+      }
+      const existingImage = imageLookup.get(itemKey);
+      if (existingImage) {
+        item.image = existingImage;
+      }
+    });
+  });
 
   const payload = {
     updatedAt: new Date().toISOString(),

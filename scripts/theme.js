@@ -136,7 +136,7 @@
     hasStoredPreference = true;
     currentTheme = storedTheme;
   } else {
-    currentTheme = getSystemTheme();
+    currentTheme = FALLBACK_THEME;
   }
   currentTheme = sanitizeTheme(currentTheme);
   applyTheme(currentTheme);
