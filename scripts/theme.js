@@ -1,16 +1,18 @@
 (() => {
   const STORAGE_KEY = 'gereni-theme';
-  const DEFAULT_THEME = 'dark';
+  const FALLBACK_THEME = 'dark';
   const VALID_THEMES = new Set(['dark', 'light']);
   const subscribers = new Set();
-  let currentTheme = DEFAULT_THEME;
+  let hasStoredPreference = false;
+  let systemPreferenceWatcherAttached = false;
+  let currentTheme = FALLBACK_THEME;
 
   function sanitizeTheme(theme) {
-    if (typeof theme !== 'string') return DEFAULT_THEME;
+    if (typeof theme !== 'string') return FALLBACK_THEME;
     let normalized = theme.trim().toLowerCase();
     if (normalized === 'legacy') normalized = 'dark';
     if (normalized === 'modern') normalized = 'light';
-    return VALID_THEMES.has(normalized) ? normalized : DEFAULT_THEME;
+    return VALID_THEMES.has(normalized) ? normalized : FALLBACK_THEME;
   }
 
   function readStoredTheme() {
@@ -24,7 +26,23 @@
     } catch (err) {
       console.warn('No se pudo leer el tema guardado:', err);
     }
-    return DEFAULT_THEME;
+    return null;
+  }
+
+  function getSystemTheme() {
+    try {
+      if (typeof window.matchMedia === 'function') {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          return 'light';
+        }
+      }
+    } catch (err) {
+      console.warn('No se pudo determinar el tema del sistema:', err);
+    }
+    return FALLBACK_THEME;
   }
 
   function writeStoredTheme(theme) {
@@ -55,6 +73,25 @@
     });
   }
 
+  function handleSystemPreferenceChange() {
+    if (hasStoredPreference) return;
+    const systemTheme = getSystemTheme();
+    setTheme(systemTheme, { persist: false });
+  }
+
+  function watchSystemPreference() {
+    if (systemPreferenceWatcherAttached) return;
+    if (typeof window.matchMedia !== 'function') return;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const listener = () => handleSystemPreferenceChange();
+    if (typeof media.addEventListener === 'function') {
+      media.addEventListener('change', listener);
+    } else if (typeof media.addListener === 'function') {
+      media.addListener(listener);
+    }
+    systemPreferenceWatcherAttached = true;
+  }
+
   function notifySubscribers(theme) {
     subscribers.forEach(fn => {
       try {
@@ -68,14 +105,17 @@
 
   function setTheme(theme, { persist = true } = {}) {
     const normalized = sanitizeTheme(theme);
-    if (normalized === currentTheme) return;
+    const previousTheme = currentTheme;
     currentTheme = normalized;
     applyTheme(currentTheme);
     updateToggleState(currentTheme);
     if (persist) {
+      hasStoredPreference = true;
       writeStoredTheme(currentTheme);
     }
-    notifySubscribers(currentTheme);
+    if (currentTheme !== previousTheme) {
+      notifySubscribers(currentTheme);
+    }
   }
 
   function handleToggleClick(event) {
@@ -91,8 +131,16 @@
     notifySubscribers(currentTheme);
   }
 
-  currentTheme = readStoredTheme();
+  const storedTheme = readStoredTheme();
+  if (storedTheme) {
+    hasStoredPreference = true;
+    currentTheme = storedTheme;
+  } else {
+    currentTheme = getSystemTheme();
+  }
+  currentTheme = sanitizeTheme(currentTheme);
   applyTheme(currentTheme);
+  watchSystemPreference();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
