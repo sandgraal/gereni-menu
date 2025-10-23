@@ -9,6 +9,11 @@
     en: 'Updated on'
   };
 
+  const schemaConfig = {
+    menuUrl: 'https://sandgraal.github.io/gereni-menu/menu.html',
+    restaurantId: 'https://sandgraal.github.io/gereni-menu/#restaurant'
+  };
+
   let menuData = null;
   let container = null;
   let updatedLabel = null;
@@ -29,6 +34,140 @@
       month: 'long',
       day: 'numeric'
     });
+  }
+
+  function sanitizePriceForSchema(price) {
+    if (typeof price !== 'string') return null;
+    const digits = price.replace(/[^0-9]/g, '');
+    return digits.length > 0 ? digits : null;
+  }
+
+  function buildMenuItemSchema(item) {
+    if (!item || typeof item !== 'object') return null;
+
+    const nameEs = resolveText(item.name, 'es');
+    const nameEn = resolveText(item.name, 'en');
+    const descriptionEs = resolveText(item.description, 'es');
+    const descriptionEn = resolveText(item.description, 'en');
+    const priceValue = sanitizePriceForSchema(item.price);
+
+    const baseName = nameEs || nameEn || '';
+    if (!baseName) {
+      return null;
+    }
+
+    const menuItem = {
+      '@type': 'MenuItem',
+      name: baseName
+    };
+
+    if (nameEn && nameEn !== baseName) {
+      menuItem.alternateName = nameEn;
+    }
+
+    if (descriptionEs) {
+      menuItem.description = descriptionEs;
+    }
+
+    if (descriptionEn && descriptionEn !== descriptionEs) {
+      menuItem.disambiguatingDescription = descriptionEn;
+    }
+
+    if (item.image) {
+      menuItem.image = item.image;
+    }
+
+    if (priceValue) {
+      menuItem.offers = {
+        '@type': 'Offer',
+        price: priceValue,
+        priceCurrency: 'CRC',
+        availability: 'https://schema.org/InStock'
+      };
+    }
+
+    return menuItem;
+  }
+
+  function buildMenuSchema(data) {
+    if (!data || typeof data !== 'object') {
+      return null;
+    }
+
+    const sections = Array.isArray(data.sections) ? data.sections : [];
+    const schemaSections = sections
+      .map(section => {
+        if (!section || !Array.isArray(section.items) || section.items.length === 0) {
+          return null;
+        }
+
+        const nameEs = resolveText(section.title, 'es');
+        const nameEn = resolveText(section.title, 'en');
+        const baseName = nameEs || nameEn || '';
+        if (!baseName) {
+          return null;
+        }
+
+        const items = section.items
+          .map(buildMenuItemSchema)
+          .filter(Boolean);
+
+        if (items.length === 0) {
+          return null;
+        }
+
+        const schemaSection = {
+          '@type': 'MenuSection',
+          name: baseName,
+          hasMenuItem: items
+        };
+
+        if (nameEn && nameEn !== baseName) {
+          schemaSection.alternateName = nameEn;
+        }
+
+        return schemaSection;
+      })
+      .filter(Boolean);
+
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'Menu',
+      '@id': `${schemaConfig.menuUrl}#menu`,
+      name: 'Menú principal',
+      inLanguage: 'es-CR',
+      url: schemaConfig.menuUrl,
+      isPartOf: {
+        '@id': schemaConfig.restaurantId
+      }
+    };
+
+    if (schemaSections.length > 0) {
+      schema.hasMenuSection = schemaSections;
+    }
+
+    if (typeof data.updatedAt === 'string' && data.updatedAt.trim()) {
+      schema.dateModified = data.updatedAt;
+    }
+
+    return schema;
+  }
+
+  function updateStructuredData(data) {
+    const schemaElement = document.getElementById('menu-schema');
+    if (!schemaElement) {
+      return;
+    }
+
+    try {
+      const schema = buildMenuSchema(data);
+      if (!schema) {
+        return;
+      }
+      schemaElement.textContent = JSON.stringify(schema, null, 2);
+    } catch (error) {
+      console.error('No se pudo actualizar los datos estructurados del menú:', error);
+    }
   }
 
   function clearElement(el) {
@@ -187,6 +326,8 @@
         updatedLabel.hidden = true;
       }
     }
+
+    updateStructuredData(menuData);
   }
 
   function handleLanguageChange(lang) {

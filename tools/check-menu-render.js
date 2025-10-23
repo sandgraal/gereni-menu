@@ -44,12 +44,29 @@ async function main() {
 
   const sections = [...dom.window.document.querySelectorAll('main section')];
   const footerNote = dom.window.document.querySelector('#menu-updated')?.textContent.trim();
+  const schemaElement = dom.window.document.getElementById('menu-schema');
+  let schemaSummary = 'No disponible';
+
+  if (schemaElement) {
+    try {
+      const schema = JSON.parse(schemaElement.textContent || 'null');
+      if (schema && typeof schema === 'object') {
+        const count = Array.isArray(schema.hasMenuSection) ? schema.hasMenuSection.length : 0;
+        schemaSummary = `${count} secciones`; 
+      } else {
+        schemaSummary = 'No válido';
+      }
+    } catch (error) {
+      schemaSummary = `Error: ${error.message}`;
+    }
+  }
 
   console.log(`Secciones renderizadas: ${sections.length}`);
   console.log(
     sections.map(section => `- ${section.querySelector('h2')?.textContent || 'Sin título'} (${section.querySelectorAll('.dish').length} platillos)`).join('\n')
   );
   console.log(`Nota de actualización: ${footerNote || 'No visible'}`);
+  console.log(`Schema JSON-LD: ${schemaSummary}`);
 }
 
 main().catch(err => {
