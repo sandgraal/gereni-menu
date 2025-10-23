@@ -20,6 +20,9 @@ const NOTE_END = '<!-- MENU_NOTE_END -->';
 
 const INDENT_UNIT = '  ';
 
+const MENU_URL = 'https://sandgraal.github.io/gereni-menu/menu.html';
+const RESTAURANT_ID = 'https://sandgraal.github.io/gereni-menu/#restaurant';
+
 function escapeHtml(value) {
   if (value === undefined || value === null) return '';
   return String(value)
@@ -37,6 +40,143 @@ function indent(level, text) {
 function resolveText(obj, lang, fallbackLang) {
   if (!obj || typeof obj !== 'object') return '';
   return obj[lang] || obj[fallbackLang] || '';
+}
+
+function sanitizePriceForSchema(price) {
+  if (typeof price !== 'string') return null;
+  const digits = price.replace(/[^0-9]/g, '');
+  return digits.length > 0 ? digits : null;
+}
+
+function buildMenuItemSchema(item) {
+  if (!item || typeof item !== 'object') {
+    return null;
+  }
+
+  const nameEs = resolveText(item.name, 'es', 'en');
+  const nameEn = resolveText(item.name, 'en', 'es');
+  const descriptionEs = resolveText(item.description, 'es', 'en');
+  const descriptionEn = resolveText(item.description, 'en', 'es');
+  const priceValue = sanitizePriceForSchema(item.price);
+
+  const baseName = nameEs || nameEn || '';
+  if (!baseName) {
+    return null;
+  }
+
+  const schemaItem = {
+    '@type': 'MenuItem',
+    name: baseName
+  };
+
+  if (nameEn && nameEn !== baseName) {
+    schemaItem.alternateName = nameEn;
+  }
+
+  if (descriptionEs) {
+    schemaItem.description = descriptionEs;
+  }
+
+  if (descriptionEn && descriptionEn !== descriptionEs) {
+    schemaItem.disambiguatingDescription = descriptionEn;
+  }
+
+  if (item.image) {
+    schemaItem.image = item.image;
+  }
+
+  if (priceValue) {
+    schemaItem.offers = {
+      '@type': 'Offer',
+      price: priceValue,
+      priceCurrency: 'CRC',
+      availability: 'https://schema.org/InStock'
+    };
+  }
+
+  return schemaItem;
+}
+
+function buildMenuSchema(data) {
+  if (!data || typeof data !== 'object') {
+    return null;
+  }
+
+  const sections = Array.isArray(data.sections) ? data.sections : [];
+  const schemaSections = sections
+    .map(section => {
+      if (!section || !Array.isArray(section.items) || section.items.length === 0) {
+        return null;
+      }
+
+      const nameEs = resolveText(section.title, 'es', 'en');
+      const nameEn = resolveText(section.title, 'en', 'es');
+      const baseName = nameEs || nameEn || '';
+      if (!baseName) {
+        return null;
+      }
+
+      const items = section.items
+        .map(buildMenuItemSchema)
+        .filter(Boolean);
+
+      if (items.length === 0) {
+        return null;
+      }
+
+      const schemaSection = {
+        '@type': 'MenuSection',
+        name: baseName,
+        hasMenuItem: items
+      };
+
+      if (nameEn && nameEn !== baseName) {
+        schemaSection.alternateName = nameEn;
+      }
+
+      return schemaSection;
+    })
+    .filter(Boolean);
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Menu',
+    '@id': `${MENU_URL}#menu`,
+    name: 'Menú principal',
+    inLanguage: 'es-CR',
+    url: MENU_URL,
+    isPartOf: {
+      '@id': RESTAURANT_ID
+    }
+  };
+
+  if (schemaSections.length > 0) {
+    schema.hasMenuSection = schemaSections;
+  }
+
+  if (typeof data.updatedAt === 'string' && data.updatedAt.trim()) {
+    schema.dateModified = data.updatedAt;
+  }
+
+  return schema;
+}
+
+function replaceSchemaScript(source, schemaJson) {
+  const scriptRegex = /<script[^>]*id="menu-schema"[^>]*>/i;
+  const match = scriptRegex.exec(source);
+  if (!match) {
+    throw new Error('No se encontró el script JSON-LD del menú en menu.html');
+  }
+
+  const start = match.index + match[0].length;
+  const end = source.indexOf('</script>', start);
+  if (end === -1) {
+    throw new Error('No se encontró el cierre </script> para el JSON-LD del menú');
+  }
+
+  const before = source.slice(0, start);
+  const after = source.slice(end);
+  return `${before}\n${schemaJson}\n${after}`;
 }
 
 function renderDish(item, primaryLang, secondaryLang) {
@@ -180,6 +320,8 @@ function main() {
 
   const fallbackHtml = sections.length > 0 ? renderColumns(sections) : indent(1, '<!-- No hay secciones disponibles -->');
   const updatedNote = formatUpdatedAt(data.updatedAt);
+  const schemaPayload = buildMenuSchema(data);
+  const schemaJson = schemaPayload ? JSON.stringify(schemaPayload, null, 2) : null;
 
   let html = fs.readFileSync(MENU_PATH, 'utf8');
 
@@ -199,6 +341,10 @@ function main() {
     new RegExp(`${NOTE_START}[\\s\\S]*?${NOTE_END}`),
     `${NOTE_START}${updatedNote ? `Actualizado el ${updatedNote}` : ''}${NOTE_END}`
   );
+
+  if (schemaJson) {
+    html = replaceSchemaScript(html, schemaJson);
+  }
 
   fs.writeFileSync(MENU_PATH, html);
   console.log('Marcado estático del menú actualizado.');
