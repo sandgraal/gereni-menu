@@ -1,0 +1,14 @@
+{
+  "project_name": "Gereni Menu",
+  "output_dir": "output",
+  "build_script": "build:fallback",
+  "default_branch": "main",
+  "agents": [
+    "menu-content",
+    "menu-image",
+    "menu-data",
+    "menu-packaging",
+    "menu-analytics"
+  ],
+  "logs_dir": "ai/logs"
+}

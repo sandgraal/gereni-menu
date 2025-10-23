@@ -4,3 +4,9 @@ node_modules/
 # Archivos generados
 !output/README.md
 .DS_Store
+
+# AI agent runtime artifacts
+ai/logs/*
+!ai/logs/.gitkeep
+ai/_state/*
+!ai/_state/.gitkeep
