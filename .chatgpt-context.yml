@@ -1,0 +1,21 @@
+project_name: Gereni Menu
+repo_url: https://github.com/sandgraal/gereni-menu
+stack:
+  ssg: static-site
+  node: ">=20"
+directories:
+  source: content
+  data: data
+  layouts: design
+  assets: assets
+  output: output
+agent_prefix: menu
+active_agents:
+  - menu-content
+  - menu-image
+  - menu-data
+  - menu-packaging
+  - menu-analytics
+constraints:
+  privacy: "no external API calls unless configured"
+  publishing: "only dedicated workflows can deploy"
