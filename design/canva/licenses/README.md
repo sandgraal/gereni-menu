@@ -6,10 +6,10 @@ Completa este archivo cada vez que se incorpore un recurso gráfico con restricc
 
 | Recurso | Autor / Fuente | Tipo de licencia | Evidencia (URL, PDF, captura) | Fecha de adquisición | Notas |
 |---------|----------------|------------------|-------------------------------|----------------------|-------|
-| Logo principal | (pendiente) | (pendiente) | (enlace a carpeta `assets/logo/original/`) | (pendiente) | Preparar versión en blanco cuando se reciba vector. |
-| Texturas de fondo | (pendiente) | (pendiente) | (adjuntar PDF o captura) | (pendiente) | Confirmar uso comercial. |
-| Iconografía | (pendiente) | (pendiente) | (enlace al proveedor) | (pendiente) | Detallar tamaños y colores permitidos. |
-| Fotografías | (pendiente) | (pendiente) | (enlace/licencia) | (pendiente) | Especificar si requieren crédito. |
+| Logo principal | Menú Gerení (propietario) | Uso interno — todos los derechos reservados | [Notas internas](evidence/2025-10/logo-gereni.md) | 2025-10-10 | Preparar versión en blanco cuando se reciba vector maestro. |
+| Texturas de fondo | Sin texturas vigentes | N/A (sin recursos activos) | [Revisión octubre 2025](evidence/2025-10/textures-status.md) | 2025-10-23 | Registrar origen/licencia antes de integrar una textura nueva. |
+| Iconografía | sandgraal (creación propia) | MIT (ver `LICENSE`) | [Detalles de commits](evidence/2025-10/icon-set.md) | 2025-10-10 | Vectores personalizados en `assets/icons/`. |
+| Fotografías | Menú Gerení / Wikimedia Commons (bandera) | Uso interno (platillos/fachada); dominio público (bandera) | [Detalle y enlaces](evidence/2025-10/photos.md) | 2025-10-11 | Confirmar créditos externos al publicar material promocional. |
 
 ## Evidencias recomendadas
 - Guardar capturas o PDFs de la licencia dentro de `design/canva/licenses/evidence/YYYY-MM/`.

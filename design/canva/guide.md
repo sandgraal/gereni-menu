@@ -59,9 +59,10 @@ Completa esta tabla cuando recibas material nuevo (logos, texturas, fotografías
 
 | Recurso | Origen / Autor | Tipo de licencia | Evidencia (URL o archivo) | Notas |
 |---------|----------------|------------------|---------------------------|-------|
-| Logo principal | (pendiente) | (pendiente) | (adjuntar enlace/carpeta) | Preparar versión en blanco al recibir archivo vectorial. |
-| Texturas de fondo | (pendiente) | (pendiente) | (adjuntar enlace/carpeta) | Confirmar que permiten uso comercial. |
-| Iconografía | (pendiente) | (pendiente) | (adjuntar enlace/carpeta) | Documentar fuente (Flaticon, Noun Project, etc.). |
+| Logo principal | Menú Gerení (propietario) | Uso interno — todos los derechos reservados | [Notas internas](licenses/evidence/2025-10/logo-gereni.md) | Archivo maestro en `assets/logo-gereni-bar-restaurant.png`. |
+| Texturas de fondo | Sin texturas vigentes | N/A (sin recursos activos) | [Revisión octubre 2025](licenses/evidence/2025-10/textures-status.md) | Registrar origen/licencia antes de integrar una textura nueva. |
+| Iconografía | sandgraal (creación propia) | MIT (ver `LICENSE`) | [Detalles de commits](licenses/evidence/2025-10/icon-set.md) | Vectores personalizados en `assets/icons/`. |
+| Fotografías | Menú Gerení / Wikimedia Commons (bandera) | Uso interno (platillos/fachada); dominio público (bandera) | [Detalle y enlaces](licenses/evidence/2025-10/photos.md) | Confirmar créditos externos al publicar material promocional. |
 
 > Consejo: Guarda capturas o PDFs de las licencias en `design/canva/licenses/` (ver `design/canva/licenses/README.md`) junto con un `README` que describa cambios relevantes.
 
