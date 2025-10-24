@@ -42,3 +42,4 @@
 ## Registro de Validación de PDFs
 - 2025-10-10 — Digital: ✅ Revisado por soporte (exporte de 4 páginas).
 - 2025-10-10 — Print: ✅ Revisado en pantalla; pendiente prueba de impresión doméstica.
+- 2025-10-24 — Print: ⚠️ Prueba doméstica no ejecutada en entorno CI; verificar nota `workflow/proofs/2025-10-24-domestic-proof.md` para acciones siguientes.
