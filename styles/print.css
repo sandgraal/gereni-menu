@@ -13,6 +13,10 @@
   .btn, footer, .hero-strip, .emblem {
     display: none;
   }
+  .menu-tools,
+  .menu-empty {
+    display: none !important;
+  }
   .language-toggle {
     display: none !important;
   }

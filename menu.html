@@ -858,56 +858,24 @@
 <img alt="Cócteles artesanales del bar Gereni" data-i18n-attr="alt" data-i18n-en="Artisanal cocktails from Gereni bar" data-i18n-es="Cócteles artesanales del bar Gereni" src="assets/photos/cocktails-600x441.png"/>
 </div>
 <main class="menu-main">
-  <div class="menu-toolbar">
-    <label class="menu-search" for="menu-search-input">
-      <span class="menu-search__label" data-i18n-es="Buscar platillos" data-i18n-en="Search dishes">
-        Buscar platillos
-      </span>
-      <input
-        class="menu-search__input"
-        type="search"
-        id="menu-search-input"
-        name="menu-search"
-        placeholder="Buscar por nombre o ingrediente"
-        data-i18n-attr="placeholder"
-        data-i18n-es="Buscar por nombre o ingrediente"
-        data-i18n-en="Search by name or ingredient"
-        inputmode="search"
-        autocomplete="off"
-        aria-describedby="menu-search-status"
-        disabled
-      />
-    </label>
-    <p
-      class="menu-search__status"
-      id="menu-search-status"
-      aria-live="polite"
-      role="status"
-      data-status-loading-es="Cargando menú..."
-      data-status-loading-en="Loading menu..."
-      data-status-all-es="Mostrando {total} platillos"
-      data-status-all-en="Showing {total} dishes"
-      data-status-count-es="Coincidencias: {count} de {total} platillos"
-      data-status-count-en="Matches: {count} of {total} dishes"
-      data-status-empty-es="No se encontraron platillos con esta búsqueda"
-      data-status-empty-en="No dishes match this search"
-      data-status-error-es="No se pudo cargar el menú."
-      data-status-error-en="Menu could not be loaded."
-    >
-      Cargando menú...
-    </p>
-  </div>
-  <p
-    class="menu-empty"
-    id="menu-empty-state"
-    hidden
-    aria-live="polite"
-    data-empty-es="No se encontraron platillos. Ajusta tu búsqueda o cambia de idioma."
-    data-empty-en="No dishes found. Adjust your search or switch languages."
-  ></p>
+  <div class="menu-tools" role="search">
+    <label class="menu-search__label" data-i18n-en="Search the menu" data-i18n-es="Buscar en el menú" for="menu-search-input">
+      Buscar en el menú
+     </label>
+    <div class="menu-search__control">
+      <input aria-describedby="menu-search-hint" autocomplete="off" data-i18n-attr="placeholder" data-i18n-en="Type an ingredient, dish, or price" data-i18n-es="Escribe un ingrediente, platillo o precio" enterkeyhint="search" id="menu-search-input" name="menu-search" placeholder="Escribe un ingrediente, platillo o precio" type="search"/>
+      <button aria-label="Limpiar búsqueda" class="menu-search__clear" data-i18n-attr="aria-label" data-i18n-en="Clear search" data-i18n-es="Limpiar búsqueda" hidden="" type="button">
+        ×
+       </button>
+     </div>
+    <p class="menu-search__hint" data-i18n-en="Try keywords such as “shrimp”, “veg” or “₡4.000”." data-i18n-es="Prueba con palabras clave como “camarones”, “veg” o “₡4.000”." id="menu-search-hint">
+      Prueba con palabras clave como “camarones”, “veg” o “₡4.000”.
+     </p>
+   </div>
+  <p aria-live="polite" class="menu-empty" hidden="" id="menu-empty" role="status"></p>
   <div class="menu-columns" id="menu-container">
   <!-- Static fallback markup; hydrated by scripts/loadMenu.js when JS is available -->
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!-- FALLBACK_MENU_START -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!-- FALLBACK_MENU_START -->
   <div class="menu-column menu-column--left">
     <section class="menu-section">
       <h2 class="menu-section__title">
@@ -1615,7 +1583,7 @@
       </article>
     </section>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!-- FALLBACK_MENU_END -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!-- FALLBACK_MENU_END -->
 </div>
 </main>
 <footer class="menu-footer">
