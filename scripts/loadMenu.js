@@ -9,6 +9,18 @@
     en: 'Updated on'
   };
 
+  const emptyStateMessages = {
+    es: query => `No se encontraron platillos que coincidan con “${query}”.`,
+    en: query => `No menu items match “${query}”.`
+  };
+
+  const emptyStateFallback = {
+    es: 'No se encontraron platillos disponibles en este momento.',
+    en: 'No menu items are available right now.'
+  };
+
+  const SEARCH_STORAGE_KEY = 'gereni-menu-search';
+
   const schemaConfig = {
     menuUrl: 'https://sandgraal.github.io/gereni-menu/menu.html',
     restaurantId: 'https://sandgraal.github.io/gereni-menu/#restaurant'
@@ -17,6 +29,10 @@
   let menuData = null;
   let container = null;
   let updatedLabel = null;
+  let searchInput = null;
+  let clearButton = null;
+  let emptyState = null;
+  let searchQuery = '';
   let currentLang = 'es';
 
   function resolveText(entry, lang) {
@@ -34,6 +50,159 @@
       month: 'long',
       day: 'numeric'
     });
+  }
+
+  function normalizeForSearch(value) {
+    if (value === null || value === undefined) {
+      return '';
+    }
+    try {
+      return String(value)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    } catch (error) {
+      return String(value).toLowerCase();
+    }
+  }
+
+  function matchesQuery(item, normalizedQuery) {
+    if (!item || typeof item !== 'object') {
+      return false;
+    }
+
+    const texts = [];
+    ['es', 'en'].forEach(lang => {
+      const name = resolveText(item.name, lang);
+      if (name) {
+        texts.push(name);
+      }
+      const description = resolveText(item.description, lang);
+      if (description) {
+        texts.push(description);
+      }
+    });
+
+    if (typeof item.price === 'string') {
+      texts.push(item.price);
+      const numericPrice = item.price.replace(/[^0-9]/g, '');
+      if (numericPrice) {
+        texts.push(numericPrice);
+      }
+    }
+
+    return texts.some(text => normalizeForSearch(text).includes(normalizedQuery));
+  }
+
+  function getRenderableSections(data, query) {
+    const sections = data && Array.isArray(data.sections) ? data.sections : [];
+    if (sections.length === 0) {
+      return sections;
+    }
+
+    if (typeof query !== 'string') {
+      return sections;
+    }
+
+    const trimmed = query.trim();
+    if (!trimmed) {
+      return sections;
+    }
+
+    const normalizedQuery = normalizeForSearch(trimmed);
+    if (!normalizedQuery) {
+      return sections;
+    }
+
+    return sections
+      .map(section => {
+        if (!section || typeof section !== 'object') {
+          return null;
+        }
+        const items = Array.isArray(section.items)
+          ? section.items.filter(item => matchesQuery(item, normalizedQuery))
+          : [];
+        if (items.length === 0) {
+          return null;
+        }
+        return { ...section, items };
+      })
+      .filter(Boolean);
+  }
+
+  function readStoredSearch() {
+    try {
+      if (window.sessionStorage) {
+        const stored = window.sessionStorage.getItem(SEARCH_STORAGE_KEY);
+        return typeof stored === 'string' ? stored : '';
+      }
+    } catch (error) {
+      return '';
+    }
+    return '';
+  }
+
+  function writeStoredSearch(value) {
+    try {
+      if (window.sessionStorage) {
+        if (value && value.trim()) {
+          window.sessionStorage.setItem(SEARCH_STORAGE_KEY, value);
+        } else {
+          window.sessionStorage.removeItem(SEARCH_STORAGE_KEY);
+        }
+      }
+    } catch (error) {
+      // Ignorar intentos fallidos de acceso a sessionStorage (p. ej. en modo privado).
+    }
+  }
+
+  function updateSearchClearVisibility() {
+    if (!clearButton) {
+      return;
+    }
+    const hasQuery = typeof searchQuery === 'string' && searchQuery.trim().length > 0;
+    if (hasQuery) {
+      clearButton.hidden = false;
+    } else {
+      clearButton.hidden = true;
+    }
+  }
+
+  function updateEmptyState(hasResults, lang) {
+    if (!emptyState) {
+      return;
+    }
+
+    if (hasResults) {
+      emptyState.hidden = true;
+      emptyState.textContent = '';
+      return;
+    }
+
+    const trimmed = typeof searchQuery === 'string' ? searchQuery.trim() : '';
+    const messageBuilder = emptyStateMessages[lang] || emptyStateMessages.es;
+    const fallbackMessage = emptyStateFallback[lang] || emptyStateFallback.es;
+    emptyState.textContent = trimmed ? messageBuilder(trimmed) : fallbackMessage;
+    emptyState.hidden = false;
+  }
+
+  function handleSearchInput(event) {
+    const value = typeof event.target.value === 'string' ? event.target.value.slice(0, 160) : '';
+    searchQuery = value;
+    writeStoredSearch(searchQuery);
+    updateSearchClearVisibility();
+    renderMenu(currentLang);
+  }
+
+  function handleSearchClear() {
+    searchQuery = '';
+    writeStoredSearch(searchQuery);
+    if (searchInput) {
+      searchInput.value = '';
+      searchInput.focus();
+    }
+    updateSearchClearVisibility();
+    renderMenu(currentLang);
   }
 
   function sanitizePriceForSchema(price) {
@@ -283,34 +452,46 @@
 
   function renderMenu(lang) {
     if (!container || !menuData) return;
+
+    updateSearchClearVisibility();
+
+    const sections = getRenderableSections(menuData, searchQuery);
+    const hasResults = sections.some(section => Array.isArray(section.items) && section.items.length > 0);
+
+    updateEmptyState(hasResults, lang);
+
     clearElement(container);
 
-    const columns = [
-      document.createElement('div'),
-      document.createElement('div')
-    ];
-    columns[0].classList.add('menu-column', 'menu-column--left');
-    columns[1].classList.add('menu-column', 'menu-column--right');
+    if (hasResults) {
+      container.hidden = false;
+      const columns = [
+        document.createElement('div'),
+        document.createElement('div')
+      ];
+      columns[0].classList.add('menu-column', 'menu-column--left');
+      columns[1].classList.add('menu-column', 'menu-column--right');
 
-    const sections = Array.isArray(menuData.sections) ? menuData.sections : [];
-    const splitIndex = Math.ceil(sections.length / 2);
-    const secondaryLang = lang === 'es' ? 'en' : 'es';
+      const splitIndex = Math.ceil(sections.length / 2);
+      const secondaryLang = lang === 'es' ? 'en' : 'es';
 
-    sections.forEach((section, sectionIndex) => {
-      const sectionEl = document.createElement('section');
-      sectionEl.classList.add('menu-section');
-      sectionEl.appendChild(createSectionTitle(section, lang, secondaryLang));
+      sections.forEach((section, sectionIndex) => {
+        const sectionEl = document.createElement('section');
+        sectionEl.classList.add('menu-section');
+        sectionEl.appendChild(createSectionTitle(section, lang, secondaryLang));
 
-      (section.items || []).forEach(item => {
-        const dish = createDish(item, lang, secondaryLang);
-        sectionEl.appendChild(dish);
+        (section.items || []).forEach(item => {
+          const dish = createDish(item, lang, secondaryLang);
+          sectionEl.appendChild(dish);
+        });
+
+        const columnIndex = sectionIndex < splitIndex ? 0 : 1;
+        columns[columnIndex].appendChild(sectionEl);
       });
 
-      const columnIndex = sectionIndex < splitIndex ? 0 : 1;
-      columns[columnIndex].appendChild(sectionEl);
-    });
-
-    columns.forEach(col => container.appendChild(col));
+      columns.forEach(col => container.appendChild(col));
+    } else {
+      container.hidden = true;
+    }
 
     if (!updatedLabel) {
       updatedLabel = document.getElementById('menu-updated');
@@ -341,6 +522,26 @@
       console.error('No se encontró el contenedor del menú.');
       return;
     }
+
+    searchInput = document.getElementById('menu-search-input');
+    clearButton = document.querySelector('.menu-search__clear');
+    emptyState = document.getElementById('menu-empty');
+
+    searchQuery = readStoredSearch().slice(0, 160);
+
+    if (searchInput) {
+      if (searchQuery) {
+        searchInput.value = searchQuery;
+      }
+      searchInput.addEventListener('input', handleSearchInput);
+      searchInput.addEventListener('search', handleSearchInput);
+    }
+
+    if (clearButton) {
+      clearButton.addEventListener('click', handleSearchClear);
+    }
+
+    updateSearchClearVisibility();
 
     const initialLang = window.GereniLang && typeof window.GereniLang.getCurrent === 'function'
       ? window.GereniLang.getCurrent()
