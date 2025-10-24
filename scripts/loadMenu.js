@@ -18,6 +18,10 @@
   let container = null;
   let updatedLabel = null;
   let currentLang = 'es';
+  let searchInput = null;
+  let searchStatus = null;
+  let emptyState = null;
+  let currentFilter = '';
 
   function resolveText(entry, lang) {
     if (!entry || typeof entry !== 'object') return '';
@@ -153,6 +157,170 @@
     return schema;
   }
 
+  function normalizeSearchValue(value) {
+    if (typeof value !== 'string') {
+      return '';
+    }
+    return value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+  }
+
+  function collectEntryTexts(entry, list) {
+    if (!entry) {
+      return;
+    }
+    if (Array.isArray(entry)) {
+      entry.forEach(value => collectEntryTexts(value, list));
+      return;
+    }
+    if (typeof entry === 'string') {
+      const trimmed = entry.trim();
+      if (trimmed) {
+        list.push(trimmed);
+      }
+      return;
+    }
+    if (typeof entry === 'object') {
+      Object.values(entry).forEach(value => collectEntryTexts(value, list));
+    }
+  }
+
+  function entryMatchesQuery(entry, normalizedQuery) {
+    if (!normalizedQuery) {
+      return false;
+    }
+    const texts = [];
+    collectEntryTexts(entry, texts);
+    return texts.some(text => normalizeSearchValue(text).includes(normalizedQuery));
+  }
+
+  function itemMatchesQuery(item, normalizedQuery) {
+    if (!item || typeof item !== 'object' || !normalizedQuery) {
+      return false;
+    }
+    const texts = [];
+    collectEntryTexts(item.name, texts);
+    collectEntryTexts(item.description, texts);
+    return texts.some(text => normalizeSearchValue(text).includes(normalizedQuery));
+  }
+
+  function filterSectionsByQuery(sections, query) {
+    const trimmed = typeof query === 'string' ? query.trim() : '';
+    if (!trimmed) {
+      return sections;
+    }
+
+    const normalizedQuery = normalizeSearchValue(trimmed);
+    if (!normalizedQuery) {
+      return sections;
+    }
+
+    return sections
+      .map(section => {
+        if (!section || !Array.isArray(section.items)) {
+          return null;
+        }
+
+        const sectionMatches = entryMatchesQuery(section.title, normalizedQuery);
+        const filteredItems = sectionMatches
+          ? section.items.slice()
+          : section.items.filter(item => itemMatchesQuery(item, normalizedQuery));
+
+        if (filteredItems.length === 0) {
+          return null;
+        }
+
+        return {
+          ...section,
+          items: filteredItems
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function getDatasetMessage(element, prefix, lang) {
+    if (!element) {
+      return '';
+    }
+    const suffix = lang === 'en' ? 'En' : 'Es';
+    const key = `${prefix}${suffix}`;
+    return element.dataset[key] || '';
+  }
+
+  function formatStatusMessage(template, matchCount, totalCount) {
+    if (!template) {
+      return '';
+    }
+    return template
+      .replace(/\{count\}/g, String(matchCount))
+      .replace(/\{total\}/g, String(totalCount));
+  }
+
+  function setSearchLoading(lang) {
+    if (!searchStatus) {
+      return;
+    }
+    const template = getDatasetMessage(searchStatus, 'statusLoading', lang);
+    if (template) {
+      searchStatus.textContent = formatStatusMessage(template, 0, 0);
+    }
+  }
+
+  function updateSearchStatus(lang, matchCount, totalCount) {
+    if (!searchStatus) {
+      return;
+    }
+
+    const activeFilter = typeof currentFilter === 'string' ? currentFilter.trim() : '';
+    let template;
+
+    if (!menuData) {
+      template = getDatasetMessage(searchStatus, 'statusLoading', lang);
+    } else if (!activeFilter) {
+      template = getDatasetMessage(searchStatus, 'statusAll', lang);
+    } else if (matchCount === 0) {
+      template = getDatasetMessage(searchStatus, 'statusEmpty', lang);
+    } else {
+      template = getDatasetMessage(searchStatus, 'statusCount', lang);
+    }
+
+    const message = formatStatusMessage(template, matchCount, totalCount);
+    searchStatus.textContent = message || '';
+  }
+
+  function updateEmptyState(lang, shouldShow) {
+    if (!emptyState) {
+      return;
+    }
+
+    if (!shouldShow) {
+      emptyState.hidden = true;
+      emptyState.textContent = '';
+      return;
+    }
+
+    const message = getDatasetMessage(emptyState, 'empty', lang);
+    emptyState.textContent = message || '';
+    emptyState.hidden = false;
+  }
+
+  function handleSearchInput(event) {
+    const value = event.target ? event.target.value : '';
+    const sanitized = typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : '';
+    if (sanitized === currentFilter) {
+      if (menuData) {
+        renderMenu(currentLang);
+      }
+      return;
+    }
+    currentFilter = sanitized;
+    if (menuData) {
+      renderMenu(currentLang);
+    }
+  }
+
   function updateStructuredData(data) {
     const schemaElement = document.getElementById('menu-schema');
     if (!schemaElement) {
@@ -285,32 +453,23 @@
     if (!container || !menuData) return;
     clearElement(container);
 
-    const columns = [
-      document.createElement('div'),
-      document.createElement('div')
-    ];
-    columns[0].classList.add('menu-column', 'menu-column--left');
-    columns[1].classList.add('menu-column', 'menu-column--right');
-
     const sections = Array.isArray(menuData.sections) ? menuData.sections : [];
-    const splitIndex = Math.ceil(sections.length / 2);
-    const secondaryLang = lang === 'es' ? 'en' : 'es';
+    const filteredSections = filterSectionsByQuery(sections, currentFilter);
+    const totalItems = sections.reduce((acc, section) => {
+      if (!section || !Array.isArray(section.items)) {
+        return acc;
+      }
+      return acc + section.items.length;
+    }, 0);
+    const matchedItems = filteredSections.reduce((acc, section) => {
+      if (!section || !Array.isArray(section.items)) {
+        return acc;
+      }
+      return acc + section.items.length;
+    }, 0);
 
-    sections.forEach((section, sectionIndex) => {
-      const sectionEl = document.createElement('section');
-      sectionEl.classList.add('menu-section');
-      sectionEl.appendChild(createSectionTitle(section, lang, secondaryLang));
-
-      (section.items || []).forEach(item => {
-        const dish = createDish(item, lang, secondaryLang);
-        sectionEl.appendChild(dish);
-      });
-
-      const columnIndex = sectionIndex < splitIndex ? 0 : 1;
-      columns[columnIndex].appendChild(sectionEl);
-    });
-
-    columns.forEach(col => container.appendChild(col));
+    updateSearchStatus(lang, matchedItems, totalItems);
+    updateEmptyState(lang, filteredSections.length === 0);
 
     if (!updatedLabel) {
       updatedLabel = document.getElementById('menu-updated');
@@ -327,12 +486,47 @@
       }
     }
 
+    if (filteredSections.length === 0) {
+      updateStructuredData(menuData);
+      return;
+    }
+
+    const columns = [
+      document.createElement('div'),
+      document.createElement('div')
+    ];
+    columns[0].classList.add('menu-column', 'menu-column--left');
+    columns[1].classList.add('menu-column', 'menu-column--right');
+
+    const splitIndex = Math.ceil(filteredSections.length / 2);
+    const secondaryLang = lang === 'es' ? 'en' : 'es';
+
+    filteredSections.forEach((section, sectionIndex) => {
+      const sectionEl = document.createElement('section');
+      sectionEl.classList.add('menu-section');
+      sectionEl.appendChild(createSectionTitle(section, lang, secondaryLang));
+
+      (section.items || []).forEach(item => {
+        const dish = createDish(item, lang, secondaryLang);
+        sectionEl.appendChild(dish);
+      });
+
+      const columnIndex = sectionIndex < splitIndex ? 0 : 1;
+      columns[columnIndex].appendChild(sectionEl);
+    });
+
+    columns.forEach(col => container.appendChild(col));
+
     updateStructuredData(menuData);
   }
 
   function handleLanguageChange(lang) {
     currentLang = lang || currentLang;
-    renderMenu(currentLang);
+    if (menuData) {
+      renderMenu(currentLang);
+    } else {
+      setSearchLoading(currentLang);
+    }
   }
 
   function init() {
@@ -342,15 +536,29 @@
       return;
     }
 
+    searchInput = document.getElementById('menu-search-input');
+    searchStatus = document.getElementById('menu-search-status');
+    emptyState = document.getElementById('menu-empty-state');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', handleSearchInput);
+      searchInput.addEventListener('search', handleSearchInput);
+    }
+
     const initialLang = window.GereniLang && typeof window.GereniLang.getCurrent === 'function'
       ? window.GereniLang.getCurrent()
       : 'es';
     currentLang = initialLang;
 
+    setSearchLoading(currentLang);
+
     fetch('data/menu.json')
       .then(response => response.json())
       .then(data => {
         menuData = data;
+        if (searchInput) {
+          searchInput.removeAttribute('disabled');
+        }
         renderMenu(currentLang);
 
         if (window.GereniLang && typeof window.GereniLang.subscribe === 'function') {
@@ -361,7 +569,14 @@
           });
         }
       })
-      .catch(err => console.error('Error al cargar el menú:', err));
+      .catch(err => {
+        console.error('Error al cargar el menú:', err);
+        const errorMessage = getDatasetMessage(searchStatus, 'statusError', currentLang);
+        if (errorMessage) {
+          searchStatus.textContent = errorMessage;
+        }
+        updateEmptyState(currentLang, false);
+      });
   }
 
   if (document.readyState === 'loading') {

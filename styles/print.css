@@ -25,6 +25,11 @@
     max-width: 100%;
     padding: 0;
   }
+  .menu-toolbar,
+  .menu-search__status,
+  .menu-empty {
+    display: none !important;
+  }
   section {
     box-shadow: none;
     border: none;
