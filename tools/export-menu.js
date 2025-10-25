@@ -219,7 +219,7 @@ async function preparePdfLayout(page, resources, lang) {
     throw new Error('No se pudo preparar el layout PDF automáticamente.');
   }
 
-  await page.waitForTimeout(50);
+  await new Promise(resolve => setTimeout(resolve, 50));
 }
 
 async function resetPdfLayout(page) {
