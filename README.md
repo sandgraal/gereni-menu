@@ -18,6 +18,7 @@ tools/validate-prices.js → Valida que los precios sigan el formato `₡0.000`
 design/canva/licenses/README.md → Registro detallado de licencias y evidencias  
 workflow/reminders.md → Agenda propuesta para recordatorios operativos
 docs/extract-images-from-pdf.md → Guía para extraer y limpiar fotos del menú original
+docs/contributor-onboarding.md → Checklist de incorporación para nuevas personas colaboradoras
 
 ## ⚙️ Requisitos
 
@@ -26,7 +27,7 @@ docs/extract-images-from-pdf.md → Guía para extraer y limpiar fotos del menú
 
 ## ✏️ Cómo editar el menú
 
-1. Abre `content/menu.md` y actualiza nombres, precios o descripciones (formato `₡5.650`). Para gestionar los especiales y novedades de la portada, sigue la guía de `docs/home-highlights.md` que explica el flujo distinto para `data/home-highlights.json`.
+1. Abre `content/menu.md` y actualiza nombres, precios o descripciones (formato `₡5.650`). Para una guía paso a paso del flujo completo (ramas, pruebas y exportaciones), consulta `docs/contributor-onboarding.md`. Para gestionar los especiales y novedades de la portada, sigue la guía de `docs/home-highlights.md` que explica el flujo distinto para `data/home-highlights.json`.
 2. Ejecuta `node tools/sync-menu.js` para regenerar `data/menu.json`.
 3. Ejecuta `npm run check:all` (valida precios y render).
 4. Haz commit y sube los cambios.
