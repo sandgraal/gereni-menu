@@ -23,6 +23,7 @@
 - **Carne en Salsa | Beef in Sauce** — Acompañada de arroz. | Served with rice. (₡2.500)
 - **Garbanzos / Frijoles Blancos / Pozol | Chickpeas / White Beans / Pozol** — Porción casera del día. | Homestyle portion of the day. (₡2.000)
 - **Canelones | Cannelloni** — 2 unidades bañadas en salsa de tomate. | Two pieces covered in tomato sauce. (₡1.200)
+- **Yuca Frita | Fried Yuca** — Bastones crujientes con aderezo de la casa. | Crispy sticks with our house dressing. (₡2.200)
 
 ## Con arroz | With Rice
 - **Casados | Casados Plate** — Con arroz, frijoles, picadillo, ensalada y una carne. | Rice, beans, picadillo, salad, and your choice of protein. (₡3.390)
@@ -45,6 +46,7 @@
 - **Alitas de Pollo (4 piezas) | Chicken Wings (4 pieces)** — Salsa a elegir, acompañadas de papas. | Your choice of sauce, served with fries. (₡5.000)
 - **Alitas de Pollo (6 piezas) | Chicken Wings (6 pieces)** — Salsa a elegir, acompañadas de papas. | Your choice of sauce, served with fries. (₡7.000)
 - **Alitas de Pollo (8 piezas) | Chicken Wings (8 pieces)** — Salsa a elegir, acompañadas de papas. | Your choice of sauce, served with fries. (₡9.000)
+- **Quesadillas a la Plancha | Griddled Quesadillas** — Tortillas rellenas de queso y vegetales salteados. | Tortillas stuffed with cheese and sautéed veggies. (₡3.200)
 
 ## Especialidades | Specialties
 - **Costillas BBQ | BBQ Ribs** — De cerdo en salsa BBQ con arroz y ensalada. | Pork ribs in BBQ sauce with rice and salad. (₡5.850)
@@ -68,6 +70,7 @@
 - **Prensadas | Fried Cheese Tortillas** — Tortillas fritas con queso. | Fried tortillas with cheese. (₡1.200)
 - **Empanadas | Empanadas** — Rellenas al gusto. | Filled to your liking. (₡1.800)
 - **Arepas con Natilla o Mermelada | Arepas with Cream or Jam** — Dulce casero para acompañar el café. | Homemade sweet treat for your coffee. (₡1.700)
+- **Queque de Zanahoria | Carrot Cake** — Rebanada casera con glaseado de queso crema. | House slice with cream cheese frosting. (₡2.400)
 
 ## Bebidas | Drinks
 - **Café | Coffee** — Taza de café chorreado. | Pour-over coffee cup. (₡1.200)
@@ -76,9 +79,11 @@
 - **Té Negro | Black Tea** — Infusión caliente. | Hot infusion. (₡800)
 - **Batidos en Leche | Milk Shakes** — Sabores a elección. | Choice of flavors. (₡2.300)
 - **Frescos Naturales | Fresh Juices** — Jugos naturales del día. | Daily natural juices. (₡2.000)
+- **Limonada con Hierbabuena | Mint Lemonade** — Refrescante mezcla con hierbabuena fresca. | Refreshing blend with fresh mint. (₡1.800)
 - Consulte opciones de alimentos y bebidas en el QR del menú.
 
 ---
 
 ## Notas
 - Registrar aquí promociones, inserciones estacionales o elementos en pausa.
+- Promoción vigente: **Tardes Dulces | Sweet Afternoons** — Café + queque de zanahoria por (₡3.300) hasta el 30 de noviembre.
