@@ -19,6 +19,11 @@
     en: 'No menu items are available right now.'
   };
 
+  const loadErrorMessages = {
+    es: 'No se pudo cargar el menú en este momento.',
+    en: 'The menu could not be loaded right now.'
+  };
+
   const SEARCH_STORAGE_KEY = 'gereni-menu-search';
 
   const schemaConfig = {
@@ -34,20 +39,22 @@
   let emptyState = null;
   let searchQuery = '';
   let currentLang = 'es';
-  let searchInput = null;
-  let searchStatus = null;
-  let emptyState = null;
-  let currentFilter = '';
 
   function resolveText(entry, lang) {
-    if (!entry || typeof entry !== 'object') return '';
+    if (!entry || typeof entry !== 'object') {
+      return '';
+    }
     return entry[lang] || entry.es || entry.en || '';
   }
 
   function formatUpdatedAt(dateIso, lang) {
-    if (!dateIso) return '';
+    if (!dateIso) {
+      return '';
+    }
     const parsed = new Date(dateIso);
-    if (Number.isNaN(parsed.valueOf())) return '';
+    if (Number.isNaN(parsed.valueOf())) {
+      return '';
+    }
     const locale = localeMap[lang] || localeMap.es;
     return parsed.toLocaleDateString(locale, {
       year: 'numeric',
@@ -70,22 +77,46 @@
     }
   }
 
+  function collectEntryTexts(entry, list) {
+    if (!entry) {
+      return;
+    }
+
+    if (Array.isArray(entry)) {
+      entry.forEach(value => collectEntryTexts(value, list));
+      return;
+    }
+
+    if (typeof entry === 'object') {
+      Object.values(entry).forEach(value => collectEntryTexts(value, list));
+      return;
+    }
+
+    if (typeof entry === 'string') {
+      const trimmed = entry.trim();
+      if (trimmed) {
+        list.push(trimmed);
+      }
+    }
+  }
+
+  function entryMatchesQuery(entry, normalizedQuery) {
+    if (!normalizedQuery) {
+      return false;
+    }
+    const texts = [];
+    collectEntryTexts(entry, texts);
+    return texts.some(text => normalizeForSearch(text).includes(normalizedQuery));
+  }
+
   function matchesQuery(item, normalizedQuery) {
-    if (!item || typeof item !== 'object') {
+    if (!item || typeof item !== 'object' || !normalizedQuery) {
       return false;
     }
 
     const texts = [];
-    ['es', 'en'].forEach(lang => {
-      const name = resolveText(item.name, lang);
-      if (name) {
-        texts.push(name);
-      }
-      const description = resolveText(item.description, lang);
-      if (description) {
-        texts.push(description);
-      }
-    });
+    collectEntryTexts(item.name, texts);
+    collectEntryTexts(item.description, texts);
 
     if (typeof item.price === 'string') {
       texts.push(item.price);
@@ -101,35 +132,44 @@
   function getRenderableSections(data, query) {
     const sections = data && Array.isArray(data.sections) ? data.sections : [];
     if (sections.length === 0) {
-      return sections;
+      return [];
     }
 
-    if (typeof query !== 'string') {
-      return sections;
-    }
-
-    const trimmed = query.trim();
+    const trimmed = typeof query === 'string' ? query.trim() : '';
     if (!trimmed) {
-      return sections;
+      return sections.map(section => ({
+        ...section,
+        items: Array.isArray(section.items) ? section.items.slice() : []
+      }));
     }
 
     const normalizedQuery = normalizeForSearch(trimmed);
     if (!normalizedQuery) {
-      return sections;
+      return sections.map(section => ({
+        ...section,
+        items: Array.isArray(section.items) ? section.items.slice() : []
+      }));
     }
 
     return sections
       .map(section => {
-        if (!section || typeof section !== 'object') {
+        if (!section || !Array.isArray(section.items)) {
           return null;
         }
-        const items = Array.isArray(section.items)
-          ? section.items.filter(item => matchesQuery(item, normalizedQuery))
-          : [];
-        if (items.length === 0) {
+
+        const sectionMatches = entryMatchesQuery(section.title, normalizedQuery);
+        const filteredItems = sectionMatches
+          ? section.items.slice()
+          : section.items.filter(item => matchesQuery(item, normalizedQuery));
+
+        if (filteredItems.length === 0) {
           return null;
         }
-        return { ...section, items };
+
+        return {
+          ...section,
+          items: filteredItems
+        };
       })
       .filter(Boolean);
   }
@@ -156,7 +196,7 @@
         }
       }
     } catch (error) {
-      // Ignorar intentos fallidos de acceso a sessionStorage (p. ej. en modo privado).
+      // Ignorar errores de acceso a sessionStorage (p. ej. modo privado).
     }
   }
 
@@ -165,11 +205,7 @@
       return;
     }
     const hasQuery = typeof searchQuery === 'string' && searchQuery.trim().length > 0;
-    if (hasQuery) {
-      clearButton.hidden = false;
-    } else {
-      clearButton.hidden = true;
-    }
+    clearButton.hidden = !hasQuery;
   }
 
   function updateEmptyState(hasResults, lang) {
@@ -190,8 +226,41 @@
     emptyState.hidden = false;
   }
 
+  function showLoadError(lang) {
+    if (!emptyState) {
+      return;
+    }
+    const message = loadErrorMessages[lang] || loadErrorMessages.es;
+    emptyState.textContent = message;
+    emptyState.hidden = false;
+  }
+
+  function updateUpdatedLabel(data, lang) {
+    if (!updatedLabel) {
+      return;
+    }
+
+    const updatedAt = data && typeof data.updatedAt === 'string' ? data.updatedAt : '';
+    if (!updatedAt) {
+      updatedLabel.textContent = '';
+      updatedLabel.hidden = true;
+      return;
+    }
+
+    const formatted = formatUpdatedAt(updatedAt, lang);
+    if (!formatted) {
+      updatedLabel.textContent = '';
+      updatedLabel.hidden = true;
+      return;
+    }
+
+    const prefix = updatedLabelStrings[lang] || updatedLabelStrings.es;
+    updatedLabel.textContent = `${prefix} ${formatted}`;
+    updatedLabel.hidden = false;
+  }
+
   function handleSearchInput(event) {
-    const value = typeof event.target.value === 'string' ? event.target.value.slice(0, 160) : '';
+    const value = typeof event?.target?.value === 'string' ? event.target.value.slice(0, 160) : '';
     searchQuery = value;
     writeStoredSearch(searchQuery);
     updateSearchClearVisibility();
@@ -210,13 +279,17 @@
   }
 
   function sanitizePriceForSchema(price) {
-    if (typeof price !== 'string') return null;
+    if (typeof price !== 'string') {
+      return null;
+    }
     const digits = price.replace(/[^0-9]/g, '');
     return digits.length > 0 ? digits : null;
   }
 
   function buildMenuItemSchema(item) {
-    if (!item || typeof item !== 'object') return null;
+    if (!item || typeof item !== 'object') {
+      return null;
+    }
 
     const nameEs = resolveText(item.name, 'es');
     const nameEn = resolveText(item.name, 'en');
@@ -326,170 +399,6 @@
     return schema;
   }
 
-  function normalizeSearchValue(value) {
-    if (typeof value !== 'string') {
-      return '';
-    }
-    return value
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase();
-  }
-
-  function collectEntryTexts(entry, list) {
-    if (!entry) {
-      return;
-    }
-    if (Array.isArray(entry)) {
-      entry.forEach(value => collectEntryTexts(value, list));
-      return;
-    }
-    if (typeof entry === 'string') {
-      const trimmed = entry.trim();
-      if (trimmed) {
-        list.push(trimmed);
-      }
-      return;
-    }
-    if (typeof entry === 'object') {
-      Object.values(entry).forEach(value => collectEntryTexts(value, list));
-    }
-  }
-
-  function entryMatchesQuery(entry, normalizedQuery) {
-    if (!normalizedQuery) {
-      return false;
-    }
-    const texts = [];
-    collectEntryTexts(entry, texts);
-    return texts.some(text => normalizeSearchValue(text).includes(normalizedQuery));
-  }
-
-  function itemMatchesQuery(item, normalizedQuery) {
-    if (!item || typeof item !== 'object' || !normalizedQuery) {
-      return false;
-    }
-    const texts = [];
-    collectEntryTexts(item.name, texts);
-    collectEntryTexts(item.description, texts);
-    return texts.some(text => normalizeSearchValue(text).includes(normalizedQuery));
-  }
-
-  function filterSectionsByQuery(sections, query) {
-    const trimmed = typeof query === 'string' ? query.trim() : '';
-    if (!trimmed) {
-      return sections;
-    }
-
-    const normalizedQuery = normalizeSearchValue(trimmed);
-    if (!normalizedQuery) {
-      return sections;
-    }
-
-    return sections
-      .map(section => {
-        if (!section || !Array.isArray(section.items)) {
-          return null;
-        }
-
-        const sectionMatches = entryMatchesQuery(section.title, normalizedQuery);
-        const filteredItems = sectionMatches
-          ? section.items.slice()
-          : section.items.filter(item => itemMatchesQuery(item, normalizedQuery));
-
-        if (filteredItems.length === 0) {
-          return null;
-        }
-
-        return {
-          ...section,
-          items: filteredItems
-        };
-      })
-      .filter(Boolean);
-  }
-
-  function getDatasetMessage(element, prefix, lang) {
-    if (!element) {
-      return '';
-    }
-    const suffix = lang === 'en' ? 'En' : 'Es';
-    const key = `${prefix}${suffix}`;
-    return element.dataset[key] || '';
-  }
-
-  function formatStatusMessage(template, matchCount, totalCount) {
-    if (!template) {
-      return '';
-    }
-    return template
-      .replace(/\{count\}/g, String(matchCount))
-      .replace(/\{total\}/g, String(totalCount));
-  }
-
-  function setSearchLoading(lang) {
-    if (!searchStatus) {
-      return;
-    }
-    const template = getDatasetMessage(searchStatus, 'statusLoading', lang);
-    if (template) {
-      searchStatus.textContent = formatStatusMessage(template, 0, 0);
-    }
-  }
-
-  function updateSearchStatus(lang, matchCount, totalCount) {
-    if (!searchStatus) {
-      return;
-    }
-
-    const activeFilter = typeof currentFilter === 'string' ? currentFilter.trim() : '';
-    let template;
-
-    if (!menuData) {
-      template = getDatasetMessage(searchStatus, 'statusLoading', lang);
-    } else if (!activeFilter) {
-      template = getDatasetMessage(searchStatus, 'statusAll', lang);
-    } else if (matchCount === 0) {
-      template = getDatasetMessage(searchStatus, 'statusEmpty', lang);
-    } else {
-      template = getDatasetMessage(searchStatus, 'statusCount', lang);
-    }
-
-    const message = formatStatusMessage(template, matchCount, totalCount);
-    searchStatus.textContent = message || '';
-  }
-
-  function updateEmptyState(lang, shouldShow) {
-    if (!emptyState) {
-      return;
-    }
-
-    if (!shouldShow) {
-      emptyState.hidden = true;
-      emptyState.textContent = '';
-      return;
-    }
-
-    const message = getDatasetMessage(emptyState, 'empty', lang);
-    emptyState.textContent = message || '';
-    emptyState.hidden = false;
-  }
-
-  function handleSearchInput(event) {
-    const value = event.target ? event.target.value : '';
-    const sanitized = typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : '';
-    if (sanitized === currentFilter) {
-      if (menuData) {
-        renderMenu(currentLang);
-      }
-      return;
-    }
-    currentFilter = sanitized;
-    if (menuData) {
-      renderMenu(currentLang);
-    }
-  }
-
   function updateStructuredData(data) {
     const schemaElement = document.getElementById('menu-schema');
     if (!schemaElement) {
@@ -499,6 +408,7 @@
     try {
       const schema = buildMenuSchema(data);
       if (!schema) {
+        schemaElement.textContent = '';
         return;
       }
       schemaElement.textContent = JSON.stringify(schema, null, 2);
@@ -508,6 +418,9 @@
   }
 
   function clearElement(el) {
+    if (!el) {
+      return;
+    }
     while (el.firstChild) {
       el.removeChild(el.firstChild);
     }
@@ -541,9 +454,8 @@
     const dish = document.createElement('article');
     dish.classList.add('dish');
 
-    let media = null;
     if (item.image) {
-      media = document.createElement('figure');
+      const media = document.createElement('figure');
       media.classList.add('dish-media');
 
       const img = document.createElement('img');
@@ -619,7 +531,9 @@
   }
 
   function renderMenu(lang) {
-    if (!container || !menuData) return;
+    if (!container || !menuData) {
+      return;
+    }
 
     updateSearchClearVisibility();
 
@@ -627,62 +541,66 @@
     const hasResults = sections.some(section => Array.isArray(section.items) && section.items.length > 0);
 
     updateEmptyState(hasResults, lang);
+    updateUpdatedLabel(menuData, lang);
 
     clearElement(container);
 
-    if (hasResults) {
-      container.hidden = false;
-      const columns = [
-        document.createElement('div'),
-        document.createElement('div')
-      ];
-      columns[0].classList.add('menu-column', 'menu-column--left');
-      columns[1].classList.add('menu-column', 'menu-column--right');
-
-      const splitIndex = Math.ceil(sections.length / 2);
-      const secondaryLang = lang === 'es' ? 'en' : 'es';
-
-      sections.forEach((section, sectionIndex) => {
-        const sectionEl = document.createElement('section');
-        sectionEl.classList.add('menu-section');
-        sectionEl.appendChild(createSectionTitle(section, lang, secondaryLang));
-
-        (section.items || []).forEach(item => {
-          const dish = createDish(item, lang, secondaryLang);
-          sectionEl.appendChild(dish);
-        });
-
-        const columnIndex = sectionIndex < splitIndex ? 0 : 1;
-        columns[columnIndex].appendChild(sectionEl);
-      });
-
-      columns.forEach(col => container.appendChild(col));
-    } else {
+    if (!hasResults) {
       container.hidden = true;
+      updateStructuredData(menuData);
+      return;
     }
 
+    container.hidden = false;
+
+    const columns = [
+      document.createElement('div'),
+      document.createElement('div')
+    ];
+    columns[0].classList.add('menu-column', 'menu-column--left');
+    columns[1].classList.add('menu-column', 'menu-column--right');
+
+    const secondaryLang = lang === 'es' ? 'en' : 'es';
+    const splitIndex = Math.ceil(sections.length / 2);
+
+    sections.forEach((section, index) => {
+      const sectionEl = document.createElement('section');
+      sectionEl.classList.add('menu-section');
+      sectionEl.appendChild(createSectionTitle(section, lang, secondaryLang));
+
+      (section.items || []).forEach(item => {
+        const dish = createDish(item, lang, secondaryLang);
+        sectionEl.appendChild(dish);
+      });
+
+      const columnIndex = index < splitIndex ? 0 : 1;
+      columns[columnIndex].appendChild(sectionEl);
+    });
+
+    columns.forEach(column => container.appendChild(column));
     updateStructuredData(menuData);
   }
 
   function handleLanguageChange(lang) {
-    currentLang = lang || currentLang;
+    if (typeof lang === 'string' && lang.trim()) {
+      currentLang = lang;
+    }
     if (menuData) {
       renderMenu(currentLang);
-    } else {
-      setSearchLoading(currentLang);
     }
   }
 
   function init() {
     container = document.getElementById('menu-container');
+    updatedLabel = document.getElementById('menu-updated');
+    searchInput = document.getElementById('menu-search-input');
+    clearButton = document.querySelector('.menu-search__clear');
+    emptyState = document.getElementById('menu-empty');
+
     if (!container) {
       console.error('No se encontró el contenedor del menú.');
       return;
     }
-
-    searchInput = document.getElementById('menu-search-input');
-    clearButton = document.querySelector('.menu-search__clear');
-    emptyState = document.getElementById('menu-empty');
 
     searchQuery = readStoredSearch().slice(0, 160);
 
@@ -699,13 +617,12 @@
     }
 
     updateSearchClearVisibility();
+    updateEmptyState(true, currentLang);
 
     const initialLang = window.GereniLang && typeof window.GereniLang.getCurrent === 'function'
       ? window.GereniLang.getCurrent()
       : 'es';
-    currentLang = initialLang;
-
-    setSearchLoading(currentLang);
+    currentLang = initialLang || 'es';
 
     fetch('data/menu.json')
       .then(response => response.json())
@@ -720,17 +637,13 @@
           window.GereniLang.subscribe(handleLanguageChange);
         } else {
           document.addEventListener('gereni:languagechange', event => {
-            handleLanguageChange(event.detail && event.detail.lang);
+            handleLanguageChange(event?.detail?.lang);
           });
         }
       })
-      .catch(err => {
-        console.error('Error al cargar el menú:', err);
-        const errorMessage = getDatasetMessage(searchStatus, 'statusError', currentLang);
-        if (errorMessage) {
-          searchStatus.textContent = errorMessage;
-        }
-        updateEmptyState(currentLang, false);
+      .catch(error => {
+        console.error('Error al cargar el menú:', error);
+        showLoadError(currentLang);
       });
   }
 
