@@ -312,7 +312,8 @@ body.inicio header::after {
   flex-wrap:wrap;
 }
 
-.facebook-button {
+.facebook-button,
+.instagram-button {
   display:flex;
   justify-content:center;
 }
@@ -524,7 +525,8 @@ footer {
   margin:0 auto;
 }
 
-.facebook-link {
+.facebook-link,
+.instagram-link {
   align-self:center;
   background-color:var(--gereni-green);
   color:#fff;
@@ -534,13 +536,25 @@ footer {
   font-weight:600;
   letter-spacing:0.03em;
   transition:background-color 0.2s ease, transform 0.2s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:0.55rem;
 }
 
 .facebook-link:hover,
-.facebook-link:focus-visible {
+.facebook-link:focus-visible,
+.instagram-link:hover,
+.instagram-link:focus-visible {
   background-color:var(--gereni-brown);
   color:#fff;
   transform:translateY(-1px);
+}
+
+.instagram-icon {
+  width:1.1rem;
+  height:1.1rem;
+  flex-shrink:0;
+  display:block;
 }
 
 .social-section h2 {
@@ -716,7 +730,8 @@ body[data-theme="dark"].inicio section {
   box-shadow:var(--card-shadow);
 }
 
-body[data-theme="dark"].inicio .facebook-link {
+body[data-theme="dark"].inicio .facebook-link,
+body[data-theme="dark"].inicio .instagram-link {
   background-color:var(--gereni-brown);
   color:#0f110d;
 }
