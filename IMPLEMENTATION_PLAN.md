@@ -15,6 +15,7 @@
 | PDF export workflow (`npm run export:menu`, GitHub Actions) | ✅ Complete | Diseño/Maquetación + Soporte técnico | Print and digital PDFs exported to `output/`; automation described in README and workflow guidelines.【F:README.md†L33-L40】【F:workflow.md†L21-L28】 |
 | Canva template governance | ✅ Complete | Diseño/Maquetación | Template access and licensing documented under `design/canva/`.【F:README.md†L16-L18】 |
 | Operational playbook | ✅ Complete | Soporte técnico | Roles, branching strategy, emergency playbook captured in `workflow.md`.【F:workflow.md†L1-L43】 |
+| Contributor onboarding checklist | ✅ Complete | Soporte técnico | `docs/contributor-onboarding.md` published and linked from README for new collaborators.【F:docs/contributor-onboarding.md†L1-L49】【F:README.md†L8-L33】 |
 
 ## 3. Outstanding Work & Roadmap
 
@@ -35,7 +36,6 @@
 | Task | Owner | Priority | Acceptance Criteria | References |
 | --- | --- | --- | --- | --- |
 | Document release cadence aligned with tag convention `vYYYY.MM.menu`. | Soporte técnico | Medium | `workflow.md` updated with calendar, `handoff.md` references release cadence, tags applied during releases. | `workflow.md`, `handoff.md`. |
-| Publish contributor onboarding checklist summarizing editing, testing, and export steps. | Soporte técnico | High | New doc under `docs/` outlining prerequisites, branch strategy, and QA steps; linked from README. | `docs/`, `README.md`, `workflow.md`. |
 | Capture print vendor specs (bleed, color profile) for PDF exports. | Diseño/Maquetación | Medium | `design/` subfolder contains vendor requirements and is referenced from `README.md` and export instructions. | `design/`, `output/`. |
 
 ## 4. Dependencies & Cross-Team Touchpoints
@@ -44,8 +44,8 @@
 - **Deployment artifacts:** Ensure GitHub Actions pipeline remains aligned with export scripts (`tools/export-menu.js`) and storage in `output/`.
 
 ## 5. Next Steps
-1. Prioritize high-impact automation tasks (unit tests for sync script, onboarding checklist).
+1. Prioritize high-impact automation tasks, starting with unit tests for `tools/sync-menu.js`.
 2. Schedule cross-functional review covering seasonal content updates and export cadence.
-3. Track progress using issue templates tied to roadmap sections and update `IMPLEMENTATION_PLAN.md` as milestones close.
+3. Track progress using issue templates tied to roadmap sections and update `IMPLEMENTATION_PLAN.md` as milestones close, calling out dependencies like release cadence documentation and print vendor specs.
 
 > For deeper context, consult `workflow/` for operational reminders, `design/` for visual assets, and `docs/` for technical guides.
