@@ -52,7 +52,8 @@ This guide explains how to maintain the `data/home-highlights.json` file that po
 
 ## Validation
 
-- Run `npm run check:all` to ensure the build scripts can parse all JSON files before committing.
+- Run `npm run check:all` to ensure the build scripts can parse all JSON files and confirm that each highlight URL is reachable.
+- If you're working offline, temporarily skip the network check with `SKIP_SOCIAL_LINK_CHECK=1 npm run check:all`.
 - You can also spot-check just this file with `node -e "JSON.parse(require('fs').readFileSync('data/home-highlights.json', 'utf8'))"`.
 
 ## Publishing cadence for social links

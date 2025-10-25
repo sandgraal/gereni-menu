@@ -15,7 +15,8 @@ assets/ → Imágenes e íconos
 assets/README.md → Pasos para recibir logos y texturas  
 tools/sync-menu.js → Script para sincronizar Markdown → JSON
 tools/validate-prices.js → Valida que los precios sigan el formato `₡0.000`
-design/canva/licenses/README.md → Registro detallado de licencias y evidencias  
+tools/validate-social-links.js → Revisa que los enlaces sociales sigan usando URLs válidas
+design/canva/licenses/README.md → Registro detallado de licencias y evidencias
 workflow/reminders.md → Agenda propuesta para recordatorios operativos
 docs/extract-images-from-pdf.md → Guía para extraer y limpiar fotos del menú original
 docs/contributor-onboarding.md → Checklist de incorporación para nuevas personas colaboradoras
@@ -29,7 +30,8 @@ docs/contributor-onboarding.md → Checklist de incorporación para nuevas perso
 
 1. Abre `content/menu.md` y actualiza nombres, precios o descripciones (formato `₡5.650`). Para una guía paso a paso del flujo completo (ramas, pruebas y exportaciones), consulta `docs/contributor-onboarding.md`. Para gestionar los especiales y novedades de la portada, sigue la guía de `docs/home-highlights.md` que explica el flujo distinto para `data/home-highlights.json`.
 2. Ejecuta `node tools/sync-menu.js` para regenerar `data/menu.json`.
-3. Ejecuta `npm run check:all` (valida precios, render y pruebas del parser de Markdown).
+3. Ejecuta `npm run check:all` (valida precios, enlaces sociales, render y pruebas del parser de Markdown).
+   - Si trabajas sin conexión o la red bloquea las peticiones a Facebook/Instagram, usa `SKIP_SOCIAL_LINK_CHECK=1 npm run check:all`.
 4. Haz commit y sube los cambios.
 5. Espera 1‑2 minutos y revisa tu sitio en:
 
