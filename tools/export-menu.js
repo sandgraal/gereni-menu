@@ -12,6 +12,8 @@ const puppeteer = require('puppeteer');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUTPUT_DIR = path.join(ROOT, 'output');
+const PHOTOS_DIR = path.join(ROOT, 'assets', 'photos');
+const HIGHLIGHT_FALLBACK_PATH = path.join(ROOT, 'data', 'highlight-fallbacks.json');
 const SCREEN_VARIATIONS = [
   { lang: 'es', theme: 'dark' },
   { lang: 'es', theme: 'light' },
@@ -33,6 +35,38 @@ const MIME_TYPES = {
 };
 
 const NO_SANDBOX_FLAGS = ['--no-sandbox', '--disable-setuid-sandbox'];
+const SUPPORTED_PHOTO_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp']);
+
+function collectAvailablePhotos() {
+  if (!fs.existsSync(PHOTOS_DIR)) {
+    return [];
+  }
+  return fs
+    .readdirSync(PHOTOS_DIR)
+    .filter(file => SUPPORTED_PHOTO_EXTENSIONS.has(path.extname(file).toLowerCase()))
+    .map(file => path.posix.join('assets/photos', file))
+    .sort((a, b) => a.localeCompare(b));
+}
+
+function readHighlightFallbacks() {
+  if (!fs.existsSync(HIGHLIGHT_FALLBACK_PATH)) {
+    return [];
+  }
+  try {
+    const payload = JSON.parse(fs.readFileSync(HIGHLIGHT_FALLBACK_PATH, 'utf8'));
+    return Array.isArray(payload) ? payload : [];
+  } catch (error) {
+    console.warn('No se pudo leer data/highlight-fallbacks.json:', error.message);
+    return [];
+  }
+}
+
+function getHighlightResources() {
+  return {
+    availablePhotos: collectAvailablePhotos(),
+    fallbackPhotos: readHighlightFallbacks()
+  };
+}
 
 function parseEnvArgs(value) {
   if (!value) {
@@ -155,6 +189,47 @@ async function applyPreferences(page, { lang, theme }) {
   );
 }
 
+async function ensureMenuReady(page, lang) {
+  await page.waitForFunction(
+    ({ lang }) => {
+      if (!window.GereniPdfLayout || typeof window.GereniPdfLayout.isReady !== 'function') {
+        return false;
+      }
+      return window.GereniPdfLayout.isReady(lang || null);
+    },
+    {},
+    { lang }
+  );
+}
+
+async function preparePdfLayout(page, resources, lang) {
+  await ensureMenuReady(page, lang);
+  const prepared = await page.evaluate(({ resources, lang }) => {
+    if (!window.GereniPdfLayout || typeof window.GereniPdfLayout.prepare !== 'function') {
+      return false;
+    }
+    return window.GereniPdfLayout.prepare({
+      availablePhotos: Array.isArray(resources?.availablePhotos) ? resources.availablePhotos : [],
+      fallbackPhotos: Array.isArray(resources?.fallbackPhotos) ? resources.fallbackPhotos : [],
+      expectedLang: lang || null
+    });
+  }, { resources, lang });
+
+  if (!prepared) {
+    throw new Error('No se pudo preparar el layout PDF automáticamente.');
+  }
+
+  await page.waitForTimeout(50);
+}
+
+async function resetPdfLayout(page) {
+  await page.evaluate(() => {
+    if (window.GereniPdfLayout && typeof window.GereniPdfLayout.reset === 'function') {
+      window.GereniPdfLayout.reset();
+    }
+  });
+}
+
 async function exportMenu() {
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -171,11 +246,14 @@ async function exportMenu() {
     browser = await launchBrowser();
     const page = await browser.newPage();
 
+    const highlightResources = getHighlightResources();
+
     // Generar PDFs digitales en todas las combinaciones de idioma/tema
     await page.goto(`${baseUrl}/menu.html`, { waitUntil: 'networkidle0' });
     await page.emulateMediaType('screen');
     for (const variant of SCREEN_VARIATIONS) {
       await applyPreferences(page, variant);
+      await preparePdfLayout(page, highlightResources, variant.lang);
       const fileName = getDigitalFileName(variant.lang, variant.theme);
       await page.pdf({
         path: path.join(OUTPUT_DIR, fileName),
@@ -183,6 +261,7 @@ async function exportMenu() {
         printBackground: true,
         preferCSSPageSize: true
       });
+      await resetPdfLayout(page);
       console.log(`✔ Generado output/${fileName}`);
     }
 
@@ -201,6 +280,7 @@ async function exportMenu() {
     await page.emulateMediaType('print');
     await page.reload({ waitUntil: 'networkidle0' });
     await applyPreferences(page, DEFAULT_SCREEN_VARIATION);
+    await preparePdfLayout(page, highlightResources, DEFAULT_SCREEN_VARIATION.lang);
     await page.pdf({
       path: path.join(OUTPUT_DIR, 'Menu_Gereni_print.pdf'),
       format: 'Letter',
@@ -213,6 +293,7 @@ async function exportMenu() {
         right: '0.5in'
       }
     });
+    await resetPdfLayout(page);
     console.log('✔ Generado output/Menu_Gereni_print.pdf');
   } finally {
     if (browser) {
