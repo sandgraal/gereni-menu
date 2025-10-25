@@ -1,0 +1,61 @@
+{
+  "ai-generated": true,
+  "specialMenus": [
+    {
+      "title": {
+        "es": "Parrillada del bosque",
+        "en": "Forest grill platter"
+      },
+      "description": {
+        "es": "Selección para compartir con chorizo artesanal, pollo ahumado y vegetales asados con romero de la finca.",
+        "en": "Shareable spread with house-made chorizo, smoked chicken, and farm rosemary grilled vegetables."
+      },
+      "price": "₡18 500",
+      "ctaLabel": {
+        "es": "Reservar mesa",
+        "en": "Reserve a table"
+      },
+      "url": "https://wa.me/50685351817"
+    },
+    {
+      "title": {
+        "es": "Cóctel de temporada",
+        "en": "Seasonal cocktail"
+      },
+      "description": {
+        "es": "Guayaba fresca, ron dorado y sirope de jengibre servido frappé para tardes tropicales.",
+        "en": "Fresh guava, golden rum, and ginger syrup served frozen for tropical afternoons."
+      },
+      "price": "₡4 800",
+      "url": "https://www.facebook.com/baryrestaurantegereni"
+    }
+  ],
+  "socialUpdates": [
+    {
+      "title": {
+        "es": "Música en vivo viernes",
+        "en": "Live music Friday"
+      },
+      "description": {
+        "es": "Acompáñanos este viernes a las 7 p.m. con boleros acústicos y cocteles 2x1 hasta las 9 p.m.",
+        "en": "Join us Friday at 7 p.m. for acoustic boleros and 2-for-1 cocktails until 9 p.m."
+      },
+      "ctaLabel": {
+        "es": "Confirmar asistencia",
+        "en": "RSVP"
+      },
+      "url": "https://www.facebook.com/events/"
+    },
+    {
+      "title": {
+        "es": "Nuevas historias en Instagram",
+        "en": "New stories on Instagram"
+      },
+      "description": {
+        "es": "Descubre los detrás de cámaras de la cocina y participa en encuestas sobre tus platillos favoritos.",
+        "en": "Peek behind the kitchen pass and vote in polls for your favorite dishes."
+      },
+      "url": "https://www.instagram.com/gerenibar"
+    }
+  ]
+}
