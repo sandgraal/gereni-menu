@@ -34,6 +34,28 @@
   .menu-empty {
     display: none !important;
   }
+  body.pdf-mode .menu-columns {
+    display: none !important;
+  }
+  body.pdf-mode .pdf-document {
+    display: flex !important;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  body.pdf-mode .pdf-page {
+    break-after: page;
+    box-shadow: none;
+    width: 100%;
+    min-height: auto;
+    padding: 0.5in 0.45in 0.6in;
+  }
+  body.pdf-mode .pdf-highlight__figure {
+    box-shadow: none;
+  }
+  body.pdf-mode main {
+    column-count: initial;
+    column-gap: 0;
+  }
   section {
     box-shadow: none;
     border: none;

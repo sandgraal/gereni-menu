@@ -539,6 +539,7 @@
 
     const sections = getRenderableSections(menuData, searchQuery);
     const hasResults = sections.some(section => Array.isArray(section.items) && section.items.length > 0);
+    const sectionCount = sections.length;
 
     updateEmptyState(hasResults, lang);
     updateUpdatedLabel(menuData, lang);
@@ -547,6 +548,11 @@
 
     if (!hasResults) {
       container.hidden = true;
+      container.setAttribute('data-rendered-lang', lang);
+      container.setAttribute('data-section-count', '0');
+      document.dispatchEvent(new CustomEvent('gereni:menuRendered', {
+        detail: { lang, sections: 0 }
+      }));
       updateStructuredData(menuData);
       return;
     }
@@ -578,6 +584,11 @@
     });
 
     columns.forEach(column => container.appendChild(column));
+    container.setAttribute('data-rendered-lang', lang);
+    container.setAttribute('data-section-count', String(sectionCount));
+    document.dispatchEvent(new CustomEvent('gereni:menuRendered', {
+      detail: { lang, sections: sectionCount }
+    }));
     updateStructuredData(menuData);
   }
 
