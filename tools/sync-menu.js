@@ -191,4 +191,17 @@ function main() {
   console.log(`Se actualizaron ${sections.length} secciones en data/menu.json`);
 }
 
-main();
+module.exports = {
+  normalizeKey,
+  resolvePrimaryText,
+  buildSectionKey,
+  buildItemKey,
+  createImageLookup,
+  splitBilingual,
+  parseMenuMarkdown,
+  main
+};
+
+if (require.main === module) {
+  main();
+}

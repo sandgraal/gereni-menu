@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build:fallback": "node tools/build-static-menu.js",
-    "check:all": "npm run build:fallback && npm run check:prices && npm run check:menu",
+    "check:all": "npm run build:fallback && npm run check:prices && npm run check:menu && npm run test:sync",
     "check:menu": "node tools/check-menu-render.js",
     "check:prices": "node tools/validate-prices.js",
-    "export:menu": "node tools/export-menu.js"
+    "export:menu": "node tools/export-menu.js",
+    "test:sync": "node tests/sync-menu.test.js"
   },
   "repository": {
     "type": "git",
