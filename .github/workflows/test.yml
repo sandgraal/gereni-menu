@@ -14,6 +14,11 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - run: npm ci || npm install
+      - run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
       - run: npx playwright install --with-deps || true
       - run: npx playwright test || echo 'No Playwright tests yet'
