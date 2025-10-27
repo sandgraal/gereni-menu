@@ -51,3 +51,8 @@ docs/contributor-onboarding.md → Checklist de incorporación para nuevas perso
 
 Diseño y estructura por ChatGPT + colaboración del equipo de Gereni.
 Licencia MIT.
+
+
+<!-- AI-STATUS:START -->
+Last AI agents run: 2025-10-27T04:09:23.817Z
+<!-- AI-STATUS:END -->
