@@ -244,7 +244,7 @@ async function reloadPageWithFallback(page, primaryOptions, fallbackOptions) {
     const waitDescription = Array.isArray(primaryOptions?.waitUntil)
       ? primaryOptions.waitUntil.join(', ')
       : primaryOptions?.waitUntil || 'load';
-    const timeoutDescription = primaryOptions?.timeout || page.getDefaultNavigationTimeout?.();
+    const timeoutDescription = primaryOptions?.timeout ?? page.getDefaultNavigationTimeout?.() ?? 'unknown';
 
     console.warn(
       `Reload timed out after waiting for "${waitDescription}" (${timeoutDescription || 'default timeout'} ms).`
