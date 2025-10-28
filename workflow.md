@@ -1,45 +1,86 @@
-# Flujo de Trabajo — Menú Gerení
+# Flujo de Trabajo — Menú Gereni
 
 ## Roles
 - **Contenido:** actualiza `content/menu.md`, valida precios y ortografía.
-- **Diseño/Maquetación:** mantiene la plantilla en Canva y aplica cambios visuales.
-- **Soporte técnico:** gestiona repositorio, exportes y control de versiones.
+- **Diseño/Maquetación:** mantiene la plantilla en Canva y verifica coherencia visual.
+- **Soporte técnico:** ejecuta scripts, automatizaciones y despliegue.
+
+---
 
 ## Ramas y Etiquetas
-- Rama principal: `main`.
-- Ramas de trabajo: `feat/<cambio>`, `fix/<ajuste>`, `chore/<mantenimiento>`.
-- Etiquetas de entrega a imprenta: `vYYYY.MM.menu`.
+- Rama principal: `main`
+- Ramas de trabajo: `feat/<cambio>`, `fix/<ajuste>`, `chore/<mantenimiento>`
+- Etiquetas de entrega a imprenta: `vYYYY.MM.menu`
+
+---
 
 ## Proceso de Actualización
-0. Revisar y actualizar `BACKLOG.md` para reflejar pendientes y responsables antes de comenzar.
+
+0. Revisar y actualizar el progreso en [`PROJECT_PLAN.md`](./PROJECT_PLAN.md).
 1. Actualizar `content/menu.md` con los cambios aprobados.
-2. Ejecutar `node tools/sync-menu.js` para reflejar el contenido en `data/menu.json`.
-3. Correr `npm run check:all` (valida precios y render web).
-4. Sincronizar la plantilla de Canva (copiar/pegar texto o ajustar directamente; validar enlaces según `design/canva/template-link.md`).
-5. Revisar checklist visual y ortográfico.
-6. Exportar `Menu_Gereni_print.pdf` y las variantes digitales (`Menu_Gereni_digital_es_dark.pdf`, `Menu_Gereni_digital_es_light.pdf`, `Menu_Gereni_digital_en_dark.pdf`, `Menu_Gereni_digital_en_light.pdf`) con `npm run export:menu`.
-7. Guardar PDFs en `output/`.
-8. Hacer commit describiendo el cambio (`feat: actualiza precios Antojitos`).
-9. Si la versión es para imprenta, crear tag `vYYYY.MM.menu`.
+2. Ejecutar sincronización:
+   ```bash
+   node tools/sync-menu.js
+   npm run check:all
+   ```
+3. Si se requiere exportación:
+   ```bash
+   npm run export:menu
+   ```
+   (Corrige dependencias de Puppeteer si es necesario: `sudo apt install libatk1.0-0`)
+4. Sincronizar Canva solo si hay cambios visuales no automatizados.
+5. Verificar que el QR funcione correctamente (puede automatizarse con `ai/scripts/analytics.mjs`).
+6. Confirmar actualización en `data/menu.json`.
+7. Commit descriptivo:
+   ```bash
+   git add .
+   git commit -m "feat: actualización menú Octubre 2025"
+   git push
+   ```
+8. Crear tag `vYYYY.MM.menu` si aplica.
+9. Confirmar despliegue automático mediante GitHub Actions.
+
+---
 
 ## Checklist de Publicación
-- [ ] `content/menu.md` actualizado y revisado.
-- [ ] Template de Canva sincronizado.
-- [ ] QR de alimentos y bebidas verificado y vigente.
-- [ ] `npm run check:all` sin errores.
-- [ ] PDFs exportados y verificados visualmente.
-- [ ] Commit y tag creados (si aplica).
-- [ ] Notificar al dueño sobre la actualización.
-- [ ] Licencias/evidencias actualizadas en `design/canva/licenses/README.md` (si se añadieron recursos).
-- [ ] Revisar recordatorios vigentes (`workflow/reminders.md`) al cierre de la sesión.
+
+- [ ] `content/menu.md` actualizado  
+- [ ] Canva sincronizado (solo si hubo cambios)  
+- [ ] QR validado  
+- [ ] `npm run check:all` sin errores  
+- [ ] Exportes PDF generados (`output/`)  
+- [ ] Commit y tag creados  
+- [ ] Despliegue automatizado completado  
+- [ ] Licencias actualizadas en `design/canva/licenses/README.md`  
+- [ ] Revisar recordatorios en `workflow/reminders.md`
+
+---
+
+## Automatización
+
+Los siguientes flujos se ejecutan automáticamente:
+- `update-menu-artifacts.yml` — exporta versiones digitales e imprime PDFs.  
+- `ai-changelog.yml` — mantiene actualizado el CHANGELOG.  
+- `deploy.yml` *(pendiente)* — publica cambios en Netlify/Vercel.  
+- `ai/scripts/data-sync.mjs` — sincroniza contenido y registros.  
+- `ai/scripts/analytics.mjs` — recopila métricas de visitas y descargas.
+
+---
 
 ## Emergencias / Cambios Rápidos
-- Foco en secciones afectadas (p. ej., cambio de precio puntual).
-- Actualizar Canva y `content/menu.md`.
-- Exportar únicamente la variante digital necesaria (p. ej. `Menu_Gereni_digital_es_dark.pdf`) si la versión impresa no cambia.
-- Comunicar en registro de cambios qué versión en papel sigue vigente.
+1. Editar solo las secciones afectadas en `content/menu.md`.  
+2. Correr sincronización mínima:
+   ```bash
+   node tools/sync-menu.js
+   npm run check:all
+   git commit -m "fix: ajuste urgente precios"
+   git push
+   ```
+3. Los workflows se encargan de regenerar y desplegar.
 
-## Registro de Validación de PDFs
-- 2025-10-10 — Digital: ✅ Revisado por soporte (exporte de 4 páginas).
-- 2025-10-10 — Print: ✅ Revisado en pantalla; pendiente prueba de impresión doméstica.
-- 2025-10-24 — Print: ⚠️ Prueba doméstica no ejecutada en entorno CI; verificar nota `workflow/proofs/2025-10-24-domestic-proof.md` para acciones siguientes.
+---
+
+## Referencias
+- [`PROJECT_PLAN.md`](./PROJECT_PLAN.md) — fases y tareas actuales.  
+- [`README.md`](./README.md) — descripción general del sistema.  
+- [`handoff.md`](./handoff.md) — acceso y traspaso de control.
