@@ -98,23 +98,23 @@ body.inicio main {
   justify-content:center;
   align-items:flex-start;
   width:100%;
-  padding:clamp(3rem, 12vh, 6.5rem) clamp(1.5rem, 5vw, 3rem) clamp(2.5rem, 8vh, 4rem);
-  margin-top:clamp(-5.5rem, -14vh, -3rem);
+  padding:clamp(2.5rem, 10vh, 5.5rem) clamp(1.5rem, 5vw, 3rem) clamp(2.5rem, 8vh, 4rem);
+  margin-top:clamp(1rem, 4vh, 2.5rem);
   box-sizing:border-box;
 }
 
 @media (max-width: 720px) {
   body.inicio main {
-    margin-top:clamp(-3.5rem, -14vw, -2rem);
-    padding-top:clamp(3rem, 18vw, 4.5rem);
+    margin-top:clamp(0.75rem, 6vw, 1.5rem);
+    padding-top:clamp(2.5rem, 18vw, 4rem);
     padding-bottom:clamp(2.25rem, 16vw, 3.5rem);
   }
 }
 
 @media (max-width: 520px) {
   body.inicio main {
-    margin-top:-1.5rem;
-    padding-top:clamp(2.75rem, 24vw, 3.75rem);
+    margin-top:clamp(0.5rem, 8vw, 1.25rem);
+    padding-top:clamp(2.25rem, 24vw, 3.5rem);
   }
 }
 
@@ -146,15 +146,17 @@ body.inicio main {
   background:var(--home-highlight-bg);
   border:1px solid var(--home-highlight-border);
   border-radius:28px;
-  padding:clamp(2rem, 4vw, 2.5rem);
+  padding:clamp(1.5rem, 3vw, 2rem);
   box-shadow:var(--card-shadow);
   backdrop-filter:blur(12px);
   color:var(--gereni-text);
   text-align:left;
   display:flex;
   flex-direction:column;
-  gap:clamp(1.5rem, 3vw, 2.1rem);
+  gap:clamp(0.75rem, 2vw, 1.25rem);
   overflow:hidden;
+  width:min(100%, 420px);
+  justify-self:start;
 }
 
 .home-highlights::before,
