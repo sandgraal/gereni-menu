@@ -16,9 +16,11 @@ const html = fs.readFileSync(indexPath, 'utf8');
 
 test('promo image has aria-describedby attribute', () => {
   // Check that the promo image has aria-describedby on the same <img> tag
-  // Use a regex that works regardless of attribute order
-  const hasClassAndAria = 
-    /<img[^>]*(class=["'][^"']*home-highlights__poster[^"']*["'][^>]*aria-describedby=["']promo-details["']|aria-describedby=["']promo-details["'][^>]*class=["'][^"']*home-highlights__poster[^"']*["'])[^>]*>/i.test(html);
+  // The regex handles both possible attribute orders for robustness
+  const classFirstPattern = /<img[^>]*class=["'][^"']*home-highlights__poster[^"']*["'][^>]*aria-describedby=["']promo-details["'][^>]*>/i;
+  const ariaFirstPattern = /<img[^>]*aria-describedby=["']promo-details["'][^>]*class=["'][^"']*home-highlights__poster[^"']*["'][^>]*>/i;
+  
+  const hasClassAndAria = classFirstPattern.test(html) || ariaFirstPattern.test(html);
   
   assert.ok(
     hasClassAndAria,
