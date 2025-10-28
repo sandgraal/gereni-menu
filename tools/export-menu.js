@@ -231,6 +231,29 @@ async function resetPdfLayout(page) {
   });
 }
 
+async function waitForDocumentState(page, allowedStates, { timeout = 5000, interval = 100 } = {}) {
+  const normalizedStates = Array.isArray(allowedStates)
+    ? allowedStates.filter(Boolean)
+    : [];
+
+  if (normalizedStates.length === 0) {
+    throw new Error('waitForDocumentState requiere al menos un estado permitido.');
+  }
+
+  const deadline = Date.now() + Math.max(timeout, 0);
+  const safeInterval = Math.max(interval, 50);
+
+  while (Date.now() <= deadline) {
+    const state = await page.evaluate(() => document.readyState);
+    if (normalizedStates.includes(state)) {
+      return state;
+    }
+    await page.waitForTimeout(safeInterval);
+  }
+
+  return null;
+}
+
 async function reloadPageWithFallback(page, primaryOptions, fallbackOptions) {
   try {
     await page.reload(primaryOptions);
@@ -267,16 +290,13 @@ async function reloadPageWithFallback(page, primaryOptions, fallbackOptions) {
       }
     }
 
-    const isDocumentReady = await page.evaluate(() => {
-      const state = document.readyState;
-      return state === 'complete';
-    });
+    const readyState = await waitForDocumentState(page, ['complete', 'interactive']);
 
-    if (!isDocumentReady) {
+    if (!readyState) {
       throw error;
     }
 
-    console.warn('Continuing because the document is already complete.');
+    console.warn(`Continuing because the document is already in readyState="${readyState}".`);
   }
 }
 
