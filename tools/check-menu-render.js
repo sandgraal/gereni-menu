@@ -73,9 +73,12 @@ async function main() {
 
   const sectionSummaries = sections.map((section, index) => {
     const titles = extractLocalizedText(section?.title || {});
-    const displayTitle = titles.es || titles.en || `Sección ${index + 1}`;
+    const displayTitle =
+      (titles.es && titles.es.trim()) ? titles.es.trim()
+      : (titles.en && titles.en.trim()) ? titles.en.trim()
+      : `Sección ${index + 1}`;
     const items = Array.isArray(section?.items) ? section.items : [];
-    return { title: displayTitle.trim() || `Sección ${index + 1}`, count: items.length };
+    return { title: displayTitle, count: items.length };
   });
 
   const formattedUpdated = formatUpdatedAt(menuData.updatedAt);
