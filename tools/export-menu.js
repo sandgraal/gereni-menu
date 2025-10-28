@@ -248,7 +248,7 @@ async function waitForDocumentState(page, allowedStates, { timeout = 5000, inter
     if (normalizedStates.includes(state)) {
       return state;
     }
-    await page.waitForTimeout(safeInterval);
+    await new Promise(resolve => setTimeout(resolve, safeInterval));
   }
 
   return null;
