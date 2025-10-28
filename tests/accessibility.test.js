@@ -14,53 +14,42 @@ function test(name, fn) {
 const indexPath = path.join(__dirname, '..', 'index.html');
 const html = fs.readFileSync(indexPath, 'utf8');
 
-test('promo image has aria-describedby attribute', () => {
-  // Check that the promo image has aria-describedby on the same <img> tag
-  // The regex handles both possible attribute orders for robustness
-  const classFirstPattern = /<img[^>]*class=["'][^"']*home-highlights__poster[^"']*["'][^>]*aria-describedby=["']promo-details["'][^>]*>/i;
-  const ariaFirstPattern = /<img[^>]*aria-describedby=["']promo-details["'][^>]*class=["'][^"']*home-highlights__poster[^"']*["'][^>]*>/i;
-  
-  const hasClassAndAria = classFirstPattern.test(html) || ariaFirstPattern.test(html);
-  
+test('home panel exposes a navigation landmark', () => {
+  const panelPattern = /<div[^>]*class=\"home-panel\"[^>]*role=\"navigation\"[^>]*aria-label=\"/i;
+
   assert.ok(
-    hasClassAndAria,
-    'Promo image should have aria-describedby="promo-details" on the same <img> element'
+    panelPattern.test(html),
+    'Home panel should expose role="navigation" with an aria-label for assistive tech'
   );
 });
 
-test('promo description span exists with sr-only class', () => {
-  // Check that the description span exists
+test('quick actions are presented as an unordered list', () => {
+  const listPattern = /<ul[^>]*class=\"home-actions\"[^>]*>[\s\S]*?<\/ul>/i;
+  const itemPattern = /<li[^>]*class=\"home-actions__item\"[^>]*>/i;
+
+  assert.ok(listPattern.test(html), 'Quick actions list <ul class="home-actions"> should exist');
+  assert.ok(itemPattern.test(html), 'Quick actions should use <li class="home-actions__item"> elements');
+});
+
+test('download link keeps dynamic class for PDF swapping', () => {
+  const downloadPattern = /<a[^>]*class=\"[^\"]*link-download[^\"]*\"[^>]*href=\"output\/Menu_Gereni_digital_es_dark.pdf\"[^>]*>/i;
+
   assert.ok(
-    html.includes('id="promo-details"') && html.includes('class="sr-only"'),
-    'Description span should exist with id="promo-details" and class="sr-only"'
+    downloadPattern.test(html),
+    'Download action should keep link-download class so the PDF updater can find it'
   );
 });
 
-test('promo description includes price information', () => {
-  // Check that the description includes price with standard format (₡5.500)
-  assert.ok(
-    html.includes('₡5.500'),
-    'Description should include the price ₡5.500'
-  );
-});
+test('social links remain external and open in a new tab', () => {
+  const socialPattern = /<a[^>]*class=\"[^\"]*home-actions__link--social[^\"]*\"[^>]*>/gi;
+  const matches = html.match(socialPattern) || [];
 
-test('promo description includes deadline information', () => {
-  // Check that the description mentions the deadline (either in Spanish or English)
-  assert.ok(
-    html.includes('domingo') || html.includes('Sunday'),
-    'Description should mention the deadline (domingo/Sunday)'
-  );
-});
+  assert.ok(matches.length >= 2, 'Both social actions should be rendered');
 
-test('promo description has bilingual support', () => {
-  // Check that the description has both Spanish and English versions
-  const hasSpanish = html.includes('data-i18n-es=') && html.includes('Lasaña con vino tinto');
-  const hasEnglish = html.includes('data-i18n-en=') && html.includes('Lasagna with red wine');
-  
-  assert.ok(
-    hasSpanish && hasEnglish,
-    'Description should have both Spanish (data-i18n-es) and English (data-i18n-en) translations'
-  );
+  matches.forEach((match) => {
+    assert.ok(match.includes('target="_blank"'), 'Social actions should use target="_blank"');
+    assert.ok(match.includes('rel="noopener"'), 'Social actions should include rel="noopener"');
+  });
 });
 
 // Run all tests
