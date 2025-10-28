@@ -243,7 +243,7 @@ async function waitForDocumentState(page, allowedStates, { timeout = 5000, inter
   const deadline = Date.now() + Math.max(timeout, 0);
   const safeInterval = Math.max(interval, 50);
 
-  while (Date.now() <= deadline) {
+  while (Date.now() < deadline) {
     const state = await page.evaluate(() => document.readyState);
     if (normalizedStates.includes(state)) {
       return state;
