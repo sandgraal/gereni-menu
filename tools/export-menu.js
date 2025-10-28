@@ -9,6 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const puppeteer = require('puppeteer');
+const { TimeoutError } = puppeteer.errors || {};
 
 const ROOT = path.resolve(__dirname, '..');
 const OUTPUT_DIR = path.join(ROOT, 'output');
@@ -230,6 +231,55 @@ async function resetPdfLayout(page) {
   });
 }
 
+async function reloadPageWithFallback(page, primaryOptions, fallbackOptions) {
+  try {
+    await page.reload(primaryOptions);
+    return;
+  } catch (error) {
+    const isTimeout = TimeoutError && error instanceof TimeoutError;
+    if (!isTimeout) {
+      throw error;
+    }
+
+    const waitDescription = Array.isArray(primaryOptions?.waitUntil)
+      ? primaryOptions.waitUntil.join(', ')
+      : primaryOptions?.waitUntil || 'load';
+    const timeoutDescription = primaryOptions?.timeout || page.getDefaultNavigationTimeout?.();
+
+    console.warn(
+      `Reload timed out after waiting for "${waitDescription}" (${timeoutDescription || 'default timeout'} ms).`
+    );
+
+    if (fallbackOptions) {
+      const fallbackWaitDescription = Array.isArray(fallbackOptions.waitUntil)
+        ? fallbackOptions.waitUntil.join(', ')
+        : fallbackOptions.waitUntil || 'load';
+      console.warn(`Retrying reload with waitUntil="${fallbackWaitDescription}".`);
+      try {
+        await page.reload({ ...primaryOptions, ...fallbackOptions });
+        return;
+      } catch (fallbackError) {
+        const fallbackTimedOut = TimeoutError && fallbackError instanceof TimeoutError;
+        if (!fallbackTimedOut) {
+          throw fallbackError;
+        }
+        console.warn('Fallback reload also timed out; verifying document readiness before continuing.');
+      }
+    }
+
+    const isDocumentReady = await page.evaluate(() => {
+      const state = document.readyState;
+      return state === 'complete' || state === 'interactive';
+    });
+
+    if (!isDocumentReady) {
+      throw error;
+    }
+
+    console.warn('Continuing because the document is already interactive.');
+  }
+}
+
 async function exportMenu() {
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -278,7 +328,11 @@ async function exportMenu() {
 
     // Generar PDF Print (estilos @media print)
     await page.emulateMediaType('print');
-    await page.reload({ waitUntil: 'networkidle0' });
+    await reloadPageWithFallback(
+      page,
+      { waitUntil: 'networkidle0', timeout: 45000 },
+      { waitUntil: 'domcontentloaded', timeout: 45000 }
+    );
     await applyPreferences(page, DEFAULT_SCREEN_VARIATION);
     await preparePdfLayout(page, highlightResources, DEFAULT_SCREEN_VARIATION.lang);
     await page.pdf({
