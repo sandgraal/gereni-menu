@@ -269,14 +269,14 @@ async function reloadPageWithFallback(page, primaryOptions, fallbackOptions) {
 
     const isDocumentReady = await page.evaluate(() => {
       const state = document.readyState;
-      return state === 'complete' || state === 'interactive';
+      return state === 'complete';
     });
 
     if (!isDocumentReady) {
       throw error;
     }
 
-    console.warn('Continuing because the document is already interactive.');
+    console.warn('Continuing because the document is already complete.');
   }
 }
 
