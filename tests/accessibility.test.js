@@ -16,9 +16,10 @@ const html = fs.readFileSync(indexPath, 'utf8');
 
 test('promo image has aria-describedby attribute', () => {
   // Check that the promo image has aria-describedby
+  // Use a regex to ensure both attributes are on the same <img> tag
   assert.ok(
-    html.includes('class="home-highlights__poster"') && html.includes('aria-describedby="promo-details"'),
-    'Promo image should have aria-describedby="promo-details"'
+    /<img[^>]*class=["'][^"']*home-highlights__poster[^"']*["'][^>]*aria-describedby=["']promo-details["'][^>]*>/i.test(html),
+    'Promo image should have aria-describedby="promo-details" on the same <img> element'
   );
 });
 
