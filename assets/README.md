@@ -19,7 +19,7 @@
 - Guarda las imágenes con fondo transparente en `assets/photos/` para usarlas tanto en web como en Canva.
 - Nombra los archivos con el patrón `categoria-nombre-plato.png` (ej. `gustitos-sopa-azteca.png`) para facilitar la búsqueda.
 - Traza el origen y licencia en `design/canva/licenses/` cuando se reciban nuevas fotografías o renders.
-- Si reemplazas una imagen, archiva la anterior siguiendo el flujo de `docs/extract-images-from-pdf.md`.
+- Si reemplazas una imagen, archiva la anterior siguiendo el flujo de `design/extract-images-from-pdf.md`.
 
 ## Texturas y fondos
 - Crea `assets/textures/` para papeles, fibras o ilustraciones de fondo.
