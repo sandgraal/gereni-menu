@@ -15,10 +15,13 @@ const indexPath = path.join(__dirname, '..', 'index.html');
 const html = fs.readFileSync(indexPath, 'utf8');
 
 test('promo image has aria-describedby attribute', () => {
-  // Check that the promo image has aria-describedby
-  // Use a regex to ensure both attributes are on the same <img> tag
+  // Check that the promo image has aria-describedby on the same <img> tag
+  // Use a regex that works regardless of attribute order
+  const hasClassAndAria = 
+    /<img[^>]*(class=["'][^"']*home-highlights__poster[^"']*["'][^>]*aria-describedby=["']promo-details["']|aria-describedby=["']promo-details["'][^>]*class=["'][^"']*home-highlights__poster[^"']*["'])[^>]*>/i.test(html);
+  
   assert.ok(
-    /<img[^>]*class=["'][^"']*home-highlights__poster[^"']*["'][^>]*aria-describedby=["']promo-details["'][^>]*>/i.test(html),
+    hasClassAndAria,
     'Promo image should have aria-describedby="promo-details" on the same <img> element'
   );
 });
