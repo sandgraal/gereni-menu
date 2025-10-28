@@ -10,10 +10,11 @@ function test(name, fn) {
   tests.push({ name, fn });
 }
 
+// Read HTML file once at module level for better performance
+const indexPath = path.join(__dirname, '..', 'index.html');
+const html = fs.readFileSync(indexPath, 'utf8');
+
 test('promo image has aria-describedby attribute', () => {
-  const indexPath = path.join(__dirname, '..', 'index.html');
-  const html = fs.readFileSync(indexPath, 'utf8');
-  
   // Check that the promo image has aria-describedby
   assert.ok(
     html.includes('class="home-highlights__poster"') && html.includes('aria-describedby="promo-details"'),
@@ -22,9 +23,6 @@ test('promo image has aria-describedby attribute', () => {
 });
 
 test('promo description span exists with sr-only class', () => {
-  const indexPath = path.join(__dirname, '..', 'index.html');
-  const html = fs.readFileSync(indexPath, 'utf8');
-  
   // Check that the description span exists
   assert.ok(
     html.includes('id="promo-details"') && html.includes('class="sr-only"'),
@@ -33,20 +31,14 @@ test('promo description span exists with sr-only class', () => {
 });
 
 test('promo description includes price information', () => {
-  const indexPath = path.join(__dirname, '..', 'index.html');
-  const html = fs.readFileSync(indexPath, 'utf8');
-  
-  // Check that the description includes price (either in Spanish or English)
+  // Check that the description includes price with standard format (₡5.500)
   assert.ok(
-    html.includes('₡5.500') || html.includes('₡5,500'),
-    'Description should include the price ₡5,500'
+    html.includes('₡5.500'),
+    'Description should include the price ₡5.500'
   );
 });
 
 test('promo description includes deadline information', () => {
-  const indexPath = path.join(__dirname, '..', 'index.html');
-  const html = fs.readFileSync(indexPath, 'utf8');
-  
   // Check that the description mentions the deadline (either in Spanish or English)
   assert.ok(
     html.includes('domingo') || html.includes('Sunday'),
@@ -55,9 +47,6 @@ test('promo description includes deadline information', () => {
 });
 
 test('promo description has bilingual support', () => {
-  const indexPath = path.join(__dirname, '..', 'index.html');
-  const html = fs.readFileSync(indexPath, 'utf8');
-  
   // Check that the description has both Spanish and English versions
   const hasSpanish = html.includes('data-i18n-es=') && html.includes('Lasaña con vino tinto');
   const hasEnglish = html.includes('data-i18n-en=') && html.includes('Lasagna with red wine');
