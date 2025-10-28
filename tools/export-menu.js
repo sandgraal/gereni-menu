@@ -237,7 +237,7 @@ async function waitForDocumentState(page, allowedStates, { timeout = 5000, inter
     : [];
 
   if (normalizedStates.length === 0) {
-    throw new Error('waitForDocumentState requiere al menos un estado permitido.');
+    throw new Error('waitForDocumentState requires at least one allowed state.');
   }
 
   const deadline = Date.now() + Math.max(timeout, 0);
