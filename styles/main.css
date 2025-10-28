@@ -220,6 +220,31 @@ body.inicio main {
   max-width:34ch;
 }
 
+.home-highlights__meta {
+  display:flex;
+  flex-direction:column;
+  gap:0.4rem;
+}
+
+.home-highlights__price {
+  margin:0;
+  align-self:flex-start;
+  padding:0.45rem 0.95rem;
+  border-radius:999px;
+  background-color:var(--home-highlight-chip);
+  color:var(--gereni-brown);
+  font-weight:700;
+  font-size:clamp(1.2rem, 3vw, 1.7rem);
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+}
+
+.home-highlights__serving {
+  margin:0;
+  font-size:0.95rem;
+  color:var(--gereni-muted);
+}
+
 .home-highlights__feature {
   margin:0;
   background:var(--home-highlight-card);
