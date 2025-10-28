@@ -1,58 +1,114 @@
 # 🍽️ Gereni Bar y Restaurante – Menú Editable
 
-Este repositorio contiene el menú oficial del Gereni Bar y Restaurante.
-Está diseñado para que cualquier persona pueda **editar precios, platos o descripciones fácilmente**.
+Repositorio oficial del **menú digital y para impresión** del Gereni Bar y Restaurante.  
+Permite editar precios, descripciones y fotografías fácilmente, generando automáticamente versiones web y PDF.
+
+---
 
 ## 📂 Estructura
 
-index.html → Página principal  
-menu.html → Menú cargado dinámicamente  
-content/menu.md → Fuente de verdad del contenido  
-data/menu.json → Archivo generado para la web  
-styles/ → Estilos visuales  
-scripts/ → Código para cargar el menú  
-assets/ → Imágenes e íconos  
-assets/README.md → Pasos para recibir logos y texturas  
-tools/sync-menu.js → Script para sincronizar Markdown → JSON
-tools/validate-prices.js → Valida que los precios sigan el formato `₡0.000`
-tools/validate-social-links.js → Revisa que los enlaces sociales sigan usando URLs válidas
-design/canva/licenses/README.md → Registro detallado de licencias y evidencias
-workflow/reminders.md → Agenda propuesta para recordatorios operativos
-docs/extract-images-from-pdf.md → Guía para extraer y limpiar fotos del menú original
-docs/contributor-onboarding.md → Checklist de incorporación para nuevas personas colaboradoras
+| Ruta | Descripción |
+|------|--------------|
+| `index.html` | Página principal |
+| `menu.html` | Menú dinámico cargado desde `data/menu.json` |
+| `content/menu.md` | Fuente editable (Markdown) del menú |
+| `data/menu.json` | Versión generada para la web |
+| `ai/scripts/` | Scripts automatizados (análisis, sincronización, optimización) |
+| `assets/` | Imágenes, íconos y logotipos |
+| `tools/validate-prices.js` | Valida formato `₡0.000` |
+| `tools/sync-menu.js` | Sincroniza Markdown → JSON |
+| `tools/validate-social-links.js` | Verifica enlaces sociales válidos |
+| `service-worker.js` | Soporte PWA y modo offline |
+| `design/canva/licenses/` | Evidencias y licencias de diseño |
+| `PROJECT_PLAN.md` | Plan y progreso consolidado del proyecto |
+
+---
 
 ## ⚙️ Requisitos
 
-- Node.js 18+ para ejecutar `tools/sync-menu.js`.
-- Python 3.8+ (opcional) para `tools/qr/generate.py`.
+- **Node.js 18+**  
+  Ejecuta los scripts de sincronización y exportación.  
+- **Python 3.8+ (opcional)**  
+  Para generar códigos QR en `tools/qr/`.
+
+Instalar dependencias:
+```bash
+npm install
+```
+
+---
 
 ## ✏️ Cómo editar el menú
 
-1. Abre `content/menu.md` y actualiza nombres, precios o descripciones (formato `₡5.650`). Para una guía paso a paso del flujo completo (ramas, pruebas y exportaciones), consulta `docs/contributor-onboarding.md`. Para gestionar los especiales y novedades de la portada, sigue la guía de `docs/home-highlights.md` que explica el flujo distinto para `data/home-highlights.json`.
-2. Ejecuta `node tools/sync-menu.js` para regenerar `data/menu.json`.
-3. Ejecuta `npm run check:all` (valida precios, enlaces sociales, render y pruebas del parser de Markdown).
-   - Si trabajas sin conexión o la red bloquea las peticiones a Facebook/Instagram, usa `SKIP_SOCIAL_LINK_CHECK=1 npm run check:all`.
-4. Haz commit y sube los cambios.
-5. Espera 1‑2 minutos y revisa tu sitio en:
+1. Edita `content/menu.md`  
+   - Usa el formato `₡5.650` para precios.  
+   - Respeta los encabezados de sección y formato bilingüe (ES/EN).  
+2. Sincroniza el contenido:
+   ```bash
+   node tools/sync-menu.js
+   ```
+3. Valida consistencia:
+   ```bash
+   npm run check:all
+   ```
+   Si trabajas sin red:
+   ```bash
+   SKIP_SOCIAL_LINK_CHECK=1 npm run check:all
+   ```
+4. Exporta versiones PDF:
+   ```bash
+   npm run export:menu
+   ```
+   Si falla Puppeteer, instala:
+   ```bash
+   sudo apt install libatk1.0-0
+   ```
+5. Haz commit y sube los cambios:
+   ```bash
+   git add .
+   git commit -m "Actualización de menú"
+   git push
+   ```
 
-👉 `https://sandgraal.github.io/gereni-menu/menu.html`
+---
 
-- Si la plantilla de Canva aún no tiene acceso compartido, sigue `design/canva/template-link.md` para habilitar el enlace editable antes de copiar texto.
-- Para mostrar el feed correcto, reemplaza la URL de `data-href` en `index.html` con la página oficial de Facebook.
+## 🚀 Automatización y CI/CD
 
-## 🖰️ Versión para impresión
+Scripts en `ai/scripts/`:
+- `analytics.mjs` — Rastreo de visitas y descargas.  
+- `data-sync.mjs` — Actualiza `data/menu.json` de forma automática.  
+- `image-optimize.mjs` — Optimiza imágenes antes de despliegue.  
+- `package-render.mjs` — Genera paquetes listos para publicación.
 
-- Ejecuta `npm run export:menu` para generar `output/Menu_Gereni_print.pdf` y las variantes digitales sincronizadas con temas e idiomas (`Menu_Gereni_digital_es_dark.pdf`, `Menu_Gereni_digital_es_light.pdf`, `Menu_Gereni_digital_en_dark.pdf`, `Menu_Gereni_digital_en_light.pdf`). El archivo `Menu_Gereni_digital.pdf` se mantiene como alias de la versión en español oscuro para compatibilidad.
-- Alternativamente, abre `menu.html`, presiona **Ctrl + P** y selecciona “Guardar como PDF”.  
-  Los estilos de impresión (`styles/print.css`) se aplican automáticamente.
-- Cada push en `main` dispara el flujo **Update Menu Artifacts** en GitHub Actions. Este sincroniza `data/menu.json`, regenera los PDFs y los commitea si hay cambios. También puedes lanzarlo manualmente desde la pestaña “Actions”.
+Workflows en `.github/workflows/`:
+- `ai-changelog.yml` — Actualiza el CHANGELOG.  
+- `update-menu-artifacts.yml` — Exporta automáticamente versiones del menú.  
+- `deploy.yml` *(pendiente)* — Despliegue continuo en Netlify/Vercel.
 
-## 🎨 Créditos
+---
 
-Diseño y estructura por ChatGPT + colaboración del equipo de Gereni.
-Licencia MIT.
+## 📱 Progressive Web App (PWA)
 
+El archivo `service-worker.js` permite:
+- Carga offline del menú y fotos.
+- Cacheo automático de `data/menu.json` y assets.  
+Prueba abriendo el sitio una vez, luego desconéctate y recarga.
 
-<!-- AI-STATUS:START -->
-Last AI agents run: 2025-10-27T04:09:23.817Z
-<!-- AI-STATUS:END -->
+---
+
+## 🗂️ Plan del Proyecto
+
+El progreso completo, hitos y responsables se gestionan en  
+[`PROJECT_PLAN.md`](./PROJECT_PLAN.md)
+
+---
+
+## 📚 Recursos adicionales
+
+- `workflow/reminders.md` — Recordatorios operativos.  
+- `handoff.md` — Guía para la transferencia de control al propietario.
+
+---
+
+© 2025 Gereni Bar y Restaurante  
+Desarrollado con ❤️ por el equipo de soporte técnico y diseño.
