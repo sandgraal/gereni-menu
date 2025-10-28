@@ -1,0 +1,22 @@
+{
+  "ai-generated": true,
+  "specialMenus": [
+    {
+      "title": {
+        "es": "Lasaña artesanal + vino tinto",
+        "en": "House lasagna + red wine"
+      },
+      "description": {
+        "es": "Capas de pasta fresca con ragú lento de res, bechamel de romero y una copa de Cabernet Sauvignon costarricense.",
+        "en": "Fresh pasta layered with slow-braised beef ragù, rosemary béchamel, and a pour of Costa Rican Cabernet Sauvignon."
+      },
+      "price": "₡16.500",
+      "ctaLabel": {
+        "es": "Ver especial",
+        "en": "See special"
+      },
+      "url": "https://sandgraal.github.io/gereni-menu/menu.html"
+    }
+  ],
+  "socialUpdates": []
+}
