@@ -93,6 +93,16 @@ function isSandboxLaunchError(error) {
   return /No usable sandbox/.test(error.message) || /zygote_host_impl_linux\.cc/.test(error.message);
 }
 
+function isNavigationTimeoutError(error) {
+  if (!error) {
+    return false;
+  }
+  if (TimeoutError && error instanceof TimeoutError) {
+    return true;
+  }
+  return error.name === 'TimeoutError';
+}
+
 async function launchBrowser() {
   const extraArgs = parseEnvArgs(process.env.PUPPETEER_EXTRA_ARGS);
   const buildOptions = additionalArgs => {
@@ -259,8 +269,7 @@ async function reloadPageWithFallback(page, primaryOptions, fallbackOptions) {
     await page.reload(primaryOptions);
     return;
   } catch (error) {
-    const isTimeout = TimeoutError && error instanceof TimeoutError;
-    if (!isTimeout) {
+    if (!isNavigationTimeoutError(error)) {
       throw error;
     }
 
@@ -282,8 +291,7 @@ async function reloadPageWithFallback(page, primaryOptions, fallbackOptions) {
         await page.reload({ ...primaryOptions, ...fallbackOptions });
         return;
       } catch (fallbackError) {
-        const fallbackTimedOut = TimeoutError && fallbackError instanceof TimeoutError;
-        if (!fallbackTimedOut) {
+        if (!isNavigationTimeoutError(fallbackError)) {
           throw fallbackError;
         }
         console.warn('Fallback reload also timed out; verifying document readiness before continuing.');
