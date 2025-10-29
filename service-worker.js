@@ -93,6 +93,34 @@ const cacheFirst = async (request) => {
   return response;
 };
 
+const staleWhileRevalidate = async (request, event) => {
+  const cache = await caches.open(SHELL_CACHE);
+  const cached = await cache.match(request);
+
+  const networkFetch = fetch(request)
+    .then((response) => {
+      if (response && response.ok) {
+        cache.put(request, response.clone());
+      }
+      return response;
+    })
+    .catch(() => undefined);
+
+  if (cached) {
+    if (event) {
+      event.waitUntil(networkFetch);
+    }
+    return cached;
+  }
+
+  const response = await networkFetch;
+  if (response) {
+    return response;
+  }
+
+  return fetch(request);
+};
+
 const networkFirstData = async (request) => {
   const cache = await caches.open(DATA_CACHE);
   try {
@@ -192,6 +220,16 @@ self.addEventListener('fetch', (event) => {
 
   if (url.pathname.endsWith('/data/menu.json')) {
     event.respondWith(networkFirstData(request));
+    return;
+  }
+
+  if (
+    url.pathname.startsWith('/styles/') ||
+    url.pathname.startsWith('/scripts/') ||
+    url.pathname.endsWith('.css') ||
+    url.pathname.endsWith('.js')
+  ) {
+    event.respondWith(staleWhileRevalidate(request, event));
     return;
   }
 
