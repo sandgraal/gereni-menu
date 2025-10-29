@@ -108,8 +108,8 @@
     const overlayElement = ensureOverlay();
     if (overlayElement && !overlayElement.isConnected) {
       body.appendChild(overlayElement);
-      playOverlayEntrance(overlayElement);
-    } else if (overlayElement) {
+    }
+    if (overlayElement) {
       playOverlayEntrance(overlayElement);
     }
     if (spiderLayer) {
