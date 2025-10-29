@@ -2768,7 +2768,7 @@ body.inicio.holiday--halloween::after {
 .spectral-nav__link:focus-visible {
   outline:2px solid rgba(255,214,162,0.75);
   outline-offset:2px;
-}
+  opacity:var(--halloween-wisp-opacity, 0.63);
 
 .spectral-nav__item[data-active="true"] .spectral-nav__link {
   color:#ffeedd;
