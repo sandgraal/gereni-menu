@@ -1248,7 +1248,10 @@ body[data-theme="dark"] .language-toggle button.active {
 }
 
 body[data-theme="dark"].inicio::before {
-  background-image:linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.92)), url('../assets/El_Rancho.jpg');
+  background-image:
+    linear-gradient(rgba(14,14,14,0.6), rgba(14,14,14,0.78)),
+    url('../assets/El_Rancho.jpg');
+  background-blend-mode:multiply;
 }
 
 body[data-theme="dark"].inicio header {
@@ -2036,9 +2039,18 @@ body.pdf-mode .pdf-document {
 }
 
 body.inicio.holiday--halloween::before {
-  background-image:linear-gradient(125deg, rgba(255,120,48,0.38), rgba(88,42,156,0.42)),
+  background-image:
+    linear-gradient(125deg, rgba(255,120,48,0.32), rgba(88,42,156,0.34)),
     url('../assets/El_Rancho.jpg');
   background-blend-mode:overlay;
+}
+
+body[data-theme="dark"].inicio.holiday--halloween::before {
+  background-image:
+    linear-gradient(125deg, rgba(255,120,48,0.26), rgba(88,42,156,0.28)),
+    linear-gradient(rgba(14,14,14,0.58), rgba(14,14,14,0.78)),
+    url('../assets/El_Rancho.jpg');
+  background-blend-mode:overlay, multiply;
 }
 
 body.inicio.holiday--halloween::after {
