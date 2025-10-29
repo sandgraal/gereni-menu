@@ -358,7 +358,7 @@ async function exportMenu() {
     await page.emulateMediaType('print');
     await reloadPageWithFallback(
       page,
-      { waitUntil: 'networkidle0', timeout: 45000 },
+      { waitUntil: 'networkidle2', timeout: 45000 },
       { waitUntil: 'domcontentloaded', timeout: 45000 }
     );
     await applyPreferences(page, DEFAULT_SCREEN_VARIATION);
