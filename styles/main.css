@@ -325,6 +325,65 @@ body.inicio main {
   border:1px solid rgba(91,58,41,0.18);
 }
 
+body.inicio.holiday--halloween .home-actions__link {
+  color:#3c2217;
+  background:linear-gradient(165deg, rgba(255,236,210,0.94) 0%, rgba(255,196,138,0.78) 45%, rgba(166,118,244,0.16) 100%);
+  box-shadow:0 22px 54px rgba(80,36,120,0.25);
+}
+
+body.inicio.holiday--halloween .home-actions__link::before {
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:inherit;
+  background:
+    radial-gradient(circle at 24% 28%, rgba(255,164,72,0.55) 0%, rgba(255,164,72,0) 58%),
+    radial-gradient(circle at 78% 32%, rgba(142,96,255,0.45) 0%, rgba(142,96,255,0) 64%);
+  mix-blend-mode:screen;
+  opacity:0.55;
+  pointer-events:none;
+  transform:scale(1);
+  transition:opacity 0.4s ease;
+  animation:halloweenEmberPulse 6.5s ease-in-out infinite;
+}
+
+body.inicio.holiday--halloween .home-actions__link:hover,
+body.inicio.holiday--halloween .home-actions__link:focus {
+  animation:halloweenButtonWobble 0.85s ease-out both;
+}
+
+body.inicio.holiday--halloween .home-actions__link:hover::before,
+body.inicio.holiday--halloween .home-actions__link:focus::before {
+  opacity:0.85;
+}
+
+body.inicio.holiday--halloween .home-actions__link::after {
+  background:radial-gradient(circle at 26% 24%, rgba(255,255,255,0.6), transparent 60%);
+}
+
+body.inicio.holiday--halloween .home-actions__link--primary {
+  background:linear-gradient(145deg, #bb3b0f 0%, #8c2ed8 58%, #4d1694 100%);
+  color:#fff;
+  box-shadow:0 28px 60px rgba(70,24,120,0.45);
+  text-shadow:0 0 12px rgba(0,0,0,0.35);
+}
+
+body.inicio.holiday--halloween .home-actions__link--primary::after {
+  background:radial-gradient(circle at 28% 26%, rgba(255,255,255,0.72), transparent 58%);
+}
+
+body.inicio.holiday--halloween .home-actions__link--secondary {
+  background:linear-gradient(152deg, rgba(246,195,137,0.98) 0%, rgba(240,140,56,0.82) 52%, rgba(122,84,188,0.32) 100%);
+  border:1px solid rgba(153,72,28,0.28);
+  color:#3c2217;
+}
+
+body.inicio.holiday--halloween .home-actions__icon {
+  background:rgba(255,255,255,0.24);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.45), inset 0 0 14px rgba(255,142,72,0.45), inset 0 0 22px rgba(120,82,200,0.35), 0 12px 24px rgba(0,0,0,0.14);
+  animation:halloweenEmberPulse 5.5s ease-in-out infinite;
+}
+
 .home-actions__icon {
   display:flex;
   align-items:center;
@@ -2377,6 +2436,46 @@ body.inicio.holiday--halloween::after {
   --spider-sway-direction:1;
 }
 
+@keyframes halloweenButtonWobble {
+  0% {
+    transform:translateY(-3px) scale(1) rotate(0deg);
+  }
+  18% {
+    transform:translateY(-6px) scale(1.02) rotate(-1.8deg);
+  }
+  35% {
+    transform:translateY(-2px) scale(1.01) rotate(1.4deg);
+  }
+  52% {
+    transform:translateY(-5px) scale(1.015) rotate(-1deg);
+  }
+  70% {
+    transform:translateY(-3px) scale(1.005) rotate(0.6deg);
+  }
+  100% {
+    transform:translateY(-3px) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes halloweenEmberPulse {
+  0%, 100% {
+    opacity:0.45;
+    transform:scale(1);
+  }
+  30% {
+    opacity:0.82;
+    transform:scale(1.04);
+  }
+  55% {
+    opacity:0.65;
+    transform:scale(0.98);
+  }
+  78% {
+    opacity:0.88;
+    transform:scale(1.02);
+  }
+}
+
 @keyframes holidayFlicker {
   0% {
     opacity:0.55;
@@ -2526,6 +2625,20 @@ body.inicio.holiday--halloween::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body.inicio.holiday--halloween .home-actions__link::before {
+    animation:none !important;
+    opacity:0.55;
+  }
+
+  body.inicio.holiday--halloween .home-actions__icon {
+    animation:none !important;
+  }
+
+  body.inicio.holiday--halloween .home-actions__link:hover,
+  body.inicio.holiday--halloween .home-actions__link:focus {
+    animation:none !important;
+  }
+
   body.inicio.holiday--halloween::after {
     animation:none;
     opacity:0.55;
