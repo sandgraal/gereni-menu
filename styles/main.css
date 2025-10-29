@@ -1422,7 +1422,6 @@ body.menu-page > header {
 
 body.menu-page > main {
   flex:1 0 auto;
-  width:100%;
 }
 
 body.menu-page > footer {
