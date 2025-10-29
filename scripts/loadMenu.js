@@ -31,6 +31,18 @@
     restaurantId: 'https://sandgraal.github.io/gereni-menu/#restaurant'
   };
 
+  function slugify(value) {
+    if (!value) {
+      return '';
+    }
+    return String(value)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  }
+
   let menuData = null;
   let container = null;
   let updatedLabel = null;
@@ -572,7 +584,18 @@
     sections.forEach((section, index) => {
       const sectionEl = document.createElement('section');
       sectionEl.classList.add('menu-section');
+      sectionEl.setAttribute('data-collapsed', 'false');
       sectionEl.appendChild(createSectionTitle(section, lang, secondaryLang));
+
+      const slugSource =
+        resolveText(section.title, 'es') ||
+        resolveText(section.title, 'en') ||
+        resolveText(section.title, lang) ||
+        '';
+      const sectionId = slugify(slugSource);
+      if (sectionId) {
+        sectionEl.setAttribute('data-section-id', sectionId);
+      }
 
       (section.items || []).forEach(item => {
         const dish = createDish(item, lang, secondaryLang);

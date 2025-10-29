@@ -23,6 +23,8 @@ const INDENT_UNIT = '  ';
 const MENU_URL = 'https://sandgraal.github.io/gereni-menu/menu.html';
 const RESTAURANT_ID = 'https://sandgraal.github.io/gereni-menu/#restaurant';
 
+let sectionCounter = 0;
+
 function escapeHtml(value) {
   if (value === undefined || value === null) return '';
   return String(value)
@@ -40,6 +42,16 @@ function indent(level, text) {
 function resolveText(obj, lang, fallbackLang) {
   if (!obj || typeof obj !== 'object') return '';
   return obj[lang] || obj[fallbackLang] || '';
+}
+
+function slugify(value) {
+  if (!value) return '';
+  return String(value)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 }
 
 function sanitizePriceForSchema(price) {
@@ -179,7 +191,7 @@ function replaceSchemaScript(source, schemaJson) {
   return `${before}\n${schemaJson}\n${after}`;
 }
 
-function renderDish(item, primaryLang, secondaryLang) {
+function renderDish(item, primaryLang, secondaryLang, indentLevel = 3) {
   const namePrimary = resolveText(item.name, primaryLang, secondaryLang);
   const nameSecondary = resolveText(item.name, secondaryLang, primaryLang);
   const hasSecondaryName = nameSecondary && nameSecondary !== namePrimary;
@@ -197,31 +209,31 @@ function renderDish(item, primaryLang, secondaryLang) {
     classes.push('dish--with-image');
   }
 
-  lines.push(indent(3, `<article class="${classes.join(' ')}">`));
+  lines.push(indent(indentLevel, `<article class="${classes.join(' ')}">`));
   if (image) {
-    lines.push(indent(4, '<figure class="dish-media">'));
-    lines.push(indent(5, `<img src="${escapeHtml(image)}" alt="${escapeHtml(displayName)}" loading="lazy"/>`));
-    lines.push(indent(4, '</figure>'));
+    lines.push(indent(indentLevel + 1, '<figure class="dish-media">'));
+    lines.push(indent(indentLevel + 2, `<img src="${escapeHtml(image)}" alt="${escapeHtml(displayName)}" loading="lazy"/>`));
+    lines.push(indent(indentLevel + 1, '</figure>'));
   }
-  lines.push(indent(4, '<div class="dish-content">'));
-  lines.push(indent(5, '<div class="dish-header">'));
-  lines.push(indent(6, `<span class="dish-name">${escapeHtml(displayName)}</span>`));
+  lines.push(indent(indentLevel + 1, '<div class="dish-content">'));
+  lines.push(indent(indentLevel + 2, '<div class="dish-header">'));
+  lines.push(indent(indentLevel + 3, `<span class="dish-name">${escapeHtml(displayName)}</span>`));
   if (hasPrice) {
-    lines.push(indent(6, '<span class="dish-leader" aria-hidden="true"></span>'));
-    lines.push(indent(6, `<span class="dish-price">${escapeHtml(price)}</span>`));
+    lines.push(indent(indentLevel + 3, '<span class="dish-leader" aria-hidden="true"></span>'));
+    lines.push(indent(indentLevel + 3, `<span class="dish-price">${escapeHtml(price)}</span>`));
   }
-  lines.push(indent(5, '</div>'));
+  lines.push(indent(indentLevel + 2, '</div>'));
   if (hasSecondaryName) {
-    lines.push(indent(5, `<span class="dish-name-alt">${escapeHtml(nameSecondary)}</span>`));
+    lines.push(indent(indentLevel + 2, `<span class="dish-name-alt">${escapeHtml(nameSecondary)}</span>`));
   }
   if (descriptionPrimary) {
-    lines.push(indent(5, `<p class="dish-description">${escapeHtml(descriptionPrimary)}</p>`));
+    lines.push(indent(indentLevel + 2, `<p class="dish-description">${escapeHtml(descriptionPrimary)}</p>`));
   }
   if (hasSecondaryDescription) {
-    lines.push(indent(5, `<p class="dish-description dish-description--alt">${escapeHtml(descriptionSecondary)}</p>`));
+    lines.push(indent(indentLevel + 2, `<p class="dish-description dish-description--alt">${escapeHtml(descriptionSecondary)}</p>`));
   }
-  lines.push(indent(4, '</div>'));
-  lines.push(indent(3, '</article>'));
+  lines.push(indent(indentLevel + 1, '</div>'));
+  lines.push(indent(indentLevel, '</article>'));
 
   return lines.join('\n');
 }
@@ -229,20 +241,48 @@ function renderDish(item, primaryLang, secondaryLang) {
 function renderSection(section, primaryLang, secondaryLang) {
   const titlePrimary = resolveText(section.title, primaryLang, secondaryLang);
   const titleSecondary = resolveText(section.title, secondaryLang, primaryLang);
+  const slugSource = titlePrimary || titleSecondary || '';
+  sectionCounter += 1;
+  const baseSlug = slugify(slugSource) || `seccion-${sectionCounter}`;
+  const contentId = `menu-section-content-${baseSlug}`;
+  const sectionAttributes = [`class="menu-section"`, `data-collapsed="false"`];
+  if (baseSlug) {
+    sectionAttributes.push(`data-section-id="${baseSlug}"`);
+  }
   const lines = [];
 
-  lines.push(indent(2, '<section class="menu-section">'));
+  lines.push(indent(2, `<section ${sectionAttributes.join(' ')}>`));
   lines.push(indent(3, '<h2 class="menu-section__title">'));
-  lines.push(indent(4, `<span class="menu-section__title-primary">${escapeHtml(titlePrimary || titleSecondary)}</span>`));
+  lines.push(
+    indent(
+      4,
+      `<button type="button" class="menu-section__toggle" aria-expanded="true" aria-controls="${contentId}">`
+    )
+  );
+  lines.push(indent(5, '<span class="menu-section__label">'));
+  lines.push(indent(6, `<span class="menu-section__title-primary">${escapeHtml(titlePrimary || titleSecondary)}</span>`));
   if (titleSecondary && titleSecondary !== titlePrimary) {
-    lines.push(indent(4, `<span class="menu-section__title-secondary">${escapeHtml(titleSecondary)}</span>`));
+    lines.push(indent(6, `<span class="menu-section__title-secondary">${escapeHtml(titleSecondary)}</span>`));
   }
+  lines.push(indent(5, '</span>'));
+  lines.push(indent(5, '<span class="menu-section__chevron" aria-hidden="true">'));
+  lines.push(
+    indent(
+      6,
+      '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path d="M5.47 8.47a.75.75 0 0 1 1.06 0L12 13.94l5.47-5.47a.75.75 0 0 1 1.06 1.06l-6 6a.75.75 0 0 1-1.06 0l-6-6a.75.75 0 0 1 0-1.06Z" fill="currentColor"/></svg>'
+    )
+  );
+  lines.push(indent(5, '</span>'));
+  lines.push(indent(4, '</button>'));
   lines.push(indent(3, '</h2>'));
+  lines.push(indent(3, `<div class="menu-section__content" id="${contentId}" aria-hidden="false">`));
 
   const items = Array.isArray(section.items) ? section.items : [];
   items.forEach(item => {
-    lines.push(renderDish(item, primaryLang, secondaryLang));
+    lines.push(renderDish(item, primaryLang, secondaryLang, 4));
   });
+
+  lines.push(indent(3, '</div>'));
 
   lines.push(indent(2, '</section>'));
   return lines.join('\n');
