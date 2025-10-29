@@ -4,6 +4,7 @@
   const HALLOWEEN_VALUE = 'halloween';
   const BODY_CLASS = 'holiday--halloween';
   const OVERLAY_CLASS = 'seasonal-overlay';
+  const OVERLAY_ENTER_CLASS = 'seasonal-overlay--enter';
   const SPIDER_LAYER_CLASS = 'seasonal-overlay__spider-layer';
   const SPIDER_CLASS = 'seasonal-overlay__spider';
   const SPIDER_BODY_CLASS = 'seasonal-overlay__spider-body';
@@ -54,9 +55,20 @@
     return overlay;
   }
 
+  function playOverlayEntrance(element) {
+    if (!element) {
+      return;
+    }
+    element.classList.remove(OVERLAY_ENTER_CLASS);
+    // Force a reflow so the animation can replay when the overlay is reattached.
+    void element.offsetWidth;
+    element.classList.add(OVERLAY_ENTER_CLASS);
+  }
+
   function removeOverlay() {
     if (overlay && overlay.isConnected) {
       overlay.remove();
+      overlay.classList.remove(OVERLAY_ENTER_CLASS);
       overlay = null;
       spiderLayer = null;
     }
@@ -96,6 +108,9 @@
     const overlayElement = ensureOverlay();
     if (overlayElement && !overlayElement.isConnected) {
       body.appendChild(overlayElement);
+      playOverlayEntrance(overlayElement);
+    } else if (overlayElement) {
+      playOverlayEntrance(overlayElement);
     }
     if (spiderLayer) {
       startSpiders();

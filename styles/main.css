@@ -529,6 +529,18 @@ body.inicio main {
   flex-wrap:wrap;
 }
 
+.home-social__hashtag {
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0, 0, 0, 0);
+  white-space:nowrap;
+  border:0;
+}
+
 .home-social__link {
   display:inline-flex;
   align-items:center;
@@ -650,6 +662,66 @@ html[data-theme="dark"] .home-social__link--instagram {
   border:none;
 }
 
+body.inicio.holiday--halloween .home-social__hashtag {
+  position:relative;
+  width:auto;
+  height:auto;
+  margin:0.35rem 0 0;
+  padding:0.4rem 0.9rem 0.6rem;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.4rem;
+  max-width:100%;
+  border:0;
+  border-radius:999px;
+  overflow:visible;
+  clip:auto;
+  clip-path:none;
+  white-space:normal;
+  text-align:center;
+  line-height:1.35;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:#ffe0ff;
+  text-shadow:0 0 6px rgba(248,115,255,0.6), 0 0 12px rgba(255,164,88,0.5);
+  background:rgba(28,12,40,0.32);
+  box-shadow:0 6px 22px rgba(0,0,0,0.2);
+  animation:homeHashtagNeonPulse 2s ease-in-out infinite alternate;
+}
+
+body.inicio.holiday--halloween .home-social__hashtag::after {
+  content:"";
+  position:absolute;
+  left:12%;
+  right:12%;
+  bottom:0.15rem;
+  height:0.3rem;
+  border-radius:999px;
+  background:radial-gradient(circle, rgba(255,178,102,0.55) 0%, rgba(255,178,102,0.08) 70%);
+  filter:blur(2px);
+  box-shadow:0 0 16px rgba(248,115,255,0.55);
+  pointer-events:none;
+}
+
+@keyframes homeHashtagNeonPulse {
+  0% {
+    text-shadow:0 0 6px rgba(248,115,255,0.7), 0 0 12px rgba(255,164,88,0.5);
+  }
+
+  100% {
+    text-shadow:0 0 14px rgba(255,210,255,0.95), 0 0 24px rgba(255,140,92,0.65);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.inicio.holiday--halloween .home-social__hashtag {
+    animation:none;
+    text-shadow:0 0 12px rgba(255,210,255,0.85), 0 0 22px rgba(255,140,92,0.6);
+  }
+}
+
 @media (max-width: 640px) {
   .home-panel {
     width:100%;
@@ -673,6 +745,18 @@ html[data-theme="dark"] .home-social__link--instagram {
     flex:1 1 calc(50% - 0.6rem);
     justify-content:center;
     text-align:center;
+  }
+}
+
+@media (max-width: 600px) {
+  body.inicio.holiday--halloween .home-social__hashtag {
+    align-self:stretch;
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.25rem;
+    margin-top:0.5rem;
+    padding:0.55rem 0.75rem 0.75rem;
+    letter-spacing:0.06em;
   }
 }
 
@@ -2074,6 +2158,20 @@ body.inicio.holiday--halloween::after {
   overflow:hidden;
   z-index:1;
   mix-blend-mode:screen;
+}
+
+.seasonal-overlay--enter {
+  animation:seasonalOverlayFadeIn 260ms ease-out forwards;
+}
+
+@keyframes seasonalOverlayFadeIn {
+  from {
+    opacity:0;
+  }
+
+  to {
+    opacity:1;
+  }
 }
 
 .seasonal-overlay__glow {
