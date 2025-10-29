@@ -354,7 +354,7 @@ function normalizeIndentation(block) {
     if (!line.trim()) {
       return min;
     }
-    const match = line.match(/^ */);
+    const match = line.match(/^[ \t]*/);
     const spaces = match ? match[0].length : 0;
     return Math.min(min, spaces);
   }, Infinity);
