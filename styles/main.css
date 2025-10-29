@@ -1461,6 +1461,22 @@ body.pdf-mode .pdf-document {
   padding-top:clamp(0.55rem, 1.4vw, 1rem);
 }
 
+.pdf-page .menu-section__toggle {
+  border-bottom:1px solid rgba(91,58,41,0.18);
+  cursor:default;
+  padding:0 0 0.65rem;
+  gap:0.3rem;
+  pointer-events:none;
+}
+
+.pdf-page .menu-section__chevron {
+  display:none;
+}
+
+.pdf-page .menu-section__content {
+  display:flex !important;
+}
+
 .pdf-highlight {
   margin-top:auto;
   display:flex;
@@ -1753,8 +1769,35 @@ body.pdf-mode .pdf-document {
 
 .menu-section__title {
   margin:0;
-  padding-bottom:0.85rem;
+}
+
+.menu-section__toggle {
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:clamp(0.75rem, 1.4vw, 1.15rem);
+  padding:0 0 0.85rem;
+  background:none;
+  border:none;
   border-bottom:2px solid rgba(91,58,41,0.16);
+  cursor:pointer;
+  text-align:left;
+  color:inherit;
+  font:inherit;
+  transition:border-color 0.2s ease;
+}
+
+.menu-section__toggle:hover {
+  border-bottom-color:rgba(91,58,41,0.28);
+}
+
+.menu-section__toggle:focus-visible {
+  outline:2px solid var(--gereni-green);
+  outline-offset:4px;
+}
+
+.menu-section__label {
   display:flex;
   flex-direction:column;
   gap:0.3rem;
@@ -1774,6 +1817,49 @@ body.pdf-mode .pdf-document {
   text-transform:uppercase;
   letter-spacing:0.28em;
   color:var(--gereni-muted);
+}
+
+.menu-section__chevron {
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  width:2rem;
+  height:2rem;
+  border-radius:50%;
+  background:rgba(91,58,41,0.12);
+  color:var(--gereni-brown);
+  transition:background 0.2s ease;
+}
+
+.menu-section__chevron svg {
+  width:1rem;
+  height:1rem;
+  transition:transform 0.2s ease;
+}
+
+.menu-section__toggle:hover .menu-section__chevron {
+  background:rgba(91,58,41,0.18);
+}
+
+.menu-section__content {
+  display:flex;
+  flex-direction:column;
+  gap:clamp(0.9rem, 1.4vw, 1.25rem);
+}
+
+.menu-section[data-collapsed="true"] .menu-section__content {
+  display:none;
+}
+
+.menu-section[data-collapsed="true"] .menu-section__chevron svg {
+  transform:rotate(-90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-section__toggle,
+  .menu-section__chevron svg {
+    transition:none;
+  }
 }
 
 .menu-footer {
