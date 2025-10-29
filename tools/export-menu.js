@@ -250,7 +250,7 @@ async function waitForDocumentState(page, allowedStates, options = {}) {
     throw new Error('waitForDocumentState requires at least one allowed state.');
   }
 
-  const { timeout, interval } = options || {};
+  const { timeout, interval } = options;
   const hasCustomTimeout = timeout !== undefined;
   const parsedTimeout = Number(timeout);
   const effectiveTimeout = hasCustomTimeout && !Number.isNaN(parsedTimeout) && parsedTimeout >= 0
