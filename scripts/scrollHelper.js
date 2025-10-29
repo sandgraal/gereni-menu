@@ -115,7 +115,9 @@
     });
 
     slider.addEventListener('change', () => {
-      syncToScroll();
+      if (!isUserSliding) {
+        syncToScroll();
+      }
     });
 
     slider.addEventListener('pointerdown', () => {
