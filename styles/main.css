@@ -2144,6 +2144,105 @@ body.inicio.holiday--halloween::after {
   animation:seasonalLanternRear 16s ease-in-out infinite;
 }
 
+.seasonal-overlay__spider-layer {
+  position:absolute;
+  inset:-10% 0 0;
+  pointer-events:none;
+  overflow:visible;
+  z-index:2;
+}
+
+.seasonal-overlay__spider {
+  position:absolute;
+  top:-18%;
+  left:var(--spider-left, 50%);
+  width:64px;
+  height:120px;
+  transform-origin:50% 0;
+  transform:translate3d(-50%, -120%, 0) scale(var(--spider-scale, 1));
+  animation:seasonalSpiderDrop var(--spider-duration, 5.5s) cubic-bezier(0.32, 0, 0.18, 1) forwards;
+  filter:drop-shadow(0 10px 22px rgba(0,0,0,0.6));
+}
+
+.seasonal-overlay__spider-body {
+  position:absolute;
+  top:48px;
+  left:50%;
+  width:38px;
+  height:46px;
+  transform:translate(-50%, -50%);
+  border-radius:45% 45% 55% 55%;
+  background:
+    radial-gradient(circle at 40% 35%, rgba(69,63,72,0.35) 0%, rgba(69,63,72,0) 60%),
+    radial-gradient(circle at 70% 30%, rgba(255,73,98,0.45) 0%, rgba(255,73,98,0) 55%),
+    radial-gradient(circle at 50% 60%, rgba(16,13,21,0.95) 0%, rgba(16,13,21,0.1) 82%);
+}
+
+.seasonal-overlay__spider-eyes {
+  position:absolute;
+  top:56px;
+  left:50%;
+  width:26px;
+  height:12px;
+  transform:translateX(-50%);
+  display:flex;
+  justify-content:space-between;
+}
+
+.seasonal-overlay__spider-eyes::before,
+.seasonal-overlay__spider-eyes::after {
+  content:'';
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:radial-gradient(circle at 40% 40%, rgba(255,255,255,0.75) 0%, rgba(255,68,80,0.9) 45%, rgba(255,68,80,0.15) 100%);
+  box-shadow:0 0 8px rgba(255,68,80,0.85);
+  animation:seasonalSpiderBlink 4.5s ease-in-out infinite;
+}
+
+.seasonal-overlay__spider-web {
+  position:absolute;
+  top:0;
+  left:50%;
+  width:2px;
+  height:100%;
+  transform:translateX(-50%);
+  transform-origin:50% 0;
+  background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(218,206,255,0.45) 35%, rgba(128,105,182,0.4) 100%);
+  opacity:0.85;
+  animation:seasonalSpiderThread var(--spider-duration, 5.5s) ease-out forwards;
+}
+
+.seasonal-overlay__spider::before,
+.seasonal-overlay__spider::after {
+  content:'';
+  position:absolute;
+  left:50%;
+  width:64px;
+  height:56px;
+  transform:translateX(-50%);
+  border-radius:50%;
+}
+
+.seasonal-overlay__spider::before {
+  top:58px;
+  background:
+    linear-gradient(105deg, rgba(12,8,15,0.92) 40%, rgba(37,31,52,0.65) 100%);
+  clip-path:polygon(6% 54%, 22% 34%, 36% 62%, 50% 32%, 64% 60%, 78% 38%, 94% 58%, 94% 72%, 79% 64%, 64% 86%, 52% 60%, 40% 90%, 23% 64%, 6% 76%);
+}
+
+.seasonal-overlay__spider::after {
+  top:62px;
+  background:
+    linear-gradient(140deg, rgba(18,15,24,0.95) 35%, rgba(0,0,0,0.4) 100%);
+  clip-path:polygon(8% 52%, 20% 30%, 36% 55%, 50% 28%, 64% 52%, 80% 27%, 93% 50%, 83% 68%, 67% 46%, 52% 80%, 38% 44%, 24% 80%, 11% 54%);
+  filter:drop-shadow(0 5px 14px rgba(0,0,0,0.55));
+}
+
+.seasonal-overlay__spider--animating {
+  --spider-sway-direction:1;
+}
+
 @keyframes holidayFlicker {
   0% {
     opacity:0.55;
@@ -2231,6 +2330,67 @@ body.inicio.holiday--halloween::after {
   }
 }
 
+@keyframes seasonalSpiderDrop {
+  0% {
+    opacity:0;
+    transform:translate3d(calc(-50% + (var(--spider-sway-direction, 1) * -30px)), -140%, 0) scale(var(--spider-scale, 1));
+  }
+  20% {
+    opacity:1;
+    transform:translate3d(calc(-50% + (var(--spider-sway-direction, 1) * 12px)), 5%, 0) scale(calc(var(--spider-scale, 1) * 1.08));
+  }
+  45% {
+    transform:translate3d(calc(-50% - (var(--spider-sway-direction, 1) * 14px)), 28%, 0) scale(calc(var(--spider-scale, 1) * 1.02));
+  }
+  65% {
+    transform:translate3d(calc(-50% + (var(--spider-sway-direction, 1) * 10px)), 36%, 0) scale(calc(var(--spider-scale, 1) * 1.05));
+  }
+  78% {
+    transform:translate3d(calc(-50% - (var(--spider-sway-direction, 1) * 6px)), 24%, 0) scale(var(--spider-scale, 1));
+  }
+  100% {
+    opacity:0;
+    transform:translate3d(calc(-50% + (var(--spider-sway-direction, 1) * 20px)), -160%, 0) scale(calc(var(--spider-scale, 1) * 0.75));
+  }
+}
+
+@keyframes seasonalSpiderThread {
+  0% {
+    transform:scaleY(0);
+    opacity:0;
+  }
+  12% {
+    transform:scaleY(1);
+    opacity:0.9;
+  }
+  65% {
+    transform:scaleY(0.95);
+    opacity:0.9;
+  }
+  85% {
+    transform:scaleY(0.35);
+    opacity:0.7;
+  }
+  100% {
+    transform:scaleY(0);
+    opacity:0;
+  }
+}
+
+@keyframes seasonalSpiderBlink {
+  0%, 85%, 100% {
+    transform:scaleY(1);
+    filter:drop-shadow(0 0 8px rgba(255,68,80,0.85));
+  }
+  88% {
+    transform:scaleY(0.25);
+    filter:drop-shadow(0 0 4px rgba(255,68,80,0.65));
+  }
+  92% {
+    transform:scaleY(1.05);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   body.inicio.holiday--halloween::after {
     animation:none;
@@ -2245,13 +2405,18 @@ body.inicio.holiday--halloween::after {
   body.inicio.holiday--halloween .seasonal-overlay__glow,
   body.inicio.holiday--halloween .seasonal-overlay__bat,
   body.inicio.holiday--halloween .seasonal-overlay__lantern,
-  body.inicio.holiday--halloween .seasonal-overlay__lantern::after {
+  body.inicio.holiday--halloween .seasonal-overlay__lantern::after,
+  body.inicio.holiday--halloween .seasonal-overlay__spider,
+  body.inicio.holiday--halloween .seasonal-overlay__spider-web,
+  body.inicio.holiday--halloween .seasonal-overlay__spider-eyes::before,
+  body.inicio.holiday--halloween .seasonal-overlay__spider-eyes::after {
     animation:none !important;
     transform:none !important;
   }
 
   body.inicio.holiday--halloween .seasonal-overlay__bats,
-  body.inicio.holiday--halloween .seasonal-overlay__lanterns {
+  body.inicio.holiday--halloween .seasonal-overlay__lanterns,
+  body.inicio.holiday--halloween .seasonal-overlay__spider-layer {
     display:none;
   }
 }
