@@ -118,7 +118,7 @@ const staleWhileRevalidate = async (request, event) => {
     return response;
   }
 
-  return fetch(request);
+  throw new Error('Resource unavailable: not in cache and network fetch failed');
 };
 
 const networkFirstData = async (request) => {
