@@ -739,7 +739,7 @@
     const message = document.createElement('p');
     message.className = 'token-popup__message';
     message.textContent = currentLang === 'en'
-      ? 'Disfruta tu risa de bruja exclusiva y presume tus hallazgos en redes.'
+      ? 'Enjoy your exclusive witch laugh and show off your findings on social media.'
       : 'Disfruta la risa embrujada exclusiva y presume tus hallazgos en redes.';
     const close = document.createElement('button');
     close.className = 'token-popup__close';
