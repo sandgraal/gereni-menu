@@ -337,6 +337,14 @@ body.inicio main {
   color:rgba(255,255,255,0.82);
 }
 
+@media (max-width: 899px) {
+  .home-highlight {
+    /* The `order` property only works if the parent container uses `display: flex` or `display: grid`. */
+    order:-1;
+    margin-top:0;
+  }
+}
+
 .home-highlight {
   margin-top:1.75rem;
   padding:1.5rem;
