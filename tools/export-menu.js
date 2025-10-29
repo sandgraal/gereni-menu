@@ -325,8 +325,11 @@ async function reloadPageWithFallback(page, primaryOptions, fallbackOptions) {
     ];
 
     const resolvedTimeout = candidateTimeouts.find(value => {
-      const numericValue = Number(value);
-      return Number.isFinite(numericValue) && numericValue >= 0;
+      if (value != null && value !== '') {
+        const numericValue = Number(value);
+        return Number.isFinite(numericValue) && numericValue >= 0;
+      }
+      return false;
     });
 
     const readyState = await waitForDocumentState(
