@@ -14,6 +14,11 @@
   --home-highlight-card-border:rgba(91,58,41,0.22);
   --home-highlight-card-glow:rgba(255,214,162,0.28);
   --home-highlight-card-glow-secondary:rgba(146,176,135,0.32);
+  --home-background-image:url('../assets/El_Rancho.jpg');
+  --home-background-overlay:linear-gradient(rgba(243,232,213,0.68), rgba(243,232,213,0.72));
+  --home-background-blend-mode:normal;
+  --home-background-position:center 8%;
+  --home-background-position-mobile:center 18%;
 }
 
 :root[data-theme="dark"] {
@@ -32,6 +37,10 @@
   --home-highlight-card-border:rgba(234,215,192,0.28);
   --home-highlight-card-glow:rgba(111,147,98,0.32);
   --home-highlight-card-glow-secondary:rgba(255,214,162,0.18);
+  --home-background-overlay:linear-gradient(rgba(14,14,14,0.6), rgba(14,14,14,0.78));
+  --home-background-blend-mode:multiply;
+  --home-background-position:center 8%;
+  --home-background-position-mobile:center 18%;
 }
 
 :root[data-theme="light"] {
@@ -100,16 +109,17 @@ body.inicio::before {
   inset:0;
   z-index:-2;
   pointer-events:none;
-  background-image:linear-gradient(rgba(243,232,213,0.68), rgba(243,232,213,0.72)), url('../assets/El_Rancho.jpg');
+  background-image:var(--home-background-overlay), var(--home-background-image);
   background-size:cover;
-  background-position:center 8%;
+  background-position:var(--home-background-position);
   background-repeat:no-repeat;
+  background-blend-mode:var(--home-background-blend-mode);
   transform: translateZ(0);
 }
 
 @media (max-width: 640px) {
   body.inicio::before {
-    background-position: center 18%;
+    background-position: var(--home-background-position-mobile);
   }
 }
 
@@ -1274,13 +1284,6 @@ body[data-theme="dark"] .theme-toggle button.active,
 body[data-theme="dark"] .language-toggle button.active {
   background-color:var(--gereni-brown);
   color:#0f110d;
-}
-
-body[data-theme="dark"].inicio::before {
-  background-image:
-    linear-gradient(rgba(14,14,14,0.6), rgba(14,14,14,0.78)),
-    url('../assets/El_Rancho.jpg');
-  background-blend-mode:multiply;
 }
 
 body[data-theme="dark"].inicio header {
