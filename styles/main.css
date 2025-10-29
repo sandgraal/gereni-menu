@@ -52,6 +52,10 @@
   --home-highlight-card-glow-secondary:rgba(146,176,135,0.32);
 }
 
+html {
+  background-color: var(--gereni-cream);
+}
+
 * {
   box-sizing:border-box;
 }
@@ -63,6 +67,12 @@ body {
   background-color:var(--gereni-cream);
   color:var(--gereni-text);
   line-height:1.5;
+}
+
+@supports (min-height: 100dvh) {
+  body {
+    min-height: 100dvh;
+  }
 }
 
 .sr-only {
@@ -82,10 +92,25 @@ body.inicio {
   display:flex;
   flex-direction:column;
   text-align:center;
+}
+
+body.inicio::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
   background-image:linear-gradient(rgba(243,232,213,0.68), rgba(243,232,213,0.72)), url('../assets/El_Rancho.jpg');
   background-size:cover;
   background-position:center 8%;
   background-repeat:no-repeat;
+  transform: translateZ(0);
+}
+
+@media (max-width: 640px) {
+  body.inicio::before {
+    background-position: center 18%;
+  }
 }
 
 main {
@@ -1182,7 +1207,47 @@ body[data-theme="dark"] {
   color:var(--gereni-text);
 }
 
-body[data-theme="dark"].inicio {
+body[data-theme="dark"] .control-dropdown__trigger {
+  background-color:rgba(25,23,21,0.88);
+  color:var(--gereni-text);
+  box-shadow:0 14px 28px rgba(0,0,0,0.45);
+}
+
+body[data-theme="dark"] .control-dropdown.is-open .control-dropdown__trigger {
+  background-color:var(--gereni-green);
+  color:#0f110d;
+}
+
+body[data-theme="dark"] .control-dropdown__panel {
+  background-color:rgba(19,19,18,0.95);
+  box-shadow:0 30px 58px rgba(0,0,0,0.55);
+}
+
+body[data-theme="dark"] .control-section__title {
+  color:rgba(234,215,192,0.75);
+}
+
+body[data-theme="dark"] .theme-toggle,
+body[data-theme="dark"] .language-toggle {
+  background-color:rgba(32,30,28,0.9);
+  box-shadow:0 10px 24px rgba(0,0,0,0.45);
+}
+
+body[data-theme="dark"] .theme-toggle button:hover,
+body[data-theme="dark"] .theme-toggle button:focus-visible,
+body[data-theme="dark"] .language-toggle button:hover,
+body[data-theme="dark"] .language-toggle button:focus-visible {
+  background-color:rgba(234,215,192,0.22);
+  color:var(--gereni-brown);
+}
+
+body[data-theme="dark"] .theme-toggle button.active,
+body[data-theme="dark"] .language-toggle button.active {
+  background-color:var(--gereni-brown);
+  color:#0f110d;
+}
+
+body[data-theme="dark"].inicio::before {
   background-image:linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.92)), url('../assets/El_Rancho.jpg');
 }
 
@@ -1334,6 +1399,12 @@ body.menu-page {
   min-height:100vh;
   width:100%;
   box-sizing:border-box;
+}
+
+@supports (min-height: 100dvh) {
+  body.menu-page {
+    min-height: 100dvh;
+  }
 }
 
 .pdf-document {
@@ -1878,7 +1949,7 @@ body.pdf-mode .pdf-document {
   }
 }
 
-body.inicio.holiday--halloween {
+body.inicio.holiday--halloween::before {
   background-image:linear-gradient(125deg, rgba(255,120,48,0.38), rgba(88,42,156,0.42)),
     url('../assets/El_Rancho.jpg');
   background-blend-mode:overlay;
