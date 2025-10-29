@@ -41,6 +41,7 @@
   function removeOverlay() {
     if (overlay && overlay.isConnected) {
       overlay.remove();
+      overlay = null;
     }
   }
 
