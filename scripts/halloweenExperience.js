@@ -94,6 +94,7 @@
   const itemSectionMap = new WeakMap();
   let navObserver = null;
   let navWisp = null;
+  const itemSectionMap = new WeakMap();
   let countdownTarget = null;
   let countdownTimer = null;
   let countdownElements = null;
