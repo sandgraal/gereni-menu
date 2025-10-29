@@ -114,12 +114,25 @@
     }
   }
 
+  // Store reference to handler for cleanup
+  const motionQueryHandler = updateEffect;
+  let motionQueryCleanup = null;
   if (motionQuery) {
     if (typeof motionQuery.addEventListener === 'function') {
-      motionQuery.addEventListener('change', updateEffect);
+      motionQuery.addEventListener('change', motionQueryHandler);
+      motionQueryCleanup = () => {
+        motionQuery.removeEventListener('change', motionQueryHandler);
+      };
     } else if (typeof motionQuery.addListener === 'function') {
-      motionQuery.addListener(updateEffect);
+      motionQuery.addListener(motionQueryHandler);
+      motionQueryCleanup = () => {
+        motionQuery.removeListener(motionQueryHandler);
+      };
     }
+  }
+  // Remove event listener on unload to prevent memory leaks
+  if (motionQueryCleanup) {
+    window.addEventListener('unload', motionQueryCleanup);
   }
 
   if (document.readyState === 'loading') {
