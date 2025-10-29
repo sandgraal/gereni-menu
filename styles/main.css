@@ -3445,15 +3445,15 @@ footer .spirit-token {
 }
 
 /* Gate Halloween sections behind holiday--halloween flag */
-.spectral-nav,
-.candle-marker,
-.countdown,
-.spellbook,
-.potion,
-.ar-invites,
-.spirit-token,
-.token-popup,
-.preference-button--sound,
+body.inicio .spectral-nav,
+body.inicio .candle-marker,
+body.inicio .countdown,
+body.inicio .spellbook,
+body.inicio .potion,
+body.inicio .ar-invites,
+body.inicio .spirit-token,
+body.inicio .token-popup,
+body.inicio .preference-button--sound,
 body.inicio .home-social__hashtag {
   display:none !important;
 }
@@ -3490,35 +3490,35 @@ body.inicio.holiday--halloween .preference-button--sound {
 }
 
 @media (max-width: 720px) {
-  .spectral-nav {
+  body.inicio.holiday--halloween .spectral-nav {
     top:clamp(0.35rem, 3vh, 1rem);
     margin-top:1rem;
   }
 
-  .spectral-nav__list {
+  body.inicio.holiday--halloween .spectral-nav__list {
     flex-wrap:wrap;
     justify-content:center;
   }
 
-  .spectral-nav__wisp {
-    display:none;
+  body.inicio.holiday--halloween .spectral-nav__wisp {
+    display:none !important;
   }
 
-  .home-social .spirit-token {
+  body.inicio.holiday--halloween .home-social .spirit-token {
     position:static;
     align-self:flex-end;
     margin-top:0.75rem;
   }
 
-  .countdown .spirit-token,
-  .ar-invites .spirit-token {
+  body.inicio.holiday--halloween .countdown .spirit-token,
+  body.inicio.holiday--halloween .ar-invites .spirit-token {
     position:static;
     margin-top:1rem;
   }
 
-  footer .spirit-token {
+  body.inicio.holiday--halloween footer .spirit-token {
     position:static;
-    display:inline-flex;
+    display:inline-flex !important;
     margin-top:0.75rem;
   }
 }
