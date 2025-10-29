@@ -323,6 +323,23 @@ async function exportMenu() {
   try {
     browser = await launchBrowser();
     const page = await browser.newPage();
+    await page.evaluateOnNewDocument(() => {
+      window.__DISABLE_SW__ = true;
+      try {
+        Object.defineProperty(navigator, 'serviceWorker', {
+          configurable: true,
+          get() {
+            return undefined;
+          }
+        });
+      } catch (error) {
+        try {
+          navigator.serviceWorker = undefined;
+        } catch (innerError) {
+          // ignore if the property is read-only.
+        }
+      }
+    });
 
     const highlightResources = getHighlightResources();
 
