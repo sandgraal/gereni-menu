@@ -6,6 +6,8 @@
   let hasStoredPreference = false;
   let systemPreferenceWatcherAttached = false;
   let currentTheme = FALLBACK_THEME;
+  let themeToggleButton = null;
+  let themeToggleLabel = null;
 
   function sanitizeTheme(theme) {
     if (typeof theme !== 'string') return FALLBACK_THEME;
@@ -73,6 +75,51 @@
     });
   }
 
+  function getCurrentLanguage() {
+    try {
+      if (window.GereniLang && typeof window.GereniLang.getCurrent === 'function') {
+        return window.GereniLang.getCurrent();
+      }
+    } catch (err) {
+      console.warn('No se pudo determinar el idioma actual:', err);
+    }
+    return 'es';
+  }
+
+  function updateThemeToggleButton(theme) {
+    if (!themeToggleButton) return;
+
+    const lang = getCurrentLanguage();
+    const langSuffix = lang === 'en' ? 'En' : 'Es';
+    const stateKey = theme === 'light' ? 'Light' : 'Dark';
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+
+    themeToggleButton.dataset.themeState = theme;
+    themeToggleButton.setAttribute('data-theme-state', theme);
+    themeToggleButton.dataset.themeNext = nextTheme;
+    themeToggleButton.setAttribute('data-theme-next', nextTheme);
+    themeToggleButton.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+
+    if (themeToggleLabel) {
+      const labelKey = `themeLabel${stateKey}${langSuffix}`;
+      const labelValue = themeToggleButton.dataset[labelKey] || themeToggleLabel.textContent;
+      themeToggleLabel.textContent = labelValue;
+    }
+
+    const nextKey = theme === 'dark' ? `themeNextDark${langSuffix}` : `themeNextLight${langSuffix}`;
+    const nextLabel = themeToggleButton.dataset[nextKey];
+    if (nextLabel) {
+      themeToggleButton.setAttribute('aria-label', nextLabel);
+      themeToggleButton.title = nextLabel;
+    }
+  }
+
+  function handleThemeButtonClick(event) {
+    event.preventDefault();
+    const nextTheme = themeToggleButton?.getAttribute('data-theme-next') || (currentTheme === 'dark' ? 'light' : 'dark');
+    setTheme(nextTheme);
+  }
+
   function handleSystemPreferenceChange() {
     if (hasStoredPreference) return;
     const systemTheme = getSystemTheme();
@@ -109,6 +156,7 @@
     currentTheme = normalized;
     applyTheme(currentTheme);
     updateToggleState(currentTheme);
+    updateThemeToggleButton(currentTheme);
     if (persist) {
       hasStoredPreference = true;
       writeStoredTheme(currentTheme);
@@ -128,6 +176,15 @@
   function init() {
     updateToggleState(currentTheme);
     document.addEventListener('click', handleToggleClick);
+    themeToggleButton = document.querySelector('[data-theme-toggle-button]');
+    themeToggleLabel = themeToggleButton ? themeToggleButton.querySelector('[data-theme-label]') : null;
+    if (themeToggleButton) {
+      themeToggleButton.addEventListener('click', handleThemeButtonClick);
+      updateThemeToggleButton(currentTheme);
+    }
+    document.addEventListener('gereni:languagechange', () => {
+      updateThemeToggleButton(currentTheme);
+    });
     notifySubscribers(currentTheme);
   }
 
