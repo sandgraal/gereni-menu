@@ -10,15 +10,12 @@ This note compiles high-impact, on-brand ideas to push the seasonal Halloween ta
 
 ## 2. Navigation & Discovery
 
-- **Haunted sitemap scavenger hunt.** Hide four "spirit tokens" across the nav and footer. Collecting them unlocks an overlay with a coupon code or downloadable wallpaper.
-- **Treat-or-trick quick actions.** Add a floating cauldron button on mobile that expands into seasonal shortcuts (order candy platter, RSVP to events, view costume contest rules).
+- **Haunted sitemap scavenger hunt.** Hide four "spirit tokens" across the nav and footer. Collecting them unlocks an cackling witch popup.
 - **Ghosted breadcrumbs.** Trail a translucent wisp behind the active nav item that slowly dissipates as users scroll, reinforcing page location.
 
 ## 3. Content Modules
 
 - **Chef's spellbook carousel.** Transform the featured menu slider into a spellbook with page-flip animation and smoky transitions between signature dishes.
-- **Community costume wall.** Integrate a moderated gallery powered by user-submitted photos with auto-generated "spook score" frames.
-- **Interactive lore map.** Overlay hotspot markers on the restaurant floor plan telling mini stories about haunted corners, pairing copy with ambient GIF loops.
 
 ## 4. Engagement Mechanics
 
@@ -27,13 +24,9 @@ This note compiles high-impact, on-brand ideas to push the seasonal Halloween ta
 - **Augmented reality invites.** Offer QR codes that launch a lightweight web AR mask featuring Gereni branding for guests to share selfies.
 
 ## 5. Accessibility & Inclusivity Enhancements
-
-- Provide plain-text alternatives and transcripts for any audio or high-motion sections.
-- Offer a "cozy mode" toggle that warms the palette and calms animations for guests who prefer a softer seasonal experience.
 - Ensure all seasonal copy is available bilingually, mirroring the rest of the site.
 
 ## 6. Implementation Notes
-
 - Keep all Halloween-specific assets behind feature flags so they can be disabled after the season without code removal.
 - Reuse the existing `holiday--halloween` body class for conditional styles and scripts; extend `scripts/seasonalEffects.js` with custom events to coordinate modules (audio, scavenger hunt state, countdown).
 - Prototype motion-heavy components in isolation (`/tools/motion-sandbox.html`) before integration to maintain performance budgets on mobile devices.
