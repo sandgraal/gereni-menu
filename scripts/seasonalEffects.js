@@ -14,12 +14,20 @@
   const MIN_SPIDER_INTERVAL = 4500;
   const MAX_SPIDER_INTERVAL = 9000;
   const MAX_ACTIVE_SPIDERS = 4;
+  const ANALYTICS_EVENT_NAME = 'gereni:analytics';
+  const SPIDER_DROP_EVENT = 'halloween_spider_drop_seen';
+  const ANALYTICS_CATEGORY = 'seasonal_overlay';
+  const ANALYTICS_SOURCE = 'seasonalEffects';
+  const DEFAULT_SPIDER_LABEL = 'spider_drop';
+  const ANALYTICS_QUEUE_LIMIT = 50;
+  const MIN_ANALYTICS_INTERVAL = 1500;
 
   let observer = null;
   let overlay = null;
   let spiderLayer = null;
   let spiderTimeout = null;
   const activeSpiders = new Set();
+  let lastSpiderAnalyticsAt = 0;
 
   const motionQuery = typeof window !== 'undefined' && typeof window.matchMedia === 'function'
     ? window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -27,6 +35,108 @@
 
   function isMotionReduced() {
     return motionQuery ? motionQuery.matches : false;
+  }
+
+
+  function emitAnalyticsEvent(eventName, payload) {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    const detail = {
+      event: eventName,
+      category: ANALYTICS_CATEGORY,
+      source: ANALYTICS_SOURCE,
+      label: DEFAULT_SPIDER_LABEL,
+      ts: new Date().toISOString(),
+      ...(payload && typeof payload === 'object' ? payload : {})
+    };
+
+    let analyticsEvent = null;
+    try {
+      if (typeof CustomEvent === 'function') {
+        analyticsEvent = new CustomEvent(ANALYTICS_EVENT_NAME, { detail });
+      } else if (document.createEvent) {
+        analyticsEvent = document.createEvent('CustomEvent');
+        analyticsEvent.initCustomEvent(ANALYTICS_EVENT_NAME, false, false, detail);
+      }
+    } catch (error) {
+      analyticsEvent = null;
+    }
+
+    if (analyticsEvent) {
+      try {
+        document.dispatchEvent(analyticsEvent);
+      } catch (error) {
+        // Ignore analytics dispatch failures.
+      }
+    }
+
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    try {
+      if (!Array.isArray(window.gereniAnalyticsQueue)) {
+        window.gereniAnalyticsQueue = [];
+      }
+
+      window.gereniAnalyticsQueue.push(detail);
+
+      if (window.gereniAnalyticsQueue.length > ANALYTICS_QUEUE_LIMIT) {
+        window.gereniAnalyticsQueue.splice(
+          0,
+          window.gereniAnalyticsQueue.length - ANALYTICS_QUEUE_LIMIT
+        );
+      }
+    } catch (error) {
+      // Ignore queue persistence errors.
+    }
+
+    if (Array.isArray(window.dataLayer)) {
+      try {
+        window.dataLayer.push({ ...detail });
+      } catch (error) {
+        // Ignore dataLayer push errors.
+      }
+    }
+  }
+
+  function recordSpiderDrop(metadata) {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    if (typeof document.visibilityState === 'string' && document.visibilityState === 'hidden') {
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastSpiderAnalyticsAt < MIN_ANALYTICS_INTERVAL) {
+      return;
+    }
+
+    lastSpiderAnalyticsAt = now;
+
+    const detail = metadata && typeof metadata === 'object' ? { ...metadata } : {};
+    detail.label = DEFAULT_SPIDER_LABEL;
+    emitAnalyticsEvent(SPIDER_DROP_EVENT, detail);
+  }
+
+  function queueSpiderAnalytics(metadata) {
+    const send = () => recordSpiderDrop(metadata);
+
+    if (typeof window === 'undefined') {
+      send();
+      return;
+    }
+
+    if (typeof window.requestAnimationFrame === 'function') {
+      window.requestAnimationFrame(send);
+      return;
+    }
+
+    window.setTimeout(send, 0);
   }
 
   function ensureOverlay() {
@@ -196,11 +306,17 @@
     const offset = Math.random();
     const horizontalPosition = Math.round(offset * 100);
     spider.style.setProperty('--spider-left', `${horizontalPosition}%`);
-    spider.style.setProperty('--spider-scale', String(0.85 + Math.random() * 0.5));
+    const scale = 0.85 + Math.random() * 0.5;
+    const scaleRounded = Number(scale.toFixed(2));
+    spider.style.setProperty('--spider-scale', String(scale));
     const duration = 4 + Math.random() * 3;
-    spider.style.setProperty('--spider-duration', `${duration.toFixed(2)}s`);
+    const durationSeconds = Number(duration.toFixed(2));
+    spider.style.setProperty('--spider-duration', `${durationSeconds}s`);
     const swayDirection = Math.random() > 0.5 ? '1' : '-1';
     spider.style.setProperty('--spider-sway-direction', swayDirection);
+
+    const spiderId = `spider-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+    spider.dataset.analyticsId = spiderId;
 
     spider.addEventListener('animationend', () => {
       activeSpiders.delete(spider);
@@ -209,6 +325,17 @@
 
     activeSpiders.add(spider);
     spiderLayer.appendChild(spider);
+
+    const metadata = {
+      spiderId,
+      activeSpiders: activeSpiders.size,
+      offset: horizontalPosition,
+      duration: durationSeconds,
+      overlayAttached: Boolean(overlay && overlay.isConnected),
+      reducedMotion: isMotionReduced(),
+      scale: scaleRounded
+    };
+    queueSpiderAnalytics(metadata);
     return spider;
   }
 
