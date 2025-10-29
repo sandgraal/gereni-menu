@@ -17,6 +17,7 @@
   <script defer src="scripts/theme.js"></script>
   <script defer src="scripts/loadMenu.js"></script>
   <script defer src="scripts/collapsibleSections.js"></script>
+  <script defer src="scripts/scrollHelper.js"></script>
   <script defer src="scripts/pdfLayout.js"></script>
   <script defer src="scripts/pdfLink.js"></script>
   <script defer src="scripts/swRegister.js"></script>
@@ -1688,6 +1689,50 @@
           No se encontraron platillos disponibles en este momento.
         </p>
       </div>
+    </div>
+    <div class="menu-scroll-helper" data-scroll-helper hidden>
+      <button
+        type="button"
+        class="menu-scroll-helper__button menu-scroll-helper__button--up"
+        data-scroll-top
+        aria-label="Volver al inicio del menú"
+        data-i18n-attr="aria-label"
+        data-i18n-es="Volver al inicio del menú"
+        data-i18n-en="Back to the top of the menu"
+      >
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M12 5.5a1 1 0 0 1 .7.29l6 6a1 1 0 0 1-1.4 1.42L13 8.91V18a1 1 0 0 1-2 0V8.9l-4.3 4.3a1 1 0 1 1-1.4-1.42l6-6A1 1 0 0 1 12 5.5Z" fill="currentColor" />
+        </svg>
+      </button>
+      <div class="menu-scroll-helper__slider" data-scroll-slider-wrapper>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          value="0"
+          step="1"
+          class="menu-scroll-helper__range"
+          data-scroll-slider
+          aria-label="Desplazarse por el menú"
+          data-i18n-attr="aria-label"
+          data-i18n-es="Desplazarse por el menú"
+          data-i18n-en="Scroll through the menu"
+        />
+        <span class="menu-scroll-helper__progress" data-scroll-progress aria-hidden="true">0%</span>
+      </div>
+      <button
+        type="button"
+        class="menu-scroll-helper__button menu-scroll-helper__button--down"
+        data-scroll-bottom
+        aria-label="Ir al final del menú"
+        data-i18n-attr="aria-label"
+        data-i18n-es="Ir al final del menú"
+        data-i18n-en="Jump to the bottom of the menu"
+      >
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M12 18.5a1 1 0 0 1-.7-.29l-6-6a1 1 0 0 1 1.4-1.42L11 15.09V6a1 1 0 0 1 2 0v9.1l4.3-4.3a1 1 0 0 1 1.4 1.42l-6 6a1 1 0 0 1-.7.28Z" fill="currentColor" />
+        </svg>
+      </button>
     </div>
   </main>
   <footer>
