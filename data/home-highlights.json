@@ -1,24 +1,5 @@
 {
   "ai-generated": false,
-  "specialMenus": [
-    {
-      "id": "noche-mascarada",
-      "title": {
-        "es": "Noche de Mascarada",
-        "en": "Masquerade Night"
-      },
-      "description": {
-        "es": "Celebra Halloween con cócteles temáticos, premios a los mejores disfraces y música en vivo toda la noche.",
-        "en": "Celebrate Halloween with themed cocktails, costume prizes, and live music all night long."
-      },
-      "cta": {
-        "es": "Reserva tu mesa",
-        "en": "Reserve your table"
-      },
-      "image": "assets/promos/noche_mascarada.jpg",
-      "url": "https://sandgraal.github.io/gereni-menu/menu.html#especiales",
-      "seasonalEffect": "halloween"
-    }
-  ],
+  "specialMenus": [],
   "socialUpdates": []
 }

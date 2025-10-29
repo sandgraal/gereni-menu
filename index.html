@@ -20,10 +20,6 @@
 </script>
 <script defer="" src="scripts/theme.js">
 </script>
-<script defer="" src="scripts/seasonalEffects.js">
-</script>
-<script defer="" src="scripts/halloweenExperience.js">
-</script>
 <script defer="" src="scripts/flagBadge.js">
 </script>
 <script defer="" src="scripts/promoShowcase.js">
@@ -105,33 +101,13 @@
 <img alt="Logo de Gereni Bar y Restaurante" class="logo" data-i18n-attr="alt" data-i18n-en="Gereni Bar &amp; Restaurant logo" data-i18n-es="Logo de Gereni Bar y Restaurante" src="assets/logo-gereni-bar-restaurant.png"/>
 </header>
 <main>
-<nav aria-label="Recorrido embrujado" class="spectral-nav" data-i18n-attr="aria-label" data-i18n-en="Haunted journey" data-i18n-es="Recorrido embrujado">
- <ol class="spectral-nav__list">
-  <li class="spectral-nav__item" data-section-target="#halloween-overview">
-   <button type="button" class="spectral-nav__link" data-i18n-en="Inicio" data-i18n-es="Inicio">Inicio</button>
-  </li>
-  <li class="spectral-nav__item" data-section-target="#midnight-countdown">
-   <button type="button" class="spectral-nav__link" data-i18n-en="Cuenta regresiva" data-i18n-es="Cuenta regresiva">Cuenta regresiva</button>
-  </li>
-  <li class="spectral-nav__item" data-section-target="#spellbook-showcase">
-   <button type="button" class="spectral-nav__link" data-i18n-en="Libro de hechizos" data-i18n-es="Libro de hechizos">Libro de hechizos</button>
-  </li>
-  <li class="spectral-nav__item" data-section-target="#potion-mixer">
-   <button type="button" class="spectral-nav__link" data-i18n-en="Mezclador" data-i18n-es="Mezclador">Mezclador</button>
-  </li>
-  <li class="spectral-nav__item" data-section-target="#ar-invites">
-   <button type="button" class="spectral-nav__link" data-i18n-en="Invitaciones AR" data-i18n-es="Invitaciones AR">Invitaciones AR</button>
-  </li>
- </ol>
- <span class="spectral-nav__wisp" aria-hidden="true"></span>
-</nav>
-<div class="home-hero">
- <div aria-hidden="true" class="home-promos" data-promos-root="" hidden="">
- </div>
- <div class="home-panel" role="navigation" aria-label="Acciones rápidas" data-i18n-attr="aria-label" data-i18n-es="Acciones rápidas" data-i18n-en="Quick actions">
-  <ul class="home-actions" data-variant="primary" id="halloween-overview">
-   <li class="home-actions__item">
-    <a class="home-actions__link home-actions__link--primary" data-sound-id="menu-cta" href="menu.html">
+ <div class="home-hero">
+  <div aria-hidden="true" class="home-promos" data-promos-root="" hidden="">
+  </div>
+  <div class="home-panel" role="navigation" aria-label="Acciones rápidas" data-i18n-attr="aria-label" data-i18n-es="Acciones rápidas" data-i18n-en="Quick actions">
+   <ul class="home-actions" data-variant="primary">
+    <li class="home-actions__item">
+     <a class="home-actions__link home-actions__link--primary" data-sound-id="menu-cta" href="menu.html">
       <span aria-hidden="true" class="home-actions__icon">
        <svg fill="none" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">
         <path d="M7 10H25" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
@@ -149,12 +125,9 @@
            </span>
       </span>
      </a>
-    <button class="spirit-token spirit-token--menu" data-sound-id="token-collect" data-token-id="menu" type="button" aria-label="Recoger ficha del menú" data-i18n-attr="aria-label" data-i18n-en="Collect the menu token" data-i18n-es="Recoger ficha del menú">
-     <span aria-hidden="true">🔮</span>
-    </button>
     </li>
-   <li class="home-actions__item">
-    <a class="home-actions__link home-actions__link--secondary link-download" data-sound-id="menu-cta" href="output/Menu_Gereni_digital_es_dark.pdf" rel="noopener" target="_blank">
+    <li class="home-actions__item">
+     <a class="home-actions__link home-actions__link--secondary link-download" data-sound-id="menu-cta" href="output/Menu_Gereni_digital_es_dark.pdf" rel="noopener" target="_blank">
       <span aria-hidden="true" class="home-actions__icon">
        <svg fill="none" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">
         <path d="M16 7V21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
@@ -171,14 +144,14 @@
            </span>
       </span>
      </a>
-   </li>
-  </ul>
-  <div class="home-social">
-   <p class="home-social__title" data-i18n-es="Conéctate con nosotros" data-i18n-en="Connect with us">
+    </li>
+   </ul>
+   <div class="home-social">
+    <p class="home-social__title" data-i18n-es="Conéctate con nosotros" data-i18n-en="Connect with us">
         Conéctate con nosotros
        </p>
-   <div class="home-social__buttons">
-    <a class="home-social__link home-social__link--facebook home-actions__link--social facebook-link" data-sound-id="social-hover" href="https://www.facebook.com/baryrestaurantegereni" rel="noopener" target="_blank">
+    <div class="home-social__buttons">
+     <a class="home-social__link home-social__link--facebook home-actions__link--social facebook-link" data-sound-id="social-hover" href="https://www.facebook.com/baryrestaurantegereni" rel="noopener" target="_blank">
       <span aria-hidden="true" class="home-social__icon">
        <svg fill="currentColor" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
         <path d="M14.5 7.5h2.5V4h-2.9c-3.1 0-4.1 1.9-4.1 4v2H8v3.5h2v7h3.5v-7h2.6l.4-3.5h-3V8.5c0-.6.2-1 1-1z"/>
@@ -188,7 +161,7 @@
         Abrir Facebook
        </span>
      </a>
-   <a class="home-social__link home-social__link--instagram home-actions__link--social instagram-link" data-sound-id="social-hover" href="https://www.instagram.com/gereni__" rel="noopener" target="_blank">
+     <a class="home-social__link home-social__link--instagram home-actions__link--social instagram-link" data-sound-id="social-hover" href="https://www.instagram.com/gereni__" rel="noopener" target="_blank">
       <span aria-hidden="true" class="home-social__icon">
        <svg fill="none" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
         <rect height="14" rx="4" stroke="currentColor" stroke-width="2" width="14" x="5" y="5"/>
@@ -200,134 +173,15 @@
         Abrir Instagram
        </span>
      </a>
+    </div>
    </div>
-   <span class="home-social__hashtag" data-i18n-es="#NocheDeBrujasEnGereni · #HalloweenEnGereni" data-i18n-en="#HauntedNightsAtGereni · #HalloweenAtGereni">
-       #NocheDeBrujasEnGereni · #HalloweenEnGereni
-      </span>
-   <button class="spirit-token spirit-token--social" data-sound-id="token-collect" data-token-id="social" type="button" aria-label="Recoger ficha social" data-i18n-attr="aria-label" data-i18n-en="Collect the social token" data-i18n-es="Recoger ficha social">
-    <span aria-hidden="true">👻</span>
-   </button>
-  </div>
-</div>
-</div>
-<div class="candle-marker" role="presentation" aria-hidden="true">
- <span class="candle-marker__wick"></span>
- <span class="candle-marker__flame"></span>
-</div>
-<section class="countdown" id="midnight-countdown" aria-labelledby="midnight-countdown-title">
- <div class="countdown__header">
-  <h2 class="countdown__title" id="midnight-countdown-title" data-i18n-en="Cuenta regresiva a la medianoche" data-i18n-es="Cuenta regresiva a la medianoche">Cuenta regresiva a la medianoche</h2>
-  <p class="countdown__subtitle" data-i18n-en="Elige tu noche embrujada" data-i18n-es="Elige tu noche embrujada">Elige tu noche embrujada</p>
- </div>
- <div class="countdown__body" data-countdown-display="">
-  <p class="countdown__time" data-countdown-time="">--:--:--</p>
-  <p class="countdown__label" data-i18n-en="Restantes para el fin de semana de Halloween" data-i18n-es="Restantes para el fin de semana de Halloween">Restantes para el fin de semana de Halloween</p>
- </div>
- <div class="countdown__schedule" data-countdown-schedule="" hidden="">
-  <h3 class="countdown__schedule-title" data-i18n-en="Rituales de esta noche" data-i18n-es="Rituales de esta noche">Rituales de esta noche</h3>
-  <ul class="countdown__schedule-list" data-countdown-schedule-list=""></ul>
- </div>
- <button class="spirit-token spirit-token--countdown" data-sound-id="token-collect" data-token-id="countdown" type="button" aria-label="Recoger ficha de la medianoche" data-i18n-attr="aria-label" data-i18n-en="Collect the midnight token" data-i18n-es="Recoger ficha de la medianoche">
-  <span aria-hidden="true">🕯️</span>
- </button>
-</section>
-<div class="candle-marker" role="presentation" aria-hidden="true">
- <span class="candle-marker__wick"></span>
- <span class="candle-marker__flame"></span>
-</div>
-<section class="spellbook" id="spellbook-showcase" aria-labelledby="spellbook-title">
- <div class="spellbook__inner">
-  <div class="spellbook__cover">
-   <h2 class="spellbook__title" id="spellbook-title" data-i18n-en="Libro de hechizos del chef" data-i18n-es="Libro de hechizos del chef">Libro de hechizos del chef</h2>
-   <p class="spellbook__subtitle" data-i18n-en="Desliza las páginas para descubrir rituales culinarios" data-i18n-es="Desliza las páginas para descubrir rituales culinarios">Desliza las páginas para descubrir rituales culinarios</p>
-  </div>
-  <div class="spellbook__pages" data-spellbook="">
-   <article class="spellbook__page is-active" data-spell="dusk-embers">
-    <h3 class="spellbook__page-title" data-i18n-en="Ascuas del crepúsculo" data-i18n-es="Ascuas del crepúsculo">Ascuas del crepúsculo</h3>
-    <p class="spellbook__page-text" data-i18n-en="Costillas glaseadas en miel de chile y reducción de porter, servidas con puré de calabaza especiado." data-i18n-es="Costillas glaseadas en miel de chile y reducción de porter, servidas con puré de calabaza especiado.">Costillas glaseadas en miel de chile y reducción de porter, servidas con puré de calabaza especiado.</p>
-    <button class="spellbook__bookmark" type="button" data-i18n-en="Ver maridaje" data-i18n-es="Ver maridaje">Ver maridaje</button>
-   </article>
-   <article class="spellbook__page" data-spell="witches-breath">
-    <h3 class="spellbook__page-title" data-i18n-en="Aliento de bruja" data-i18n-es="Aliento de bruja">Aliento de bruja</h3>
-    <p class="spellbook__page-text" data-i18n-en="Ensalada ahumada de betabel con queso de cabra cenizo y crocante de cacao." data-i18n-es="Ensalada ahumada de betabel con queso de cabra cenizo y crocante de cacao.">Ensalada ahumada de betabel con queso de cabra cenizo y crocante de cacao.</p>
-    <button class="spellbook__bookmark" type="button" data-i18n-en="Ver maridaje" data-i18n-es="Ver maridaje">Ver maridaje</button>
-   </article>
-   <article class="spellbook__page" data-spell="midnight-serenade">
-    <h3 class="spellbook__page-title" data-i18n-en="Serenata de medianoche" data-i18n-es="Serenata de medianoche">Serenata de medianoche</h3>
-    <p class="spellbook__page-text" data-i18n-en="Tarta tibia de chocolate 70% con helado de vainilla y lluvia de praliné de nuez." data-i18n-es="Tarta tibia de chocolate 70% con helado de vainilla y lluvia de praliné de nuez.">Tarta tibia de chocolate 70% con helado de vainilla y lluvia de praliné de nuez.</p>
-    <button class="spellbook__bookmark" type="button" data-i18n-en="Ver maridaje" data-i18n-es="Ver maridaje">Ver maridaje</button>
-   </article>
-  </div>
-  <div class="spellbook__controls">
-   <button class="spellbook__arrow" data-spellbook-prev="" type="button" aria-label="Página anterior" data-i18n-attr="aria-label" data-i18n-en="Previous page" data-i18n-es="Página anterior">◀</button>
-   <div class="spellbook__spine" aria-hidden="true"></div>
-   <button class="spellbook__arrow" data-spellbook-next="" type="button" aria-label="Página siguiente" data-i18n-attr="aria-label" data-i18n-en="Next page" data-i18n-es="Página siguiente">▶</button>
   </div>
  </div>
-</section>
-<div class="candle-marker" role="presentation" aria-hidden="true">
- <span class="candle-marker__wick"></span>
- <span class="candle-marker__flame"></span>
-</div>
-<section class="potion" id="potion-mixer" aria-labelledby="potion-mixer-title">
- <header class="potion__header">
-  <h2 class="potion__title" id="potion-mixer-title" data-i18n-en="Mezclador de pociones" data-i18n-es="Mezclador de pociones">Mezclador de pociones</h2>
-  <p class="potion__subtitle" data-i18n-en="Arrastra ingredientes al caldero para invocar bebidas embrujadas" data-i18n-es="Arrastra ingredientes al caldero para invocar bebidas embrujadas">Arrastra ingredientes al caldero para invocar bebidas embrujadas</p>
- </header>
- <div class="potion__content" data-potion-lab="">
-  <ul class="potion__ingredients" data-ingredients-list="">
-   <li class="potion__ingredient" draggable="true" data-ingredient="mandarina" data-i18n-en="Mandarina confitada" data-i18n-es="Mandarina confitada">Mandarina confitada</li>
-   <li class="potion__ingredient" draggable="true" data-ingredient="romero" data-i18n-en="Romero ahumado" data-i18n-es="Romero ahumado">Romero ahumado</li>
-   <li class="potion__ingredient" draggable="true" data-ingredient="cafe" data-i18n-en="Cold brew" data-i18n-es="Cold brew">Cold brew</li>
-   <li class="potion__ingredient" draggable="true" data-ingredient="guayaba" data-i18n-en="Guayaba cristalizada" data-i18n-es="Guayaba cristalizada">Guayaba cristalizada</li>
-   <li class="potion__ingredient" draggable="true" data-ingredient="cascara" data-i18n-en="Cáscara de cacao" data-i18n-es="Cáscara de cacao">Cáscara de cacao</li>
-  </ul>
-  <div class="potion__cauldron" data-cauldron="" aria-live="polite">
-   <p class="potion__prompt" data-i18n-en="Suelta aquí" data-i18n-es="Suelta aquí">Suelta aquí</p>
-   <div class="potion__result" data-potion-result=""></div>
-   <button class="potion__share" type="button" data-potion-share="" data-i18n-en="Share spell" data-i18n-es="Compartir hechizo" hidden="">Compartir hechizo</button>
-  </div>
- </div>
-</section>
-<div class="candle-marker" role="presentation" aria-hidden="true">
- <span class="candle-marker__wick"></span>
- <span class="candle-marker__flame"></span>
-</div>
-<section class="ar-invites" id="ar-invites" aria-labelledby="ar-invites-title">
- <header class="ar-invites__header">
-  <h2 class="ar-invites__title" id="ar-invites-title" data-i18n-en="Invitaciones AR" data-i18n-es="Invitaciones AR">Invitaciones AR</h2>
-  <p class="ar-invites__subtitle" data-i18n-en="Escanea un código para activar máscaras nocturnas" data-i18n-es="Escanea un código para activar máscaras nocturnas">Escanea un código para activar máscaras nocturnas</p>
- </header>
- <div class="ar-invites__grid">
-  <article class="ar-card">
-   <h3 class="ar-card__title" data-i18n-en="Caretaker Glow" data-i18n-es="Brillo del Guardián">Caretaker Glow</h3>
-   <p class="ar-card__description" data-i18n-en="Un filtro cálido inspirado en nuestras velas centinela." data-i18n-es="Un filtro cálido inspirado en nuestras velas centinela.">Un filtro cálido inspirado en nuestras velas centinela.</p>
-   <a class="ar-card__link" href="https://sandgraal.github.io/gereni-menu/ar/caretaker" target="_blank" rel="noopener" data-i18n-en="Open experience" data-i18n-es="Abrir experiencia">Abrir experiencia</a>
-   <div class="ar-card__qr" data-qr="caretaker" aria-hidden="true"></div>
-  </article>
-  <article class="ar-card">
-   <h3 class="ar-card__title" data-i18n-en="Moonlit Vines" data-i18n-es="Enredaderas de luna">Moonlit Vines</h3>
-   <p class="ar-card__description" data-i18n-en="Una máscara plateada con hojas animadas y destellos púrpura." data-i18n-es="Una máscara plateada con hojas animadas y destellos púrpura.">Una máscara plateada con hojas animadas y destellos púrpura.</p>
-   <a class="ar-card__link" href="https://sandgraal.github.io/gereni-menu/ar/moonlit" target="_blank" rel="noopener" data-i18n-en="Open experience" data-i18n-es="Abrir experiencia">Abrir experiencia</a>
-   <div class="ar-card__qr" data-qr="moonlit" aria-hidden="true"></div>
-  </article>
- </div>
- <button class="spirit-token spirit-token--invites" data-sound-id="token-collect" data-token-id="invites" type="button" aria-label="Recoger ficha AR" data-i18n-attr="aria-label" data-i18n-en="Collect the AR token" data-i18n-es="Recoger ficha AR">
-  <span aria-hidden="true">🦇</span>
- </button>
-</section>
-<div class="candle-marker" role="presentation" aria-hidden="true">
- <span class="candle-marker__wick"></span>
- <span class="candle-marker__flame"></span>
-</div>
 </main>
 <footer>
 <p data-i18n-es="© 2025 Gereni Bar y Restaurante. Todos los derechos reservados." data-i18n-en="© 2025 Gereni Bar &amp; Restaurant. All rights reserved.">
     © 2025 Gereni Bar y Restaurante. Todos los derechos reservados.
    </p>
-<button class="spirit-token spirit-token--footer" data-sound-id="token-collect" data-token-id="footer" type="button" aria-label="Recoger ficha final" data-i18n-attr="aria-label" data-i18n-en="Collect the final token" data-i18n-es="Recoger ficha final">
- <span aria-hidden="true">🕸️</span>
-</button>
 </footer>
 </body>
 </html>
