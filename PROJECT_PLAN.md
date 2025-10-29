@@ -56,20 +56,6 @@ To update progress:
 
 ---
 
-## Seasonal Activation: Halloween Takeover (Oct Sprint)
-**Goal:** Ship an immersive Halloween experience for the hero panel before tomorrow's event.
-
-- [x] Inject random spider scare overlay (`scripts/seasonalEffects.js`, `styles/main.css`)
-- [x] Wire analytics event `halloween_spider_drop_seen`
-- [ ] Prepare ambient audio toggle + asset handoff
-- [ ] QA across Chrome, Safari, Android (see `content/halloween-experience-plan.md`)
-
-**Deliverables:**
-- Seasonal overlay with scalable scare factor
-- QA checklist complete with fallback strategy
-
----
-
 ## Phase 4: Deployment & QA (Weeks 6–7)
 **Goal:** Ship production-ready version.
 
