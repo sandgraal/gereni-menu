@@ -1098,6 +1098,24 @@ body.inicio header::after {
   text-decoration:underline;
 }
 
+.logo-link {
+  display:inline-block;
+  margin:0 auto;
+  border-radius:16px;
+  transition:transform 0.2s ease;
+  text-decoration:none;
+}
+
+.logo-link:focus-visible {
+  outline:3px solid var(--gereni-green);
+  outline-offset:6px;
+  text-decoration:none;
+}
+
+.logo-link:hover {
+  transform:scale(1.02);
+}
+
 .logo {
   max-width:200px;
   margin:0 auto;

@@ -44,6 +44,6 @@
 
 ## Next Steps After Launch
 - Capture visitor reactions for social reels; mark best clips for evening push.
-- Add analytics event (`halloween_spider_drop_seen`) so we can measure engagement vs. bounce.
+- [x] Add analytics event (`halloween_spider_drop_seen`) so we can measure engagement vs. bounce.
 - Prep quick disable flag (`?no-spiders`) in case guests report discomfort mid-event.
 - Document learnings in `PROJECT_PLAN.md` retrospective section after the event.

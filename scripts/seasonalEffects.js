@@ -45,6 +45,7 @@
   let lastLightingPayload = null;
   let isActive = false;
   const activeSpiders = new Set();
+  let lastSpiderAnalyticsAt = 0;
 
   const motionQuery = typeof window !== 'undefined' && typeof window.matchMedia === 'function'
     ? window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -355,11 +356,17 @@
     const offset = Math.random();
     const horizontalPosition = Math.round(offset * 100);
     spider.style.setProperty('--spider-left', `${horizontalPosition}%`);
-    spider.style.setProperty('--spider-scale', String(0.85 + Math.random() * 0.5));
+    const scale = 0.85 + Math.random() * 0.5;
+    const scaleRounded = Number(scale.toFixed(2));
+    spider.style.setProperty('--spider-scale', String(scale));
     const duration = 4 + Math.random() * 3;
-    spider.style.setProperty('--spider-duration', `${duration.toFixed(2)}s`);
+    const durationSeconds = Number(duration.toFixed(2));
+    spider.style.setProperty('--spider-duration', `${durationSeconds}s`);
     const swayDirection = Math.random() > 0.5 ? '1' : '-1';
     spider.style.setProperty('--spider-sway-direction', swayDirection);
+
+    const spiderId = `spider-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+    spider.dataset.analyticsId = spiderId;
 
     spider.addEventListener('animationend', () => {
       activeSpiders.delete(spider);
@@ -368,6 +375,17 @@
 
     activeSpiders.add(spider);
     spiderLayer.appendChild(spider);
+
+    const metadata = {
+      spiderId,
+      activeSpiders: activeSpiders.size,
+      offset: horizontalPosition,
+      duration: durationSeconds,
+      overlayAttached: Boolean(overlay && overlay.isConnected),
+      reducedMotion: isMotionReduced(),
+      scale: scaleRounded
+    };
+    queueSpiderAnalytics(metadata);
     return spider;
   }
 
