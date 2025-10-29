@@ -24,7 +24,7 @@ This note compiles high-impact, on-brand ideas to push the seasonal Halloween ta
 
 ## 2. Navigation & Discovery
 
-- **Haunted sitemap scavenger hunt.** Hide four "spirit tokens" across the nav and footer. Collecting them unlocks an cackling witch popup.
+- **Haunted sitemap scavenger hunt.** Hide four "spirit tokens" across the nav and footer. Collecting them unlocks a cackling witch popup.
   - **Implementation notes.**
     1. Define JSON schema for token metadata (`id`, `selector`, `hintCopy`, `rewardCopy`) and store in `data/halloween-tokens.json` for Content localization.
     2. Build a `ScavengerHuntController` that tracks collected token IDs in session storage, surfaces tooltips on hover, and emits a completion event.
