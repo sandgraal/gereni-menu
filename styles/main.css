@@ -3443,6 +3443,54 @@ footer .spirit-token {
   box-shadow:0 22px 52px rgba(255,184,120,0.42);
 }
 
+.share-toast {
+  position:fixed;
+  bottom:2rem;
+  left:50%;
+  transform:translateX(-50%) translateY(100px);
+  max-width:90%;
+  width:420px;
+  padding:1.25rem 1.5rem;
+  border-radius:16px;
+  background:linear-gradient(160deg, rgba(38,18,48,0.97), rgba(18,10,28,0.95));
+  border:1px solid rgba(255,214,162,0.4);
+  box-shadow:0 24px 60px rgba(6,2,14,0.7);
+  z-index:1300;
+  opacity:0;
+  transition:transform 0.3s ease, opacity 0.3s ease;
+}
+
+.share-toast--visible {
+  transform:translateX(-50%) translateY(0);
+  opacity:1;
+}
+
+.share-toast__message {
+  margin:0 0 0.75rem 0;
+  color:#f9f0ff;
+  font-size:0.95rem;
+  text-align:center;
+  line-height:1.5;
+}
+
+.share-toast__input {
+  width:100%;
+  padding:0.65rem 0.85rem;
+  border:1px solid rgba(255,214,162,0.3);
+  border-radius:8px;
+  background:rgba(12,6,18,0.5);
+  color:#f9f0ff;
+  font-size:0.9rem;
+  text-align:center;
+  cursor:text;
+}
+
+.share-toast__input:focus {
+  outline:2px solid rgba(255,214,162,0.6);
+  outline-offset:2px;
+  border-color:rgba(255,214,162,0.5);
+}
+
 @media (max-width: 720px) {
   .spectral-nav {
     top:clamp(0.35rem, 3vh, 1rem);
