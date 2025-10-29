@@ -1,3 +1,26 @@
+/**
+ * scrollHelper.js
+ * 
+ * Manages scroll limit computation for the menu container.
+ * Automatically recomputes scroll limits when:
+ * - Window is resized
+ * - Device orientation changes
+ * - Language is changed (via gereni:languagechange event)
+ * - Menu is rendered (via gereni:menuRendered event)
+ * 
+ * This ensures that UI components that depend on scroll metrics
+ * (like sliders, scroll indicators, or bottom buttons) remain
+ * accurate when the menu content height changes.
+ * 
+ * Public API:
+ * - GereniScrollHelper.getMaxScroll(): Returns current max scroll value
+ * - GereniScrollHelper.recompute(): Forces immediate recomputation
+ * - GereniScrollHelper.subscribe(fn): Subscribe to scroll limit updates
+ * - GereniScrollHelper.scheduleUpdate(): Schedule an update on next frame
+ * 
+ * Events dispatched:
+ * - gereni:scrollLimitsUpdated: Fired when scroll limits are recomputed
+ */
 (() => {
   let maxScroll = 0;
   let layoutUpdateScheduled = false;
