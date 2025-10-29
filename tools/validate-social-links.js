@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * Valida que los enlaces sociales en `index.html` y `data/home-highlights.json`
- * apunten a URLs absolutas accesibles. Permite omitir la verificación de red
- * estableciendo la variable de entorno `SKIP_SOCIAL_LINK_CHECK=1`.
+ * Valida que los enlaces sociales en `index.html` y, si existe,
+ * `data/home-highlights.json` apunten a URLs absolutas accesibles. Permite
+ * omitir la verificación de red estableciendo la variable de entorno
+ * `SKIP_SOCIAL_LINK_CHECK=1`.
  */
 
 const fs = require('fs');
@@ -218,7 +219,11 @@ async function main() {
   const networkErrors = [];
 
   const indexHtml = readFileSafe(INDEX_PATH, formatErrors);
-  const highlightsJson = readFileSafe(HIGHLIGHTS_PATH, formatErrors);
+
+  let highlightsJson = null;
+  if (fs.existsSync(HIGHLIGHTS_PATH)) {
+    highlightsJson = readFileSafe(HIGHLIGHTS_PATH, formatErrors);
+  }
 
   const entries = [
     ...collectIndexLinks(indexHtml, formatErrors),
