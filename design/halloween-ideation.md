@@ -1,32 +1,45 @@
 # Halloween Immersion Upgrades
 
-This note compiles high-impact, on-brand ideas to push the seasonal Halloween takeover beyond the existing overlay. Concepts are grouped by experience layer so design, content, and engineering teams can parallelize implementation.
+This note tracks the execution status of the seasonal Halloween takeover ideas. Each item now includes a quick status update so d
+esign, content, and engineering can see what shipped and what remains on standby.
 
 ## 1. Atmosphere & Mood
 
-- **Dynamic dusk-to-midnight lighting.** Progressively shift the site's background gradient and shadow intensity based on local time once the Halloween theme is enabled. Pair with subtle fog layers that thicken after 8 PM for users who opt into motion effects.
-- **Localized sound cues.** Trigger short positional stingers (owl hoots, distant bells) when users hover key modules like the hero CTA or gallery hotspots. Respect `prefers-reduced-motion` and provide a global mute in the preferences tray.
-- **Animated candle markers.** Replace static section dividers with flickering candle glyphs whose flame height responds to scroll velocity.
+- **Dynamic dusk-to-midnight lighting.** ✅ Live. `seasonalEffects.js` now lerps gradients, fog density, and shadow strength based
+ on local time, and emits `gereni:halloween-lighting` events for other modules.
+- **Localized sound cues.** ✅ Live. Web Audio stingers (hoot, bell, bubbles) fire on key interactions with a global mute toggle th
+at respects `prefers-reduced-motion` and persists to `localStorage`.
+- **Animated candle markers.** ✅ Live. New `.candle-marker` separators animate flames while gracefully disabling motion for reduce
+-pref users.
 
 ## 2. Navigation & Discovery
 
-- **Haunted sitemap scavenger hunt.** Hide four "spirit tokens" across the nav and footer. Collecting them unlocks an cackling witch popup.
-- **Ghosted breadcrumbs.** Trail a translucent wisp behind the active nav item that slowly dissipates as users scroll, reinforcing page location.
+- **Haunted sitemap scavenger hunt.** ✅ Live. Five hidden spirit tokens store progress, trigger audio feedback, and unlock a witc
+h cackle dialog on completion.
+- **Ghosted breadcrumbs.** ✅ Live. A sticky spectral nav tracks the active section with a wisp controlled by IntersectionObserver u
+pdates from `halloweenExperience.js`.
 
 ## 3. Content Modules
 
-- **Chef's spellbook carousel.** Transform the featured menu slider into a spellbook with page-flip animation and smoky transitions between signature dishes.
+- **Chef's spellbook carousel.** ✅ Live. Three spell pages animate with flip transitions, audio cues, and accessible maridaje callo
+uts via `halloweenExperience.js`.
 
 ## 4. Engagement Mechanics
 
-- **Midnight countdown.** Display a ticking clock to the Halloween weekend kickoff; once it passes, swap to a "Tonight's rituals" schedule that updates hourly.
-- **Potion mixer mini-game.** Let visitors drag ingredients into a cauldron to reveal recommended cocktails or desserts, sharing results via prefilled social posts tagged `#GereniHalloween`.
-- **Augmented reality invites.** Offer QR codes that launch a lightweight web AR mask featuring Gereni branding for guests to share selfies.
+- **Midnight countdown.** ✅ Live. Countdown targets the upcoming Oct 31 kickoff, swaps to a localized ritual schedule post-deadline,
+ and rehydrates on language changes.
+- **Potion mixer mini-game.** ✅ Live. Drag-and-drop/keyboard-friendly cauldron surfaces localized recipes, shareable copy, and bubb
+ling sound effects.
+- **Augmented reality invites.** ✅ Live. Two AR invite cards with stylized QR patterns and external experience links.
 
 ## 5. Accessibility & Inclusivity Enhancements
-- Ensure all seasonal copy is available bilingually, mirroring the rest of the site.
+
+- ✅ All seasonal copy ships with `data-i18n` hooks; audio defaults off for reduced-motion users; the token celebration dialog is focu
+sable and dismissible via keyboard.
 
 ## 6. Implementation Notes
-- Keep all Halloween-specific assets behind feature flags so they can be disabled after the season without code removal.
-- Reuse the existing `holiday--halloween` body class for conditional styles and scripts; extend `scripts/seasonalEffects.js` with custom events to coordinate modules (audio, scavenger hunt state, countdown).
-- Prototype motion-heavy components in isolation (`/tools/motion-sandbox.html`) before integration to maintain performance budgets on mobile devices.
+
+- Scripts stay gated by the existing `holiday--halloween` class and dispatch `gereni:halloween-*` events for coordination.
+- Seasonal UI logic lives in `scripts/halloweenExperience.js`; fog/candle motion switches off when users request reduced motion.
+- `/tools/motion-sandbox.html` remains available for any additional motion experiments.
+- Verification: `npm run check:all` rebuilds the static menu, validates prices/menu structure, and runs sync/a11y tests. The social link validator currently reports `ENETUNREACH` due to the container's network sandbox, so re-run on a connected environment before release.

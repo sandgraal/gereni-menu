@@ -91,8 +91,10 @@
   let soundValueLabel = null;
   let spectralNav = null;
   let navItems = [];
+  const itemSectionMap = new WeakMap();
   let navObserver = null;
   let navWisp = null;
+  const itemSectionMap = new WeakMap();
   let countdownTarget = null;
   let countdownTimer = null;
   let countdownElements = null;
@@ -352,13 +354,14 @@
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         playSound('spell-turn');
       });
-      item.__section = section; // eslint-disable-line no-underscore-dangle
+      itemSectionMap.set(item, section);
     });
     const observerOptions = { rootMargin: '-30% 0px -60% 0px', threshold: [0.25, 0.6] };
     navObserver = new IntersectionObserver(handleSectionIntersection, observerOptions);
     navItems.forEach((item) => {
-      if (item.__section) {
-        navObserver.observe(item.__section);
+      const section = itemSectionMap.get(item);
+      if (section) {
+        navObserver.observe(section);
       }
     });
     updateNavHighlight(navItems[0]);
@@ -366,7 +369,7 @@
 
   function handleSectionIntersection(entries) {
     entries.forEach((entry) => {
-      const item = navItems.find((navItem) => navItem.__section === entry.target);
+      const item = navItems.find((navItem) => itemSectionMap.get(navItem) === entry.target);
       if (!item) {
         return;
       }
@@ -658,7 +661,7 @@
           // ignore clipboard failure
         }
       }
-      window.prompt(currentLang === 'en' ? 'Copy this potion message:' : 'Copia este mensaje de poción:', shareMessage); // eslint-disable-line no-alert
+      showToast(shareMessage);
     });
   }
 
@@ -775,6 +778,45 @@
       document.body.appendChild(announcer);
     }
     announcer.textContent = message;
+  }
+
+  function showToast(message) {
+    const existingToast = document.querySelector('[data-share-toast]');
+    if (existingToast) {
+      existingToast.remove();
+    }
+    const toast = document.createElement('div');
+    toast.className = 'share-toast';
+    toast.setAttribute('data-share-toast', '');
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    const messageText = document.createElement('p');
+    messageText.className = 'share-toast__message';
+    messageText.textContent = message;
+    const input = document.createElement('input');
+    input.className = 'share-toast__input';
+    input.type = 'text';
+    input.value = message;
+    input.readOnly = true;
+    input.setAttribute('aria-label', currentLang === 'en' ? 'Potion share message' : 'Mensaje de poción');
+    toast.appendChild(messageText);
+    toast.appendChild(input);
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.add('share-toast--visible');
+      try {
+        input.select();
+      } catch (err) {
+        // selection may fail on some devices
+      }
+    }, 10);
+    setTimeout(() => {
+      toast.classList.remove('share-toast--visible');
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
+    }, 5000);
+    announce(currentLang === 'en' ? 'Share message displayed. Select text to copy manually.' : 'Mensaje de compartir mostrado. Selecciona el texto para copiar manualmente.');
   }
 
   function attachSoundCues() {

@@ -2769,7 +2769,6 @@ body.inicio.holiday--halloween::after {
   outline:2px solid rgba(255,214,162,0.75);
   outline-offset:2px;
   opacity:var(--halloween-wisp-opacity, 0.63);
-}
 
 .spectral-nav__item[data-active="true"] .spectral-nav__link {
   color:#ffeedd;
@@ -3444,81 +3443,84 @@ footer .spirit-token {
   box-shadow:0 22px 52px rgba(255,184,120,0.42);
 }
 
-/* Gate Halloween sections behind holiday--halloween flag */
-body.inicio .spectral-nav,
-body.inicio .candle-marker,
-body.inicio .countdown,
-body.inicio .spellbook,
-body.inicio .potion,
-body.inicio .ar-invites,
-body.inicio .spirit-token,
-body.inicio .token-popup,
-body.inicio .preference-button--sound,
-body.inicio .home-social__hashtag {
-  display:none !important;
+.share-toast {
+  position:fixed;
+  bottom:2rem;
+  left:50%;
+  transform:translateX(-50%) translateY(100px);
+  max-width:90%;
+  width:420px;
+  padding:1.25rem 1.5rem;
+  border-radius:16px;
+  background:linear-gradient(160deg, rgba(38,18,48,0.97), rgba(18,10,28,0.95));
+  border:1px solid rgba(255,214,162,0.4);
+  box-shadow:0 24px 60px rgba(6,2,14,0.7);
+  z-index:1300;
+  opacity:0;
+  transition:transform 0.3s ease, opacity 0.3s ease;
 }
 
-body.inicio.holiday--halloween .spectral-nav {
-  display:flex !important;
+.share-toast--visible {
+  transform:translateX(-50%) translateY(0);
+  opacity:1;
 }
 
-body.inicio.holiday--halloween .candle-marker {
-  display:flex !important;
+.share-toast__message {
+  margin:0 0 0.75rem 0;
+  color:#f9f0ff;
+  font-size:0.95rem;
+  text-align:center;
+  line-height:1.5;
 }
 
-body.inicio.holiday--halloween .countdown,
-body.inicio.holiday--halloween .spellbook,
-body.inicio.holiday--halloween .potion,
-body.inicio.holiday--halloween .ar-invites {
-  display:block !important;
+.share-toast__input {
+  width:100%;
+  padding:0.65rem 0.85rem;
+  border:1px solid rgba(255,214,162,0.3);
+  border-radius:8px;
+  background:rgba(12,6,18,0.5);
+  color:#f9f0ff;
+  font-size:0.9rem;
+  text-align:center;
+  cursor:text;
 }
 
-body.inicio.holiday--halloween .spirit-token {
-  display:inline-flex !important;
-}
-
-body.inicio.holiday--halloween .token-popup {
-  display:flex !important;
-}
-
-body.inicio.holiday--halloween .home-social__hashtag {
-  display:inline !important;
-}
-
-body.inicio.holiday--halloween .preference-button--sound {
-  display:flex !important;
+.share-toast__input:focus {
+  outline:2px solid rgba(255,214,162,0.6);
+  outline-offset:2px;
+  border-color:rgba(255,214,162,0.5);
 }
 
 @media (max-width: 720px) {
-  body.inicio.holiday--halloween .spectral-nav {
+  .spectral-nav {
     top:clamp(0.35rem, 3vh, 1rem);
     margin-top:1rem;
   }
 
-  body.inicio.holiday--halloween .spectral-nav__list {
+  .spectral-nav__list {
     flex-wrap:wrap;
     justify-content:center;
   }
 
-  body.inicio.holiday--halloween .spectral-nav__wisp {
-    display:none !important;
+  .spectral-nav__wisp {
+    display:none;
   }
 
-  body.inicio.holiday--halloween .home-social .spirit-token {
+  .home-social .spirit-token {
     position:static;
     align-self:flex-end;
     margin-top:0.75rem;
   }
 
-  body.inicio.holiday--halloween .countdown .spirit-token,
-  body.inicio.holiday--halloween .ar-invites .spirit-token {
+  .countdown .spirit-token,
+  .ar-invites .spirit-token {
     position:static;
     margin-top:1rem;
   }
 
-  body.inicio.holiday--halloween footer .spirit-token {
+  footer .spirit-token {
     position:static;
-    display:inline-flex !important;
+    display:inline-flex;
     margin-top:0.75rem;
   }
 }
