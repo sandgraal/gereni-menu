@@ -4,9 +4,21 @@
   const HALLOWEEN_VALUE = 'halloween';
   const BODY_CLASS = 'holiday--halloween';
   const OVERLAY_CLASS = 'seasonal-overlay';
+  const SPIDER_LAYER_CLASS = 'seasonal-overlay__spider-layer';
+  const SPIDER_CLASS = 'seasonal-overlay__spider';
+  const SPIDER_BODY_CLASS = 'seasonal-overlay__spider-body';
+  const SPIDER_EYES_CLASS = 'seasonal-overlay__spider-eyes';
+  const SPIDER_WEB_CLASS = 'seasonal-overlay__spider-web';
+  const SPIDER_ANIMATION_CLASS = 'seasonal-overlay__spider--animating';
+  const MIN_SPIDER_INTERVAL = 4500;
+  const MAX_SPIDER_INTERVAL = 9000;
+  const MAX_ACTIVE_SPIDERS = 4;
 
   let observer = null;
   let overlay = null;
+  let spiderLayer = null;
+  let spiderTimeout = null;
+  const activeSpiders = new Set();
 
   const motionQuery = typeof window !== 'undefined' && typeof window.matchMedia === 'function'
     ? window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -35,6 +47,10 @@
       '</div>'
     ].join('');
     overlay = container;
+    spiderLayer = document.createElement('div');
+    spiderLayer.className = SPIDER_LAYER_CLASS;
+    spiderLayer.setAttribute('aria-hidden', 'true');
+    overlay.appendChild(spiderLayer);
     return overlay;
   }
 
@@ -42,10 +58,12 @@
     if (overlay && overlay.isConnected) {
       overlay.remove();
       overlay = null;
+      spiderLayer = null;
     }
   }
 
   function disableEffect() {
+    stopSpiders();
     removeOverlay();
     if (document.body) {
       document.body.classList.remove(BODY_CLASS);
@@ -78,6 +96,9 @@
     const overlayElement = ensureOverlay();
     if (overlayElement && !overlayElement.isConnected) {
       body.appendChild(overlayElement);
+    }
+    if (spiderLayer) {
+      startSpiders();
     }
   }
 
@@ -139,5 +160,82 @@
     document.addEventListener('DOMContentLoaded', init, { once: true });
   } else {
     init();
+  }
+
+  function createSpiderElement() {
+    if (!spiderLayer) {
+      return null;
+    }
+    const spider = document.createElement('div');
+    spider.className = `${SPIDER_CLASS} ${SPIDER_ANIMATION_CLASS}`;
+    const body = document.createElement('span');
+    body.className = SPIDER_BODY_CLASS;
+    const eyes = document.createElement('span');
+    eyes.className = SPIDER_EYES_CLASS;
+    const thread = document.createElement('span');
+    thread.className = SPIDER_WEB_CLASS;
+    spider.appendChild(body);
+    spider.appendChild(eyes);
+    spider.appendChild(thread);
+
+    const offset = Math.random();
+    const horizontalPosition = Math.round(offset * 100);
+    spider.style.setProperty('--spider-left', `${horizontalPosition}%`);
+    spider.style.setProperty('--spider-scale', String(0.85 + Math.random() * 0.5));
+    const duration = 4 + Math.random() * 3;
+    spider.style.setProperty('--spider-duration', `${duration.toFixed(2)}s`);
+    const swayDirection = Math.random() > 0.5 ? '1' : '-1';
+    spider.style.setProperty('--spider-sway-direction', swayDirection);
+
+    spider.addEventListener('animationend', () => {
+      activeSpiders.delete(spider);
+      spider.remove();
+    }, { once: true });
+
+    activeSpiders.add(spider);
+    spiderLayer.appendChild(spider);
+    return spider;
+  }
+
+  function scheduleNextSpider() {
+    if (spiderTimeout) {
+      clearTimeout(spiderTimeout);
+    }
+    const delay = Math.round(
+      MIN_SPIDER_INTERVAL + Math.random() * (MAX_SPIDER_INTERVAL - MIN_SPIDER_INTERVAL)
+    );
+    spiderTimeout = window.setTimeout(() => {
+      spiderTimeout = null;
+      if (activeSpiders.size < MAX_ACTIVE_SPIDERS) {
+        createSpiderElement();
+      }
+      scheduleNextSpider();
+    }, delay);
+  }
+
+  function startSpiders() {
+    if (!spiderLayer || spiderTimeout) {
+      return;
+    }
+    // Warm up with an immediate spider to reinforce the Halloween mood.
+    if (activeSpiders.size === 0) {
+      createSpiderElement();
+    }
+    scheduleNextSpider();
+  }
+
+  function stopSpiders() {
+    if (spiderTimeout) {
+      clearTimeout(spiderTimeout);
+      spiderTimeout = null;
+    }
+    if (activeSpiders.size > 0) {
+      activeSpiders.forEach((spider) => {
+        if (spider && spider.isConnected) {
+          spider.remove();
+        }
+      });
+      activeSpiders.clear();
+    }
   }
 })();
