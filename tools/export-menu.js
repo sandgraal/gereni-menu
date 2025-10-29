@@ -361,13 +361,6 @@ async function exportMenu() {
       { waitUntil: 'networkidle2', timeout: 45000 },
       { waitUntil: 'domcontentloaded', timeout: 45000 }
     );
-    const readyState = await waitForDocumentState(page, ['complete', 'interactive'], {
-      timeout: 45000,
-      interval: 100
-    });
-    if (!readyState) {
-      throw new Error('El documento no alcanzó un estado listo después de recargar en modo impresión.');
-    }
     await applyPreferences(page, DEFAULT_SCREEN_VARIATION);
     await preparePdfLayout(page, highlightResources, DEFAULT_SCREEN_VARIATION.lang);
     await page.pdf({
