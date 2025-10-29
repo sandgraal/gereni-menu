@@ -241,7 +241,7 @@ async function resetPdfLayout(page) {
   });
 }
 
-async function waitForDocumentState(page, allowedStates, { timeout = 5000, interval = 100 } = {}) {
+async function waitForDocumentState(page, allowedStates, options = {}) {
   const normalizedStates = Array.isArray(allowedStates)
     ? allowedStates.filter(Boolean)
     : [];
@@ -250,13 +250,28 @@ async function waitForDocumentState(page, allowedStates, { timeout = 5000, inter
     throw new Error('waitForDocumentState requires at least one allowed state.');
   }
 
-  const deadline = Date.now() + Math.max(timeout, 0);
-  const safeInterval = Math.max(interval, 50);
+  const { timeout, interval } = options;
+  const hasCustomTimeout = timeout !== undefined;
+  const parsedTimeout = Number(timeout);
+  const effectiveTimeout = hasCustomTimeout && !Number.isNaN(parsedTimeout) && parsedTimeout >= 0
+    ? parsedTimeout
+    : 5000;
+  if (effectiveTimeout < 0) {
+    throw new Error('waitForDocumentState: timeout must not be negative.');
+  }
+  const hasFiniteTimeout = Number.isFinite(effectiveTimeout);
+  const deadline = hasFiniteTimeout ? Date.now() + effectiveTimeout : Infinity;
+  const parsedInterval = Number(interval);
+  const safeInterval = Math.max(Number.isFinite(parsedInterval) ? parsedInterval : 100, 50);
 
-  while (Date.now() < deadline) {
+  // Loop until a desired document state is found or the timeout is reached.
+  while (true) {
     const state = await page.evaluate(() => document.readyState);
     if (normalizedStates.includes(state)) {
       return state;
+    }
+    if (hasFiniteTimeout && Date.now() >= deadline) {
+      break;
     }
     await new Promise(resolve => setTimeout(resolve, safeInterval));
   }
@@ -298,7 +313,30 @@ async function reloadPageWithFallback(page, primaryOptions, fallbackOptions) {
       }
     }
 
-    const readyState = await waitForDocumentState(page, ['complete', 'interactive']);
+    const candidateTimeouts = [
+      fallbackOptions?.timeout,
+      primaryOptions?.timeout,
+      typeof page.getDefaultNavigationTimeout === 'function'
+        ? page.getDefaultNavigationTimeout()
+        : undefined,
+      typeof page.getDefaultTimeout === 'function'
+        ? page.getDefaultTimeout()
+        : undefined
+    ];
+
+    const resolvedTimeout = candidateTimeouts.find(value => {
+      if (value != null && value !== '') {
+        const numericValue = Number(value);
+        return Number.isFinite(numericValue) && numericValue >= 0;
+      }
+      return false;
+    });
+
+    const readyState = await waitForDocumentState(
+      page,
+      ['complete', 'interactive'],
+      resolvedTimeout === undefined ? undefined : { timeout: resolvedTimeout }
+    );
 
     if (!readyState) {
       throw error;
