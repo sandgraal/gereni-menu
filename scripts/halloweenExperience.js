@@ -91,6 +91,7 @@
   let soundValueLabel = null;
   let spectralNav = null;
   let navItems = [];
+  const itemSectionMap = new WeakMap();
   let navObserver = null;
   let navWisp = null;
   let countdownTarget = null;
@@ -352,13 +353,14 @@
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         playSound('spell-turn');
       });
-      item.__section = section; // eslint-disable-line no-underscore-dangle
+      itemSectionMap.set(item, section);
     });
     const observerOptions = { rootMargin: '-30% 0px -60% 0px', threshold: [0.25, 0.6] };
     navObserver = new IntersectionObserver(handleSectionIntersection, observerOptions);
     navItems.forEach((item) => {
-      if (item.__section) {
-        navObserver.observe(item.__section);
+      const section = itemSectionMap.get(item);
+      if (section) {
+        navObserver.observe(section);
       }
     });
     updateNavHighlight(navItems[0]);
@@ -366,7 +368,7 @@
 
   function handleSectionIntersection(entries) {
     entries.forEach((entry) => {
-      const item = navItems.find((navItem) => navItem.__section === entry.target);
+      const item = navItems.find((navItem) => itemSectionMap.get(navItem) === entry.target);
       if (!item) {
         return;
       }
