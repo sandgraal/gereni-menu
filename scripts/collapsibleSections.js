@@ -202,6 +202,7 @@
   }
 
   function handleMenuRendered() {
+    autoId = 0;
     const root = document.getElementById('menu-container');
     enhanceAllSections(root);
   }
