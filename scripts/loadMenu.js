@@ -588,9 +588,9 @@
       sectionEl.appendChild(createSectionTitle(section, lang, secondaryLang));
 
       const slugSource =
+        resolveText(section.title, lang) ||
         resolveText(section.title, 'es') ||
         resolveText(section.title, 'en') ||
-        resolveText(section.title, lang) ||
         '';
       const sectionId = slugify(slugSource);
       if (sectionId) {
