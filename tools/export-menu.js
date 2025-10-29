@@ -336,7 +336,7 @@ async function exportMenu() {
         try {
           navigator.serviceWorker = undefined;
         } catch (innerError) {
-          // ignore if the property is read-only.
+          // Ignore if the property is read-only.
         }
       }
     });
