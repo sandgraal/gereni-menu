@@ -104,7 +104,7 @@ body.inicio::before {
   background-size:cover;
   background-position:center 8%;
   background-repeat:no-repeat;
-  transform:translateZ(0);
+  transform: translateZ(0);
 }
 
 @media (max-width: 640px) {
