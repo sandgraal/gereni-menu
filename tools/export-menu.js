@@ -261,6 +261,7 @@ async function waitForDocumentState(page, allowedStates, options = {}) {
   const parsedInterval = Number(interval);
   const safeInterval = Math.max(Number.isFinite(parsedInterval) ? parsedInterval : 100, 50);
 
+  // Loop until a desired document state is found or the timeout is reached.
   while (true) {
     const state = await page.evaluate(() => document.readyState);
     if (normalizedStates.includes(state)) {
