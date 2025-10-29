@@ -14,18 +14,36 @@
   const MIN_SPIDER_INTERVAL = 4500;
   const MAX_SPIDER_INTERVAL = 9000;
   const MAX_ACTIVE_SPIDERS = 4;
-  const ANALYTICS_EVENT_NAME = 'gereni:analytics';
-  const SPIDER_DROP_EVENT = 'halloween_spider_drop_seen';
-  const ANALYTICS_CATEGORY = 'seasonal_overlay';
-  const ANALYTICS_SOURCE = 'seasonalEffects';
-  const DEFAULT_SPIDER_LABEL = 'spider_drop';
-  const ANALYTICS_QUEUE_LIMIT = 50;
-  const MIN_ANALYTICS_INTERVAL = 1500;
+  const FOG_CLASS = 'seasonal-overlay__fog';
+  const HALLOWEEN_EVENT_ACTIVE = 'gereni:halloween-active';
+  const HALLOWEEN_EVENT_INACTIVE = 'gereni:halloween-inactive';
+  const HALLOWEEN_EVENT_LIGHTING = 'gereni:halloween-lighting';
+  const LIGHTING_UPDATE_INTERVAL = 60 * 1000;
+  const DUSK_START_HOUR = 17;
+  const MIDNIGHT_END_HOUR = 24;
+  const FOG_THRESHOLD_HOUR = 20;
+
+  const GRADIENT_START_DUSK = [255, 120, 48, 0.32];
+  const GRADIENT_START_MIDNIGHT = [98, 68, 180, 0.52];
+  const GRADIENT_END_DUSK = [88, 42, 156, 0.34];
+  const GRADIENT_END_MIDNIGHT = [32, 16, 68, 0.52];
+  const AMBIENT_GLOW_A_DUSK = [255, 188, 102, 0.4];
+  const AMBIENT_GLOW_A_MIDNIGHT = [168, 112, 255, 0.48];
+  const AMBIENT_GLOW_B_DUSK = [147, 103, 255, 0.42];
+  const AMBIENT_GLOW_B_MIDNIGHT = [96, 134, 255, 0.55];
+  const AMBIENT_RIBBON_DUSK = [16, 8, 26, 0.15];
+  const AMBIENT_RIBBON_MIDNIGHT = [8, 12, 40, 0.32];
+  const NIGHT_VEIL_DUSK = [14, 14, 14, 0.7];
+  const NIGHT_VEIL_MIDNIGHT = [4, 4, 12, 0.86];
 
   let observer = null;
   let overlay = null;
   let spiderLayer = null;
+  let fogLayer = null;
   let spiderTimeout = null;
+  let lightingTimer = null;
+  let lastLightingPayload = null;
+  let isActive = false;
   const activeSpiders = new Set();
   let lastSpiderAnalyticsAt = 0;
 
@@ -37,106 +55,127 @@
     return motionQuery ? motionQuery.matches : false;
   }
 
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
 
-  function emitAnalyticsEvent(eventName, payload) {
-    if (typeof document === 'undefined') {
-      return;
-    }
+  function lerp(start, end, t) {
+    return start + (end - start) * t;
+  }
 
-    const detail = {
-      event: eventName,
-      category: ANALYTICS_CATEGORY,
-      source: ANALYTICS_SOURCE,
-      label: DEFAULT_SPIDER_LABEL,
-      ts: new Date().toISOString(),
-      ...(payload && typeof payload === 'object' ? payload : {})
+  function formatColor([r, g, b, a]) {
+    return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${a.toFixed(3)})`;
+  }
+
+  function mixColor(colorA, colorB, progress) {
+    const t = clamp(progress, 0, 1);
+    return formatColor([
+      lerp(colorA[0], colorB[0], t),
+      lerp(colorA[1], colorB[1], t),
+      lerp(colorA[2], colorB[2], t),
+      lerp(colorA[3], colorB[3], t)
+    ]);
+  }
+
+  function computeLightingState(now = new Date()) {
+    const hours = now.getHours() + now.getMinutes() / 60;
+    const rawProgress = (hours - DUSK_START_HOUR) / (MIDNIGHT_END_HOUR - DUSK_START_HOUR);
+    const progress = clamp(rawProgress, 0, 1);
+    const fogBoost = hours >= FOG_THRESHOLD_HOUR ? 0.12 : 0;
+    return {
+      progress,
+      gradientStart: mixColor(GRADIENT_START_DUSK, GRADIENT_START_MIDNIGHT, progress),
+      gradientEnd: mixColor(GRADIENT_END_DUSK, GRADIENT_END_MIDNIGHT, progress),
+      ambientGlowA: mixColor(AMBIENT_GLOW_A_DUSK, AMBIENT_GLOW_A_MIDNIGHT, progress),
+      ambientGlowB: mixColor(AMBIENT_GLOW_B_DUSK, AMBIENT_GLOW_B_MIDNIGHT, progress),
+      ambientRibbon: mixColor(AMBIENT_RIBBON_DUSK, AMBIENT_RIBBON_MIDNIGHT, progress),
+      nightVeil: mixColor(NIGHT_VEIL_DUSK, NIGHT_VEIL_MIDNIGHT, progress),
+      brightness: (progress < 0.35 ? lerp(1.1, 1, progress / 0.35) : lerp(1, 0.82, (progress - 0.35) / 0.65)).toFixed(3),
+      fogDensity: clamp(0.22 + progress * 0.35 + fogBoost, 0.22, 0.62),
+      shadowStrength: clamp(0.26 + progress * 0.32, 0.26, 0.58),
+      wispOpacity: clamp(0.45 + progress * 0.3, 0.45, 0.75)
     };
-
-    let analyticsEvent = null;
-    try {
-      if (typeof CustomEvent === 'function') {
-        analyticsEvent = new CustomEvent(ANALYTICS_EVENT_NAME, { detail });
-      } else if (document.createEvent) {
-        analyticsEvent = document.createEvent('CustomEvent');
-        analyticsEvent.initCustomEvent(ANALYTICS_EVENT_NAME, false, false, detail);
-      }
-    } catch (error) {
-      analyticsEvent = null;
-    }
-
-    if (analyticsEvent) {
-      try {
-        document.dispatchEvent(analyticsEvent);
-      } catch (error) {
-        // Ignore analytics dispatch failures.
-      }
-    }
-
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    try {
-      if (!Array.isArray(window.gereniAnalyticsQueue)) {
-        window.gereniAnalyticsQueue = [];
-      }
-
-      window.gereniAnalyticsQueue.push(detail);
-
-      if (window.gereniAnalyticsQueue.length > ANALYTICS_QUEUE_LIMIT) {
-        window.gereniAnalyticsQueue.splice(
-          0,
-          window.gereniAnalyticsQueue.length - ANALYTICS_QUEUE_LIMIT
-        );
-      }
-    } catch (error) {
-      // Ignore queue persistence errors.
-    }
-
-    if (Array.isArray(window.dataLayer)) {
-      try {
-        window.dataLayer.push({ ...detail });
-      } catch (error) {
-        // Ignore dataLayer push errors.
-      }
-    }
   }
 
-  function recordSpiderDrop(metadata) {
-    if (typeof document === 'undefined') {
+  function applyLightingState(state) {
+    if (!document.body) {
       return;
     }
-
-    if (typeof document.visibilityState === 'string' && document.visibilityState === 'hidden') {
-      return;
-    }
-
-    const now = Date.now();
-    if (now - lastSpiderAnalyticsAt < MIN_ANALYTICS_INTERVAL) {
-      return;
-    }
-
-    lastSpiderAnalyticsAt = now;
-
-    const detail = metadata && typeof metadata === 'object' ? { ...metadata } : {};
-    detail.label = DEFAULT_SPIDER_LABEL;
-    emitAnalyticsEvent(SPIDER_DROP_EVENT, detail);
+    document.body.style.setProperty('--halloween-gradient-start', state.gradientStart);
+    document.body.style.setProperty('--halloween-gradient-end', state.gradientEnd);
+    document.body.style.setProperty('--halloween-ambient-glow-a', state.ambientGlowA);
+    document.body.style.setProperty('--halloween-ambient-glow-b', state.ambientGlowB);
+    document.body.style.setProperty('--halloween-ambient-ribbon', state.ambientRibbon);
+    document.body.style.setProperty('--halloween-night-veil', state.nightVeil);
+    document.body.style.setProperty('--halloween-brightness', state.brightness);
+    document.body.style.setProperty('--halloween-fog-density', state.fogDensity.toFixed(3));
+    document.body.style.setProperty('--halloween-shadow-strength', state.shadowStrength.toFixed(3));
+    document.body.style.setProperty('--halloween-wisp-opacity', state.wispOpacity.toFixed(3));
   }
 
-  function queueSpiderAnalytics(metadata) {
-    const send = () => recordSpiderDrop(metadata);
-
-    if (typeof window === 'undefined') {
-      send();
+  function clearLightingState() {
+    if (!document.body) {
       return;
     }
+    const props = [
+      '--halloween-gradient-start',
+      '--halloween-gradient-end',
+      '--halloween-ambient-glow-a',
+      '--halloween-ambient-glow-b',
+      '--halloween-ambient-ribbon',
+      '--halloween-night-veil',
+      '--halloween-brightness',
+      '--halloween-fog-density',
+      '--halloween-shadow-strength',
+      '--halloween-wisp-opacity'
+    ];
+    props.forEach(prop => {
+      document.body.style.removeProperty(prop);
+    });
+    lastLightingPayload = null;
+  }
 
-    if (typeof window.requestAnimationFrame === 'function') {
-      window.requestAnimationFrame(send);
+  function emitEvent(name, detail) {
+    document.dispatchEvent(new CustomEvent(name, { detail }));
+  }
+
+  function updateActiveState(active, detail) {
+    if (isActive === active) {
       return;
     }
+    isActive = active;
+    emitEvent(active ? HALLOWEEN_EVENT_ACTIVE : HALLOWEEN_EVENT_INACTIVE, Object.assign({ active }, detail));
+  }
 
-    window.setTimeout(send, 0);
+  function updateLighting() {
+    const state = computeLightingState();
+    applyLightingState(state);
+    const payload = {
+      progress: state.progress,
+      fogDensity: state.fogDensity,
+      shadowStrength: state.shadowStrength,
+      timestamp: Date.now()
+    };
+    if (!lastLightingPayload || Math.abs(lastLightingPayload.progress - state.progress) > 0.01) {
+      emitEvent(HALLOWEEN_EVENT_LIGHTING, Object.assign({ state }, payload));
+    }
+    lastLightingPayload = payload;
+  }
+
+  function startLightingLoop() {
+    if (lightingTimer) {
+      return;
+    }
+    updateLighting();
+    lightingTimer = window.setInterval(updateLighting, LIGHTING_UPDATE_INTERVAL);
+  }
+
+  function stopLightingLoop() {
+    if (lightingTimer) {
+      window.clearInterval(lightingTimer);
+      lightingTimer = null;
+    }
+    clearLightingState();
   }
 
   function ensureOverlay() {
@@ -155,9 +194,11 @@
       '<div class="seasonal-overlay__lanterns" aria-hidden="true">',
       '  <span class="seasonal-overlay__lantern seasonal-overlay__lantern--front"></span>',
       '  <span class="seasonal-overlay__lantern seasonal-overlay__lantern--rear"></span>',
-      '</div>'
+      '</div>',
+      `<div class="${FOG_CLASS}" aria-hidden="true"></div>`
     ].join('');
     overlay = container;
+    fogLayer = overlay.querySelector(`.${FOG_CLASS}`) || null;
     spiderLayer = document.createElement('div');
     spiderLayer.className = SPIDER_LAYER_CLASS;
     spiderLayer.setAttribute('aria-hidden', 'true');
@@ -181,11 +222,16 @@
       overlay.classList.remove(OVERLAY_ENTER_CLASS);
       overlay = null;
       spiderLayer = null;
+      fogLayer = null;
     }
   }
 
-  function disableEffect() {
+  function disableEffect(reason) {
+    if (isActive) {
+      updateActiveState(false, { reason: reason || 'disabled' });
+    }
     stopSpiders();
+    stopLightingLoop();
     removeOverlay();
     if (document.body) {
       document.body.classList.remove(BODY_CLASS);
@@ -202,7 +248,7 @@
   function updateEffect() {
     const body = document.body;
     if (!body || !body.classList.contains('inicio')) {
-      disableEffect();
+      disableEffect('not-home');
       return;
     }
 
@@ -210,7 +256,7 @@
     const shouldEnable = hasHalloweenCard(panel) && !isMotionReduced();
 
     if (!shouldEnable) {
-      disableEffect();
+      disableEffect('conditions-not-met');
       return;
     }
 
@@ -222,6 +268,10 @@
     if (overlayElement) {
       playOverlayEntrance(overlayElement);
     }
+    if (!isActive) {
+      updateActiveState(true, { reason: 'seasonal-card' });
+    }
+    startLightingLoop();
     if (spiderLayer) {
       startSpiders();
     }
