@@ -332,16 +332,44 @@ function replaceBetweenMarkers(source, markerStart, markerEnd, replacementFactor
     throw new Error(`No se encontró el marcador ${markerEnd} en menu.html`);
   }
 
-  const indentStart = (() => {
-    const lastNewline = source.lastIndexOf('\n', startIndex);
-    if (lastNewline === -1) return '';
-    return source.slice(lastNewline + 1, startIndex);
-  })();
-
-  const before = source.slice(0, startIndex);
+  const beforeRaw = source.slice(0, startIndex);
   const after = source.slice(endIndex + markerEnd.length);
+  const before = beforeRaw.replace(/[ \t]+$/g, '');
+  const indentStart = (() => {
+    const match = before.match(/(^|\n)([ \t]*)$/);
+    return match ? match[2] : '';
+  })();
   const replacement = replacementFactory(indentStart);
-  return before + replacement + after;
+  const normalizedBefore = before.endsWith('\n') ? before : `${before}\n`;
+  return normalizedBefore + replacement + after;
+}
+
+function normalizeIndentation(block) {
+  if (typeof block !== 'string' || block.length === 0) {
+    return '';
+  }
+
+  const lines = block.split('\n');
+  const minIndent = lines.reduce((min, line) => {
+    if (!line.trim()) {
+      return min;
+    }
+    const match = line.match(/^ */);
+    const spaces = match ? match[0].length : 0;
+    return Math.min(min, spaces);
+  }, Infinity);
+
+  const baseIndent = minIndent === Infinity ? 0 : minIndent;
+
+  return lines
+    .map(line => {
+      if (!line.trim()) {
+        return '';
+      }
+      const trimIndex = Math.min(baseIndent, line.length);
+      return line.slice(trimIndex);
+    })
+    .join('\n');
 }
 
 function main() {
@@ -360,6 +388,7 @@ function main() {
   }) : [];
 
   const fallbackHtml = sections.length > 0 ? renderColumns(sections) : indent(1, '<!-- No hay secciones disponibles -->');
+  const normalizedFallback = normalizeIndentation(fallbackHtml);
   const updatedNote = formatUpdatedAt(data.updatedAt);
   const schemaPayload = buildMenuSchema(data);
   const schemaJson = schemaPayload ? JSON.stringify(schemaPayload, null, 2) : null;
@@ -369,7 +398,16 @@ function main() {
   html = replaceBetweenMarkers(html, START_MARKER, END_MARKER, (indentStart) => {
     const lines = [];
     lines.push(`${indentStart}${START_MARKER}`);
-    lines.push(fallbackHtml);
+    if (normalizedFallback) {
+      const fallbackIndent = `${indentStart}${INDENT_UNIT}`;
+      normalizedFallback.split('\n').forEach(line => {
+        if (!line.trim()) {
+          lines.push(fallbackIndent);
+        } else {
+          lines.push(`${fallbackIndent}${line}`);
+        }
+      });
+    }
     lines.push(`${indentStart}${END_MARKER}`);
     return lines.join('\n');
   });
