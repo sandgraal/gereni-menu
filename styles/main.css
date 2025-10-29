@@ -1403,7 +1403,7 @@ body.menu-page {
 
 @supports (min-height: 100dvh) {
   body.menu-page {
-    min-height:100dvh;
+    min-height: 100dvh;
   }
 }
 
