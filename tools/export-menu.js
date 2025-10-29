@@ -256,8 +256,11 @@ async function waitForDocumentState(page, allowedStates, options = {}) {
   const effectiveTimeout = hasCustomTimeout && !Number.isNaN(parsedTimeout)
     ? parsedTimeout
     : 5000;
+  if (effectiveTimeout < 0) {
+    throw new Error('waitForDocumentState: timeout must not be negative.');
+  }
   const hasFiniteTimeout = Number.isFinite(effectiveTimeout);
-  const deadline = hasFiniteTimeout ? Date.now() + Math.max(effectiveTimeout, 0) : Infinity;
+  const deadline = hasFiniteTimeout ? Date.now() + effectiveTimeout : Infinity;
   const parsedInterval = Number(interval);
   const safeInterval = Math.max(Number.isFinite(parsedInterval) ? parsedInterval : 100, 50);
 
