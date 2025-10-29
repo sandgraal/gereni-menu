@@ -109,7 +109,7 @@ body.inicio::before {
 
 @media (max-width: 640px) {
   body.inicio::before {
-    background-position:center 18%;
+    background-position: center 18%;
   }
 }
 
