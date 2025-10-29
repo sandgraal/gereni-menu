@@ -339,6 +339,7 @@ body.inicio main {
 
 @media (max-width: 899px) {
   .home-highlight {
+    /* The `order` property only works if the parent container uses `display: flex` or `display: grid`. */
     order:-1;
     margin-top:0;
   }
