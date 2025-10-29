@@ -345,6 +345,8 @@ function replaceBetweenMarkers(source, markerStart, markerEnd, replacementFactor
 }
 
 function main() {
+  sectionCounter = 0;
+  
   if (!fs.existsSync(DATA_PATH)) {
     throw new Error(`No se encontró ${DATA_PATH}`);
   }
