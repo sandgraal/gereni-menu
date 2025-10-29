@@ -20,8 +20,6 @@
 </script>
 <script defer="" src="scripts/theme.js">
 </script>
-<script defer="" src="scripts/headerControls.js">
-</script>
 <script defer="" src="scripts/seasonalEffects.js">
 </script>
 <script defer="" src="scripts/flagBadge.js">
@@ -63,48 +61,31 @@
     Gereni Bar y Restaurante
    </h1>
 <img alt="Bandera de Costa Rica" class="flag-badge" data-i18n-attr="alt" data-i18n-en="Flag of the United States" data-i18n-es="Bandera de Costa Rica" data-lang-src-en="assets/photos/Flag_of_the_United_States.svg" data-lang-src-es="assets/photos/Flag_of_Costa_Rica.svg" src="assets/photos/Flag_of_Costa_Rica.svg"/>
-<div class="header-controls">
-<div class="control-dropdown" data-controls-dropdown="">
-<button aria-controls="header-preferences" aria-expanded="false" aria-haspopup="true" class="control-dropdown__trigger" data-controls-toggle="" data-i18n-attr="aria-label" data-i18n-en="Open language and style options" data-i18n-es="Abrir opciones de idioma y estilo" type="button">
-      <span data-i18n-en="Language &amp; style" data-i18n-es="Idioma y estilo">
-        Idioma y estilo
-       </span>
-      <span aria-hidden="true" class="control-dropdown__icon">
-        &#9662;
-       </span>
-     </button>
-<div class="control-dropdown__panel" data-controls-menu="" hidden="" id="header-preferences">
-<div class="control-section">
-<p class="control-section__title" data-i18n-en="Visual style" data-i18n-es="Estilo visual">
-          Estilo visual
-         </p>
-<div aria-label="Cambiar estilo visual" class="theme-toggle" data-i18n-attr="aria-label" data-i18n-en="Switch visual theme" data-i18n-es="Cambiar estilo visual" data-theme-toggle="" role="group">
-<button aria-label="Usar el tema oscuro" aria-pressed="true" data-i18n-attr="aria-label" data-i18n-en="Use the dark theme" data-i18n-es="Usar el tema oscuro" data-theme-option="dark" type="button">
-            <span data-i18n-en="Dark" data-i18n-es="Oscuro">
-              Oscuro
-             </span>
-           </button>
-<button aria-label="Usar el tema claro" aria-pressed="false" data-i18n-attr="aria-label" data-i18n-en="Use the light theme" data-i18n-es="Usar el tema claro" data-theme-option="light" type="button">
-            <span data-i18n-en="Light" data-i18n-es="Claro">
-              Claro
-             </span>
-           </button>
-         </div>
-       </div>
-<div class="control-section">
-<p class="control-section__title" data-i18n-en="Language" data-i18n-es="Idioma">
-          Idioma
-         </p>
-<div aria-label="Seleccionar idioma" class="language-toggle" data-i18n-attr="aria-label" data-i18n-en="Choose language" data-i18n-es="Seleccionar idioma" data-lang-toggle="" role="group">
-<button aria-label="Cambiar a español" aria-pressed="true" data-i18n-attr="aria-label" data-i18n-en="Switch to Spanish" data-i18n-es="Cambiar a español" data-lang-option="es" type="button">
-            ES
-           </button>
-<button aria-label="Cambiar a inglés" aria-pressed="false" data-i18n-attr="aria-label" data-i18n-en="Switch to English" data-i18n-es="Cambiar a inglés" data-lang-option="en" type="button">
-            EN
-           </button>
-         </div>
-       </div>
-     </div>
+   <div class="header-controls preference-controls">
+    <button aria-label="Cambiar a tema claro" aria-pressed="true" class="preference-button preference-button--theme" data-theme-label-dark-en="Dark" data-theme-label-dark-es="Oscuro" data-theme-label-light-en="Light" data-theme-label-light-es="Claro" data-theme-next-dark-en="Switch to light theme" data-theme-next-dark-es="Cambiar a tema claro" data-theme-next-light-en="Switch to dark theme" data-theme-next-light-es="Cambiar a tema oscuro" data-theme-toggle-button="" data-theme-state="dark" data-theme-next="light" type="button">
+     <span aria-hidden="true" class="preference-button__icon">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+       <path class="yin-dark" d="M16 3a13 13 0 0 0 0 26c1.9 0 3.7-.43 5.3-1.27a9 9 0 1 1 0-23.46A12.96 12.96 0 0 0 16 3Z" fill="currentColor"></path>
+       <path class="yin-light" d="M21.3 4.27c-.86-.18-1.75-.27-2.65-.27a9 9 0 0 0 0 18c.9 0 1.79-.09 2.65-.27A6 6 0 0 1 21.3 4.27Z" fill="currentColor"></path>
+      </svg>
+     </span>
+     <span class="preference-button__text">
+      <span class="preference-button__hint" data-i18n-en="Style" data-i18n-es="Estilo">Estilo</span>
+      <span class="preference-button__value" data-theme-label="">Oscuro</span>
+     </span>
+    </button>
+    <button aria-label="Cambiar a inglés" aria-pressed="true" class="preference-button preference-button--language" data-lang-cycle-button="" data-lang-label-en="English" data-lang-label-es="Español" data-lang-next-en="Switch to Spanish" data-lang-next-es="Cambiar a inglés" data-lang-next="en" data-lang-state="es" type="button">
+     <span aria-hidden="true" class="preference-button__icon">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+       <path d="M6 9a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5h-2.38l-4.42 5.21A.75.75 0 0 1 13 26.74V22H11a5 5 0 0 1-5-5Z" fill="currentColor"></path>
+       <path d="M11.75 11h8.5M11.75 15h5.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+     </span>
+     <span class="preference-button__text">
+      <span class="preference-button__hint" data-i18n-en="Language" data-i18n-es="Idioma">Idioma</span>
+      <span class="preference-button__value" data-lang-label="">Español</span>
+     </span>
+    </button>
    </div>
  </div>
 <img alt="Logo de Gereni Bar y Restaurante" class="logo" data-i18n-attr="alt" data-i18n-en="Gereni Bar &amp; Restaurant logo" data-i18n-es="Logo de Gereni Bar y Restaurante" src="assets/logo-gereni-bar-restaurant.png"/>

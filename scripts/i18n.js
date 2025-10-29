@@ -4,6 +4,8 @@
   const VALID_LANGS = new Set(['es', 'en']);
   const subscribers = new Set();
   let currentLang = DEFAULT_LANG;
+  let langCycleButton = null;
+  let langCycleLabel = null;
 
   function sanitizeLanguage(lang) {
     if (typeof lang !== 'string') return DEFAULT_LANG;
@@ -62,6 +64,28 @@
     });
   }
 
+  function updateLangCycleButton(lang) {
+    if (!langCycleButton) return;
+    const dataset = langCycleButton.dataset;
+    const labelKey = lang === 'en' ? 'langLabelEn' : 'langLabelEs';
+    const nextLang = lang === 'en' ? 'es' : 'en';
+    if (langCycleLabel) {
+      const labelValue = dataset[labelKey] || langCycleLabel.textContent;
+      langCycleLabel.textContent = labelValue;
+    }
+    const nextKey = lang === 'en' ? 'langNextEn' : 'langNextEs';
+    const nextLabel = dataset[nextKey];
+    langCycleButton.dataset.langState = lang;
+    langCycleButton.setAttribute('data-lang-state', lang);
+    langCycleButton.dataset.langNext = nextLang;
+    langCycleButton.setAttribute('data-lang-next', nextLang);
+    langCycleButton.setAttribute('aria-pressed', lang === 'es' ? 'true' : 'false');
+    if (nextLabel) {
+      langCycleButton.setAttribute('aria-label', nextLabel);
+      langCycleButton.title = nextLabel;
+    }
+  }
+
   function dispatchLanguageChange(lang) {
     const detail = { lang };
     subscribers.forEach(fn => {
@@ -82,6 +106,7 @@
     document.documentElement.setAttribute('lang', currentLang === 'en' ? 'en' : 'es');
     applyTranslations(currentLang);
     updateToggleState(currentLang);
+    updateLangCycleButton(currentLang);
     dispatchLanguageChange(currentLang);
   }
 
@@ -92,12 +117,27 @@
     setLanguage(lang);
   }
 
+  function handleCycleButtonClick(event) {
+    if (!langCycleButton) return;
+    if (event) {
+      event.preventDefault();
+    }
+    const nextLang = langCycleButton.getAttribute('data-lang-next') || (currentLang === 'en' ? 'es' : 'en');
+    setLanguage(nextLang);
+  }
+
   currentLang = readStoredLanguage();
 
   function init() {
     document.documentElement.setAttribute('lang', currentLang === 'en' ? 'en' : 'es');
     applyTranslations(currentLang);
     updateToggleState(currentLang);
+    langCycleButton = document.querySelector('[data-lang-cycle-button]');
+    langCycleLabel = langCycleButton ? langCycleButton.querySelector('[data-lang-label]') : null;
+    if (langCycleButton) {
+      langCycleButton.addEventListener('click', handleCycleButtonClick);
+      updateLangCycleButton(currentLang);
+    }
     document.addEventListener('click', handleToggleClick);
     dispatchLanguageChange(currentLang);
   }
