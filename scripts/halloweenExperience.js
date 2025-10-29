@@ -799,9 +799,13 @@
     toast.appendChild(messageText);
     toast.appendChild(input);
     document.body.appendChild(toast);
-    input.select();
     setTimeout(() => {
       toast.classList.add('share-toast--visible');
+      try {
+        input.select();
+      } catch (err) {
+        // selection may fail on some devices
+      }
     }, 10);
     setTimeout(() => {
       toast.classList.remove('share-toast--visible');
