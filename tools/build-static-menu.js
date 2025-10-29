@@ -402,7 +402,7 @@ function main() {
       const fallbackIndent = `${indentStart}${INDENT_UNIT}`;
       normalizedFallback.split('\n').forEach(line => {
         if (!line.trim()) {
-          lines.push(fallbackIndent);
+          lines.push('');
         } else {
           lines.push(`${fallbackIndent}${line}`);
         }
