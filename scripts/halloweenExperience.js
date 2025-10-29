@@ -91,6 +91,7 @@
   let soundValueLabel = null;
   let spectralNav = null;
   let navItems = [];
+  const itemSectionMap = new WeakMap();
   let navObserver = null;
   let navWisp = null;
   const itemSectionMap = new WeakMap();
