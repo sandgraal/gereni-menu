@@ -253,7 +253,7 @@ async function waitForDocumentState(page, allowedStates, options = {}) {
   const { timeout, interval } = options || {};
   const hasCustomTimeout = timeout !== undefined;
   const parsedTimeout = Number(timeout);
-  const effectiveTimeout = hasCustomTimeout && !Number.isNaN(parsedTimeout)
+  const effectiveTimeout = hasCustomTimeout && !Number.isNaN(parsedTimeout) && parsedTimeout >= 0
     ? parsedTimeout
     : 5000;
   if (effectiveTimeout < 0) {
