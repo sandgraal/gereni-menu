@@ -34,10 +34,14 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
       const shellCache = await caches.open(SHELL_CACHE);
-      await shellCache.addAll(PRECACHE_URLS.map(resolveUrl));
+      await shellCache.addAll(
+        PRECACHE_URLS.map((path) => new Request(resolveUrl(path), { cache: 'reload' }))
+      );
 
       const dataCache = await caches.open(DATA_CACHE);
-      await dataCache.addAll(DATA_PRECACHE_URLS.map(resolveUrl));
+      await dataCache.addAll(
+        DATA_PRECACHE_URLS.map((path) => new Request(resolveUrl(path), { cache: 'reload' }))
+      );
     })()
   );
 });
@@ -96,7 +100,7 @@ const cacheFirst = async (request) => {
 const networkFirstShell = async (request) => {
   const cache = await caches.open(SHELL_CACHE);
   try {
-    const response = await fetch(request);
+    const response = await fetch(new Request(request, { cache: 'reload' }));
     if (response && response.ok) {
       cache.put(request, response.clone());
       return response;
@@ -114,7 +118,7 @@ const networkFirstShell = async (request) => {
 const networkFirstData = async (request) => {
   const cache = await caches.open(DATA_CACHE);
   try {
-    const response = await fetch(request);
+    const response = await fetch(new Request(request, { cache: 'reload' }));
     if (response && response.ok) {
       cache.put(request, response.clone());
       return response;
@@ -131,7 +135,7 @@ const networkFirstData = async (request) => {
 
 const handleNavigation = async (request) => {
   try {
-    const response = await fetch(request);
+    const response = await fetch(new Request(request, { cache: 'reload' }));
     if (response && response.ok) {
       const cache = await caches.open(SHELL_CACHE);
       cache.put(request, response.clone());
