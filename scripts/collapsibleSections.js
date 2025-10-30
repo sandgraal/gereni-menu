@@ -34,7 +34,7 @@
     try {
       if (window.localStorage) {
         const cleaned = Object.fromEntries(
-          Object.entries(storedState).filter(([, value]) => value === 'collapsed')
+          Object.entries(storedState).filter(([, value]) => value === 'collapsed' || value === 'expanded')
         );
         if (Object.keys(cleaned).length === 0) {
           window.localStorage.removeItem(STORAGE_KEY);
