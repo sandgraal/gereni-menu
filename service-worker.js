@@ -39,7 +39,9 @@ self.addEventListener('install', (event) => {
       );
 
       const dataCache = await caches.open(DATA_CACHE);
-      await dataCache.addAll(DATA_PRECACHE_URLS.map(resolveUrl));
+      await dataCache.addAll(
+        DATA_PRECACHE_URLS.map((path) => new Request(resolveUrl(path), { cache: 'reload' }))
+      );
     })()
   );
 });
