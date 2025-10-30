@@ -10,6 +10,7 @@ const path = require('path');
 const root = path.resolve(__dirname, '..');
 const htmlPath = path.join(root, 'menu.html');
 const dataPath = path.join(root, 'data', 'menu.json');
+const highlightPath = path.join(root, 'data', 'highlight-fallbacks.json');
 
 function formatUpdatedAt(dateIso) {
   if (!dateIso) {
@@ -71,6 +72,25 @@ async function main() {
     throw new Error('data/menu.json no contiene secciones de menú.');
   }
 
+  const referencedImages = new Map();
+
+  function trackImage(imagePath, context) {
+    if (typeof imagePath !== 'string') {
+      return;
+    }
+
+    const trimmed = imagePath.trim();
+    if (!trimmed || /^https?:/i.test(trimmed) || trimmed.startsWith('data:')) {
+      return;
+    }
+
+    if (!referencedImages.has(trimmed)) {
+      referencedImages.set(trimmed, new Set());
+    }
+
+    referencedImages.get(trimmed).add(context);
+  }
+
   const sectionSummaries = sections.map((section, index) => {
     const titles = extractLocalizedText(section?.title || {});
     const displayTitle =
@@ -78,6 +98,19 @@ async function main() {
       : (titles.en && titles.en.trim()) ? titles.en.trim()
       : `Sección ${index + 1}`;
     const items = Array.isArray(section?.items) ? section.items : [];
+
+    for (const item of items) {
+      const itemNames = extractLocalizedText(item?.name || {});
+      const displayName =
+        (itemNames.es && itemNames.es.trim()) ? itemNames.es.trim()
+        : (itemNames.en && itemNames.en.trim()) ? itemNames.en.trim()
+        : 'Platillo sin nombre';
+
+      if (typeof item?.image === 'string' && item.image.trim()) {
+        trackImage(item.image, `data/menu.json → ${displayTitle} → ${displayName}`);
+      }
+    }
+
     return { title: displayTitle, count: items.length };
   });
 
@@ -109,6 +142,56 @@ async function main() {
   );
   console.log(`Nota de actualización: ${footerNote || 'No visible'}`);
   console.log(`Schema JSON-LD: ${schemaSummary}`);
+
+  let highlightFallbacks;
+
+  try {
+    const highlightRaw = fs.readFileSync(highlightPath, 'utf8');
+    highlightFallbacks = JSON.parse(highlightRaw);
+  } catch (error) {
+    throw new Error(`No se pudo parsear data/highlight-fallbacks.json: ${error.message}`);
+  }
+
+  if (!Array.isArray(highlightFallbacks) || highlightFallbacks.length === 0) {
+    throw new Error('data/highlight-fallbacks.json no contiene rutas de imagen.');
+  }
+
+  highlightFallbacks.forEach((entry, index) => {
+    if (typeof entry !== 'string' || !entry.trim()) {
+      throw new Error(`Entrada ${index + 1} en data/highlight-fallbacks.json no es una ruta válida.`);
+    }
+
+    trackImage(entry, `data/highlight-fallbacks.json → índice ${index}`);
+  });
+
+  const imageTagRegex = /<img\s+[^>]*src=["']([^"']+)["'][^>]*>/gi;
+  let imageMatch;
+
+  while ((imageMatch = imageTagRegex.exec(html)) !== null) {
+    trackImage(imageMatch[1], 'menu.html');
+  }
+
+  const missingImages = [];
+
+  for (const [relativePath, contexts] of referencedImages.entries()) {
+    const normalized = relativePath.replace(/^\/+/, '');
+    const resolved = path.resolve(root, normalized);
+
+    if (!resolved.startsWith(root)) {
+      missingImages.push(`${relativePath} (fuera del directorio del proyecto, referencias: ${Array.from(contexts).join(', ')})`);
+      continue;
+    }
+
+    if (!fs.existsSync(resolved)) {
+      missingImages.push(`${relativePath} (referencias: ${Array.from(contexts).join(', ')})`);
+    }
+  }
+
+  if (missingImages.length > 0) {
+    throw new Error(`No se encontraron las imágenes referenciadas:\n${missingImages.join('\n')}`);
+  }
+
+  console.log(`Imágenes verificadas: ${referencedImages.size}`);
 }
 
 main().catch(err => {
