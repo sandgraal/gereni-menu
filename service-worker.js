@@ -99,8 +99,9 @@ const networkFirstShell = async (request) => {
     const response = await fetch(request);
     if (response && response.ok) {
       cache.put(request, response.clone());
+      return response;
     }
-    return response;
+    throw new Error(`Network response not ok: ${response.status}`);
   } catch (error) {
     const cached = await cache.match(request);
     if (cached) {
@@ -116,8 +117,9 @@ const networkFirstData = async (request) => {
     const response = await fetch(request);
     if (response && response.ok) {
       cache.put(request, response.clone());
+      return response;
     }
-    return response;
+    throw new Error(`Network response not ok: ${response.status}`);
   } catch (error) {
     const cached = await cache.match(request);
     if (cached) {
@@ -133,8 +135,9 @@ const handleNavigation = async (request) => {
     if (response && response.ok) {
       const cache = await caches.open(SHELL_CACHE);
       cache.put(request, response.clone());
+      return response;
     }
-    return response;
+    throw new Error(`Network response not ok: ${response.status}`);
   } catch (error) {
     const cache = await caches.open(SHELL_CACHE);
     const url = new URL(request.url);
