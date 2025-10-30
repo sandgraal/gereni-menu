@@ -15,7 +15,7 @@
   --home-highlight-card-glow:rgba(255,214,162,0.28);
   --home-highlight-card-glow-secondary:rgba(146,176,135,0.32);
   --home-background-image:url('../assets/El_Rancho.jpg');
-  --home-background-overlay:linear-gradient(rgba(243,232,213,0.68), rgba(243,232,213,0.72));
+  --home-background-overlay:linear-gradient(rgba(243,232,213,0.18), rgba(243,232,213,0.28));
   --home-background-blend-mode:normal;
   --home-background-position:center 8%;
   --home-background-position-mobile:center 18%;
@@ -931,6 +931,34 @@ body[data-theme="dark"] .menu-header__controls .preference-button {
   .menu-header__controls {
     right:0.75rem;
     top:0.75rem;
+  }
+
+  .preference-controls {
+    gap:0.4rem;
+  }
+
+  .preference-button {
+    justify-content:center;
+    padding:0.4rem;
+    min-width:0;
+  }
+
+  .preference-button__icon {
+    width:2.75rem;
+    height:2.75rem;
+  }
+
+  .preference-button__text {
+    position:absolute;
+    width:1px;
+    height:1px;
+    padding:0;
+    margin:-1px;
+    overflow:hidden;
+    clip:rect(0, 0, 0, 0);
+    clip-path:inset(50%);
+    white-space:nowrap;
+    border:0;
   }
 }
 
