@@ -1,4 +1,8 @@
 (() => {
+  // Minimum scrollable height (in pixels) required to show the scroll helper.
+  // Below this threshold, the helper is hidden since scrolling is negligible.
+  const MIN_SCROLL_THRESHOLD = 8;
+
   const reduceMotionQuery = window.matchMedia
     ? window.matchMedia('(prefers-reduced-motion: reduce)')
     : null;
@@ -56,7 +60,7 @@
       );
       const viewport = window.innerHeight || doc.clientHeight || 0;
       maxScroll = Math.max(docHeight - viewport, 0);
-      const disabled = maxScroll <= 8;
+      const disabled = maxScroll <= MIN_SCROLL_THRESHOLD;
       slider.max = maxScroll > 0 ? maxScroll : 1;
       slider.disabled = disabled;
       helper.hidden = disabled;
