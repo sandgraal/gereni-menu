@@ -99,7 +99,6 @@
         clone.classList.add('pdf-page__section');
         clone.style.breakInside = 'avoid';
         clone.style.pageBreakInside = 'avoid';
-        clone.style.columnBreakInside = 'avoid';
         return { slug, clone };
       })
       .filter(Boolean);
