@@ -1,8 +1,18 @@
 (() => {
   const STORAGE_KEY = 'gereni-menu-collapsed';
+  // Mirror the main menu layout breakpoint to collapse sections on small screens.
+  const MOBILE_COLLAPSE_QUERY = '(max-width: 720px)';
   const enhancedSections = new WeakSet();
   let storedState = readStoredState();
   let autoId = 0;
+
+  const mobileQuery = typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+    ? window.matchMedia(MOBILE_COLLAPSE_QUERY)
+    : null;
+
+  function shouldCollapseByDefault() {
+    return Boolean(mobileQuery?.matches);
+  }
 
   function readStoredState() {
     try {
@@ -157,11 +167,7 @@
     if (!sectionId) {
       return;
     }
-    if (expanded) {
-      delete storedState[sectionId];
-    } else {
-      storedState[sectionId] = 'collapsed';
-    }
+    storedState[sectionId] = expanded ? 'expanded' : 'collapsed';
     writeStoredState();
   }
 
@@ -180,8 +186,20 @@
     const contentId = getContentId(section, content, sectionId);
     toggle.setAttribute('aria-controls', contentId);
 
-    const collapsed = sectionId && storedState[sectionId] === 'collapsed';
-    applyState(section, !collapsed);
+    const storedValue = sectionId ? storedState[sectionId] : undefined;
+    const collapsedPreference = storedValue === 'collapsed';
+    const expandedPreference = storedValue === 'expanded';
+    let expanded;
+
+    if (collapsedPreference) {
+      expanded = false;
+    } else if (expandedPreference) {
+      expanded = true;
+    } else {
+      expanded = !shouldCollapseByDefault();
+    }
+
+    applyState(section, expanded);
 
     toggle.addEventListener('click', () => {
       const isExpanded = toggle.getAttribute('aria-expanded') !== 'false';
