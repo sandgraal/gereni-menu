@@ -189,7 +189,7 @@
     const storedValue = sectionId ? storedState[sectionId] : undefined;
     const collapsedPreference = storedValue === 'collapsed';
     const expandedPreference = storedValue === 'expanded';
-    let expanded = true;
+    let expanded;
 
     if (collapsedPreference) {
       expanded = false;
