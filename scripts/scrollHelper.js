@@ -3,6 +3,9 @@
   // Below this threshold, the helper is hidden since scrolling is negligible.
   const MIN_SCROLL_THRESHOLD = 8;
 
+  // Distance from top/bottom edge (in pixels) within which scroll buttons are disabled.
+  const SCROLL_EDGE_THRESHOLD = 16;
+
   const reduceMotionQuery = window.matchMedia
     ? window.matchMedia('(prefers-reduced-motion: reduce)')
     : null;
@@ -77,8 +80,8 @@
 
     function updateButtonState() {
       const top = Math.max(0, Math.min(getScrollTop(), maxScroll));
-      const nearTop = top <= 16;
-      const nearBottom = maxScroll - top <= 16;
+      const nearTop = top <= SCROLL_EDGE_THRESHOLD;
+      const nearBottom = maxScroll - top <= SCROLL_EDGE_THRESHOLD;
       if (topButton) {
         topButton.disabled = nearTop;
       }
