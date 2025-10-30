@@ -156,13 +156,14 @@ async function main() {
     throw new Error('data/highlight-fallbacks.json no contiene rutas de imagen.');
   }
 
-  highlightFallbacks.forEach((entry, index) => {
+  for (let index = 0; index < highlightFallbacks.length; index++) {
+    const entry = highlightFallbacks[index];
     if (typeof entry !== 'string' || !entry.trim()) {
       throw new Error(`Entrada ${index + 1} en data/highlight-fallbacks.json no es una ruta válida.`);
     }
 
     trackImage(entry, `data/highlight-fallbacks.json → índice ${index}`);
-  });
+  }
 
   const imageTagRegex = /<img\s+[^>]*src=["']([^"']+)["'][^>]*>/gi;
   let imageMatch;
