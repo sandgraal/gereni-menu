@@ -15,8 +15,18 @@ const PRECACHE_URLS = [
   'scripts/swRegister.js',
   'data/menu.json',
   'assets/logo-gereni-bar-restaurant.png',
-  'assets/photos/cocktails-600x441.png',
+  'assets/photos/gustitos-sopa-azteca.png',
+  'assets/photos/con-arroz-casados.png',
+  'assets/photos/con-arroz-arroz-de-la-casa.png',
+  'assets/photos/antojitos-nachos.png',
+  'assets/photos/antojitos-chalupa.png',
+  'assets/photos/antojitos-hamburguesa-gereni.png',
+  'assets/photos/especialidades-filet-de-pollo.png',
+  'assets/photos/para-el-cafe-club-sandwich.png',
+  'assets/photos/bebidas-cafe.png',
+  'assets/photos/bebidas-cocteles.png',
   'assets/photos/Flag_of_Costa_Rica.svg',
+  'assets/photos/Flag_of_the_United_States.svg',
   'assets/qr/gereni-menu-qr.png',
   'assets/El_Rancho.jpg',
   'favicon.svg'
@@ -34,10 +44,14 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
       const shellCache = await caches.open(SHELL_CACHE);
-      await shellCache.addAll(PRECACHE_URLS.map(resolveUrl));
+      await shellCache.addAll(
+        PRECACHE_URLS.map((path) => new Request(resolveUrl(path), { cache: 'reload' }))
+      );
 
       const dataCache = await caches.open(DATA_CACHE);
-      await dataCache.addAll(DATA_PRECACHE_URLS.map(resolveUrl));
+      await dataCache.addAll(
+        DATA_PRECACHE_URLS.map((path) => new Request(resolveUrl(path), { cache: 'reload' }))
+      );
     })()
   );
 });
@@ -93,42 +107,33 @@ const cacheFirst = async (request) => {
   return response;
 };
 
-const staleWhileRevalidate = async (request, event) => {
+const networkFirstShell = async (request) => {
   const cache = await caches.open(SHELL_CACHE);
-  const cached = await cache.match(request);
-
-  const networkFetch = fetch(request)
-    .then((response) => {
-      if (response && response.ok) {
-        cache.put(request, response.clone());
-      }
+  try {
+    const response = await fetch(new Request(request, { cache: 'reload' }));
+    if (response && response.ok) {
+      cache.put(request, response.clone());
       return response;
-    })
-    .catch(() => undefined);
-
-  if (cached) {
-    if (event) {
-      event.waitUntil(networkFetch);
     }
-    return cached;
+    throw new Error(`Network response not ok: ${response.status}`);
+  } catch (error) {
+    const cached = await cache.match(request);
+    if (cached) {
+      return cached;
+    }
+    throw error;
   }
-
-  const response = await networkFetch;
-  if (response) {
-    return response;
-  }
-
-  throw new Error('Resource unavailable: not in cache and network fetch failed');
 };
 
 const networkFirstData = async (request) => {
   const cache = await caches.open(DATA_CACHE);
   try {
-    const response = await fetch(request);
+    const response = await fetch(new Request(request, { cache: 'reload' }));
     if (response && response.ok) {
       cache.put(request, response.clone());
+      return response;
     }
-    return response;
+    throw new Error(`Network response not ok: ${response.status}`);
   } catch (error) {
     const cached = await cache.match(request);
     if (cached) {
@@ -140,12 +145,13 @@ const networkFirstData = async (request) => {
 
 const handleNavigation = async (request) => {
   try {
-    const response = await fetch(request);
+    const response = await fetch(new Request(request, { cache: 'reload' }));
     if (response && response.ok) {
       const cache = await caches.open(SHELL_CACHE);
       cache.put(request, response.clone());
+      return response;
     }
-    return response;
+    throw new Error(`Network response not ok: ${response.status}`);
   } catch (error) {
     const cache = await caches.open(SHELL_CACHE);
     const url = new URL(request.url);
@@ -229,7 +235,7 @@ self.addEventListener('fetch', (event) => {
     url.pathname.endsWith('.css') ||
     url.pathname.endsWith('.js')
   ) {
-    event.respondWith(staleWhileRevalidate(request, event));
+    event.respondWith(networkFirstShell(request));
     return;
   }
 
