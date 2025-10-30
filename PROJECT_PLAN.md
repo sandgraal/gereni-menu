@@ -80,3 +80,17 @@ To update progress:
 
 **Deliverables:**
 - Sustainable update workflow with automated menu builds
+
+---
+
+## Agent Maintenance Backlog
+**Goal:** Track follow-ups from the AI agent system review.
+
+- [ ] Cleanup unused `join` import in `ai/scripts/bootstrap.mjs`
+- [ ] Add `ai_generated: true` flag to `ai/scripts/log-agent-run.mjs`
+- [ ] Guard missing `assets/photos` directory in `ai/scripts/image-optimize.mjs`
+- [ ] Document optional queue structure in `ai/_state/` (add README or template)
+- [ ] Improve currency parsing in `ai/scripts/analytics.mjs` to handle decimals
+
+**Deliverables:**
+- Consistent agent tooling that matches documentation guidance
