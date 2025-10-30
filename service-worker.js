@@ -93,32 +93,21 @@ const cacheFirst = async (request) => {
   return response;
 };
 
-const staleWhileRevalidate = async (request, event) => {
+const networkFirstShell = async (request) => {
   const cache = await caches.open(SHELL_CACHE);
-  const cached = await cache.match(request);
-
-  const networkFetch = fetch(request)
-    .then((response) => {
-      if (response && response.ok) {
-        cache.put(request, response.clone());
-      }
-      return response;
-    })
-    .catch(() => undefined);
-
-  if (cached) {
-    if (event) {
-      event.waitUntil(networkFetch);
+  try {
+    const response = await fetch(request);
+    if (response && response.ok) {
+      cache.put(request, response.clone());
     }
-    return cached;
-  }
-
-  const response = await networkFetch;
-  if (response) {
     return response;
+  } catch (error) {
+    const cached = await cache.match(request);
+    if (cached) {
+      return cached;
+    }
+    throw error;
   }
-
-  throw new Error('Resource unavailable: not in cache and network fetch failed');
 };
 
 const networkFirstData = async (request) => {
@@ -229,7 +218,7 @@ self.addEventListener('fetch', (event) => {
     url.pathname.endsWith('.css') ||
     url.pathname.endsWith('.js')
   ) {
-    event.respondWith(staleWhileRevalidate(request, event));
+    event.respondWith(networkFirstShell(request));
     return;
   }
 
