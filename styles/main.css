@@ -37,7 +37,7 @@
   --home-highlight-card-border:rgba(234,215,192,0.28);
   --home-highlight-card-glow:rgba(111,147,98,0.32);
   --home-highlight-card-glow-secondary:rgba(255,214,162,0.18);
-  --home-background-overlay:linear-gradient(rgba(10,10,10,0.72), rgba(8,8,8,0.88));
+  --home-background-overlay:linear-gradient(rgba(8,8,8,0.72), rgba(8,8,8,0.88));
   --home-background-blend-mode:multiply;
   --home-background-position:center 8%;
   --home-background-position-mobile:center 18%;
