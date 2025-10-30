@@ -1541,6 +1541,8 @@ body.pdf-mode .pdf-document {
   padding:0;
   box-shadow:none;
   border:none;
+  break-inside:avoid;
+  page-break-inside:avoid;
 }
 
 .pdf-page__content .menu-section:not(:first-child) {
@@ -1930,6 +1932,8 @@ body.pdf-mode .pdf-document {
   gap:clamp(0.9rem, 1.4vw, 1.25rem);
   padding-bottom:clamp(1.5rem, 2.2vw, 2rem);
   border-bottom:1px solid var(--gereni-line);
+  break-inside:avoid;
+  page-break-inside:avoid;
 }
 
 .menu-column .menu-section:last-of-type {

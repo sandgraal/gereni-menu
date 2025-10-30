@@ -97,6 +97,8 @@
         }
         const clone = section.cloneNode(true);
         clone.classList.add('pdf-page__section');
+        clone.style.breakInside = 'avoid';
+        clone.style.pageBreakInside = 'avoid';
         return { slug, clone };
       })
       .filter(Boolean);

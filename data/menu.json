@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-10-30T21:23:41.613Z",
+  "updatedAt": "2025-10-30T21:35:34.861Z",
   "sections": [
     {
       "title": {
@@ -670,7 +670,8 @@
             "es": "Sabores a elección.",
             "en": "Choice of flavors."
           },
-          "price": "₡2.300"
+          "price": "₡2.300",
+          "image": "assets/photos/bebidas-cocteles.png"
         },
         {
           "name": {
