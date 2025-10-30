@@ -26,8 +26,15 @@
   let layoutUpdateScheduled = false;
   const subscribers = new Set();
 
-  function getMenuContainer() {
-    return document.getElementById('menu-container');
+  // Distance from top/bottom edge (in pixels) within which scroll buttons are disabled.
+  const SCROLL_EDGE_THRESHOLD = 16;
+
+  const reduceMotionQuery = window.matchMedia
+    ? window.matchMedia('(prefers-reduced-motion: reduce)')
+    : null;
+
+  function prefersReducedMotion() {
+    return reduceMotionQuery ? reduceMotionQuery.matches : false;
   }
 
   function computeMaxScroll() {
@@ -81,9 +88,17 @@
     scheduleLayoutUpdate();
   }
 
-  function handleOrientation() {
-    scheduleLayoutUpdate();
-  }
+    function updateButtonState() {
+      const top = Math.max(0, Math.min(getScrollTop(), maxScroll));
+      const nearTop = top <= SCROLL_EDGE_THRESHOLD;
+      const nearBottom = maxScroll - top <= SCROLL_EDGE_THRESHOLD;
+      if (topButton) {
+        topButton.disabled = nearTop;
+      }
+      if (bottomButton) {
+        bottomButton.disabled = nearBottom;
+      }
+    }
 
   function handleLanguageChange() {
     scheduleLayoutUpdate();
