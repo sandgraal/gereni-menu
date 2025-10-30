@@ -61,7 +61,7 @@
     border: none;
     margin: 0 0 0.5rem;
     padding: 0.2rem 0 0.35rem;
-    break-inside: avoid;
+    break-inside: avoid-column;
     page-break-inside: avoid;
   }
   header h1 {
