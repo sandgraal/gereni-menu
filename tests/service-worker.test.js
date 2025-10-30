@@ -9,7 +9,25 @@ function test(name, fn) {
 // Mock service worker environment
 function createServiceWorkerEnv() {
   const caches = new Map();
-  
+
+  class FakeRequest {
+    constructor(input, init = {}) {
+      if (typeof input === 'string') {
+        this.url = input;
+        this.method = 'GET';
+      } else if (input && typeof input === 'object') {
+        this.url = input.url;
+        this.method = input.method || 'GET';
+      } else {
+        throw new TypeError('Invalid request input');
+      }
+
+      if (init.cache) {
+        this.cache = init.cache;
+      }
+    }
+  }
+
   return {
     self: {
       location: new URL('https://example.com/')
@@ -33,6 +51,7 @@ function createServiceWorkerEnv() {
       }
     },
     fetch: null, // Will be mocked per test
+    Request: FakeRequest,
     URL,
     Error
   };
@@ -43,7 +62,8 @@ function createNetworkFirstShell(env) {
   return async (request) => {
     const cache = await env.caches.open('SHELL_CACHE');
     try {
-      const response = await env.fetch(request);
+      const networkRequest = new env.Request(request, { cache: 'reload' });
+      const response = await env.fetch(networkRequest);
       if (response && response.ok) {
         // Clone the response for caching
         const clonedResponse = { ...response };
@@ -64,14 +84,19 @@ function createNetworkFirstShell(env) {
 test('networkFirstShell returns network response when ok', async () => {
   const env = createServiceWorkerEnv();
   const networkFirstShell = createNetworkFirstShell(env);
-  
-  env.fetch = async () => ({
-    ok: true,
-    status: 200,
-    body: 'fresh content'
-  });
-  
+
+  let receivedRequest;
+  env.fetch = async (req) => {
+    receivedRequest = req;
+    return {
+      ok: true,
+      status: 200,
+      body: 'fresh content'
+    };
+  };
+
   const response = await networkFirstShell({ url: 'https://example.com/style.css' });
+  assert.equal(receivedRequest.cache, 'reload');
   assert.equal(response.status, 200);
   assert.equal(response.body, 'fresh content');
 });
@@ -79,7 +104,7 @@ test('networkFirstShell returns network response when ok', async () => {
 test('networkFirstShell falls back to cache on 304 response', async () => {
   const env = createServiceWorkerEnv();
   const networkFirstShell = createNetworkFirstShell(env);
-  
+
   // Pre-populate cache
   const cache = await env.caches.open('SHELL_CACHE');
   await cache.put({ url: 'https://example.com/style.css' }, {
@@ -87,14 +112,14 @@ test('networkFirstShell falls back to cache on 304 response', async () => {
     status: 200,
     body: 'cached content'
   });
-  
-  // Network returns 304
+
+  // Network returns 304 (not ok)
   env.fetch = async () => ({
     ok: false,
     status: 304,
     body: ''
   });
-  
+
   const response = await networkFirstShell({ url: 'https://example.com/style.css' });
   assert.equal(response.status, 200);
   assert.equal(response.body, 'cached content');
