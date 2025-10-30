@@ -26,6 +26,23 @@
   let layoutUpdateScheduled = false;
   const subscribers = new Set();
 
+  const MENU_CONTAINER_SELECTORS = [
+    '[data-menu-scroll-container]',
+    '[data-scroll-container]',
+    '#menu-container',
+    '.menu-container'
+  ];
+
+  const SCROLL_BUTTON_SELECTORS = {
+    top: '[data-scroll-button="top"]',
+    bottom: '[data-scroll-button="bottom"]'
+  };
+
+  let cachedContainer = null;
+  let boundContainer = null;
+  let topButton = null;
+  let bottomButton = null;
+
   // Distance from top/bottom edge (in pixels) within which scroll buttons are disabled.
   const SCROLL_EDGE_THRESHOLD = 16;
 
@@ -35,6 +52,46 @@
 
   function prefersReducedMotion() {
     return reduceMotionQuery ? reduceMotionQuery.matches : false;
+  }
+
+  function getMenuContainer() {
+    if (cachedContainer && document.contains(cachedContainer)) {
+      return cachedContainer;
+    }
+
+    for (const selector of MENU_CONTAINER_SELECTORS) {
+      const element = document.querySelector(selector);
+      if (element) {
+        cachedContainer = element;
+        return cachedContainer;
+      }
+    }
+
+    cachedContainer = null;
+    return cachedContainer;
+  }
+
+  function getScrollTop() {
+    const container = getMenuContainer();
+    if (container) {
+      return container.scrollTop;
+    }
+
+    return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  }
+
+  function bindContainerListeners() {
+    const container = getMenuContainer();
+    if (!container || container === boundContainer) {
+      return;
+    }
+
+    if (boundContainer) {
+      boundContainer.removeEventListener('scroll', handleContainerScroll);
+    }
+
+    container.addEventListener('scroll', handleContainerScroll, { passive: true });
+    boundContainer = container;
   }
 
   function computeMaxScroll() {
@@ -53,6 +110,7 @@
 
   function notifySubscribers() {
     const currentMax = maxScroll;
+    updateButtonState();
     subscribers.forEach(fn => {
       try {
         fn(currentMax);
@@ -71,13 +129,15 @@
     }
 
     layoutUpdateScheduled = true;
-    
+
     // Use requestAnimationFrame to batch layout updates if available
-    const scheduleFunc = typeof requestAnimationFrame !== 'undefined' 
-      ? requestAnimationFrame 
+    const scheduleFunc = typeof requestAnimationFrame !== 'undefined'
+      ? requestAnimationFrame
       : (fn) => setTimeout(fn, 0);
-    
+
     scheduleFunc(() => {
+      resolveScrollButtons();
+      bindContainerListeners();
       computeMaxScroll();
       notifySubscribers();
       layoutUpdateScheduled = false;
@@ -88,17 +148,34 @@
     scheduleLayoutUpdate();
   }
 
-    function updateButtonState() {
-      const top = Math.max(0, Math.min(getScrollTop(), maxScroll));
-      const nearTop = top <= SCROLL_EDGE_THRESHOLD;
-      const nearBottom = maxScroll - top <= SCROLL_EDGE_THRESHOLD;
-      if (topButton) {
-        topButton.disabled = nearTop;
-      }
-      if (bottomButton) {
-        bottomButton.disabled = nearBottom;
-      }
+  function resolveScrollButtons() {
+    topButton = document.querySelector(SCROLL_BUTTON_SELECTORS.top) || topButton || null;
+    bottomButton = document.querySelector(SCROLL_BUTTON_SELECTORS.bottom) || bottomButton || null;
+  }
+
+  function updateButtonState() {
+    if (!topButton && !bottomButton) {
+      return;
     }
+
+    const top = Math.max(0, Math.min(getScrollTop(), maxScroll));
+    const nearTop = top <= SCROLL_EDGE_THRESHOLD;
+    const nearBottom = maxScroll - top <= SCROLL_EDGE_THRESHOLD;
+    if (topButton) {
+      topButton.disabled = nearTop;
+    }
+    if (bottomButton) {
+      bottomButton.disabled = nearBottom;
+    }
+  }
+
+  function handleContainerScroll() {
+    if (prefersReducedMotion()) {
+      scheduleLayoutUpdate();
+    } else {
+      updateButtonState();
+    }
+  }
 
   function handleLanguageChange() {
     scheduleLayoutUpdate();
@@ -108,8 +185,13 @@
     scheduleLayoutUpdate();
   }
 
+  function handleOrientation() {
+    scheduleLayoutUpdate();
+  }
+
   function init() {
     // Initial computation
+    resolveScrollButtons();
     scheduleLayoutUpdate();
 
     // Listen to resize events
