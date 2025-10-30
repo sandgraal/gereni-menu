@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const assert = require('node:assert/strict');
 
 const tests = [];
@@ -47,7 +45,9 @@ function createNetworkFirstShell(env) {
     try {
       const response = await env.fetch(request);
       if (response && response.ok) {
-        await cache.put(request, { ...response, clone: () => response });
+        // Clone the response for caching
+        const clonedResponse = { ...response };
+        await cache.put(request, clonedResponse);
         return response;
       }
       throw new Error(`Network response not ok: ${response.status}`);
@@ -183,8 +183,7 @@ test('networkFirstShell caches successful network responses', async () => {
   env.fetch = async () => ({
     ok: true,
     status: 200,
-    body: 'new content',
-    clone: function() { return this; }
+    body: 'new content'
   });
   
   await networkFirstShell({ url: 'https://example.com/new.css' });
