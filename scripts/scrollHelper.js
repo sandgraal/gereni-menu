@@ -13,21 +13,16 @@
 
   function init() {
     const helper = document.querySelector('[data-scroll-helper]');
-    const slider = helper ? helper.querySelector('[data-scroll-slider]') : null;
-
-    if (!helper || !slider) {
+    if (!helper) {
       return;
     }
 
     const topButton = helper.querySelector('[data-scroll-top]');
     const bottomButton = helper.querySelector('[data-scroll-bottom]');
-    const progress = helper.querySelector('[data-scroll-progress]');
     const doc = document.documentElement;
     const body = document.body;
 
     let maxScroll = 0;
-    let isUserSliding = false;
-    let scrollFrame = null;
     let layoutFrame = null;
 
     function getScrollTop() {
@@ -37,15 +32,6 @@
         (body ? body.scrollTop : 0) ||
         0
       );
-    }
-
-    function updateProgressDisplay(current) {
-      const bounded = maxScroll > 0 ? Math.min(Math.max(current, 0), maxScroll) : 0;
-      const percent = maxScroll > 0 ? Math.round((bounded / maxScroll) * 100) : 0;
-      if (progress) {
-        progress.textContent = `${percent}%`;
-      }
-      slider.style.setProperty('--scroll-progress', `${percent}%`);
     }
 
     function computeMaxScroll() {
@@ -61,32 +47,12 @@
       const viewport = window.innerHeight || doc.clientHeight || 0;
       maxScroll = Math.max(docHeight - viewport, 0);
       const disabled = maxScroll <= MIN_SCROLL_THRESHOLD;
-      slider.max = maxScroll > 0 ? maxScroll : 1;
-      slider.disabled = disabled;
       helper.hidden = disabled;
-      if (disabled) {
-        slider.value = '0';
-        updateProgressDisplay(0);
-      }
-    }
-
-    function syncToScroll() {
-      const top = Math.max(0, Math.min(getScrollTop(), maxScroll));
-      slider.value = String(top);
-      updateProgressDisplay(top);
+      updateButtonState();
     }
 
     function handleScroll() {
-      if (isUserSliding) {
-        return;
-      }
-      if (scrollFrame) {
-        return;
-      }
-      scrollFrame = window.requestAnimationFrame(() => {
-        scrollFrame = null;
-        syncToScroll();
-      });
+      window.requestAnimationFrame(updateButtonState);
     }
 
     function scheduleLayoutUpdate() {
@@ -96,7 +62,6 @@
       layoutFrame = window.requestAnimationFrame(() => {
         layoutFrame = null;
         computeMaxScroll();
-        syncToScroll();
       });
     }
 
@@ -107,38 +72,20 @@
       const target = Math.max(0, Math.min(position, maxScroll));
       const behavior = prefersReducedMotion() ? 'auto' : 'smooth';
       window.scrollTo({ top: target, behavior });
-      updateProgressDisplay(target);
+      window.requestAnimationFrame(updateButtonState);
     }
 
-    slider.addEventListener('input', () => {
-      if (slider.disabled) {
-        return;
+    function updateButtonState() {
+      const top = Math.max(0, Math.min(getScrollTop(), maxScroll));
+      const nearTop = top <= 16;
+      const nearBottom = maxScroll - top <= 16;
+      if (topButton) {
+        topButton.disabled = nearTop;
       }
-      const value = Number(slider.value);
-      scrollToPosition(Number.isFinite(value) ? value : 0);
-    });
-
-    slider.addEventListener('change', () => {
-      if (!isUserSliding) {
-        syncToScroll();
+      if (bottomButton) {
+        bottomButton.disabled = nearBottom;
       }
-    });
-
-    slider.addEventListener('pointerdown', () => {
-      isUserSliding = true;
-    });
-
-    const stopSliding = () => {
-      if (!isUserSliding) {
-        return;
-      }
-      isUserSliding = false;
-      syncToScroll();
-    };
-
-    slider.addEventListener('pointerup', stopSliding);
-    slider.addEventListener('pointercancel', stopSliding);
-    slider.addEventListener('blur', stopSliding);
+    }
 
     topButton?.addEventListener('click', event => {
       event.preventDefault();
@@ -157,10 +104,10 @@
     document.addEventListener('gereni:menuRendered', scheduleLayoutUpdate);
 
     computeMaxScroll();
-    syncToScroll();
+    updateButtonState();
 
     if (reduceMotionQuery) {
-      reduceMotionQuery.addEventListener('change', syncToScroll);
+      reduceMotionQuery.addEventListener('change', updateButtonState);
     }
   }
 
