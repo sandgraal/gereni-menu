@@ -116,6 +116,7 @@ body.inicio::before {
   background-repeat:no-repeat;
   background-blend-mode:var(--home-background-blend-mode);
   transform: translateZ(0);
+  opacity:0.8;
 }
 
 @media (max-width: 640px) {
