@@ -1055,6 +1055,7 @@ body.inicio header::after {
   max-width:200px;
   margin:0 auto;
   display:block;
+  height:auto;
   filter:drop-shadow(0 4px 8px rgba(91,58,41,0.18));
 }
 
