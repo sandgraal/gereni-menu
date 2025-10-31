@@ -267,7 +267,7 @@ async function main() {
     return;
   }
 
-  console.log(`Processing ${files.length} master image${files.length === 1 ? '' : 's'}...`);
+  console.log(`Processing ${files.length} source image${files.length === 1 ? '' : 's'}...`);
   for (const file of files) {
     await processImage(file, manifestBySlug);
   }
