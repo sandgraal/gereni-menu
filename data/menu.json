@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-10-31T03:45:38.000Z",
+  "updatedAt": "2025-10-31T03:57:16.065Z",
   "sections": [
     {
       "title": {
@@ -399,13 +399,7 @@
             "en": "Pork ribs in BBQ sauce with rice and salad."
           },
           "price": "₡5.850",
-          "image": "assets/photos/Costillas-BBQ.png",
-          "imageSet": [
-            {
-              "src": "assets/photos/Costillas-BBQ.jpg",
-              "descriptor": "2x"
-            }
-          ]
+          "image": "assets/photos/Costillas-BBQ.png"
         },
         {
           "name": {
