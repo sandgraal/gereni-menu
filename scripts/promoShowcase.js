@@ -18,19 +18,14 @@
 
     if (state === PROMO_STATES.READY) {
       promosRoot.removeAttribute('aria-hidden');
-      promosRoot.classList.remove('home-promos--loading');
-      promosRoot.classList.add('home-promos--ready');
+      // Removed BEM class operations; rely on data attribute for state
       return;
     }
 
     promosRoot.setAttribute('aria-hidden', 'true');
-    promosRoot.classList.remove('home-promos--ready');
+    // Removed BEM class operations; rely on data attribute for state
 
-    if (state === PROMO_STATES.LOADING) {
-      promosRoot.classList.add('home-promos--loading');
-    } else {
-      promosRoot.classList.remove('home-promos--loading');
-    }
+    // No need to add/remove BEM classes for loading state
   }
 
   function collapsePromos() {
