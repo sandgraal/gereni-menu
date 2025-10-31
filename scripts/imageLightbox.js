@@ -154,23 +154,33 @@
   }
 
   function observeMenu(root) {
-    if (!root || typeof MutationObserver !== 'function') {
+    const target = root || document.body;
+    if (!target || typeof MutationObserver !== 'function') {
       return;
     }
 
-    const observer = new MutationObserver(() => {
-      enhanceAllImages();
+    const observer = new MutationObserver(mutations => {
+      if (!Array.isArray(mutations)) {
+        enhanceAllImages();
+        return;
+      }
+
+      const hasNewNodes = mutations.some(mutation => mutation.addedNodes && mutation.addedNodes.length > 0);
+      if (hasNewNodes) {
+        enhanceAllImages();
+      }
     });
 
-    observer.observe(root, { childList: true, subtree: true });
+    observer.observe(target, { childList: true, subtree: true });
   }
 
   function init() {
-    const menuRoot = document.querySelector('[data-menu-root]');
-    if (menuRoot) {
-      menuRoot.addEventListener('click', handleImageClick);
-      observeMenu(menuRoot);
+    if (!document.body.classList.contains('menu-page')) {
+      return;
     }
+
+    document.addEventListener('click', handleImageClick);
+    observeMenu(document.body);
     enhanceAllImages();
   }
 
