@@ -24,6 +24,11 @@
     en: 'The menu could not be loaded right now.'
   };
 
+  const featuredBadgeLabels = {
+    es: 'Destacado',
+    en: 'Featured'
+  };
+
   const SEARCH_STORAGE_KEY = 'gereni-menu-search';
 
   const schemaConfig = {
@@ -57,6 +62,69 @@
       return '';
     }
     return entry[lang] || entry.es || entry.en || '';
+  }
+
+  function resolveFeaturedBadgeLabel(primaryLang, secondaryLang) {
+    if (featuredBadgeLabels[primaryLang]) {
+      return featuredBadgeLabels[primaryLang];
+    }
+    if (secondaryLang && featuredBadgeLabels[secondaryLang]) {
+      return featuredBadgeLabels[secondaryLang];
+    }
+    return featuredBadgeLabels.es || 'Destacado';
+  }
+
+  function getExactLocalizedText(entry, lang) {
+    if (!entry || typeof entry !== 'object' || !lang) {
+      return '';
+    }
+    const value = entry[lang];
+    if (typeof value === 'string') {
+      const trimmed = value.trim();
+      return trimmed || '';
+    }
+    return '';
+  }
+
+  function resolvePrimaryFeatureNote(note, primaryLang, secondaryLang) {
+    if (!note) {
+      return '';
+    }
+
+    if (typeof note === 'string') {
+      return note.trim();
+    }
+
+    const primaryExact = getExactLocalizedText(note, primaryLang);
+    if (primaryExact) {
+      return primaryExact;
+    }
+
+    const secondaryExact = getExactLocalizedText(note, secondaryLang);
+    if (secondaryExact) {
+      return secondaryExact;
+    }
+
+    const fallbackExact = getExactLocalizedText(note, 'es') || getExactLocalizedText(note, 'en');
+    if (fallbackExact) {
+      return fallbackExact;
+    }
+
+    const firstString = Object.values(note).find(value => typeof value === 'string' && value.trim());
+    return firstString ? firstString.trim() : '';
+  }
+
+  function resolveAlternateFeatureNote(note, secondaryLang, primaryNote) {
+    if (!note || typeof note === 'string' || !secondaryLang) {
+      return '';
+    }
+
+    const secondaryExact = getExactLocalizedText(note, secondaryLang);
+    if (secondaryExact && secondaryExact !== primaryNote) {
+      return secondaryExact;
+    }
+
+    return '';
   }
 
   function formatUpdatedAt(dateIso, lang) {
@@ -129,6 +197,7 @@
     const texts = [];
     collectEntryTexts(item.name, texts);
     collectEntryTexts(item.description, texts);
+    collectEntryTexts(item.featureNote, texts);
 
     if (typeof item.price === 'string') {
       texts.push(item.price);
@@ -515,6 +584,11 @@
     const dish = document.createElement('article');
     dish.classList.add('dish');
 
+    const isFeatured = Boolean(item && item.featured);
+    if (isFeatured) {
+      dish.classList.add('dish--featured');
+    }
+
     if (item.image) {
       const media = document.createElement('figure');
       media.classList.add('dish-media');
@@ -535,6 +609,42 @@
 
     const textWrapper = document.createElement('div');
     textWrapper.classList.add('dish-content');
+
+    if (isFeatured) {
+      const featuredMeta = document.createElement('div');
+      featuredMeta.classList.add('dish-featured-meta');
+
+      const badgeLabel = resolveFeaturedBadgeLabel(primaryLang, secondaryLang);
+      if (badgeLabel) {
+        const badge = document.createElement('span');
+        badge.classList.add('dish-featured-badge');
+        badge.textContent = badgeLabel;
+        featuredMeta.appendChild(badge);
+      }
+
+      const primaryFeatureNote = resolvePrimaryFeatureNote(item.featureNote, primaryLang, secondaryLang);
+      if (primaryFeatureNote) {
+        const note = document.createElement('span');
+        note.classList.add('dish-featured-note');
+        note.textContent = primaryFeatureNote;
+        featuredMeta.appendChild(note);
+
+        const alternateFeatureNote = resolveAlternateFeatureNote(
+          item.featureNote,
+          secondaryLang,
+          primaryFeatureNote
+        );
+
+        if (alternateFeatureNote) {
+          const altNote = document.createElement('span');
+          altNote.classList.add('dish-featured-note', 'dish-featured-note--alt');
+          altNote.textContent = alternateFeatureNote;
+          featuredMeta.appendChild(altNote);
+        }
+      }
+
+      textWrapper.appendChild(featuredMeta);
+    }
 
     const header = document.createElement('div');
     header.classList.add('dish-header');

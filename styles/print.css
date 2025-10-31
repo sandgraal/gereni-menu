@@ -101,6 +101,43 @@
     gap: 0.6rem;
     align-items: flex-start;
   }
+
+  .dish--featured {
+    border: 1pt solid #5b3a29;
+    background: rgba(243, 232, 213, 0.6);
+    padding: 0.45rem 0.35rem;
+    margin: 0.12rem 0;
+    break-inside: avoid;
+  }
+
+  .dish-featured-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.4rem;
+    align-items: baseline;
+    margin-bottom: 0.15rem;
+  }
+
+  .dish-featured-badge {
+    border: 0.6pt solid #5b3a29;
+    border-radius: 999px;
+    padding: 0.08rem 0.35rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .dish-featured-note {
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .dish-featured-note--alt {
+    font-size: 0.74rem;
+    font-style: italic;
+    font-weight: 500;
+  }
   .dish-photo {
     display: none;
   }
