@@ -57,6 +57,17 @@
     min-height: auto;
     padding: 0.5in 0.45in 0.6in;
   }
+  body.pdf-mode .pdf-page__content .menu-section[data-pdf-continued] {
+    border-top: 0.5pt dashed rgba(91, 58, 41, 0.35);
+    padding-top: 0.3rem;
+  }
+  body.pdf-mode .pdf-section-continued-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #5b3a29;
+    margin: 0 0 0.2rem;
+  }
   body.pdf-mode .pdf-highlight__figure {
     box-shadow: none;
   }

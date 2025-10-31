@@ -1638,6 +1638,23 @@ body.pdf-mode .pdf-document {
   padding-top:clamp(0.55rem, 1.4vw, 1rem);
 }
 
+.pdf-page__content .menu-section[data-pdf-continued] {
+  border-top:1px dashed rgba(91,58,41,0.18);
+  padding-top:clamp(0.35rem, 1vw, 0.65rem);
+}
+
+.pdf-page__content .menu-section[data-pdf-continued] .menu-section__toggle {
+  padding-bottom:0.5rem;
+}
+
+.pdf-page__content .pdf-section-continued-label {
+  font-size:0.72rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--gereni-muted);
+  margin:0 0 0.3rem;
+}
+
 .pdf-page .menu-section__toggle {
   border-bottom:1px solid rgba(91,58,41,0.18);
   cursor:default;
