@@ -34,6 +34,7 @@
   .menu-empty {
     display: none !important;
   }
+  body.pdf-mode .menu-container,
   body.pdf-mode .menu-columns {
     display: none !important;
   }

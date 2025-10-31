@@ -1507,6 +1507,7 @@ body.menu-page > footer {
   width:100%;
 }
 
+body.pdf-mode .menu-container,
 body.pdf-mode .menu-columns {
   display:none;
 }
