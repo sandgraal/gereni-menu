@@ -7,6 +7,31 @@
   }
 
   const MANIFEST_URL = 'assets/promos/promos.json';
+  const PROMO_STATES = {
+    LOADING: 'loading',
+    READY: 'ready',
+    EMPTY: 'empty'
+  };
+
+  function setPromoState(state) {
+    promosRoot.dataset.promosState = state;
+
+    if (state === PROMO_STATES.READY) {
+      promosRoot.removeAttribute('aria-hidden');
+      // Removed BEM class operations; rely on data attribute for state
+      return;
+    }
+
+    promosRoot.setAttribute('aria-hidden', 'true');
+    // Removed BEM class operations; rely on data attribute for state
+
+    // No need to add/remove BEM classes for loading state
+  }
+
+  function collapsePromos() {
+    setPromoState(PROMO_STATES.EMPTY);
+    promosRoot.removeAttribute('data-promos-count');
+  }
 
   function resolveItems(manifest) {
     if (!manifest) return [];
@@ -64,6 +89,7 @@
         .filter(isAllowedSource);
 
       if (urls.length === 0) {
+        collapsePromos();
         return;
       }
 
@@ -73,10 +99,11 @@
       });
 
       promosRoot.appendChild(fragment);
-      promosRoot.removeAttribute('hidden');
       promosRoot.setAttribute('data-promos-count', String(urls.length));
+      setPromoState(PROMO_STATES.READY);
     })
     .catch(() => {
       // Si no se encuentra el manifiesto o es inválido, mantenemos la sección oculta.
+      collapsePromos();
     });
 })();
