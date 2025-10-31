@@ -104,7 +104,7 @@
     document.body.removeAttribute(BODY_LOCK_ATTR);
 
     if (lightboxImage) {
-      lightboxImage.removeAttribute('src');
+      lightboxImage.src = '';
       lightboxImage.alt = '';
     }
 
