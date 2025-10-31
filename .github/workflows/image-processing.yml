@@ -6,9 +6,8 @@ on:
       - main
     paths:
       - 'assets/photos/**'
-    paths-ignore:
-      - 'assets/photos/optimized/**'
-      - 'public/images/**'
+      - '!assets/photos/optimized/**'
+      - '!public/images/**'
 
 jobs:
   process-images:
