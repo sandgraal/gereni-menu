@@ -1344,10 +1344,29 @@ body[data-theme="dark"] .language-toggle button.active {
 }
 
 body[data-theme="dark"].inicio header {
-  background:rgba(37,34,32,0.92);
+  background:
+    radial-gradient(circle at 50% 18%, rgba(234,215,192,0.52) 0%, rgba(234,215,192,0.18) 42%, rgba(37,34,32,0) 68%),
+    linear-gradient(180deg, rgba(37,34,32,0.96), rgba(31,29,27,0.88));
   color:var(--gereni-text);
-  box-shadow:0 22px 48px rgba(0,0,0,0.45);
-  border:1px solid rgba(234,215,192,0.18);
+  box-shadow:0 26px 54px rgba(0,0,0,0.55);
+  border:1px solid rgba(234,215,192,0.24);
+}
+
+body[data-theme="dark"].inicio header::before {
+  top:-42%;
+  right:max(-38%, -12px);
+  bottom:52%;
+  left:max(-38%, -12px);
+  background:radial-gradient(circle at 50% -12%, rgba(244,228,205,0.92) 0%, rgba(244,228,205,0.45) 46%, rgba(244,228,205,0) 78%);
+  filter:drop-shadow(0 10px 26px rgba(0,0,0,0.35));
+  opacity:1;
+}
+
+body[data-theme="dark"].inicio header::after {
+  opacity:0.55;
+  mix-blend-mode:screen;
+  filter:blur(0.5px);
+  background:repeating-conic-gradient(from -90deg at 50% -18%, rgba(146,176,135,0.45) 0deg, rgba(146,176,135,0.45) 7deg, rgba(146,176,135,0) 14deg);
 }
 
 body[data-theme="dark"].inicio .home-panel {
@@ -1398,7 +1417,11 @@ body[data-theme="dark"].inicio .home-actions__link--social {
 }
 
 body[data-theme="dark"].inicio .logo {
-  filter:drop-shadow(0 4px 12px rgba(0,0,0,0.45)) drop-shadow(0 0 6px rgba(255,255,255,0.32));
+  padding:clamp(0.45rem, 1.8vw, 0.85rem);
+  border-radius:clamp(18px, 5vw, 26px);
+  background:radial-gradient(circle at 50% 45%, rgba(244,228,205,0.88) 0%, rgba(244,228,205,0.6) 42%, rgba(244,228,205,0.16) 74%, rgba(244,228,205,0) 88%);
+  filter:drop-shadow(0 6px 22px rgba(0,0,0,0.55)) drop-shadow(0 0 12px rgba(255,252,245,0.38));
+  box-shadow:0 12px 28px rgba(0,0,0,0.45);
 }
 
 body[data-theme="dark"].inicio .facebook-card,
