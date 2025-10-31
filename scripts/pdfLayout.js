@@ -7,6 +7,7 @@
 
   const DEFAULT_PAGE_HEIGHT_IN = 10.75;
   const DEFAULT_PAGE_WIDTH_IN = 8.5;
+  const HEIGHT_TOLERANCE_PX = 2;
 
   function slugify(value) {
     if (!value) {
@@ -122,6 +123,109 @@
     return fallbacks.slice(0, 3);
   }
 
+  function resolveLocale(options = {}) {
+    const container = getContainer();
+    const renderedLang = container ? container.getAttribute('data-rendered-lang') : null;
+    const locale = options.expectedLang || renderedLang || 'es';
+    return locale.toLowerCase();
+  }
+
+  function continuationLabelText(locale) {
+    return locale.startsWith('en') ? 'Continued' : 'Continúa';
+  }
+
+  function ensureContinuationLabel(section, locale) {
+    if (!section) {
+      return;
+    }
+    const content = section.querySelector('.menu-section__content');
+    if (!content) {
+      return;
+    }
+    let label = content.querySelector('.pdf-section-continued-label');
+    if (!label) {
+      label = document.createElement('p');
+      label.classList.add('pdf-section-continued-label');
+    }
+    label.textContent = continuationLabelText(locale);
+    content.insertBefore(label, content.firstChild);
+  }
+
+  function cleanupContinuationAttributes(section) {
+    if (!section) {
+      return;
+    }
+    section.removeAttribute('id');
+    section.setAttribute('data-pdf-continued', 'true');
+    const toggle = section.querySelector('.menu-section__toggle');
+    if (toggle) {
+      toggle.removeAttribute('aria-controls');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+    const content = section.querySelector('.menu-section__content');
+    if (content) {
+      content.removeAttribute('id');
+      content.setAttribute('aria-hidden', 'false');
+    }
+  }
+
+  function splitSectionToFit(page, section, maxContentHeight, options) {
+    const locale = resolveLocale(options);
+    const content = section.querySelector('.menu-section__content');
+    if (!content) {
+      return { fitted: null, remainder: null };
+    }
+    const dishes = Array.from(content.querySelectorAll('.dish'));
+    if (dishes.length <= 1) {
+      return { fitted: null, remainder: null };
+    }
+
+    const continuation = section.cloneNode(true);
+    const continuationContent = continuation.querySelector('.menu-section__content');
+    if (continuationContent) {
+      Array.from(continuationContent.querySelectorAll('.dish')).forEach(node => node.remove());
+    }
+
+    const moved = [];
+    let fits = false;
+
+    while (content.querySelectorAll('.dish').length > 1) {
+      const lastDish = content.querySelector('.dish:last-of-type');
+      if (!lastDish) {
+        break;
+      }
+      moved.push(lastDish);
+      continuationContent?.insertBefore(lastDish, continuationContent.firstChild);
+      page.content.appendChild(section);
+      const height = page.content.scrollHeight;
+      if (height <= maxContentHeight + HEIGHT_TOLERANCE_PX) {
+        fits = true;
+        break;
+      }
+      page.content.removeChild(section);
+    }
+
+    if (!fits) {
+      moved.reverse().forEach(node => {
+        content.appendChild(node);
+      });
+      return { fitted: null, remainder: null };
+    }
+
+    if (continuationContent && continuationContent.children.length > 0) {
+      cleanupContinuationAttributes(section);
+      cleanupContinuationAttributes(continuation);
+      ensureContinuationLabel(continuation, locale);
+      const slug = section.getAttribute('data-pdf-slug');
+      if (slug) {
+        continuation.setAttribute('data-pdf-slug', slug);
+      }
+      return { fitted: section, remainder: continuation };
+    }
+
+    return { fitted: section, remainder: null };
+  }
+
   function createHighlight(photos) {
     if (!photos || photos.length === 0) {
       return null;
@@ -183,6 +287,13 @@
     const root = ensureRoot(container);
     root.innerHTML = '';
 
+    const originalHeader = document.querySelector('header');
+    const clonedHeader = originalHeader ? originalHeader.cloneNode(true) : null;
+    if (clonedHeader) {
+      clonedHeader.classList.add('pdf-page__header');
+      clonedHeader.setAttribute('aria-hidden', 'true');
+    }
+
     const normalizedOptions = {
       pageWidth: options.pageWidth || `${DEFAULT_PAGE_WIDTH_IN}in`,
       pageHeight: options.pageHeight || `${DEFAULT_PAGE_HEIGHT_IN}in`,
@@ -204,23 +315,63 @@
 
     pages.push(current);
 
-    sections.forEach(({ slug, clone }, index) => {
+    sections.forEach(({ slug, clone }) => {
       clone.setAttribute('data-pdf-slug', slug);
-      current.content.appendChild(clone);
-      const contentHeight = current.content.scrollHeight;
-      const shouldMoveToNext = contentHeight > maxContentHeight + 2 && current.content.children.length > 1;
-      if (shouldMoveToNext) {
-        current.content.removeChild(clone);
-        current = createPageShell();
-        applyDimensions(current);
-        pages.push(current);
-        current.content.appendChild(clone);
+      let pending = clone;
+      let targetPage = current;
+
+      while (pending) {
+        targetPage.content.appendChild(pending);
+        const contentHeight = targetPage.content.scrollHeight;
+        const isOverflowing = contentHeight > maxContentHeight + HEIGHT_TOLERANCE_PX && targetPage.content.children.length > 1;
+
+        if (!isOverflowing) {
+          targetPage.sections.push({ slug });
+          pending = null;
+          current = targetPage;
+          break;
+        }
+
+        targetPage.content.removeChild(pending);
+        const { fitted, remainder } = splitSectionToFit(targetPage, pending, maxContentHeight, normalizedOptions);
+
+        if (fitted) {
+          targetPage.sections.push({ slug });
+        }
+
+        if (remainder) {
+          const nextPage = createPageShell();
+          applyDimensions(nextPage);
+          pages.push(nextPage);
+          targetPage = nextPage;
+          pending = remainder;
+          continue;
+        }
+
+        if (!fitted) {
+          const nextPage = createPageShell();
+          applyDimensions(nextPage);
+          pages.push(nextPage);
+          targetPage = nextPage;
+          // pending remains the same section to retry on the new page
+          continue;
+        }
+
+        pending = null;
+        current = targetPage;
       }
-      current.sections.push({ slug });
     });
 
     // Clean root and append pages with optional highlight decoration.
     root.innerHTML = '';
+    if (clonedHeader && pages.length > 0) {
+      const firstPage = pages[0];
+      const target = firstPage?.content;
+      if (target) {
+        target.insertBefore(clonedHeader, target.firstChild);
+      }
+    }
+
     pages.forEach(page => {
       if (page.sections.length === 1) {
         applyHighlight(page, page.sections[0].slug, normalizedOptions);

@@ -1,9 +1,16 @@
 @media print {
-  body {
+  body { 
     background: white;
     color: black;
     font-size: 11pt;
     line-height: 1.3;
+  }
+  body.pdf-mode {
+    margin: 0;
+    padding: 0 !important;
+  }
+  body.pdf-mode > header {
+    display: none !important;
   }
   header {
     background: transparent;
@@ -50,6 +57,17 @@
     min-height: auto;
     padding: 0.5in 0.45in 0.6in;
   }
+  body.pdf-mode .pdf-page__content .menu-section[data-pdf-continued] {
+    border-top: 0.5pt dashed rgba(91, 58, 41, 0.35);
+    padding-top: 0.3rem;
+  }
+  body.pdf-mode .pdf-section-continued-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #5b3a29;
+    margin: 0 0 0.2rem;
+  }
   body.pdf-mode .pdf-highlight__figure {
     box-shadow: none;
   }
@@ -82,6 +100,43 @@
     padding: 0.3rem 0;
     gap: 0.6rem;
     align-items: flex-start;
+  }
+
+  .dish--featured {
+    border: 1pt solid #5b3a29;
+    background: rgba(243, 232, 213, 0.6);
+    padding: 0.45rem 0.35rem;
+    margin: 0.12rem 0;
+    break-inside: avoid;
+  }
+
+  .dish-featured-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.4rem;
+    align-items: baseline;
+    margin-bottom: 0.15rem;
+  }
+
+  .dish-featured-badge {
+    border: 0.6pt solid #5b3a29;
+    border-radius: 999px;
+    padding: 0.08rem 0.35rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .dish-featured-note {
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .dish-featured-note--alt {
+    font-size: 0.74rem;
+    font-style: italic;
+    font-weight: 500;
   }
   .dish-photo {
     display: none;
