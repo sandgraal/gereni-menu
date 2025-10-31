@@ -9,6 +9,7 @@
   let lightboxImage = null;
   let closeButton = null;
   let lastActiveElement = null;
+  let keydownListenerActive = false;
 
   function handleGlobalKeydown(event) {
     if (event.key === 'Escape') {
@@ -91,7 +92,10 @@
       }
     });
 
-    document.addEventListener('keydown', handleGlobalKeydown);
+    if (!keydownListenerActive) {
+      document.addEventListener('keydown', handleGlobalKeydown);
+      keydownListenerActive = true;
+    }
   }
 
   function closeLightbox() {
@@ -109,6 +113,7 @@
     }
 
     document.removeEventListener('keydown', handleGlobalKeydown);
+    keydownListenerActive = false;
 
     if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
       lastActiveElement.focus({ preventScroll: true });
