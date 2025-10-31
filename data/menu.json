@@ -63,7 +63,12 @@
             "en": "Prepared fresh each day."
           },
           "price": "₡3.000",
-          "image": "assets/photos/Ceviche-de-Pescado.png"
+          "image": "assets/photos/Ceviche-de-Pescado.png",
+          "featured": true,
+          "featureNote": {
+            "es": "Favorito de la casa",
+            "en": "House favorite"
+          }
         },
         {
           "name": {
@@ -186,7 +191,12 @@
             "en": "Pork, chicken, shrimp, chorizo, salad, and fries."
           },
           "price": "₡4.750",
-          "image": "assets/photos/con-arroz-arroz-de-la-casa.png"
+          "image": "assets/photos/con-arroz-arroz-de-la-casa.png",
+          "featured": true,
+          "featureNote": {
+            "es": "Receta insignia con mariscos frescos",
+            "en": "Signature recipe with fresh seafood"
+          }
         },
         {
           "name": {
@@ -276,7 +286,12 @@
             "en": "Egg patty, bacon, beef, caramelized onion, ham, and cheese."
           },
           "price": "₡4.200",
-          "image": "assets/photos/antojitos-hamburguesa-gereni.png"
+          "image": "assets/photos/antojitos-hamburguesa-gereni.png",
+          "featured": true,
+          "featureNote": {
+            "es": "Capas generosas al estilo rancho",
+            "en": "Stacked ranch-style indulgence"
+          }
         },
         {
           "name": {
@@ -501,7 +516,12 @@
             "es": "Acompañado de papa asada y ensalada.",
             "en": "Served with baked potato and salad."
           },
-          "price": "₡13.000"
+          "price": "₡13.000",
+          "featured": true,
+          "featureNote": {
+            "es": "Corte premium para compartir",
+            "en": "Premium steak built for sharing"
+          }
         },
         {
           "name": {
@@ -544,7 +564,12 @@
             "en": "Layers of bread, chicken, and vegetables."
           },
           "price": "₡4.200",
-          "image": "assets/photos/para-el-cafe-club-sandwich.png"
+          "image": "assets/photos/para-el-cafe-club-sandwich.png",
+          "featured": true,
+          "featureNote": {
+            "es": "Tres capas crujientes perfectas",
+            "en": "Three crisp layers made to share"
+          }
         },
         {
           "name": {
@@ -708,7 +733,12 @@
             "es": "Refrescante mezcla con hierbabuena fresca.",
             "en": "Refreshing blend with fresh mint."
           },
-          "price": "₡1.800"
+          "price": "₡1.800",
+          "featured": true,
+          "featureNote": {
+            "es": "Refresco estrella con hierbabuena",
+            "en": "Star refresher with garden mint"
+          }
         }
       ]
     }
