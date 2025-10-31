@@ -10,3 +10,8 @@ ai/logs/*
 !ai/logs/.gitkeep
 ai/_state/*
 !ai/_state/.gitkeep
+
+# AI-generated image optimization artifacts
+assets/photos/optimized/
+assets/promos/promos.json
+public/images/
