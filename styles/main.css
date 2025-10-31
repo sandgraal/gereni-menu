@@ -1581,6 +1581,38 @@ body.pdf-mode .pdf-document {
   page-break-after:auto;
 }
 
+.pdf-page__header {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(0.35rem, 1.2vw, 0.65rem);
+  text-align:center;
+  padding-bottom:clamp(0.45rem, 1.5vw, 0.85rem);
+  margin-bottom:clamp(0.55rem, 1.8vw, 1.1rem);
+  border-bottom:1px solid rgba(91,58,41,0.16);
+  color:var(--gereni-brown);
+  pointer-events:none;
+}
+
+.pdf-page__header .logo {
+  width:min(100%, 3.9in);
+  height:auto;
+  filter:drop-shadow(0 12px 28px rgba(91,58,41,0.18));
+}
+
+.pdf-page__header .preference-controls,
+.pdf-page__header .preference-button,
+.pdf-page__header .flag-badge {
+  display:none !important;
+}
+
+.pdf-page__header h1,
+.pdf-page__header p {
+  margin:0;
+  color:inherit;
+}
+
 .pdf-page__content {
   display:flex;
   flex-direction:column;

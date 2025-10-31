@@ -183,6 +183,13 @@
     const root = ensureRoot(container);
     root.innerHTML = '';
 
+    const originalHeader = document.querySelector('header');
+    const clonedHeader = originalHeader ? originalHeader.cloneNode(true) : null;
+    if (clonedHeader) {
+      clonedHeader.classList.add('pdf-page__header');
+      clonedHeader.setAttribute('aria-hidden', 'true');
+    }
+
     const normalizedOptions = {
       pageWidth: options.pageWidth || `${DEFAULT_PAGE_WIDTH_IN}in`,
       pageHeight: options.pageHeight || `${DEFAULT_PAGE_HEIGHT_IN}in`,
@@ -221,6 +228,14 @@
 
     // Clean root and append pages with optional highlight decoration.
     root.innerHTML = '';
+    if (clonedHeader && pages.length > 0) {
+      const firstPage = pages[0];
+      const target = firstPage?.content;
+      if (target) {
+        target.insertBefore(clonedHeader, target.firstChild);
+      }
+    }
+
     pages.forEach(page => {
       if (page.sections.length === 1) {
         applyHighlight(page, page.sections[0].slug, normalizedOptions);
