@@ -40,35 +40,29 @@ npm install
 
 ## ✏️ Cómo editar el menú
 
-1. Edita `content/menu.md`  
-   - Usa el formato `₡5.650` para precios.  
-   - Respeta los encabezados de sección y formato bilingüe (ES/EN).  
-2. Sincroniza el contenido:
-   ```bash
-   node tools/sync-menu.js
-   ```
-3. Valida consistencia:
-   ```bash
-   npm run check:all
-   ```
-   Si trabajas sin red:
-   ```bash
-   SKIP_SOCIAL_LINK_CHECK=1 npm run check:all
-   ```
-4. Exporta versiones PDF:
-   ```bash
-   npm run export:menu
-   ```
-   Si falla Puppeteer, instala:
-   ```bash
-   sudo apt install libatk1.0-0
-   ```
-5. Haz commit y sube los cambios:
-   ```bash
-   git add .
-   git commit -m "Actualización de menú"
-   git push
-   ```
+1. Ingresa a GitHub y abre este repositorio.
+   - Desde la lista de archivos, haz clic en `content/menu.md`.
+   - Pulsa el ícono del lápiz (**Edit this file**) para editar directamente en el navegador.
+   - Mantén los precios en formato `₡5.650` y respeta los encabezados bilingües (ES/EN).
+2. Revisa tu redacción antes de guardar.
+   - Usa la pestaña **Preview** para comprobar ortografía, espacios y traducciones.
+   - Si algo no luce bien, vuelve a **Edit** y ajusta el texto.
+3. Guarda los cambios en una rama nueva.
+   - En la sección **Commit changes**, escribe un mensaje breve (ej. “Actualización de menú”).
+   - Selecciona **Create a new branch for this commit** y nombra la rama `menu-nombre-del-cambio`.
+   - Haz clic en **Propose changes**.
+4. Envía la solicitud de cambios.
+   - Completa el formulario del Pull Request con un título claro y un resumen corto.
+   - Presiona **Create pull request** para que el equipo revise la actualización.
+5. Confirma que las automatizaciones terminen.
+   - GitHub ejecutará los pasos de sincronización, validación y exportación de PDF de forma automática.
+   - Revisa la pestaña **Checks** del Pull Request; todos los indicadores deben mostrarse en verde.
+   - Si algún check falla, ábrelo para ver qué parte del menú debes corregir.
+6. Publica el cambio cuando esté aprobado.
+   - Una vez que los checks estén en verde y tengas la aprobación correspondiente, pulsa **Merge pull request**.
+   - El menú en la web y los PDF quedarán actualizados automáticamente tras la fusión.
+
+👉 **Consejo rápido:** Si necesitas descargar los nuevos PDF, entra a la pestaña **Actions**, abre la ejecución más reciente y busca los artefactos adjuntos.
 
 ---
 
