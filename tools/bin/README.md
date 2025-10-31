@@ -41,3 +41,11 @@ Once the two executables are in place, you can confirm they’re wired correctly
 ```
 
 Those commands should report valid version strings without needing any external dependencies.
+Make sure each file is executable (`chmod +x`).
+
+## Suggested download sources
+
+1. Download the latest x86_64 Linux tarball of libwebp and extract the `bin/cwebp` file.
+2. Download the libavif prebuilt Linux binary bundle and extract the `avifenc` executable.
+
+After copying the binaries into this directory, commit them to the repository so automated tools can run without additional package installations.
