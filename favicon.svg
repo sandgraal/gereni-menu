@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Gereni favicon</title>
+  <desc id="desc">Rounded square icon with a stylized letter G in brand colors.</desc>
+  <defs>
+    <linearGradient id="gereni-favicon-gradient" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4B6A3D"/>
+      <stop offset="100%" stop-color="#5B3A29"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#gereni-favicon-gradient)"/>
+  <path fill="#F3E8D5" d="M32 14c-10.493 0-19 8.507-19 19s8.507 19 19 19c6.872 0 12.709-3.27 15.612-8.806l-6.536-3.565C39.149 43.19 35.952 45 32 45c-6.348 0-11.5-5.152-11.5-11.5S25.652 22 32 22c5.15 0 8.84 2.824 9.983 7.5H31v6h18.818c.12-.758.182-1.544.182-2.35C50 22.507 42.493 14 32 14Z"/>
+  <circle cx="48" cy="17" r="4" fill="#F3E8D5"/>
+</svg>
