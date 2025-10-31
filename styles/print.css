@@ -1,9 +1,16 @@
 @media print {
-  body {
+  body { 
     background: white;
     color: black;
     font-size: 11pt;
     line-height: 1.3;
+  }
+  body.pdf-mode {
+    margin: 0;
+    padding: 0 !important;
+  }
+  body.pdf-mode > header {
+    display: none !important;
   }
   header {
     background: transparent;
