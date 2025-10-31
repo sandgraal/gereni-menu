@@ -1,0 +1,40 @@
+name: Generate Web Image Variants
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'assets/photos/**'
+      - '!assets/photos/optimized/**'
+      - '!public/images/**'
+
+jobs:
+  process-images:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm ci
+      - name: Generate responsive images
+        run: npm run build:images
+      - name: Commit and push artifacts
+        run: |
+          if git status --short public/images | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/images
+            git commit -m "chore(images): update generated assets"
+            git push
+          else
+            echo "No image updates detected."
+          fi
