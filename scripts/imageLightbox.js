@@ -166,12 +166,12 @@
   }
 
   function init() {
-    document.addEventListener('click', handleImageClick);
-    enhanceAllImages();
     const menuRoot = document.querySelector('[data-menu-root]');
     if (menuRoot) {
+      menuRoot.addEventListener('click', handleImageClick);
       observeMenu(menuRoot);
     }
+    enhanceAllImages();
   }
 
   if (document.readyState === 'loading') {
