@@ -193,6 +193,28 @@ body.inicio main {
   overflow:hidden;
 }
 
+.home-promos[data-promos-state="empty"],
+.home-promos:not([data-promos-state]) {
+  display:none;
+}
+
+.home-promos[data-promos-state="loading"],
+.home-promos[data-promos-state="ready"] {
+  display:flex;
+}
+
+.home-promos[data-promos-state="loading"] {
+  visibility:hidden;
+  min-block-size:24rem;
+  aspect-ratio:3 / 4;
+}
+
+.home-promos[data-promos-state="ready"] {
+  visibility:visible;
+  min-block-size:auto;
+  aspect-ratio:auto;
+}
+
 @media (min-width: 900px) {
   .home-promos {
     margin-right:auto;

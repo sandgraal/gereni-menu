@@ -7,6 +7,36 @@
   }
 
   const MANIFEST_URL = 'assets/promos/promos.json';
+  const PROMO_STATES = {
+    LOADING: 'loading',
+    READY: 'ready',
+    EMPTY: 'empty'
+  };
+
+  function setPromoState(state) {
+    promosRoot.dataset.promosState = state;
+
+    if (state === PROMO_STATES.READY) {
+      promosRoot.removeAttribute('aria-hidden');
+      promosRoot.classList.remove('home-promos--loading');
+      promosRoot.classList.add('home-promos--ready');
+      return;
+    }
+
+    promosRoot.setAttribute('aria-hidden', 'true');
+    promosRoot.classList.remove('home-promos--ready');
+
+    if (state === PROMO_STATES.LOADING) {
+      promosRoot.classList.add('home-promos--loading');
+    } else {
+      promosRoot.classList.remove('home-promos--loading');
+    }
+  }
+
+  function collapsePromos() {
+    setPromoState(PROMO_STATES.EMPTY);
+    promosRoot.removeAttribute('data-promos-count');
+  }
 
   function resolveItems(manifest) {
     if (!manifest) return [];
@@ -64,6 +94,7 @@
         .filter(isAllowedSource);
 
       if (urls.length === 0) {
+        collapsePromos();
         return;
       }
 
@@ -73,10 +104,11 @@
       });
 
       promosRoot.appendChild(fragment);
-      promosRoot.removeAttribute('hidden');
       promosRoot.setAttribute('data-promos-count', String(urls.length));
+      setPromoState(PROMO_STATES.READY);
     })
     .catch(() => {
       // Si no se encuentra el manifiesto o es inválido, mantenemos la sección oculta.
+      collapsePromos();
     });
 })();
