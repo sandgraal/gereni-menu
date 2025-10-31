@@ -57,55 +57,57 @@ function createServiceWorkerEnv() {
   };
 }
 
-// Simulate the networkFirstShell function
-function createNetworkFirstShell(env) {
-  return async (request) => {
+// Simulate the staleWhileRevalidateShell function
+function createStaleWhileRevalidateShell(env) {
+  return async (request, event = { waitUntil() {} }) => {
     const cache = await env.caches.open('SHELL_CACHE');
-    try {
-      const networkRequest = new env.Request(request, { cache: 'reload' });
-      const response = await env.fetch(networkRequest);
-      if (response && response.ok) {
-        // Clone the response for caching
-        const clonedResponse = { ...response };
-        await cache.put(request, clonedResponse);
+    const cached = await cache.match(request);
+
+    let fetchError;
+    const networkFetch = env
+      .fetch(request)
+      .then(async (response) => {
+        if (response && response.ok) {
+          const clonedResponse = { ...response };
+          await cache.put(request, clonedResponse);
+        }
         return response;
-      }
-      throw new Error(`Network response not ok: ${response.status}`);
-    } catch (error) {
-      const cached = await cache.match(request);
-      if (cached) {
-        return cached;
-      }
-      throw error;
+      })
+      .catch((error) => {
+        fetchError = error;
+        return undefined;
+      });
+
+    if (event && typeof event.waitUntil === 'function') {
+      event.waitUntil(networkFetch.then(() => undefined));
     }
+
+    if (cached) {
+      return cached;
+    }
+
+    const networkResponse = await networkFetch;
+    if (networkResponse) {
+      return networkResponse;
+    }
+
+    const fallback = await cache.match(request);
+    if (fallback) {
+      return fallback;
+    }
+
+    if (fetchError) {
+      throw fetchError;
+    }
+
+    throw new Error('Network request failed and no cache available.');
   };
 }
 
-test('networkFirstShell returns network response when ok', async () => {
+test('staleWhileRevalidateShell returns cached response and updates in background', async () => {
   const env = createServiceWorkerEnv();
-  const networkFirstShell = createNetworkFirstShell(env);
+  const staleWhileRevalidateShell = createStaleWhileRevalidateShell(env);
 
-  let receivedRequest;
-  env.fetch = async (req) => {
-    receivedRequest = req;
-    return {
-      ok: true,
-      status: 200,
-      body: 'fresh content'
-    };
-  };
-
-  const response = await networkFirstShell({ url: 'https://example.com/style.css' });
-  assert.equal(receivedRequest.cache, 'reload');
-  assert.equal(response.status, 200);
-  assert.equal(response.body, 'fresh content');
-});
-
-test('networkFirstShell falls back to cache on 304 response', async () => {
-  const env = createServiceWorkerEnv();
-  const networkFirstShell = createNetworkFirstShell(env);
-
-  // Pre-populate cache
   const cache = await env.caches.open('SHELL_CACHE');
   await cache.put({ url: 'https://example.com/style.css' }, {
     ok: true,
@@ -113,114 +115,83 @@ test('networkFirstShell falls back to cache on 304 response', async () => {
     body: 'cached content'
   });
 
-  // Network returns 304 (not ok)
-  env.fetch = async () => ({
-    ok: false,
-    status: 304,
-    body: ''
-  });
+  let fetchCalled = false;
+  env.fetch = async () => {
+    fetchCalled = true;
+    return {
+      ok: true,
+      status: 200,
+      body: 'fresh content'
+    };
+  };
 
-  const response = await networkFirstShell({ url: 'https://example.com/style.css' });
-  assert.equal(response.status, 200);
+  const waitUntilPromises = [];
+  const event = {
+    waitUntil(promise) {
+      waitUntilPromises.push(promise);
+    }
+  };
+
+  const response = await staleWhileRevalidateShell({ url: 'https://example.com/style.css' }, event);
   assert.equal(response.body, 'cached content');
+  assert.equal(fetchCalled, true);
+
+  await Promise.all(waitUntilPromises);
+  const updated = await cache.match({ url: 'https://example.com/style.css' });
+  assert.equal(updated.body, 'fresh content');
 });
 
-test('networkFirstShell falls back to cache on 404 response', async () => {
+test('staleWhileRevalidateShell returns network response when cache missing', async () => {
   const env = createServiceWorkerEnv();
-  const networkFirstShell = createNetworkFirstShell(env);
-  
-  // Pre-populate cache
-  const cache = await env.caches.open('SHELL_CACHE');
-  await cache.put({ url: 'https://example.com/script.js' }, {
+  const staleWhileRevalidateShell = createStaleWhileRevalidateShell(env);
+
+  env.fetch = async () => ({
     ok: true,
     status: 200,
-    body: 'cached script'
+    body: 'network content'
   });
-  
-  // Network returns 404
-  env.fetch = async () => ({
-    ok: false,
-    status: 404,
-    body: 'Not Found'
-  });
-  
-  const response = await networkFirstShell({ url: 'https://example.com/script.js' });
+
+  const response = await staleWhileRevalidateShell({ url: 'https://example.com/new.css' });
   assert.equal(response.status, 200);
-  assert.equal(response.body, 'cached script');
+  assert.equal(response.body, 'network content');
+
+  const cache = await env.caches.open('SHELL_CACHE');
+  const cached = await cache.match({ url: 'https://example.com/new.css' });
+  assert.equal(cached.body, 'network content');
 });
 
-test('networkFirstShell falls back to cache on network error', async () => {
+test('staleWhileRevalidateShell falls back to cache on network error', async () => {
   const env = createServiceWorkerEnv();
-  const networkFirstShell = createNetworkFirstShell(env);
-  
-  // Pre-populate cache
+  const staleWhileRevalidateShell = createStaleWhileRevalidateShell(env);
+
   const cache = await env.caches.open('SHELL_CACHE');
   await cache.put({ url: 'https://example.com/app.js' }, {
     ok: true,
     status: 200,
     body: 'cached app'
   });
-  
-  // Network throws error
+
   env.fetch = async () => {
     throw new Error('Network error');
   };
-  
-  const response = await networkFirstShell({ url: 'https://example.com/app.js' });
+
+  const response = await staleWhileRevalidateShell({ url: 'https://example.com/app.js' });
   assert.equal(response.status, 200);
   assert.equal(response.body, 'cached app');
 });
 
-test('networkFirstShell throws when no cache and network fails', async () => {
+test('staleWhileRevalidateShell throws when no cache and network fails', async () => {
   const env = createServiceWorkerEnv();
-  const networkFirstShell = createNetworkFirstShell(env);
-  
+  const staleWhileRevalidateShell = createStaleWhileRevalidateShell(env);
+
   env.fetch = async () => {
     throw new Error('Network error');
   };
-  
-  await assert.rejects(
-    async () => await networkFirstShell({ url: 'https://example.com/missing.js' }),
-    Error
-  );
-});
 
-test('networkFirstShell throws when no cache and response not ok', async () => {
-  const env = createServiceWorkerEnv();
-  const networkFirstShell = createNetworkFirstShell(env);
-  
-  env.fetch = async () => ({
-    ok: false,
-    status: 500,
-    body: 'Server Error'
-  });
-  
   await assert.rejects(
-    async () => await networkFirstShell({ url: 'https://example.com/error.js' }),
-    /Network response not ok: 500/
+    async () => await staleWhileRevalidateShell({ url: 'https://example.com/missing.js' }),
+    /Network error/
   );
-});
-
-test('networkFirstShell caches successful network responses', async () => {
-  const env = createServiceWorkerEnv();
-  const networkFirstShell = createNetworkFirstShell(env);
-  
-  env.fetch = async () => ({
-    ok: true,
-    status: 200,
-    body: 'new content'
-  });
-  
-  await networkFirstShell({ url: 'https://example.com/new.css' });
-  
-  // Verify it was cached by simulating a failed network
-  env.fetch = async () => {
-    throw new Error('Network error');
-  };
-  
-  const response = await networkFirstShell({ url: 'https://example.com/new.css' });
-  assert.equal(response.status, 200);
-  assert.equal(response.body, 'new content');
 });
 
 (async () => {
