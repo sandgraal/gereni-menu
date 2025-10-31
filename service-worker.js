@@ -1,4 +1,4 @@
-const SHELL_CACHE = 'gereni-shell-v1';
+const SHELL_CACHE = 'gereni-shell-v2';
 const DATA_CACHE = 'gereni-data-v1';
 const FB_CACHE = 'gereni-fb-cache-v1';
 
@@ -29,7 +29,8 @@ const PRECACHE_URLS = [
   'assets/photos/Flag_of_the_United_States.svg',
   'assets/qr/gereni-menu-qr.png',
   'assets/El_Rancho.jpg',
-  'favicon.svg'
+  'favicon.svg',
+  'manifest.webmanifest'
 ];
 
 const DATA_PRECACHE_URLS = ['data/menu.json'];
