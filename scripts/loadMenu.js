@@ -141,6 +141,55 @@
     return texts.some(text => normalizeForSearch(text).includes(normalizedQuery));
   }
 
+  function resolveImageSrcset(item) {
+    if (!item || typeof item !== 'object') {
+      return '';
+    }
+
+    const base = typeof item.image === 'string' ? item.image.trim() : '';
+    const imageSet = Array.isArray(item.imageSet) ? item.imageSet : [];
+
+    const seen = new Set();
+    const sources = [];
+
+    for (const entry of imageSet) {
+      let src = '';
+      let descriptor = '';
+
+      if (typeof entry === 'string') {
+        src = entry.trim();
+      } else if (entry && typeof entry === 'object') {
+        if (typeof entry.src === 'string') {
+          src = entry.src.trim();
+        }
+        if (typeof entry.descriptor === 'string') {
+          descriptor = entry.descriptor.trim();
+        }
+      }
+
+      if (!src) {
+        continue;
+      }
+
+      if (seen.has(src)) {
+        continue;
+      }
+
+      seen.add(src);
+      sources.push(descriptor ? `${src} ${descriptor}` : src);
+    }
+
+    if (sources.length === 0) {
+      return '';
+    }
+
+    if (base && !seen.has(base)) {
+      sources.unshift(`${base} 1x`);
+    }
+
+    return sources.join(', ');
+  }
+
   function getRenderableSections(data, query) {
     const sections = data && Array.isArray(data.sections) ? data.sections : [];
     if (sections.length === 0) {
@@ -474,6 +523,10 @@
       img.src = item.image;
       img.alt = resolveText(item.name, primaryLang) || resolveText(item.name, secondaryLang) || '';
       img.loading = 'lazy';
+      const srcset = resolveImageSrcset(item);
+      if (srcset) {
+        img.srcset = srcset;
+      }
 
       media.appendChild(img);
       dish.classList.add('dish--with-image');

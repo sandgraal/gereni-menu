@@ -106,8 +106,26 @@ async function main() {
         : (itemNames.en && itemNames.en.trim()) ? itemNames.en.trim()
         : 'Platillo sin nombre';
 
+      const context = `data/menu.json → ${displayTitle} → ${displayName}`;
+
       if (typeof item?.image === 'string' && item.image.trim()) {
-        trackImage(item.image, `data/menu.json → ${displayTitle} → ${displayName}`);
+        trackImage(item.image, context);
+      }
+
+      if (Array.isArray(item?.imageSet)) {
+        for (const entry of item.imageSet) {
+          let src = '';
+
+          if (typeof entry === 'string') {
+            src = entry.trim();
+          } else if (entry && typeof entry === 'object' && typeof entry.src === 'string') {
+            src = entry.src.trim();
+          }
+
+          if (src) {
+            trackImage(src, `${context} (srcset)`);
+          }
+        }
       }
     }
 

@@ -60,6 +60,51 @@ function sanitizePriceForSchema(price) {
   return digits.length > 0 ? digits : null;
 }
 
+function buildImageSrcset(item) {
+  if (!item || typeof item !== 'object') {
+    return '';
+  }
+
+  const base = typeof item.image === 'string' ? item.image.trim() : '';
+  const imageSet = Array.isArray(item.imageSet) ? item.imageSet : [];
+
+  const seen = new Set();
+  const sources = [];
+
+  for (const entry of imageSet) {
+    let src = '';
+    let descriptor = '';
+
+    if (typeof entry === 'string') {
+      src = entry.trim();
+    } else if (entry && typeof entry === 'object') {
+      if (typeof entry.src === 'string') {
+        src = entry.src.trim();
+      }
+      if (typeof entry.descriptor === 'string') {
+        descriptor = entry.descriptor.trim();
+      }
+    }
+
+    if (!src || seen.has(src)) {
+      continue;
+    }
+
+    seen.add(src);
+    sources.push(descriptor ? `${src} ${descriptor}` : src);
+  }
+
+  if (sources.length === 0) {
+    return '';
+  }
+
+  if (base && !seen.has(base)) {
+    sources.unshift(`${base} 1x`);
+  }
+
+  return sources.map(source => escapeHtml(source)).join(', ');
+}
+
 function buildMenuItemSchema(item) {
   if (!item || typeof item !== 'object') {
     return null;
@@ -201,6 +246,7 @@ function renderDish(item, primaryLang, secondaryLang, indentLevel = 3) {
   const price = typeof item.price === 'string' ? item.price : '';
   const hasPrice = price.trim().length > 0;
   const image = item.image || '';
+  const imageSrcset = buildImageSrcset(item);
 
   const lines = [];
   const displayName = namePrimary || nameSecondary;
@@ -212,7 +258,15 @@ function renderDish(item, primaryLang, secondaryLang, indentLevel = 3) {
   lines.push(indent(indentLevel, `<article class="${classes.join(' ')}">`));
   if (image) {
     lines.push(indent(indentLevel + 1, '<figure class="dish-media">'));
-    lines.push(indent(indentLevel + 2, `<img src="${escapeHtml(image)}" alt="${escapeHtml(displayName)}" loading="lazy"/>`));
+    const imgAttributes = [
+      `src="${escapeHtml(image)}"`,
+      `alt="${escapeHtml(displayName)}"`,
+      'loading="lazy"'
+    ];
+    if (imageSrcset) {
+      imgAttributes.push(`srcset="${imageSrcset}"`);
+    }
+    lines.push(indent(indentLevel + 2, `<img ${imgAttributes.join(' ')} />`));
     lines.push(indent(indentLevel + 1, '</figure>'));
   }
   lines.push(indent(indentLevel + 1, '<div class="dish-content">'));

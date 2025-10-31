@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-10-31T00:57:28.499Z",
+  "updatedAt": "2025-10-31T03:45:38.000Z",
   "sections": [
     {
       "title": {
@@ -16,7 +16,8 @@
             "es": "Acompañadas con papas y ensalada.",
             "en": "Served with fries and salad."
           },
-          "price": "₡4.800"
+          "price": "₡4.800",
+          "image": "assets/photos/Fajitas-Mixtas.png"
         },
         {
           "name": {
@@ -38,7 +39,8 @@
             "es": "Acompañadas con papas y ensalada.",
             "en": "Served with fries and salad."
           },
-          "price": "₡3.700"
+          "price": "₡3.700",
+          "image": "assets/photos/Nuggets-de-Pollo.png"
         },
         {
           "name": {
@@ -60,7 +62,8 @@
             "es": "Preparado fresco del día.",
             "en": "Prepared fresh each day."
           },
-          "price": "₡3.000"
+          "price": "₡3.000",
+          "image": "assets/photos/Ceviche-de-Pescado.png"
         },
         {
           "name": {
@@ -116,7 +119,8 @@
             "es": "Porción casera del día.",
             "en": "Homestyle portion of the day."
           },
-          "price": "₡2.000"
+          "price": "₡2.000",
+          "image": "assets/photos/Pozol.png"
         },
         {
           "name": {
@@ -127,7 +131,8 @@
             "es": "2 unidades bañadas en salsa de tomate.",
             "en": "Two pieces covered in tomato sauce."
           },
-          "price": "₡1.200"
+          "price": "₡1.200",
+          "image": "assets/photos/Canelones.png"
         },
         {
           "name": {
@@ -203,7 +208,8 @@
             "es": "Acompañado de papas y ensalada.",
             "en": "Served with fries and salad."
           },
-          "price": "₡4.520"
+          "price": "₡4.520",
+          "image": "assets/photos/Arroz-con-Camarones.png"
         }
       ]
     },
@@ -246,7 +252,8 @@
             "es": "Porción crujiente de la casa.",
             "en": "House crispy pork portion."
           },
-          "price": "₡4.000"
+          "price": "₡4.000",
+          "image": "assets/photos/Chicharrones.png"
         },
         {
           "name": {
@@ -335,7 +342,8 @@
             "es": "Salsa a elegir, acompañadas de papas.",
             "en": "Your choice of sauce, served with fries."
           },
-          "price": "₡5.000"
+          "price": "₡5.000",
+          "image": "assets/photos/Alitas-de-Pollo.png"
         },
         {
           "name": {
@@ -346,7 +354,8 @@
             "es": "Salsa a elegir, acompañadas de papas.",
             "en": "Your choice of sauce, served with fries."
           },
-          "price": "₡7.000"
+          "price": "₡7.000",
+          "image": "assets/photos/Alitas-de-Pollo.png"
         },
         {
           "name": {
@@ -357,7 +366,8 @@
             "es": "Salsa a elegir, acompañadas de papas.",
             "en": "Your choice of sauce, served with fries."
           },
-          "price": "₡9.000"
+          "price": "₡9.000",
+          "image": "assets/photos/Alitas-de-Pollo.png"
         },
         {
           "name": {
@@ -368,7 +378,8 @@
             "es": "Tortillas rellenas de queso y vegetales salteados.",
             "en": "Tortillas stuffed with cheese and sautéed veggies."
           },
-          "price": "₡3.200"
+          "price": "₡3.200",
+          "image": "assets/photos/Quesadillas-a-la-Plancha.png"
         }
       ]
     },
@@ -387,7 +398,14 @@
             "es": "De cerdo en salsa BBQ con arroz y ensalada.",
             "en": "Pork ribs in BBQ sauce with rice and salad."
           },
-          "price": "₡5.850"
+          "price": "₡5.850",
+          "image": "assets/photos/Costillas-BBQ.png",
+          "imageSet": [
+            {
+              "src": "assets/photos/Costillas-BBQ.jpg",
+              "descriptor": "2x"
+            }
+          ]
         },
         {
           "name": {
@@ -465,7 +483,8 @@
             "es": "Lomito recubierto con tocineta en salsa de vino.",
             "en": "Tenderloin wrapped in bacon with wine sauce."
           },
-          "price": "₡7.150"
+          "price": "₡7.150",
+          "image": "assets/photos/Filet-Mignon.png"
         },
         {
           "name": {
@@ -476,7 +495,8 @@
             "es": "En salsa con papa asada y ensalada.",
             "en": "In sauce with baked potato and salad."
           },
-          "price": "₡7.500"
+          "price": "₡7.500",
+          "image": "assets/photos/Medallones-de-Lomito.png"
         },
         {
           "name": {
@@ -509,7 +529,8 @@
             "es": "Pechuga de pollo con jamón, queso mozarela, puré y ensalada.",
             "en": "Chicken breast with ham, mozzarella, mash, and salad."
           },
-          "price": "₡5.650"
+          "price": "₡5.650",
+          "image": "assets/photos/Cordon-Bleu.png"
         }
       ]
     },
@@ -671,7 +692,7 @@
             "en": "Choice of flavors."
           },
           "price": "₡2.300",
-          "image": "assets/photos/bebidas-cocteles.png"
+          "image": "assets/photos/Batidos-en-Leche.png"
         },
         {
           "name": {
