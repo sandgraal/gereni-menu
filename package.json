@@ -6,6 +6,7 @@
   "scripts": {
     "build:promos": "node tools/generate-promos-manifest.js",
     "build:fallback": "npm run build:promos && node tools/build-static-menu.js",
+    "build:images": "node tools/process-images.js",
     "check:all": "npm run build:fallback && npm run check:prices && npm run check:menu && npm run check:social && npm run test:sync && npm run test:scroll && npm run test:a11y && npm run test:sw",
     "check:menu": "node tools/check-menu-render.js",
     "check:prices": "node tools/validate-prices.js",
@@ -31,5 +32,8 @@
   "devDependencies": {
     "jsdom": "^27.0.0",
     "puppeteer": "^24.24.0"
+  },
+  "dependencies": {
+    "sharp": "^0.33.2"
   }
 }
