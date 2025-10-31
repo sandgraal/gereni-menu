@@ -30,15 +30,15 @@
   --gereni-muted:#B0A69C;
   --gereni-line:rgba(234,215,192,0.24);
   --card-shadow:0 20px 48px rgba(0,0,0,0.36);
-  --home-highlight-bg:rgba(25,24,22,0.78);
+  --home-highlight-bg:rgba(25,24,22,0.7);
   --home-highlight-border:rgba(234,215,192,0.25);
   --home-highlight-chip:rgba(234,215,192,0.12);
-  --home-highlight-card:rgba(33,31,29,0.88);
+  --home-highlight-card:rgba(33,31,29,0.8);
   --home-highlight-card-border:rgba(234,215,192,0.28);
   --home-highlight-card-glow:rgba(111,147,98,0.32);
   --home-highlight-card-glow-secondary:rgba(255,214,162,0.18);
-  --home-background-overlay:linear-gradient(rgba(8,8,8,0.72), rgba(8,8,8,0.88));
-  --home-background-blend-mode:multiply;
+  --home-background-overlay:linear-gradient(rgba(20,14,10,0.55), rgba(12,9,7,0.68));
+  --home-background-blend-mode:soft-light;
   --home-background-position:center 8%;
   --home-background-position-mobile:center 18%;
 }
@@ -101,6 +101,7 @@ body.inicio {
   display:flex;
   flex-direction:column;
   text-align:center;
+  background-color:transparent;
 }
 
 body.inicio::before {
@@ -1344,9 +1345,7 @@ body[data-theme="dark"] .language-toggle button.active {
 }
 
 body[data-theme="dark"].inicio header {
-  background:
-    radial-gradient(circle at 50% 18%, rgba(234,215,192,0.52) 0%, rgba(234,215,192,0.18) 42%, rgba(37,34,32,0) 68%),
-    linear-gradient(180deg, rgba(37,34,32,0.96), rgba(31,29,27,0.88));
+  background:rgba(37,34,32,0.86);
   color:var(--gereni-text);
   box-shadow:0 26px 54px rgba(0,0,0,0.55);
   border:1px solid rgba(234,215,192,0.24);
@@ -1370,21 +1369,21 @@ body[data-theme="dark"].inicio header::after {
 }
 
 body[data-theme="dark"].inicio .home-panel {
-  background:linear-gradient(145deg, rgba(30,28,26,0.94), rgba(44,41,38,0.82));
+  background:linear-gradient(145deg, rgba(30,28,26,0.88), rgba(44,41,38,0.76));
   box-shadow:0 28px 60px rgba(0,0,0,0.5);
   border:1px solid rgba(234,215,192,0.22);
 }
 
 body[data-theme="dark"].inicio .home-promos {
-  background:rgba(24,22,20,0.82);
+  background:rgba(24,22,20,0.72);
   border:1px solid rgba(234,215,192,0.24);
   box-shadow:0 34px 74px rgba(0,0,0,0.55);
 }
 
 body[data-theme="dark"].inicio .home-promos__item {
-  background:rgba(0,0,0,0.32);
-  border-color:rgba(234,215,192,0.22);
-  box-shadow:0 20px 48px rgba(0,0,0,0.5);
+  background:rgba(0,0,0,0.26);
+  border-color:rgba(234,215,192,0.2);
+  box-shadow:0 20px 48px rgba(0,0,0,0.45);
 }
 
 body[data-theme="dark"].inicio .home-actions__link {
