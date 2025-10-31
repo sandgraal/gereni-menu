@@ -108,22 +108,46 @@ const cacheFirst = async (request) => {
   return response;
 };
 
-const networkFirstShell = async (request) => {
+const staleWhileRevalidateShell = async (request, event) => {
   const cache = await caches.open(SHELL_CACHE);
-  try {
-    const response = await fetch(new Request(request, { cache: 'reload' }));
-    if (response && response.ok) {
-      cache.put(request, response.clone());
+  const cached = await cache.match(request);
+
+  let fetchError;
+  const networkFetch = fetch(request)
+    .then((response) => {
+      if (response && response.ok) {
+        cache.put(request, response.clone());
+      }
       return response;
-    }
-    throw new Error(`Network response not ok: ${response.status}`);
-  } catch (error) {
-    const cached = await cache.match(request);
-    if (cached) {
-      return cached;
-    }
-    throw error;
+    })
+    .catch((error) => {
+      fetchError = error;
+      return undefined;
+    });
+
+  if (event) {
+    event.waitUntil(networkFetch.then(() => undefined));
   }
+
+  if (cached) {
+    return cached;
+  }
+
+  const networkResponse = await networkFetch;
+  if (networkResponse) {
+    return networkResponse;
+  }
+
+  const fallback = await cache.match(request);
+  if (fallback) {
+    return fallback;
+  }
+
+  if (fetchError) {
+    throw fetchError;
+  }
+
+  throw new Error('Network request failed and no cache available.');
 };
 
 const networkFirstData = async (request) => {
@@ -236,7 +260,7 @@ self.addEventListener('fetch', (event) => {
     url.pathname.endsWith('.css') ||
     url.pathname.endsWith('.js')
   ) {
-    event.respondWith(networkFirstShell(request));
+    event.respondWith(staleWhileRevalidateShell(request, event));
     return;
   }
 
