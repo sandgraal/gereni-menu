@@ -161,7 +161,7 @@
 
     const observer = new MutationObserver(mutations => {
 
-      const hasNewNodes = mutations.some(mutation => mutation.addedNodes && mutation.addedNodes.length > 0);
+      const hasNewNodes = mutations.some(mutation => mutation.addedNodes.length > 0);
       if (hasNewNodes) {
         enhanceAllImages();
       }
