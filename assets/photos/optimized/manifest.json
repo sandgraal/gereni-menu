@@ -1,0 +1,405 @@
+{
+  "ai_generated": true,
+  "generated_at": "2025-10-31T21:19:18.367Z",
+  "items": [
+    {
+      "source": "Alitas-de-Pollo.png",
+      "variants": [
+        {
+          "source": "Alitas-de-Pollo.png",
+          "output": "Alitas-de-Pollo-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 27942
+        }
+      ]
+    },
+    {
+      "source": "Arroz-con-Camarones.png",
+      "variants": [
+        {
+          "source": "Arroz-con-Camarones.png",
+          "output": "Arroz-con-Camarones-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 56962
+        }
+      ]
+    },
+    {
+      "source": "Batidos-en-Leche.png",
+      "variants": [
+        {
+          "source": "Batidos-en-Leche.png",
+          "output": "Batidos-en-Leche-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 76052
+        },
+        {
+          "source": "Batidos-en-Leche.png",
+          "output": "Batidos-en-Leche-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 205386
+        }
+      ]
+    },
+    {
+      "source": "Canelones.png",
+      "variants": [
+        {
+          "source": "Canelones.png",
+          "output": "Canelones-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 30496
+        }
+      ]
+    },
+    {
+      "source": "Ceviche-de-Pescado.png",
+      "variants": [
+        {
+          "source": "Ceviche-de-Pescado.png",
+          "output": "Ceviche-de-Pescado-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 34030
+        }
+      ]
+    },
+    {
+      "source": "Chicharrones.png",
+      "variants": [
+        {
+          "source": "Chicharrones.png",
+          "output": "Chicharrones-original.png",
+          "width": 360,
+          "reused": false,
+          "bytes": 149406,
+          "note": "copied-original"
+        }
+      ]
+    },
+    {
+      "source": "Cordon-Bleu.png",
+      "variants": [
+        {
+          "source": "Cordon-Bleu.png",
+          "output": "Cordon-Bleu-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 65068
+        },
+        {
+          "source": "Cordon-Bleu.png",
+          "output": "Cordon-Bleu-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 203752
+        }
+      ]
+    },
+    {
+      "source": "Costillas-BBQ.jpg",
+      "variants": [
+        {
+          "source": "Costillas-BBQ.jpg",
+          "output": "Costillas-BBQ-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 31698
+        }
+      ]
+    },
+    {
+      "source": "Costillas-BBQ.png",
+      "variants": [
+        {
+          "source": "Costillas-BBQ.png",
+          "output": "Costillas-BBQ-original.png",
+          "width": 360,
+          "reused": false,
+          "bytes": 24592,
+          "note": "copied-original"
+        }
+      ]
+    },
+    {
+      "source": "Fajitas-Mixtas.png",
+      "variants": [
+        {
+          "source": "Fajitas-Mixtas.png",
+          "output": "Fajitas-Mixtas-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 43820
+        }
+      ]
+    },
+    {
+      "source": "Filet-Mignon.png",
+      "variants": [
+        {
+          "source": "Filet-Mignon.png",
+          "output": "Filet-Mignon-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 68338
+        }
+      ]
+    },
+    {
+      "source": "Medallones-de-Lomito.png",
+      "variants": [
+        {
+          "source": "Medallones-de-Lomito.png",
+          "output": "Medallones-de-Lomito-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 55936
+        }
+      ]
+    },
+    {
+      "source": "Nuggets-de-Pollo.png",
+      "variants": [
+        {
+          "source": "Nuggets-de-Pollo.png",
+          "output": "Nuggets-de-Pollo-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 33188
+        }
+      ]
+    },
+    {
+      "source": "Pozol.png",
+      "variants": [
+        {
+          "source": "Pozol.png",
+          "output": "Pozol-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 46894
+        }
+      ]
+    },
+    {
+      "source": "Quesadillas-a-la-Plancha.png",
+      "variants": [
+        {
+          "source": "Quesadillas-a-la-Plancha.png",
+          "output": "Quesadillas-a-la-Plancha-original.png",
+          "width": 360,
+          "reused": false,
+          "bytes": 43350,
+          "note": "copied-original"
+        }
+      ]
+    },
+    {
+      "source": "antojitos-chalupa.png",
+      "variants": [
+        {
+          "source": "antojitos-chalupa.png",
+          "output": "antojitos-chalupa-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 32610
+        },
+        {
+          "source": "antojitos-chalupa.png",
+          "output": "antojitos-chalupa-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 71900
+        }
+      ]
+    },
+    {
+      "source": "antojitos-hamburguesa-gereni.png",
+      "variants": [
+        {
+          "source": "antojitos-hamburguesa-gereni.png",
+          "output": "antojitos-hamburguesa-gereni-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 25806
+        },
+        {
+          "source": "antojitos-hamburguesa-gereni.png",
+          "output": "antojitos-hamburguesa-gereni-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 64188
+        }
+      ]
+    },
+    {
+      "source": "antojitos-nachos.png",
+      "variants": [
+        {
+          "source": "antojitos-nachos.png",
+          "output": "antojitos-nachos-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 45734
+        },
+        {
+          "source": "antojitos-nachos.png",
+          "output": "antojitos-nachos-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 109878
+        }
+      ]
+    },
+    {
+      "source": "bebidas-cafe.png",
+      "variants": [
+        {
+          "source": "bebidas-cafe.png",
+          "output": "bebidas-cafe-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 15136
+        },
+        {
+          "source": "bebidas-cafe.png",
+          "output": "bebidas-cafe-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 32966
+        }
+      ]
+    },
+    {
+      "source": "bebidas-cocteles.png",
+      "variants": [
+        {
+          "source": "bebidas-cocteles.png",
+          "output": "bebidas-cocteles-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 40848
+        },
+        {
+          "source": "bebidas-cocteles.png",
+          "output": "bebidas-cocteles-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 90378
+        }
+      ]
+    },
+    {
+      "source": "cocktails-600x441.png",
+      "variants": [
+        {
+          "source": "cocktails-600x441.png",
+          "output": "cocktails-600x441-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 52168
+        }
+      ]
+    },
+    {
+      "source": "con-arroz-arroz-de-la-casa.png",
+      "variants": [
+        {
+          "source": "con-arroz-arroz-de-la-casa.png",
+          "output": "con-arroz-arroz-de-la-casa-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 29158
+        },
+        {
+          "source": "con-arroz-arroz-de-la-casa.png",
+          "output": "con-arroz-arroz-de-la-casa-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 68768
+        }
+      ]
+    },
+    {
+      "source": "con-arroz-casados.png",
+      "variants": [
+        {
+          "source": "con-arroz-casados.png",
+          "output": "con-arroz-casados-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 39308
+        },
+        {
+          "source": "con-arroz-casados.png",
+          "output": "con-arroz-casados-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 86446
+        }
+      ]
+    },
+    {
+      "source": "especialidades-filet-de-pollo.png",
+      "variants": [
+        {
+          "source": "especialidades-filet-de-pollo.png",
+          "output": "especialidades-filet-de-pollo-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 32748
+        },
+        {
+          "source": "especialidades-filet-de-pollo.png",
+          "output": "especialidades-filet-de-pollo-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 78388
+        }
+      ]
+    },
+    {
+      "source": "gustitos-sopa-azteca.png",
+      "variants": [
+        {
+          "source": "gustitos-sopa-azteca.png",
+          "output": "gustitos-sopa-azteca-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 40320
+        },
+        {
+          "source": "gustitos-sopa-azteca.png",
+          "output": "gustitos-sopa-azteca-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 97036
+        }
+      ]
+    },
+    {
+      "source": "para-el-cafe-club-sandwich.png",
+      "variants": [
+        {
+          "source": "para-el-cafe-club-sandwich.png",
+          "output": "para-el-cafe-club-sandwich-640w.webp",
+          "width": 640,
+          "reused": false,
+          "bytes": 62938
+        },
+        {
+          "source": "para-el-cafe-club-sandwich.png",
+          "output": "para-el-cafe-club-sandwich-1280w.webp",
+          "width": 1280,
+          "reused": false,
+          "bytes": 152508
+        }
+      ]
+    }
+  ]
+}
