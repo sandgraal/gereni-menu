@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-10-31T06:30:43.930Z",
+  "updatedAt": "2025-10-31T06:39:05.807Z",
   "sections": [
     {
       "title": {
@@ -332,42 +332,6 @@
             "en": "Served with patacones and pico de gallo."
           },
           "price": "₡4.700"
-        },
-        {
-          "name": {
-            "es": "Alitas de Pollo",
-            "en": "Chicken Wings"
-          },
-          "description": {
-            "es": "Salsa a elegir, acompañadas de papas.",
-            "en": "Your choice of sauce, served with fries."
-          },
-          "price": "₡5.000",
-          "priceNote": "Desde ₡5.000",
-          "image": "assets/photos/Alitas-de-Pollo.png",
-          "portions": [
-            {
-              "size": {
-                "es": "4 piezas",
-                "en": "4 pieces"
-              },
-              "price": "₡5.000"
-            },
-            {
-              "size": {
-                "es": "6 piezas",
-                "en": "6 pieces"
-              },
-              "price": "₡7.000"
-            },
-            {
-              "size": {
-                "es": "8 piezas",
-                "en": "8 pieces"
-              },
-              "price": "₡9.000"
-            }
-          ]
         },
         {
           "name": {
