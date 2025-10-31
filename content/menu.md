@@ -43,9 +43,10 @@
 - **Papas Fritas | French Fries** — Orden individual de papas. | Individual order of fries. (₡2.500)
 - **Plato Surtido | Sampler Platter** — Chicharrones, chorizo, pollo, salchichón, verdura y pico de gallo. | Pork bites, chorizo, chicken, sausage, veggies, and pico de gallo. (₡8.100)
 - **Brochetas de Camarón | Shrimp Skewers** — Con patacones y pico de gallo. | Served with patacones and pico de gallo. (₡4.700)
-- **Alitas de Pollo (4 piezas) | Chicken Wings (4 pieces)** — Salsa a elegir, acompañadas de papas. | Your choice of sauce, served with fries. (₡5.000)
-- **Alitas de Pollo (6 piezas) | Chicken Wings (6 pieces)** — Salsa a elegir, acompañadas de papas. | Your choice of sauce, served with fries. (₡7.000)
-- **Alitas de Pollo (8 piezas) | Chicken Wings (8 pieces)** — Salsa a elegir, acompañadas de papas. | Your choice of sauce, served with fries. (₡9.000)
+- **Alitas de Pollo | Chicken Wings** — Salsa a elegir, acompañadas de papas. | Your choice of sauce, served with fries.
+  - 4 piezas | 4 pieces — ₡5.000
+  - 6 piezas | 6 pieces — ₡7.000
+  - 8 piezas | 8 pieces — ₡9.000
 - **Quesadillas a la Plancha | Griddled Quesadillas** — Tortillas rellenas de queso y vegetales salteados. | Tortillas stuffed with cheese and sautéed veggies. (₡3.200)
 
 ## Especialidades | Specialties
