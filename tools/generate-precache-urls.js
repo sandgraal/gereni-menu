@@ -99,9 +99,10 @@ function extractSlugFromPath(imagePath) {
 /**
  * Read all generated image variants from public/images/ manifests
  * @param {string[]} baseImageUrls - Array of base image URLs from menu.json
+ * @param {boolean} onlyHighest - If true, only include the highest resolution variant per format
  * @returns {string[]} Array of all variant URLs
  */
-function extractGeneratedVariants(baseImageUrls) {
+function extractGeneratedVariants(baseImageUrls, onlyHighest = false) {
   if (!fs.existsSync(PUBLIC_IMAGES_DIR)) {
     console.warn(`Public images directory not found: ${PUBLIC_IMAGES_DIR}`);
     return [];
@@ -124,15 +125,47 @@ function extractGeneratedVariants(baseImageUrls) {
       const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
       const variants = Array.isArray(manifest.variants) ? manifest.variants : [];
 
-      for (const variant of variants) {
-        if (!variant.files || typeof variant.files !== 'object') {
-          continue;
-        }
+      if (onlyHighest) {
+        // Group variants by format and find the highest width for each
+        const highestByFormat = {};
+        
+        for (const variant of variants) {
+          if (!variant.files || typeof variant.files !== 'object') {
+            continue;
+          }
 
+          for (const [format, formatInfo] of Object.entries(variant.files)) {
+            if (!formatInfo || typeof formatInfo.path !== 'string') {
+              continue;
+            }
+            
+            const currentWidth = variant.width || 0;
+            const existingWidth = highestByFormat[format]?.width || 0;
+            
+            if (currentWidth > existingWidth) {
+              highestByFormat[format] = {
+                path: formatInfo.path,
+                width: currentWidth
+              };
+            }
+          }
+        }
+        
+        // Add only the highest resolution for each format
+        for (const info of Object.values(highestByFormat)) {
+          variantUrls.add(info.path);
+        }
+      } else {
         // Add all format variants (avif, webp, jpg)
-        for (const formatInfo of Object.values(variant.files)) {
-          if (formatInfo && typeof formatInfo.path === 'string') {
-            variantUrls.add(formatInfo.path);
+        for (const variant of variants) {
+          if (!variant.files || typeof variant.files !== 'object') {
+            continue;
+          }
+
+          for (const formatInfo of Object.values(variant.files)) {
+            if (formatInfo && typeof formatInfo.path === 'string') {
+              variantUrls.add(formatInfo.path);
+            }
           }
         }
       }
@@ -195,9 +228,12 @@ function main() {
   }
 
   try {
+    // Check for --only-highest flag
+    const onlyHighest = process.argv.includes('--only-highest');
+    
     const menuData = JSON.parse(fs.readFileSync(MENU_DATA_PATH, 'utf8'));
     const baseImageUrls = extractAllImageUrls(menuData);
-    const generatedVariants = extractGeneratedVariants(baseImageUrls);
+    const generatedVariants = extractGeneratedVariants(baseImageUrls, onlyHighest);
     
     // Combine base images with all generated variants
     const allImageUrls = [...baseImageUrls, ...generatedVariants].sort();
@@ -208,7 +244,9 @@ function main() {
       '// Do not edit manually - this file is regenerated on each build',
       '',
       '// Image URLs extracted from menu.json and public/images/ manifests',
-      '// Includes base images and all responsive variants (640w, 1280w, 1920w, etc.)',
+      onlyHighest 
+        ? '// Includes base images and highest resolution variant per format'
+        : '// Includes base images and all responsive variants (640w, 1280w, 1920w, etc.)',
       'const MENU_IMAGE_URLS = ' + JSON.stringify(allImageUrls, null, 2) + ';',
       '',
       '// Export for use in service worker or other modules',
@@ -227,6 +265,9 @@ function main() {
     console.log(`  - Base images: ${baseImageUrls.length}`);
     console.log(`  - Generated variants: ${generatedVariants.length}`);
     console.log(`  - Total: ${allImageUrls.length}`);
+    if (onlyHighest) {
+      console.log(`  - Mode: Highest resolution only (--only-highest)`);
+    }
     console.log(`Output written to: ${OUTPUT_PATH}`);
   } catch (error) {
     console.error('Error generating precache URLs:', error.message);
