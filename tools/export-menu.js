@@ -14,6 +14,7 @@ const { TimeoutError } = puppeteer.errors || {};
 const ROOT = path.resolve(__dirname, '..');
 const OUTPUT_DIR = path.join(ROOT, 'output');
 const PHOTOS_DIR = path.join(ROOT, 'assets', 'photos');
+const PUBLIC_IMAGES_DIR = path.join(ROOT, 'public', 'images');
 const HIGHLIGHT_FALLBACK_PATH = path.join(ROOT, 'data', 'highlight-fallbacks.json');
 const SCREEN_VARIATIONS = [
   { lang: 'es', theme: 'dark' },
@@ -39,14 +40,44 @@ const NO_SANDBOX_FLAGS = ['--no-sandbox', '--disable-setuid-sandbox'];
 const SUPPORTED_PHOTO_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp']);
 
 function collectAvailablePhotos() {
-  if (!fs.existsSync(PHOTOS_DIR)) {
-    return [];
+  const results = new Set();
+
+  if (fs.existsSync(PUBLIC_IMAGES_DIR)) {
+    const dirs = fs.readdirSync(PUBLIC_IMAGES_DIR, { withFileTypes: true });
+    for (const entry of dirs) {
+      if (!entry.isDirectory() || entry.name.startsWith('.')) {
+        continue;
+      }
+      const targetDir = path.join(PUBLIC_IMAGES_DIR, entry.name);
+      const files = fs.readdirSync(targetDir, { withFileTypes: true });
+      for (const file of files) {
+        if (!file.isFile()) {
+          continue;
+        }
+        const ext = path.extname(file.name).toLowerCase();
+        if (!SUPPORTED_PHOTO_EXTENSIONS.has(ext)) {
+          continue;
+        }
+        results.add(path.posix.join('public/images', entry.name, file.name));
+      }
+    }
   }
-  return fs
-    .readdirSync(PHOTOS_DIR)
-    .filter(file => SUPPORTED_PHOTO_EXTENSIONS.has(path.extname(file).toLowerCase()))
-    .map(file => path.posix.join('assets/photos', file))
-    .sort((a, b) => a.localeCompare(b));
+
+  if (fs.existsSync(PHOTOS_DIR)) {
+    const legacy = fs.readdirSync(PHOTOS_DIR, { withFileTypes: true });
+    for (const file of legacy) {
+      if (!file.isFile()) {
+        continue;
+      }
+      const ext = path.extname(file.name).toLowerCase();
+      if (!SUPPORTED_PHOTO_EXTENSIONS.has(ext)) {
+        continue;
+      }
+      results.add(path.posix.join('assets/photos', file.name));
+    }
+  }
+
+  return Array.from(results).sort((a, b) => a.localeCompare(b));
 }
 
 function readHighlightFallbacks() {
