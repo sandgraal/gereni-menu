@@ -1,0 +1,166 @@
+{
+  "slug": "especialidades-filet-de-pollo",
+  "aiGenerated": true,
+  "original": {
+    "width": 2787,
+    "height": 1414,
+    "format": "png"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/especialidades-filet-de-pollo.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.604Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:42.545Z"
+    },
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 1280,
+      "height": 1280,
+      "files": {
+        "avif": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-1x1-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-1x1-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-1x1-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:45.149Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:46.122Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1280,
+      "height": 960,
+      "files": {
+        "avif": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-4x3-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-4x3-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-4x3-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:48.231Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:49.108Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1280,
+      "height": 720,
+      "files": {
+        "avif": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-16x9-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-16x9-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-16x9-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:51.087Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1920,
+      "height": 1080,
+      "files": {
+        "avif": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-16x9-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-16x9-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-16x9-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:54.189Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:45:54.189Z"
+}

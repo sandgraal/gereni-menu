@@ -1,0 +1,208 @@
+{
+  "slug": "gustitos-sopa-azteca",
+  "aiGenerated": true,
+  "original": {
+    "width": 2175,
+    "height": 1990,
+    "format": "png"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/gustitos-sopa-azteca.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.611Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:55.705Z"
+    },
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 1280,
+      "height": 1280,
+      "files": {
+        "avif": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-1x1-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-1x1-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-1x1-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:00.026Z"
+    },
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 1920,
+      "height": 1920,
+      "files": {
+        "avif": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-1x1-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-1x1-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-1x1-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:07.758Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:08.793Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1280,
+      "height": 960,
+      "files": {
+        "avif": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:12.379Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1920,
+      "height": 1440,
+      "files": {
+        "avif": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:18.356Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:19.280Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1280,
+      "height": 720,
+      "files": {
+        "avif": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-16x9-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-16x9-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-16x9-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:22.104Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1920,
+      "height": 1080,
+      "files": {
+        "avif": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-16x9-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-16x9-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-16x9-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:26.870Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:46:26.870Z"
+}

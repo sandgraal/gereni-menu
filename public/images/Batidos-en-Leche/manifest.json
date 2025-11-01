@@ -1,0 +1,208 @@
+{
+  "slug": "Batidos-en-Leche",
+  "aiGenerated": true,
+  "original": {
+    "width": 2500,
+    "height": 2500,
+    "format": "png"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/Batidos-en-Leche.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.539Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:37.019Z"
+    },
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 1280,
+      "height": 1280,
+      "files": {
+        "avif": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-1x1-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-1x1-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-1x1-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:40.352Z"
+    },
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 1920,
+      "height": 1920,
+      "files": {
+        "avif": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-1x1-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-1x1-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-1x1-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:46.577Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:47.636Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1280,
+      "height": 960,
+      "files": {
+        "avif": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:50.329Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1920,
+      "height": 1440,
+      "files": {
+        "avif": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:55.355Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:56.168Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1280,
+      "height": 720,
+      "files": {
+        "avif": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-16x9-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-16x9-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-16x9-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:58.151Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1920,
+      "height": 1080,
+      "files": {
+        "avif": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-16x9-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-16x9-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Batidos-en-Leche/Batidos-en-Leche-16x9-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:01.812Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:43:01.812Z"
+}

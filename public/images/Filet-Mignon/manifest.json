@@ -1,0 +1,82 @@
+{
+  "slug": "Filet-Mignon",
+  "aiGenerated": true,
+  "original": {
+    "width": 1200,
+    "height": 1200,
+    "format": "png"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/Filet-Mignon.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.546Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/Filet-Mignon/Filet-Mignon-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Filet-Mignon/Filet-Mignon-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Filet-Mignon/Filet-Mignon-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:37.916Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/Filet-Mignon/Filet-Mignon-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Filet-Mignon/Filet-Mignon-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Filet-Mignon/Filet-Mignon-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:38.767Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/Filet-Mignon/Filet-Mignon-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Filet-Mignon/Filet-Mignon-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Filet-Mignon/Filet-Mignon-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:39.449Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:43:39.449Z"
+}

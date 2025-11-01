@@ -1,0 +1,124 @@
+{
+  "slug": "antojitos-nachos",
+  "aiGenerated": true,
+  "original": {
+    "width": 2074,
+    "height": 1018,
+    "format": "png"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/antojitos-nachos.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.564Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:20.292Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:21.532Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1280,
+      "height": 960,
+      "files": {
+        "avif": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-4x3-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-4x3-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-4x3-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:24.392Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:25.413Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1280,
+      "height": 720,
+      "files": {
+        "avif": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-16x9-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-16x9-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/antojitos-nachos/antojitos-nachos-16x9-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:27.851Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:44:27.851Z"
+}

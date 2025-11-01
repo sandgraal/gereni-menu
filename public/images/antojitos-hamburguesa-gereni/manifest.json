@@ -1,0 +1,145 @@
+{
+  "slug": "antojitos-hamburguesa-gereni",
+  "aiGenerated": true,
+  "original": {
+    "width": 2532,
+    "height": 1254,
+    "format": "png"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/antojitos-hamburguesa-gereni.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.561Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:09.294Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:10.262Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1280,
+      "height": 960,
+      "files": {
+        "avif": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-4x3-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-4x3-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-4x3-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:12.543Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:13.364Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1280,
+      "height": 720,
+      "files": {
+        "avif": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-16x9-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-16x9-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-16x9-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:15.297Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1920,
+      "height": 1080,
+      "files": {
+        "avif": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-16x9-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-16x9-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-16x9-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:18.480Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:44:18.480Z"
+}

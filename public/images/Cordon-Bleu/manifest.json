@@ -1,0 +1,208 @@
+{
+  "slug": "Cordon-Bleu",
+  "aiGenerated": true,
+  "original": {
+    "width": 2500,
+    "height": 2500,
+    "format": "png"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/Cordon-Bleu.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.543Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:07.263Z"
+    },
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 1280,
+      "height": 1280,
+      "files": {
+        "avif": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-1x1-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-1x1-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-1x1-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:10.467Z"
+    },
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 1920,
+      "height": 1920,
+      "files": {
+        "avif": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-1x1-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-1x1-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-1x1-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:15.954Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:17.065Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1280,
+      "height": 960,
+      "files": {
+        "avif": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:19.893Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1920,
+      "height": 1440,
+      "files": {
+        "avif": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:24.868Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:25.866Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1280,
+      "height": 720,
+      "files": {
+        "avif": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-16x9-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-16x9-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-16x9-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:28.560Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1920,
+      "height": 1080,
+      "files": {
+        "avif": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-16x9-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-16x9-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Cordon-Bleu/Cordon-Bleu-16x9-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:43:33.035Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:43:33.035Z"
+}

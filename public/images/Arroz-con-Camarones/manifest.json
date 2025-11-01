@@ -1,0 +1,150 @@
+{
+  "slug": "Arroz-con-Camarones",
+  "aiGenerated": true,
+  "original": {
+    "width": 1000,
+    "height": 1000,
+    "format": "jpeg"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/Arroz-con-Camarones.jpeg",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.533Z"
+    },
+    {
+      "file": "assets/photos/Arroz-con-Camarones.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.534Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:33.985Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:34.778Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:35.485Z"
+    },
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-1x1-640w.avif",
+          "regenerated": false
+        },
+        "webp": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-1x1-640w.webp",
+          "regenerated": false
+        },
+        "jpg": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-1x1-640w.jpg",
+          "regenerated": false
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:33.985Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-4x3-640w.avif",
+          "regenerated": false
+        },
+        "webp": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-4x3-640w.webp",
+          "regenerated": false
+        },
+        "jpg": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-4x3-640w.jpg",
+          "regenerated": false
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:34.778Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-16x9-640w.avif",
+          "regenerated": false
+        },
+        "webp": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-16x9-640w.webp",
+          "regenerated": false
+        },
+        "jpg": {
+          "path": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-16x9-640w.jpg",
+          "regenerated": false
+        }
+      },
+      "updatedAt": "2025-11-01T18:42:35.485Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:42:35.485Z"
+}

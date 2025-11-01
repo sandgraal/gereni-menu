@@ -1,0 +1,82 @@
+{
+  "slug": "creaciones_colibri_logo",
+  "aiGenerated": true,
+  "original": {
+    "width": 1024,
+    "height": 1024,
+    "format": "png"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/creaciones_colibri_logo.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.595Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/creaciones_colibri_logo/creaciones_colibri_logo-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/creaciones_colibri_logo/creaciones_colibri_logo-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/creaciones_colibri_logo/creaciones_colibri_logo-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:38.427Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/creaciones_colibri_logo/creaciones_colibri_logo-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/creaciones_colibri_logo/creaciones_colibri_logo-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/creaciones_colibri_logo/creaciones_colibri_logo-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:39.919Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/creaciones_colibri_logo/creaciones_colibri_logo-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/creaciones_colibri_logo/creaciones_colibri_logo-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/creaciones_colibri_logo/creaciones_colibri_logo-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:41.207Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:45:41.207Z"
+}

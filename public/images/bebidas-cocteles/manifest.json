@@ -1,0 +1,187 @@
+{
+  "slug": "bebidas-cocteles",
+  "aiGenerated": true,
+  "original": {
+    "width": 2341,
+    "height": 1504,
+    "format": "png"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/bebidas-cocteles.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.574Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:33.567Z"
+    },
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 1280,
+      "height": 1280,
+      "files": {
+        "avif": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-1x1-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-1x1-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-1x1-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:36.381Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:37.301Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1280,
+      "height": 960,
+      "files": {
+        "avif": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-4x3-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-4x3-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-4x3-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:39.606Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1920,
+      "height": 1440,
+      "files": {
+        "avif": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-4x3-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-4x3-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-4x3-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:43.440Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:44.279Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1280,
+      "height": 720,
+      "files": {
+        "avif": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-16x9-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-16x9-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-16x9-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:46.200Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1920,
+      "height": 1080,
+      "files": {
+        "avif": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-16x9-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-16x9-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/bebidas-cocteles/bebidas-cocteles-16x9-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:44:49.305Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:44:49.305Z"
+}

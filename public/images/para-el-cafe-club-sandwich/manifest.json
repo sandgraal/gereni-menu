@@ -1,0 +1,124 @@
+{
+  "slug": "para-el-cafe-club-sandwich",
+  "aiGenerated": true,
+  "original": {
+    "width": 1488,
+    "height": 1036,
+    "format": "png"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/para-el-cafe-club-sandwich.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.615Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:28.726Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:29.960Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1280,
+      "height": 960,
+      "files": {
+        "avif": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:32.808Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:33.844Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1280,
+      "height": 720,
+      "files": {
+        "avif": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-16x9-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-16x9-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-16x9-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:46:36.194Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:46:36.194Z"
+}

@@ -1,0 +1,250 @@
+{
+  "slug": "con-arroz-casados",
+  "aiGenerated": true,
+  "original": {
+    "width": 2934,
+    "height": 2151,
+    "format": "png"
+  },
+  "sources": [
+    {
+      "file": "assets/photos/con-arroz-casados.png",
+      "angle": null,
+      "modifiedAt": "2025-11-01T18:42:11.593Z"
+    }
+  ],
+  "variants": [
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 640,
+      "height": 640,
+      "files": {
+        "avif": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-1x1-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-1x1-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-1x1-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:05.005Z"
+    },
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 1280,
+      "height": 1280,
+      "files": {
+        "avif": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-1x1-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-1x1-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-1x1-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:07.815Z"
+    },
+    {
+      "angle": null,
+      "aspect": "1x1",
+      "width": 1920,
+      "height": 1920,
+      "files": {
+        "avif": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-1x1-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-1x1-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-1x1-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:12.909Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 640,
+      "height": 480,
+      "files": {
+        "avif": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:14.144Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1280,
+      "height": 960,
+      "files": {
+        "avif": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:16.481Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 1920,
+      "height": 1440,
+      "files": {
+        "avif": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:20.375Z"
+    },
+    {
+      "angle": null,
+      "aspect": "4x3",
+      "width": 2560,
+      "height": 1920,
+      "files": {
+        "avif": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-2560w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-2560w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-4x3-2560w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:26.393Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 640,
+      "height": 360,
+      "files": {
+        "avif": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-640w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-640w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-640w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:27.412Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1280,
+      "height": 720,
+      "files": {
+        "avif": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-1280w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-1280w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-1280w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:29.296Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 1920,
+      "height": 1080,
+      "files": {
+        "avif": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-1920w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-1920w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-1920w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:32.363Z"
+    },
+    {
+      "angle": null,
+      "aspect": "16x9",
+      "width": 2560,
+      "height": 1440,
+      "files": {
+        "avif": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-2560w.avif",
+          "regenerated": true
+        },
+        "webp": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-2560w.webp",
+          "regenerated": true
+        },
+        "jpg": {
+          "path": "public/images/con-arroz-casados/con-arroz-casados-16x9-2560w.jpg",
+          "regenerated": true
+        }
+      },
+      "updatedAt": "2025-11-01T18:45:36.806Z"
+    }
+  ],
+  "generatedAt": "2025-11-01T18:45:36.806Z"
+}
