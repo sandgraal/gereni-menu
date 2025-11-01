@@ -13,6 +13,7 @@
     "check:prices": "node tools/validate-prices.js",
     "check:social": "node tools/validate-social-links.js",
     "export:menu": "node tools/export-menu.js",
+    "lint:md": "markdownlint '**/*.md' -p .markdownlintignore",
     "test:sync": "node tests/sync-menu.test.js",
     "test:scroll": "node tests/scroll-helper.test.js",
     "test:a11y": "node tests/accessibility.test.js",
@@ -33,6 +34,7 @@
   "homepage": "https://github.com/sandgraal/gereni-menu#readme",
   "devDependencies": {
     "jsdom": "^27.0.0",
+    "markdownlint-cli": "^0.45.0",
     "puppeteer": "^24.24.0"
   },
   "dependencies": {
