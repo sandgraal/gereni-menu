@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-11-01T18:42:24.007Z",
+  "updatedAt": "2025-11-01T19:10:24.400Z",
   "sections": [
     {
       "title": {
@@ -17,13 +17,7 @@
             "en": "Served with fries and salad."
           },
           "price": "₡4.800",
-          "image": "public/images/Fajitas-Mixtas/Fajitas-Mixtas-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/Fajitas-Mixtas/Fajitas-Mixtas-4x3-640w.jpg",
-              "descriptor": "640w"
-            }
-          ]
+          "image": "public/images/Fajitas-Mixtas/Fajitas-Mixtas-4x3-640w.jpg"
         },
         {
           "name": {
@@ -46,13 +40,7 @@
             "en": "Served with fries and salad."
           },
           "price": "₡3.700",
-          "image": "public/images/Nuggets-de-Pollo/Nuggets-de-Pollo-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/Nuggets-de-Pollo/Nuggets-de-Pollo-4x3-640w.jpg",
-              "descriptor": "640w"
-            }
-          ]
+          "image": "public/images/Nuggets-de-Pollo/Nuggets-de-Pollo-4x3-640w.jpg"
         },
         {
           "name": {
@@ -75,13 +63,7 @@
             "en": "Prepared fresh each day."
           },
           "price": "₡3.000",
-          "image": "public/images/Ceviche-de-Pescado/Ceviche-de-Pescado-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/Ceviche-de-Pescado/Ceviche-de-Pescado-4x3-640w.jpg",
-              "descriptor": "640w"
-            }
-          ]
+          "image": "public/images/Ceviche-de-Pescado/Ceviche-de-Pescado-4x3-640w.jpg"
         },
         {
           "name": {
@@ -104,21 +86,7 @@
             "en": "Traditional broth with tortilla and cheese."
           },
           "price": "₡4.000",
-          "image": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-640w.jpg",
-              "descriptor": "640w"
-            },
-            {
-              "src": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-1280w.jpg",
-              "descriptor": "1280w"
-            },
-            {
-              "src": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-1920w.jpg",
-              "descriptor": "1920w"
-            }
-          ]
+          "image": "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-640w.jpg"
         },
         {
           "name": {
@@ -152,13 +120,7 @@
             "en": "Homestyle portion of the day."
           },
           "price": "₡2.000",
-          "image": "public/images/Pozol/Pozol-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/Pozol/Pozol-4x3-640w.jpg",
-              "descriptor": "640w"
-            }
-          ]
+          "image": "public/images/Pozol/Pozol-4x3-640w.jpg"
         },
         {
           "name": {
@@ -170,13 +132,7 @@
             "en": "Two pieces covered in tomato sauce."
           },
           "price": "₡1.200",
-          "image": "public/images/Canelones/Canelones-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/Canelones/Canelones-4x3-640w.jpg",
-              "descriptor": "640w"
-            }
-          ]
+          "image": "public/images/Canelones/Canelones-4x3-640w.jpg"
         },
         {
           "name": {
@@ -207,25 +163,7 @@
             "en": "Rice, beans, picadillo, salad, and your choice of protein."
           },
           "price": "₡3.390",
-          "image": "public/images/con-arroz-casados/con-arroz-casados-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/con-arroz-casados/con-arroz-casados-4x3-640w.jpg",
-              "descriptor": "640w"
-            },
-            {
-              "src": "public/images/con-arroz-casados/con-arroz-casados-4x3-1280w.jpg",
-              "descriptor": "1280w"
-            },
-            {
-              "src": "public/images/con-arroz-casados/con-arroz-casados-4x3-1920w.jpg",
-              "descriptor": "1920w"
-            },
-            {
-              "src": "public/images/con-arroz-casados/con-arroz-casados-4x3-2560w.jpg",
-              "descriptor": "2560w"
-            }
-          ]
+          "image": "public/images/con-arroz-casados/con-arroz-casados-4x3-640w.jpg"
         },
         {
           "name": {
@@ -248,17 +186,7 @@
             "en": "Pork, chicken, shrimp, chorizo, salad, and fries."
           },
           "price": "₡4.750",
-          "image": "public/images/con-arroz-arroz-de-la-casa/con-arroz-arroz-de-la-casa-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/con-arroz-arroz-de-la-casa/con-arroz-arroz-de-la-casa-4x3-640w.jpg",
-              "descriptor": "640w"
-            },
-            {
-              "src": "public/images/con-arroz-arroz-de-la-casa/con-arroz-arroz-de-la-casa-4x3-1280w.jpg",
-              "descriptor": "1280w"
-            }
-          ]
+          "image": "public/images/con-arroz-arroz-de-la-casa/con-arroz-arroz-de-la-casa-4x3-640w.jpg"
         },
         {
           "name": {
@@ -281,13 +209,7 @@
             "en": "Served with fries and salad."
           },
           "price": "₡4.520",
-          "image": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-4x3-640w.jpg",
-              "descriptor": "640w"
-            }
-          ]
+          "image": "public/images/Arroz-con-Camarones/Arroz-con-Camarones-4x3-640w.jpg"
         }
       ]
     },
@@ -307,17 +229,7 @@
             "en": "Beef or chicken."
           },
           "price": "₡3.500",
-          "image": "public/images/antojitos-nachos/antojitos-nachos-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/antojitos-nachos/antojitos-nachos-4x3-640w.jpg",
-              "descriptor": "640w"
-            },
-            {
-              "src": "public/images/antojitos-nachos/antojitos-nachos-4x3-1280w.jpg",
-              "descriptor": "1280w"
-            }
-          ]
+          "image": "public/images/antojitos-nachos/antojitos-nachos-4x3-640w.jpg"
         },
         {
           "name": {
@@ -329,21 +241,7 @@
             "en": "Beef or chicken."
           },
           "price": "₡2.000",
-          "image": "public/images/antojitos-chalupa/antojitos-chalupa-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/antojitos-chalupa/antojitos-chalupa-4x3-640w.jpg",
-              "descriptor": "640w"
-            },
-            {
-              "src": "public/images/antojitos-chalupa/antojitos-chalupa-4x3-1280w.jpg",
-              "descriptor": "1280w"
-            },
-            {
-              "src": "public/images/antojitos-chalupa/antojitos-chalupa-4x3-1920w.jpg",
-              "descriptor": "1920w"
-            }
-          ]
+          "image": "public/images/antojitos-chalupa/antojitos-chalupa-4x3-640w.jpg"
         },
         {
           "name": {
@@ -378,17 +276,7 @@
             "en": "Egg patty, bacon, beef, caramelized onion, ham, and cheese."
           },
           "price": "₡4.200",
-          "image": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-4x3-640w.jpg",
-              "descriptor": "640w"
-            },
-            {
-              "src": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-4x3-1280w.jpg",
-              "descriptor": "1280w"
-            }
-          ]
+          "image": "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-4x3-640w.jpg"
         },
         {
           "name": {
@@ -475,13 +363,7 @@
             "en": "Pork ribs in BBQ sauce with rice and salad."
           },
           "price": "₡5.850",
-          "image": "public/images/Costillas-BBQ/Costillas-BBQ-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/Costillas-BBQ/Costillas-BBQ-4x3-640w.jpg",
-              "descriptor": "640w"
-            }
-          ]
+          "image": "public/images/Costillas-BBQ/Costillas-BBQ-4x3-640w.jpg"
         },
         {
           "name": {
@@ -526,17 +408,7 @@
             "en": "Cooked to taste with fries and salad."
           },
           "price": "₡5.200",
-          "image": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-4x3-640w.jpg",
-              "descriptor": "640w"
-            },
-            {
-              "src": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-4x3-1280w.jpg",
-              "descriptor": "1280w"
-            }
-          ]
+          "image": "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-4x3-640w.jpg"
         },
         {
           "name": {
@@ -570,13 +442,7 @@
             "en": "Tenderloin wrapped in bacon with wine sauce."
           },
           "price": "₡7.150",
-          "image": "public/images/Filet-Mignon/Filet-Mignon-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/Filet-Mignon/Filet-Mignon-4x3-640w.jpg",
-              "descriptor": "640w"
-            }
-          ]
+          "image": "public/images/Filet-Mignon/Filet-Mignon-4x3-640w.jpg"
         },
         {
           "name": {
@@ -588,13 +454,7 @@
             "en": "In sauce with baked potato and salad."
           },
           "price": "₡7.500",
-          "image": "public/images/Medallones-de-Lomito/Medallones-de-Lomito-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/Medallones-de-Lomito/Medallones-de-Lomito-4x3-640w.jpg",
-              "descriptor": "640w"
-            }
-          ]
+          "image": "public/images/Medallones-de-Lomito/Medallones-de-Lomito-4x3-640w.jpg"
         },
         {
           "name": {
@@ -628,21 +488,7 @@
             "en": "Chicken breast with ham, mozzarella, mash, and salad."
           },
           "price": "₡5.650",
-          "image": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-640w.jpg",
-              "descriptor": "640w"
-            },
-            {
-              "src": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-1280w.jpg",
-              "descriptor": "1280w"
-            },
-            {
-              "src": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-1920w.jpg",
-              "descriptor": "1920w"
-            }
-          ]
+          "image": "public/images/Cordon-Bleu/Cordon-Bleu-4x3-640w.jpg"
         }
       ]
     },
@@ -662,17 +508,7 @@
             "en": "Layers of bread, chicken, and vegetables."
           },
           "price": "₡4.200",
-          "image": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-640w.jpg",
-              "descriptor": "640w"
-            },
-            {
-              "src": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-1280w.jpg",
-              "descriptor": "1280w"
-            }
-          ]
+          "image": "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-640w.jpg"
         },
         {
           "name": {
@@ -769,17 +605,7 @@
             "en": "Pour-over coffee cup."
           },
           "price": "₡1.200",
-          "image": "public/images/bebidas-cafe/bebidas-cafe-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/bebidas-cafe/bebidas-cafe-4x3-640w.jpg",
-              "descriptor": "640w"
-            },
-            {
-              "src": "public/images/bebidas-cafe/bebidas-cafe-4x3-1280w.jpg",
-              "descriptor": "1280w"
-            }
-          ]
+          "image": "public/images/bebidas-cafe/bebidas-cafe-4x3-640w.jpg"
         },
         {
           "name": {
@@ -824,21 +650,7 @@
             "en": "Choice of flavors."
           },
           "price": "₡2.300",
-          "image": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-640w.jpg",
-          "imageSet": [
-            {
-              "src": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-640w.jpg",
-              "descriptor": "640w"
-            },
-            {
-              "src": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-1280w.jpg",
-              "descriptor": "1280w"
-            },
-            {
-              "src": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-1920w.jpg",
-              "descriptor": "1920w"
-            }
-          ]
+          "image": "public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-640w.jpg"
         },
         {
           "name": {
