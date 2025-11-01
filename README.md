@@ -7,31 +7,32 @@ Permite editar precios, descripciones y fotografías fácilmente, generando auto
 
 ## 📂 Estructura
 
-| Ruta | Descripción |
-|------|--------------|
-| `index.html` | Página principal |
-| `menu.html` | Menú dinámico cargado desde `data/menu.json` |
-| `content/menu.md` | Fuente editable (Markdown) del menú |
-| `data/menu.json` | Versión generada para la web |
-| `ai/scripts/` | Scripts automatizados (análisis, sincronización, optimización) |
-| `assets/` | Imágenes, íconos y logotipos |
-| `tools/validate-prices.js` | Valida formato `₡0.000` |
-| `tools/sync-menu.js` | Sincroniza Markdown → JSON |
-| `tools/validate-social-links.js` | Verifica enlaces sociales válidos |
-| `service-worker.js` | Soporte PWA y modo offline |
-| `design/canva/licenses/` | Evidencias y licencias de diseño |
-| `PROJECT_PLAN.md` | Plan y progreso consolidado del proyecto |
+| Ruta                             | Descripción                                                    |
+| -------------------------------- | -------------------------------------------------------------- |
+| `index.html`                     | Página principal                                               |
+| `menu.html`                      | Menú dinámico cargado desde `data/menu.json`                   |
+| `content/menu.md`                | Fuente editable (Markdown) del menú                            |
+| `data/menu.json`                 | Versión generada para la web                                   |
+| `ai/scripts/`                    | Scripts automatizados (análisis, sincronización, optimización) |
+| `assets/`                        | Imágenes, íconos y logotipos                                   |
+| `tools/validate-prices.js`       | Valida formato `₡0.000`                                        |
+| `tools/sync-menu.js`             | Sincroniza Markdown → JSON                                     |
+| `tools/validate-social-links.js` | Verifica enlaces sociales válidos                              |
+| `service-worker.js`              | Soporte PWA y modo offline                                     |
+| `design/canva/licenses/`         | Evidencias y licencias de diseño                               |
+| `PROJECT_PLAN.md`                | Plan y progreso consolidado del proyecto                       |
 
 ---
 
 ## ⚙️ Requisitos
 
 - **Node.js 18+**  
-  Ejecuta los scripts de sincronización y exportación.  
+  Ejecuta los scripts de sincronización y exportación.
 - **Python 3.8+ (opcional)**  
   Para generar códigos QR en `tools/qr/`.
 
 Instalar dependencias:
+
 ```bash
 npm install
 ```
@@ -69,24 +70,27 @@ npm install
 ## 🚀 Automatización y CI/CD
 
 Scripts en `ai/scripts/`:
-- `analytics.mjs` — Rastreo de visitas y descargas.  
-- `data-sync.mjs` — Actualiza `data/menu.json` de forma automática.  
-- `image-optimize.mjs` — Optimiza imágenes antes de despliegue.  
+
+- `analytics.mjs` — Rastreo de visitas y descargas.
+- `data-sync.mjs` — Actualiza `data/menu.json` de forma automática.
+- `image-optimize.mjs` — Optimiza imágenes antes de despliegue.
 - `package-render.mjs` — Genera paquetes listos para publicación.
 
 Workflows en `.github/workflows/`:
-- `ai-changelog.yml` — Actualiza el CHANGELOG.  
-- `update-menu-artifacts.yml` — Exporta automáticamente versiones del menú.  
-- `deploy.yml` *(pendiente)* — Despliegue continuo en Netlify/Vercel.
+
+- `ai-changelog.yml` — Actualiza el CHANGELOG.
+- `update-menu-artifacts.yml` — Exporta automáticamente versiones del menú.
+- `deploy.yml` _(pendiente)_ — Despliegue continuo en Netlify/Vercel.
 
 ---
 
 ## 📱 Progressive Web App (PWA)
 
 El archivo `service-worker.js` permite:
+
 - Carga offline del menú y fotos.
 - Cacheo automático de `data/menu.json` y assets.  
-Prueba abriendo el sitio una vez, luego desconéctate y recarga.
+  Prueba abriendo el sitio una vez, luego desconéctate y recarga.
 
 ---
 
@@ -99,7 +103,7 @@ El progreso completo, hitos y responsables se gestionan en
 
 ## 📚 Recursos adicionales
 
-- `workflow/reminders.md` — Recordatorios operativos.  
+- `workflow/reminders.md` — Recordatorios operativos.
 - `handoff.md` — Guía para la transferencia de control al propietario.
 
 ---
