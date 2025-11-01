@@ -37,7 +37,6 @@ const PRECACHE_URLS = [
   'public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-640w.jpg',
   'public/images/bebidas-cafe/bebidas-cafe-4x3-640w.jpg',
   'public/images/Batidos-en-Leche/Batidos-en-Leche-4x3-640w.jpg',
-  'public/images/bebidas-cocteles/bebidas-cocteles-4x3-640w.jpg',
   'assets/photos/Flag_of_Costa_Rica.svg',
   'assets/photos/Flag_of_the_United_States.svg',
   'assets/qr/gereni-menu-qr.png',
