@@ -7,7 +7,8 @@
     "build:promos": "node tools/generate-promos-manifest.js",
     "build:fallback": "npm run build:promos && node tools/build-static-menu.js",
     "build:images": "node tools/process-images.js",
-    "check:all": "npm run build:fallback && npm run check:prices && npm run check:menu && npm run check:social && npm run test:sync && npm run test:scroll && npm run test:a11y && npm run test:sw",
+    "build:precache": "node tools/generate-precache-urls.js",
+    "check:all": "npm run build:fallback && npm run build:precache && npm run check:prices && npm run check:menu && npm run check:social && npm run test:sync && npm run test:scroll && npm run test:a11y && npm run test:sw && npm run test:precache",
     "check:menu": "node tools/check-menu-render.js",
     "check:prices": "node tools/validate-prices.js",
     "check:social": "node tools/validate-social-links.js",
@@ -15,7 +16,8 @@
     "test:sync": "node tests/sync-menu.test.js",
     "test:scroll": "node tests/scroll-helper.test.js",
     "test:a11y": "node tests/accessibility.test.js",
-    "test:sw": "node tests/service-worker.test.js"
+    "test:sw": "node tests/service-worker.test.js",
+    "test:precache": "node tests/precache-urls.test.js"
   },
   "repository": {
     "type": "git",

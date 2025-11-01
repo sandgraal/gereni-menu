@@ -194,6 +194,38 @@ test('staleWhileRevalidateShell throws when no cache and network fails', async (
   );
 });
 
+test('PRECACHE_URLS includes high-resolution image variants', () => {
+  // Load the actual service worker to check PRECACHE_URLS
+  const fs = require('fs');
+  const path = require('path');
+  const swPath = path.join(__dirname, '..', 'service-worker.js');
+  const swContent = fs.readFileSync(swPath, 'utf8');
+  
+  // Check if the service worker includes high-res variants
+  assert.ok(
+    swContent.includes('1280w') || swContent.includes('1920w'),
+    'Service worker should include high-resolution image variants (1280w or 1920w)'
+  );
+  
+  // Check for various image formats
+  assert.ok(
+    swContent.includes('.avif') || swContent.includes('.webp'),
+    'Service worker should include modern image formats (avif or webp)'
+  );
+  
+  // Verify MENU_IMAGE_URLS is defined
+  assert.ok(
+    swContent.includes('const MENU_IMAGE_URLS'),
+    'Service worker should define MENU_IMAGE_URLS'
+  );
+  
+  // Verify PRECACHE_URLS combines CORE and MENU_IMAGE_URLS
+  assert.ok(
+    swContent.includes('PRECACHE_URLS = [...CORE_PRECACHE_URLS, ...MENU_IMAGE_URLS]'),
+    'Service worker should combine CORE_PRECACHE_URLS with MENU_IMAGE_URLS'
+  );
+});
+
 (async () => {
   let failures = 0;
 
