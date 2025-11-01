@@ -78,29 +78,37 @@ if (test('.markdownlint.json is valid JSON', () => {
 
 // Test 5: LICENSE file is ignored by markdownlint
 if (test('LICENSE file is ignored by markdownlint', () => {
+  // First verify that LICENSE would fail without the ignore file
+  let hasErrorWithoutIgnore = false;
   try {
-    // Run markdownlint on LICENSE file with the ignore file
-    const command = 'npx markdownlint LICENSE -p .markdownlintignore';
-    const output = execSync(command, {
+    execSync('npx markdownlint LICENSE --ignore-path /dev/null', {
       cwd: ROOT,
       encoding: 'utf-8',
       stdio: 'pipe'
     });
-    
-    // If no output or only shows help, LICENSE is being ignored
-    // (markdownlint shows help when all specified files are ignored)
-    const hasLicenseError = output.includes('LICENSE') && output.includes('MD041');
-    assert(!hasLicenseError, 'LICENSE file is not being ignored - MD041 error detected');
   } catch (error) {
-    // Exit code 0 means no errors (file was ignored successfully)
-    // Exit code 1 with no LICENSE errors also means success (help shown)
-    if (error.stdout) {
-      const hasLicenseError = error.stdout.includes('LICENSE') && error.stdout.includes('MD041');
-      assert(!hasLicenseError, 'LICENSE file is not being ignored - MD041 error detected');
-    }
-    // If command exits with code 0 but throws, it's likely because there's no output
-    // which is expected when the file is ignored
+    const output = error.stdout || error.stderr || '';
+    hasErrorWithoutIgnore = output.includes('LICENSE') && output.includes('MD041');
   }
+  
+  assert(hasErrorWithoutIgnore, 'LICENSE should trigger MD041 error without ignore file');
+  
+  // Now verify that LICENSE is ignored with the ignore file
+  let hasErrorWithIgnore = false;
+  try {
+    const result = execSync('npx markdownlint LICENSE -p .markdownlintignore', {
+      cwd: ROOT,
+      encoding: 'utf-8',
+      stdio: 'pipe'
+    });
+    // Check if output contains LICENSE errors
+    hasErrorWithIgnore = result.includes('LICENSE') && result.includes('MD041');
+  } catch (error) {
+    const output = error.stdout || error.stderr || '';
+    hasErrorWithIgnore = output.includes('LICENSE') && output.includes('MD041');
+  }
+  
+  assert(!hasErrorWithIgnore, 'LICENSE file should be ignored and not trigger MD041 error');
 })) {
   passedTests++;
 } else {
