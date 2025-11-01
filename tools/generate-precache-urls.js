@@ -85,7 +85,10 @@ function extractAllImageUrls(data) {
 
 /**
  * Extract the slug from an image path
- * @param {string} imagePath - Path to the image (e.g., "assets/photos/Fajitas-Mixtas.png")
+ * @param {string} imagePath - Path to the image
+ *   Examples:
+ *   - "assets/photos/Fajitas-Mixtas.png" -> "Fajitas-Mixtas"
+ *   - "public/images/Fajitas-Mixtas/Fajitas-Mixtas-4x3-640w.jpg" -> "Fajitas-Mixtas"
  * @returns {string|null} - The slug or null if not extractable
  */
 function extractSlugFromPath(imagePath) {
@@ -93,6 +96,15 @@ function extractSlugFromPath(imagePath) {
     return null;
   }
   
+  // If path starts with public/images/, extract slug from directory structure
+  if (imagePath.startsWith('public/images/')) {
+    const parts = imagePath.split('/');
+    if (parts.length >= 3) {
+      return parts[2]; // public/images/{slug}/...
+    }
+  }
+  
+  // Otherwise, extract from filename
   const basename = path.basename(imagePath);
   const nameWithoutExt = basename.replace(/\.[^.]+$/, '');
   return nameWithoutExt;
@@ -237,8 +249,9 @@ function main() {
     const baseImageUrls = extractAllImageUrls(menuData);
     const generatedVariants = extractGeneratedVariants(baseImageUrls, onlyHighest);
     
-    // Combine base images with all generated variants
-    const allImageUrls = [...baseImageUrls, ...generatedVariants].sort();
+    // Combine base images with all generated variants and deduplicate
+    const allImageUrlsSet = new Set([...baseImageUrls, ...generatedVariants]);
+    const allImageUrls = Array.from(allImageUrlsSet).sort();
 
     // Generate the output file as a JavaScript module
     const outputContent = [

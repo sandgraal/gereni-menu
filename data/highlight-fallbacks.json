@@ -1,12 +1,11 @@
 [
-  "assets/photos/gustitos-sopa-azteca.png",
-  "assets/photos/con-arroz-casados.png",
-  "assets/photos/con-arroz-arroz-de-la-casa.png",
-  "assets/photos/antojitos-nachos.png",
-  "assets/photos/antojitos-chalupa.png",
-  "assets/photos/antojitos-hamburguesa-gereni.png",
-  "assets/photos/especialidades-filet-de-pollo.png",
-  "assets/photos/para-el-cafe-club-sandwich.png",
-  "assets/photos/bebidas-cafe.png",
-  "assets/photos/bebidas-cocteles.png"
+  "public/images/gustitos-sopa-azteca/gustitos-sopa-azteca-4x3-1280w.jpg",
+  "public/images/con-arroz-casados/con-arroz-casados-4x3-1280w.jpg",
+  "public/images/con-arroz-arroz-de-la-casa/con-arroz-arroz-de-la-casa-4x3-1280w.jpg",
+  "public/images/antojitos-nachos/antojitos-nachos-4x3-1280w.jpg",
+  "public/images/antojitos-chalupa/antojitos-chalupa-4x3-1280w.jpg",
+  "public/images/antojitos-hamburguesa-gereni/antojitos-hamburguesa-gereni-4x3-1280w.jpg",
+  "public/images/especialidades-filet-de-pollo/especialidades-filet-de-pollo-4x3-1280w.jpg",
+  "public/images/para-el-cafe-club-sandwich/para-el-cafe-club-sandwich-4x3-1280w.jpg",
+  "public/images/bebidas-cafe/bebidas-cafe-4x3-1280w.jpg"
 ]
