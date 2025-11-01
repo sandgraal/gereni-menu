@@ -13,4 +13,3 @@ ai/_state/*
 
 # AI-generated image optimization artifacts (not committed)
 assets/photos/optimized/
-public/images/
