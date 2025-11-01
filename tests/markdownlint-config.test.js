@@ -81,30 +81,47 @@ if (test('LICENSE file is ignored by markdownlint', () => {
   // First verify that LICENSE would fail without the ignore file
   let hasErrorWithoutIgnore = false;
   try {
-    execSync('npx markdownlint LICENSE --ignore-path /dev/null', {
-      cwd: ROOT,
-      encoding: 'utf-8',
-      stdio: 'pipe'
-    });
+    // Create a temporary empty ignore file to test without ignoring LICENSE
+    const tempIgnore = path.join(ROOT, '.markdownlintignore.test.tmp');
+    fs.writeFileSync(tempIgnore, '# empty ignore file for testing\n', 'utf-8');
+    
+    try {
+      execSync(`npx markdownlint LICENSE --ignore-path "${tempIgnore}"`, {
+        cwd: ROOT,
+        encoding: 'utf-8',
+        stdio: 'pipe'
+      });
+    } catch (error) {
+      const output = error.stdout || error.stderr || '';
+      hasErrorWithoutIgnore = output.includes('LICENSE') && output.includes('MD041');
+    } finally {
+      // Clean up temp file
+      if (fs.existsSync(tempIgnore)) {
+        fs.unlinkSync(tempIgnore);
+      }
+    }
   } catch (error) {
-    const output = error.stdout || error.stderr || '';
-    hasErrorWithoutIgnore = output.includes('LICENSE') && output.includes('MD041');
+    throw new Error(`Failed to test LICENSE without ignore: ${error.message}`);
   }
   
   assert(hasErrorWithoutIgnore, 'LICENSE should trigger MD041 error without ignore file');
   
   // Now verify that LICENSE is ignored with the ignore file
   let hasErrorWithIgnore = false;
+  let exitCode = 0;
   try {
-    const result = execSync('npx markdownlint LICENSE -p .markdownlintignore', {
+    execSync('npx markdownlint LICENSE -p .markdownlintignore', {
       cwd: ROOT,
       encoding: 'utf-8',
       stdio: 'pipe'
     });
-    // Check if output contains LICENSE errors
-    hasErrorWithIgnore = result.includes('LICENSE') && result.includes('MD041');
+    // If we get here, the command succeeded (exit code 0)
+    // This means either no files were linted or no errors were found
+    hasErrorWithIgnore = false;
   } catch (error) {
+    exitCode = error.status || 1;
     const output = error.stdout || error.stderr || '';
+    // Only consider it an error if the output explicitly mentions LICENSE and MD041
     hasErrorWithIgnore = output.includes('LICENSE') && output.includes('MD041');
   }
   
