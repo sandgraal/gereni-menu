@@ -1,17 +1,38 @@
 // ai/scripts/analytics.mjs
-import { existsSync, mkdirSync, appendFileSync, readFileSync } from 'node:fs';
-import path from 'node:path';
+import { existsSync, mkdirSync, appendFileSync, readFileSync } from "node:fs";
+import path from "node:path";
 
 const ROOT = process.cwd();
-const MENU_JSON = path.join(ROOT, 'data', 'menu.json');
-const LOG_DIR = path.join(ROOT, 'ai', 'logs');
-const LOG_FILE = path.join(LOG_DIR, 'menu-analytics.jsonl');
+const MENU_JSON = path.join(ROOT, "data", "menu.json");
+const LOG_DIR = path.join(ROOT, "ai", "logs");
+const LOG_FILE = path.join(LOG_DIR, "menu-analytics.jsonl");
 
 function parsePrice(value) {
-  if (typeof value !== 'string') return null;
-  const numeric = value.replace(/[^\d]/g, '');
-  if (!numeric) return null;
-  return Number.parseInt(numeric, 10);
+  if (typeof value !== "string") return null;
+
+  // Remove currency symbol and thousands separators, keep decimal point
+  // Handles formats like: ₡5.650 → 5650, ₡12.500,50 → 12500.50
+  const cleaned = value
+    .replace(/₡/g, "") // Remove currency symbol
+    .replace(/\s/g, "") // Remove spaces
+    .trim();
+
+  // Try to detect decimal vs thousands separator
+  // If there's a dot followed by exactly 3 digits at the end, it's likely thousands separator
+  // Otherwise, it's a decimal point
+  const hasThousandsDot = /\.\d{3}$/.test(cleaned);
+
+  let numeric;
+  if (hasThousandsDot) {
+    // Format: 5.650 (thousands separator)
+    numeric = cleaned.replace(/\./g, "");
+  } else {
+    // Format: 5650.50 (decimal point) or 5650 (no decimal)
+    numeric = cleaned;
+  }
+
+  const parsed = Number.parseFloat(numeric);
+  return Number.isFinite(parsed) ? parsed : null;
 }
 
 function collectMetrics() {
@@ -22,18 +43,18 @@ function collectMetrics() {
       price_min: null,
       price_max: null,
       price_avg: null,
-      updated_at: null
+      updated_at: null,
     };
   }
 
-  const data = JSON.parse(readFileSync(MENU_JSON, 'utf8'));
+  const data = JSON.parse(readFileSync(MENU_JSON, "utf8"));
   const sections = Array.isArray(data.sections) ? data.sections : [];
   let items = 0;
   const prices = [];
 
-  sections.forEach(section => {
+  sections.forEach((section) => {
     if (!section || !Array.isArray(section.items)) return;
-    section.items.forEach(item => {
+    section.items.forEach((item) => {
       items += 1;
       const price = parsePrice(item?.price);
       if (Number.isFinite(price)) {
@@ -45,7 +66,12 @@ function collectMetrics() {
   prices.sort((a, b) => a - b);
   const priceMin = prices.length > 0 ? prices[0] : null;
   const priceMax = prices.length > 0 ? prices[prices.length - 1] : null;
-  const priceAvg = prices.length > 0 ? Math.round(prices.reduce((sum, value) => sum + value, 0) / prices.length) : null;
+  const priceAvg =
+    prices.length > 0
+      ? Math.round(
+          prices.reduce((sum, value) => sum + value, 0) / prices.length
+        )
+      : null;
 
   return {
     sections: sections.length,
@@ -53,7 +79,7 @@ function collectMetrics() {
     price_min: priceMin,
     price_max: priceMax,
     price_avg: priceAvg,
-    updated_at: data.updatedAt || null
+    updated_at: data.updatedAt || null,
   };
 }
 
@@ -61,19 +87,19 @@ function appendLog(entry) {
   if (!existsSync(LOG_DIR)) {
     mkdirSync(LOG_DIR, { recursive: true });
   }
-  appendFileSync(LOG_FILE, JSON.stringify(entry) + '\n', 'utf8');
+  appendFileSync(LOG_FILE, JSON.stringify(entry) + "\n", "utf8");
 }
 
 function main() {
   const startedAt = Date.now();
-  let status = 'ok';
+  let status = "ok";
   let metrics;
   let errorMessage = null;
 
   try {
     metrics = collectMetrics();
   } catch (error) {
-    status = 'error';
+    status = "error";
     errorMessage = error.message;
     metrics = {
       sections: 0,
@@ -81,27 +107,27 @@ function main() {
       price_min: null,
       price_max: null,
       price_avg: null,
-      updated_at: null
+      updated_at: null,
     };
   }
 
   const logEntry = {
     ts: new Date().toISOString(),
     ai_generated: true,
-    agent: 'menu-analytics',
+    agent: "menu-analytics",
     status,
     duration_ms: Date.now() - startedAt,
     metrics,
-    error: errorMessage
+    error: errorMessage,
   };
 
   appendLog(logEntry);
 
-  if (status === 'ok') {
-    console.log('[analytics] Métricas registradas:', JSON.stringify(metrics));
+  if (status === "ok") {
+    console.log("[analytics] Métricas registradas:", JSON.stringify(metrics));
     process.exit(0);
   } else {
-    console.error('[analytics] Error al recopilar métricas:', errorMessage);
+    console.error("[analytics] Error al recopilar métricas:", errorMessage);
     process.exit(1);
   }
 }

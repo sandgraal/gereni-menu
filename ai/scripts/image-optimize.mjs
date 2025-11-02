@@ -1,41 +1,50 @@
 // ai/scripts/image-optimize.mjs
-import { readdir, stat, mkdir, writeFile, copyFile } from 'node:fs/promises';
-import { createWriteStream, existsSync } from 'node:fs';
-import path from 'node:path';
+import { readdir, stat, mkdir, writeFile, copyFile } from "node:fs/promises";
+import { createWriteStream, existsSync } from "node:fs";
+import path from "node:path";
 
-const SOURCE_DIR = path.join(process.cwd(), 'assets', 'photos');
-const OUTPUT_DIR = path.join(SOURCE_DIR, 'optimized');
+const SOURCE_DIR = path.join(process.cwd(), "assets", "photos");
+const OUTPUT_DIR = path.join(SOURCE_DIR, "optimized");
 const TARGET_WIDTHS = [640, 1280];
 const QUALITY = 80;
-const LOG_PATH = path.join(process.cwd(), 'ai', 'logs', 'menu-image.jsonl');
+const LOG_PATH = path.join(process.cwd(), "ai", "logs", "menu-image.jsonl");
 
 async function ensureDir(dir) {
   await mkdir(dir, { recursive: true });
 }
 
 function isProcessableFile(file) {
-  const allowed = ['.png', '.jpg', '.jpeg'];
+  const allowed = [".png", ".jpg", ".jpeg"];
   return allowed.includes(path.extname(file).toLowerCase());
 }
 
 async function gatherSourceFiles() {
+  // Guard: check if SOURCE_DIR exists before attempting to read
+  if (!existsSync(SOURCE_DIR)) {
+    console.warn(`[image] Source directory does not exist: ${SOURCE_DIR}`);
+    return [];
+  }
+
   const entries = await readdir(SOURCE_DIR, { withFileTypes: true });
   return entries
-    .filter(entry => entry.isFile() && isProcessableFile(entry.name))
-    .map(entry => path.join(SOURCE_DIR, entry.name));
+    .filter((entry) => entry.isFile() && isProcessableFile(entry.name))
+    .map((entry) => path.join(SOURCE_DIR, entry.name));
 }
 
-function outputName(base, suffix, extension = 'webp') {
-  const extless = base.replace(/\.[^.]+$/, '');
+function outputName(base, suffix, extension = "webp") {
+  const extless = base.replace(/\.[^.]+$/, "");
   return `${extless}-${suffix}.${extension}`;
 }
 
 async function needsRegeneration(srcPath, destPath) {
   try {
-    const [srcStat, destStat] = await Promise.all([stat(srcPath), stat(destPath)]);
+    const [srcStat, destStat] = await Promise.all([
+      stat(srcPath),
+      stat(destPath),
+    ]);
     return destStat.mtimeMs < srcStat.mtimeMs;
   } catch (err) {
-    if (err && err.code === 'ENOENT') {
+    if (err && err.code === "ENOENT") {
       return true;
     }
     throw err;
@@ -43,11 +52,11 @@ async function needsRegeneration(srcPath, destPath) {
 }
 
 async function writeManifest(manifest) {
-  const manifestPath = path.join(OUTPUT_DIR, 'manifest.json');
+  const manifestPath = path.join(OUTPUT_DIR, "manifest.json");
   const payload = {
     ai_generated: true,
     generated_at: new Date().toISOString(),
-    items: manifest
+    items: manifest,
   };
   await writeFile(manifestPath, JSON.stringify(payload, null, 2));
 }
@@ -57,7 +66,7 @@ async function appendLog(entry) {
   if (!existsSync(logDir)) {
     await mkdir(logDir, { recursive: true });
   }
-  await writeFile(LOG_PATH, JSON.stringify(entry) + '\n', { flag: 'a' });
+  await writeFile(LOG_PATH, JSON.stringify(entry) + "\n", { flag: "a" });
 }
 
 let cachedSharp = undefined;
@@ -66,11 +75,13 @@ async function loadSharp() {
     return cachedSharp;
   }
   try {
-    const mod = await import('sharp');
+    const mod = await import("sharp");
     cachedSharp = mod.default || mod;
     return cachedSharp;
   } catch (error) {
-    console.warn('[image] sharp no está disponible; se realizará copia sin conversión.');
+    console.warn(
+      "[image] sharp no está disponible; se realizará copia sin conversión."
+    );
     cachedSharp = null;
     return cachedSharp;
   }
@@ -93,7 +104,7 @@ async function processWithSharp(sharp, filePath, fileName) {
         source: fileName,
         output: targetName,
         width,
-        reused: true
+        reused: true,
       });
       continue;
     }
@@ -103,9 +114,9 @@ async function processWithSharp(sharp, filePath, fileName) {
         .resize({ width, withoutEnlargement: true })
         .webp({ quality: QUALITY, effort: 6 });
       const outStream = createWriteStream(destPath);
-      outStream.on('finish', resolve);
-      outStream.on('error', reject);
-      transformer.on('error', reject);
+      outStream.on("finish", resolve);
+      outStream.on("error", reject);
+      transformer.on("error", reject);
       transformer.pipe(outStream);
     });
 
@@ -115,12 +126,16 @@ async function processWithSharp(sharp, filePath, fileName) {
       output: targetName,
       width,
       reused: false,
-      bytes: size
+      bytes: size,
     });
   }
 
   if (results.length === 0) {
-    const fallbackName = outputName(fileName, 'original', path.extname(fileName).slice(1));
+    const fallbackName = outputName(
+      fileName,
+      "original",
+      path.extname(fileName).slice(1)
+    );
     const destPath = path.join(OUTPUT_DIR, fallbackName);
     await copyFile(filePath, destPath);
     const { size } = await stat(destPath);
@@ -130,7 +145,7 @@ async function processWithSharp(sharp, filePath, fileName) {
       width: naturalWidth,
       reused: false,
       bytes: size,
-      note: 'copied-original'
+      note: "copied-original",
     });
   }
 
@@ -138,21 +153,27 @@ async function processWithSharp(sharp, filePath, fileName) {
 }
 
 async function processWithoutSharp(filePath, fileName) {
-  const targetName = outputName(fileName, 'original', path.extname(fileName).slice(1));
+  const targetName = outputName(
+    fileName,
+    "original",
+    path.extname(fileName).slice(1)
+  );
   const destPath = path.join(OUTPUT_DIR, targetName);
   const regenerate = await needsRegeneration(filePath, destPath);
   if (regenerate) {
     await copyFile(filePath, destPath);
   }
   const { size } = await stat(destPath);
-  return [{
-    source: fileName,
-    output: targetName,
-    width: null,
-    reused: !regenerate,
-    bytes: size,
-    note: 'copied-original'
-  }];
+  return [
+    {
+      source: fileName,
+      output: targetName,
+      width: null,
+      reused: !regenerate,
+      bytes: size,
+      note: "copied-original",
+    },
+  ];
 }
 
 async function processImage(filePath) {
@@ -170,7 +191,7 @@ async function main() {
 
   const files = await gatherSourceFiles();
   if (files.length === 0) {
-    console.warn('[image] No se encontraron imágenes en assets/photos');
+    console.warn("[image] No se encontraron imágenes en assets/photos");
   }
 
   const manifest = [];
@@ -180,9 +201,9 @@ async function main() {
     const outputs = await processImage(file);
     manifest.push({
       source: path.basename(file),
-      variants: outputs
+      variants: outputs,
     });
-    optimizedCount += outputs.filter(entry => !entry.reused).length;
+    optimizedCount += outputs.filter((entry) => !entry.reused).length;
   }
 
   await writeManifest(manifest);
@@ -190,27 +211,29 @@ async function main() {
   const logEntry = {
     ts: new Date().toISOString(),
     ai_generated: true,
-    agent: 'menu-image',
-    status: 'ok',
+    agent: "menu-image",
+    status: "ok",
     duration_ms: Date.now() - start,
     sources: files.length,
-    optimized: optimizedCount
+    optimized: optimizedCount,
   };
 
   await appendLog(logEntry);
-  console.log(`[image] Variantes procesadas: ${optimizedCount} (${files.length} archivos origen).`);
+  console.log(
+    `[image] Variantes procesadas: ${optimizedCount} (${files.length} archivos origen).`
+  );
 }
 
-main().catch(async error => {
+main().catch(async (error) => {
   const logEntry = {
     ts: new Date().toISOString(),
     ai_generated: true,
-    agent: 'menu-image',
-    status: 'error',
+    agent: "menu-image",
+    status: "error",
     duration_ms: 0,
-    error: error.message
+    error: error.message,
   };
   await appendLog(logEntry).catch(() => {});
-  console.error('[image] Error durante la optimización:', error);
+  console.error("[image] Error durante la optimización:", error);
   process.exit(1);
 });
