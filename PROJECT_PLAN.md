@@ -1,4 +1,4 @@
-## Overview
+# Overview
 
 This document tracks all milestones and tasks for the standalone Gereni Menu site.  
 Progress is managed through checkboxes. Each item should be marked `[x]` when complete.
