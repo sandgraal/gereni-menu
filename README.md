@@ -13,6 +13,7 @@ Permite editar precios, descripciones y fotografías fácilmente, generando auto
 | `menu.html`                      | Menú dinámico cargado desde `data/menu.json`                   |
 | `content/menu.md`                | Fuente editable (Markdown) del menú                            |
 | `data/menu.json`                 | Versión generada para la web                                   |
+| `data/home-actions.json`         | Configura las tarjetas de acciones rápidas                     |
 | `ai/scripts/`                    | Scripts automatizados (análisis, sincronización, optimización) |
 | `assets/`                        | Imágenes, íconos y logotipos                                   |
 | `tools/validate-prices.js`       | Valida formato `₡0.000`                                        |
