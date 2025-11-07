@@ -168,10 +168,10 @@
       <p class="wifi-card__instructions" data-i18n-en="Copy the guest credentials securely and open the Wi-Fi portal." data-i18n-es="Copia las credenciales de invitados de forma segura y abre el portal de Wi-Fi." data-wifi-instructions>Copia las credenciales de invitados de forma segura y abre el portal de Wi-Fi.</p>
     </div>
     <div class="wifi-card__actions">
-      <button class="wifi-card__button" data-i18n-en="Copy Wi-Fi access" data-i18n-es="Copiar acceso a Wi-Fi" data-wifi-copy type="button">Copiar acceso a Wi-Fi</button>
+      <button class="wifi-card__button" data-i18n-en="Copy Wi-Fi access" data-i18n-es="Copiar acceso a Wi-Fi" data-wifi-copy type="button" aria-describedby="wifi-feedback">Copiar acceso a Wi-Fi</button>
       <a class="wifi-card__button wifi-card__button--secondary" data-i18n-en="Open Wi-Fi portal" data-i18n-es="Abrir portal de Wi-Fi" data-wifi-launch href="https://wifi.gereni.local/portal" rel="noopener" target="_blank">Abrir portal de Wi-Fi</a>
     </div>
-    <p aria-live="polite" class="wifi-card__feedback" data-i18n-en="Wi-Fi access copied to clipboard." data-i18n-es="Acceso a Wi-Fi copiado al portapapeles." data-wifi-feedback data-wifi-feedback-error-en="We couldn't copy the Wi-Fi access. Please try again." data-wifi-feedback-error-es="No se pudo copiar el acceso a Wi-Fi. Inténtalo de nuevo." hidden>Acceso a Wi-Fi copiado al portapapeles.</p>
+    <p id="wifi-feedback" aria-live="polite" class="wifi-card__feedback" data-i18n-en="Wi-Fi access copied to clipboard." data-i18n-es="Acceso a Wi-Fi copiado al portapapeles." data-wifi-feedback data-wifi-feedback-error-en="We couldn't copy the Wi-Fi access. Please try again." data-wifi-feedback-error-es="No se pudo copiar el acceso a Wi-Fi. Inténtalo de nuevo." hidden>Acceso a Wi-Fi copiado al portapapeles.</p>
   </section>
    <div class="home-social">
     <p class="home-social__title" data-i18n-es="Conéctate con nosotros" data-i18n-en="Connect with us">
