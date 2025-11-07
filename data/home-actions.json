@@ -43,8 +43,22 @@
         "en": "Get online at the restaurant in seconds."
       },
       "icon": "wifi",
-      "newTab": true,
-      "rel": "noopener"
+      "wifi": {
+        "ssid": {
+          "es": "Gereni Invitados",
+          "en": "Gereni Guests"
+        },
+        "security": "WPA2",
+        "instructions": {
+          "es": "Copia las credenciales con el botón y abre el portal para completar la conexión.",
+          "en": "Use the button to copy the credentials, then open the portal to finish connecting."
+        },
+        "portalUrl": "https://wifi.gereni.local/portal",
+        "portalLabel": {
+          "es": "Abrir portal de Wi-Fi",
+          "en": "Open Wi-Fi portal"
+        }
+      }
     }
   ]
 }
