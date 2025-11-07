@@ -396,6 +396,93 @@ body.inicio main {
   color:rgba(255,255,255,0.82);
 }
 
+.wifi-card {
+  width:100%;
+  margin-top:clamp(1.5rem, 4vw, 2.5rem);
+  padding:clamp(1.25rem, 3.5vw, 1.75rem);
+  border-radius:24px;
+  background:linear-gradient(172deg, rgba(255,255,255,0.95), rgba(248,239,225,0.9));
+  border:1px solid rgba(91,58,41,0.12);
+  box-shadow:0 20px 48px rgba(91,58,41,0.18);
+  display:flex;
+  flex-direction:column;
+  gap:clamp(0.85rem, 2.5vw, 1.25rem);
+  text-align:left;
+}
+
+.wifi-card__header {
+  display:flex;
+  flex-direction:column;
+  gap:0.35rem;
+}
+
+.wifi-card__title {
+  margin:0;
+  font-family:'Alegreya', 'Times New Roman', serif;
+  font-size:clamp(1.2rem, 2.8vw, 1.6rem);
+  color:var(--gereni-brown);
+}
+
+.wifi-card__instructions {
+  margin:0;
+  font-size:0.95rem;
+  color:var(--gereni-muted);
+}
+
+.wifi-card__actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.75rem;
+  margin-top:0.25rem;
+}
+
+.wifi-card__button {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0.75rem 1.5rem;
+  border-radius:999px;
+  border:1px solid transparent;
+  background:var(--gereni-green);
+  color:#fff;
+  font-weight:600;
+  font-size:0.95rem;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  min-width:0;
+}
+
+.wifi-card__button:hover,
+.wifi-card__button:focus-visible {
+  transform:translateY(-1px);
+  box-shadow:0 14px 28px rgba(75,106,61,0.26);
+}
+
+.wifi-card__button:focus-visible {
+  outline:3px solid rgba(75,106,61,0.35);
+  outline-offset:2px;
+}
+
+.wifi-card__button--secondary {
+  background:rgba(255,255,255,0.92);
+  color:var(--gereni-brown);
+  border-color:rgba(91,58,41,0.28);
+}
+
+.wifi-card__button--secondary:hover,
+.wifi-card__button--secondary:focus-visible {
+  background:rgba(255,255,255,1);
+  box-shadow:0 12px 24px rgba(91,58,41,0.18);
+}
+
+.wifi-card__feedback {
+  margin:0;
+  font-size:0.85rem;
+  font-weight:600;
+  color:var(--gereni-green);
+}
+
 @media (max-width: 899px) {
   .home-highlight {
     /* The `order` property only works if the parent container uses `display: flex` or `display: grid`. */
@@ -672,6 +759,28 @@ html[data-theme="dark"] .home-actions__icon {
 
 html[data-theme="dark"] .home-actions__link--primary .home-actions__description {
   color:rgba(255,255,255,0.78);
+}
+
+html[data-theme="dark"] .wifi-card {
+  background:linear-gradient(172deg, rgba(33,31,29,0.92), rgba(25,23,21,0.88));
+  border:1px solid rgba(234,215,192,0.2);
+  box-shadow:0 28px 60px rgba(0,0,0,0.42);
+}
+
+html[data-theme="dark"] .wifi-card__instructions {
+  color:rgba(234,215,192,0.78);
+}
+
+html[data-theme="dark"] .wifi-card__button--secondary {
+  background:rgba(37,34,32,0.85);
+  color:var(--gereni-brown);
+  border-color:rgba(234,215,192,0.28);
+}
+
+html[data-theme="dark"] .wifi-card__button--secondary:hover,
+html[data-theme="dark"] .wifi-card__button--secondary:focus-visible {
+  background:rgba(43,39,36,0.92);
+  box-shadow:0 16px 30px rgba(0,0,0,0.36);
 }
 
 html[data-theme="dark"] .home-social__link {
