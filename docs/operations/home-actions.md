@@ -14,10 +14,29 @@ Las tarjetas de "Acciones rápidas" que aparecen en `index.html` se generan auto
    - `icon`: clave del ícono a mostrar (`menu`, `download`, `wifi`).
    - `newTab`: define si el enlace abre en una pestaña nueva (`true`/`false`).
    - `rel`: valor del atributo `rel` cuando se necesita (por ejemplo `"noopener"`).
+3. Para la tarjeta de Wi-Fi (`id: "connect-wifi"`) puedes añadir el objeto `wifi` con la siguiente estructura:
+   ```json
+   "wifi": {
+     "ssid": { "es": "Nombre red ES", "en": "Network EN" },
+     "password": "Contraseña",
+     "security": "WPA2",
+     "instructions": { "es": "Texto guía", "en": "Guide text" },
+     "portalUrl": "https://tu.portal.cautivo/",
+     "portalLabel": { "es": "Abrir portal", "en": "Open portal" }
+   }
+   ```
+   - `ssid`: acepta texto o un objeto con traducciones. No se expone visualmente, pero se incluye en el texto que se copia al portapapeles.
+   - `password`: cadena que se copiará junto con el nombre de la red cuando el visitante pulse **Copiar acceso a Wi-Fi**.
+   - `security`: describe el tipo de cifrado (WPA2, WPA3, abierto, etc.) y también se agrega al texto copiado si está presente.
+   - `instructions`: texto corto que sí aparece en el panel para guiar al visitante.
+   - `portalUrl`: enlace directo al portal cautivo (opcional). Si lo omites, el botón se ocultará.
+   - `portalLabel`: etiqueta bilingüe del botón del portal.
+
+   El panel de Wi-Fi también funciona como _fallback_: si no actualizas el JSON, conservará la información de respaldo definida en `index.html`.
 3. Guarda los cambios con un Commit o Pull Request. Al recargar la página, el script `scripts/homeActions.js` reconstruirá la lista automáticamente.
 
 > [!TIP]
-> La tarjeta de Wi-Fi puede apuntar al portal cautivo del proveedor o a un PDF con instrucciones. Solo actualiza `href` y, si aplica, `rel` para reflejar la política de seguridad de tu enlace.
+> La tarjeta de Wi-Fi puede apuntar al portal cautivo del proveedor o a un PDF con instrucciones. Usa `portalUrl` para mostrar el botón dentro del panel y actualiza `href` si prefieres llevar al visitante directamente fuera del sitio.
 
 ## Fallback sin JavaScript
 
