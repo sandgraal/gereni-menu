@@ -7,6 +7,171 @@
   }
 
   const sourceUrl = list.getAttribute('data-home-actions-source') || 'data/home-actions.json';
+  const wifiSection = document.querySelector('[data-wifi-section]');
+  const wifiElements = wifiSection ? {
+    instructions: wifiSection.querySelector('[data-wifi-instructions]'),
+    copyButton: wifiSection.querySelector('[data-wifi-copy]'),
+    feedback: wifiSection.querySelector('[data-wifi-feedback]'),
+    launchLink: wifiSection.querySelector('[data-wifi-launch]')
+  } : {};
+  let wifiCopyHandlerAttached = false;
+  let wifiFeedbackTimeout = null;
+  const wifiFallbackCopy = wifiSection && wifiSection.dataset ? (wifiSection.dataset.wifiCopy || '').trim() : '';
+  const wifiFallbackPortalHref = wifiElements.launchLink ? wifiElements.launchLink.getAttribute('href') : '';
+
+  function getCurrentLanguage() {
+    if (window.GereniLang && typeof window.GereniLang.getCurrent === 'function') {
+      return window.GereniLang.getCurrent();
+    }
+    const langAttr = document.documentElement.getAttribute('lang') || 'es';
+    return langAttr.toLowerCase().startsWith('en') ? 'en' : 'es';
+  }
+
+  function resolveLocalizedValue(value) {
+    if (!value) {
+      return '';
+    }
+    if (typeof value === 'string') {
+      return value;
+    }
+    if (typeof value === 'object') {
+      const lang = getCurrentLanguage();
+      if (typeof value[lang] === 'string' && value[lang].trim()) {
+        return value[lang];
+      }
+      if (typeof value.es === 'string' && value.es.trim()) {
+        return value.es;
+      }
+      if (typeof value.en === 'string' && value.en.trim()) {
+        return value.en;
+      }
+    }
+    return '';
+  }
+
+  function applyTranslationsToElement(el, translations) {
+    if (!el || !translations || typeof translations !== 'object') {
+      return;
+    }
+    if (typeof translations.es === 'string') {
+      el.dataset.i18nEs = translations.es;
+    }
+    if (typeof translations.en === 'string') {
+      el.dataset.i18nEn = translations.en;
+    }
+  }
+
+  function setElementText(el, value, fallback) {
+    if (!el) {
+      return;
+    }
+    const resolved = typeof value === 'string' && value.trim() ? value : fallback;
+    if (typeof resolved === 'string' && resolved.trim()) {
+      el.textContent = resolved;
+    }
+  }
+
+  function fallbackCopyText(text) {
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      const result = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      return result;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function showWifiFeedback(type) {
+    if (!wifiElements.feedback) {
+      return;
+    }
+    const lang = getCurrentLanguage();
+    const dataset = wifiElements.feedback.dataset;
+    let message = '';
+    if (type === 'error') {
+      message = lang === 'en'
+        ? (dataset.wifiFeedbackErrorEn || dataset.i18nEn || wifiElements.feedback.textContent)
+        : (dataset.wifiFeedbackErrorEs || dataset.i18nEs || wifiElements.feedback.textContent);
+    } else {
+      message = lang === 'en'
+        ? (dataset.i18nEn || wifiElements.feedback.textContent)
+        : (dataset.i18nEs || wifiElements.feedback.textContent);
+    }
+    if (!message) {
+      return;
+    }
+    wifiElements.feedback.textContent = message;
+    wifiElements.feedback.hidden = false;
+    if (wifiFeedbackTimeout) {
+      window.clearTimeout(wifiFeedbackTimeout);
+    }
+    wifiFeedbackTimeout = window.setTimeout(() => {
+      wifiElements.feedback.hidden = true;
+    }, 3000);
+  }
+
+  function ensureWifiCopyHandler() {
+    if (!wifiElements.copyButton || wifiCopyHandlerAttached) {
+      return;
+    }
+
+    wifiElements.copyButton.addEventListener('click', () => {
+      const copyValue = wifiElements.copyButton.dataset.wifiCopy || (wifiSection && wifiSection.dataset && wifiSection.dataset.wifiCopy) || '';
+      if (!copyValue) {
+        showWifiFeedback('error');
+        return;
+      }
+
+      const handleSuccess = () => {
+        showWifiFeedback('success');
+      };
+
+      const handleFailure = () => {
+        showWifiFeedback('error');
+      };
+
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        navigator.clipboard.writeText(copyValue).then(handleSuccess).catch(() => {
+          if (fallbackCopyText(copyValue)) {
+            handleSuccess();
+          } else {
+            handleFailure();
+          }
+        });
+      } else if (fallbackCopyText(copyValue)) {
+        handleSuccess();
+      } else {
+        handleFailure();
+      }
+    });
+
+    wifiCopyHandlerAttached = true;
+  }
+
+  function primeWifiDefaults() {
+    if (!wifiSection) {
+      return;
+    }
+    if (wifiSection.dataset && wifiFallbackCopy) {
+      wifiSection.dataset.wifiCopy = wifiFallbackCopy;
+    }
+    if (wifiElements.copyButton) {
+      if (wifiFallbackCopy) {
+        wifiElements.copyButton.hidden = false;
+        wifiElements.copyButton.dataset.wifiCopy = wifiFallbackCopy;
+      } else {
+        wifiElements.copyButton.hidden = true;
+      }
+    }
+    ensureWifiCopyHandler();
+  }
 
   function resolveActions(payload) {
     if (!payload) {
@@ -55,7 +220,7 @@
     return span;
   }
 
-  function createTextSpan(className, text, translations) {
+  function createTextSpan(className, translations) {
     const span = document.createElement('span');
     span.className = className;
     if (translations && typeof translations === 'object') {
@@ -66,7 +231,7 @@
         span.dataset.i18nEn = translations.en;
       }
     }
-    span.textContent = (translations && (translations.es || translations.en)) || text || '';
+    span.textContent = (translations && (translations.es || translations.en)) || '';
     return span;
   }
 
@@ -98,12 +263,8 @@
 
     if (action.newTab) {
       link.target = '_blank';
-      if (!action.rel) {
-        link.rel = 'noopener';
-      }
-    }
-
-    if (action.rel) {
+      link.rel = action.rel || 'noopener';
+    } else if (action.rel) {
       link.rel = String(action.rel);
     }
   }
@@ -135,11 +296,11 @@
     content.className = 'home-actions__content';
 
     content.appendChild(
-      createTextSpan('home-actions__title', '', action.title)
+      createTextSpan('home-actions__title', action.title)
     );
 
     content.appendChild(
-      createTextSpan('home-actions__description', '', action.description)
+      createTextSpan('home-actions__description', action.description)
     );
 
     link.appendChild(content);
@@ -166,7 +327,100 @@
     }
   }
 
-  fetch(sourceUrl, { cache: 'no-store' })
+  function resolveWifi(payload, actions) {
+    if (payload && typeof payload === 'object' && payload.wifi && typeof payload.wifi === 'object') {
+      return payload.wifi;
+    }
+    if (Array.isArray(actions)) {
+      const wifiAction = actions.find(item => item && item.id === 'connect-wifi');
+      if (wifiAction && wifiAction.wifi && typeof wifiAction.wifi === 'object') {
+        return wifiAction.wifi;
+      }
+    }
+    return null;
+  }
+
+  function renderWifiDetails(wifiConfig) {
+    if (!wifiSection) {
+      return;
+    }
+
+    if (!wifiConfig || typeof wifiConfig !== 'object') {
+      if (wifiElements.launchLink) {
+        wifiElements.launchLink.hidden = !wifiElements.launchLink.href;
+      }
+      ensureWifiCopyHandler();
+      return;
+    }
+
+    const instructionsValue = resolveLocalizedValue(wifiConfig.instructions);
+    if (wifiElements.instructions) {
+      setElementText(wifiElements.instructions, instructionsValue, wifiElements.instructions.textContent);
+      applyTranslationsToElement(wifiElements.instructions, wifiConfig.instructions);
+    }
+
+    const ssidValue = resolveLocalizedValue(wifiConfig.ssid);
+    const passwordValue = typeof wifiConfig.password === 'string' ? wifiConfig.password.trim() : '';
+    const securityValue = typeof wifiConfig.security === 'string' ? wifiConfig.security.trim() : '';
+    const lang = getCurrentLanguage();
+    const labelMap = {
+      es: { ssid: 'Red', password: 'Contraseña', security: 'Seguridad' },
+      en: { ssid: 'Network', password: 'Password', security: 'Security' }
+    };
+    const labels = labelMap[lang] || labelMap.es;
+    const copyLines = [];
+    if (ssidValue) {
+      copyLines.push(`${labels.ssid}: ${ssidValue}`);
+    }
+    if (passwordValue) {
+      copyLines.push(`${labels.password}: ${passwordValue}`);
+    }
+    if (securityValue) {
+      copyLines.push(`${labels.security}: ${securityValue}`);
+    }
+    const copyValue = copyLines.join('\n');
+
+    if (wifiSection.dataset) {
+      if (copyValue) {
+        wifiSection.dataset.wifiCopy = copyValue;
+      } else if (wifiFallbackCopy) {
+        wifiSection.dataset.wifiCopy = wifiFallbackCopy;
+      } else {
+        delete wifiSection.dataset.wifiCopy;
+      }
+    }
+    if (wifiElements.copyButton) {
+      if (copyValue) {
+        wifiElements.copyButton.hidden = false;
+        wifiElements.copyButton.dataset.wifiCopy = copyValue;
+      } else {
+        wifiElements.copyButton.hidden = true;
+        delete wifiElements.copyButton.dataset.wifiCopy;
+      }
+    }
+
+    if (wifiElements.launchLink) {
+      const portalUrl = typeof wifiConfig.portalUrl === 'string' ? wifiConfig.portalUrl.trim() : '';
+      if (portalUrl) {
+        wifiElements.launchLink.href = portalUrl;
+        wifiElements.launchLink.hidden = false;
+        applyTranslationsToElement(wifiElements.launchLink, wifiConfig.portalLabel);
+        const portalLabel = resolveLocalizedValue(wifiConfig.portalLabel);
+        setElementText(wifiElements.launchLink, portalLabel, wifiElements.launchLink.textContent);
+      } else {
+        wifiElements.launchLink.hidden = true;
+        if (wifiFallbackPortalHref) {
+          wifiElements.launchLink.href = wifiFallbackPortalHref;
+        }
+      }
+    }
+
+    ensureWifiCopyHandler();
+  }
+
+  primeWifiDefaults();
+
+  fetch(sourceUrl, { cache: 'no-cache' })
     .then(response => {
       if (!response.ok) {
         throw new Error('Failed to load home actions');
@@ -174,9 +428,14 @@
 
       return response.json();
     })
-    .then(resolveActions)
-    .then(renderActions)
+    .then(payload => {
+      const actions = resolveActions(payload);
+      renderActions(actions);
+      const wifiConfig = resolveWifi(payload, actions);
+      renderWifiDetails(wifiConfig);
+    })
     .catch(() => {
+      renderWifiDetails(null);
       // Keep fallback markup if fetch fails
     });
 })();
