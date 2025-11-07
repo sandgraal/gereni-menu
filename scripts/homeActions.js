@@ -420,7 +420,7 @@
 
   primeWifiDefaults();
 
-  fetch(sourceUrl, { cache: 'no-store' })
+  fetch(sourceUrl, { cache: 'no-cache' })
     .then(response => {
       if (!response.ok) {
         throw new Error('Failed to load home actions');
