@@ -55,7 +55,7 @@
     return span;
   }
 
-  function createTextSpan(className, text, translations) {
+  function createTextSpan(className, translations) {
     const span = document.createElement('span');
     span.className = className;
     if (translations && typeof translations === 'object') {
@@ -66,7 +66,7 @@
         span.dataset.i18nEn = translations.en;
       }
     }
-    span.textContent = (translations && (translations.es || translations.en)) || text || '';
+    span.textContent = (translations && (translations.es || translations.en)) || '';
     return span;
   }
 
@@ -135,11 +135,11 @@
     content.className = 'home-actions__content';
 
     content.appendChild(
-      createTextSpan('home-actions__title', '', action.title)
+      createTextSpan('home-actions__title', action.title)
     );
 
     content.appendChild(
-      createTextSpan('home-actions__description', '', action.description)
+      createTextSpan('home-actions__description', action.description)
     );
 
     link.appendChild(content);
