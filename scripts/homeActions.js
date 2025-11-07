@@ -263,12 +263,8 @@
 
     if (action.newTab) {
       link.target = '_blank';
-      if (!action.rel) {
-        link.rel = 'noopener';
-      }
-    }
-
-    if (action.rel) {
+      link.rel = action.rel || 'noopener';
+    } else if (action.rel) {
       link.rel = String(action.rel);
     }
   }
