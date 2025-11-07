@@ -1,0 +1,50 @@
+{
+  "actions": [
+    {
+      "id": "view-menu",
+      "href": "menu.html",
+      "variant": "primary",
+      "title": {
+        "es": "Ver el Menú",
+        "en": "View the Menu"
+      },
+      "description": {
+        "es": "Descubre platillos destacados y recomendaciones del chef.",
+        "en": "See featured dishes and chef suggestions."
+      },
+      "icon": "menu"
+    },
+    {
+      "id": "download-menu",
+      "href": "output/Menu_Gereni_digital_es_dark.pdf",
+      "variant": "secondary",
+      "classes": ["link-download"],
+      "title": {
+        "es": "Descargar Menú en PDF",
+        "en": "Download Menu PDF"
+      },
+      "description": {
+        "es": "Guárdalo sin conexión o compártelo con tu mesa.",
+        "en": "Keep it offline or share it with your table."
+      },
+      "icon": "download",
+      "newTab": true
+    },
+    {
+      "id": "connect-wifi",
+      "href": "#wifi",
+      "variant": "primary",
+      "title": {
+        "es": "Conectarse al Wi-Fi",
+        "en": "Connect to Wi-Fi"
+      },
+      "description": {
+        "es": "Accede a la red del restaurante en segundos.",
+        "en": "Get online at the restaurant in seconds."
+      },
+      "icon": "wifi",
+      "newTab": true,
+      "rel": "noopener"
+    }
+  ]
+}
