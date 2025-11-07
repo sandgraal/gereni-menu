@@ -223,15 +223,20 @@
   function createTextSpan(className, text, translations) {
     const span = document.createElement('span');
     span.className = className;
+
     if (translations && typeof translations === 'object') {
-      if (translations.es) {
-        span.dataset.i18nEs = translations.es;
-      }
-      if (translations.en) {
-        span.dataset.i18nEn = translations.en;
-      }
+      applyTranslationsToElement(span, translations);
     }
-    span.textContent = (translations && (translations.es || translations.en)) || text || '';
+
+    const resolvedText = resolveLocalizedValue(translations);
+    if (resolvedText) {
+      span.textContent = resolvedText;
+    } else if (typeof text === 'string' && text.trim()) {
+      span.textContent = text;
+    } else {
+      span.textContent = '';
+    }
+
     return span;
   }
 
