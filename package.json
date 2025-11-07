@@ -19,7 +19,7 @@
     "test:a11y": "node tests/accessibility.test.js",
     "test:sw": "node tests/service-worker.test.js",
     "test:precache": "node tests/precache-urls.test.js",
-    "test:home-actions": "node tests/home-actions.test.js",
+    "test:home-actions": "node tests/home-actions-i18n.test.js",
     "test:markdownlint": "node tests/markdownlint-config.test.js"
   },
   "repository": {
