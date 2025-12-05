@@ -21,11 +21,7 @@ test('index.html should not have duplicate script tags', () => {
   
   scripts.forEach((script) => {
     const src = script.getAttribute('src');
-    if (scriptSrcs.has(src)) {
-      scriptSrcs.set(src, scriptSrcs.get(src) + 1);
-    } else {
-      scriptSrcs.set(src, 1);
-    }
+    scriptSrcs.set(src, (scriptSrcs.get(src) || 0) + 1);
   });
   
   const duplicates = [];
@@ -56,7 +52,7 @@ test('index.html should have exactly one seasonalMode.js script tag', () => {
 });
 
 // Run all tests
-async function runTests() {
+function runTests() {
   console.log(`Running ${tests.length} test(s)...\n`);
   
   let passed = 0;
@@ -64,7 +60,7 @@ async function runTests() {
   
   for (const { name, fn } of tests) {
     try {
-      await fn();
+      fn();
       console.log(`✓ ${name}`);
       passed++;
     } catch (err) {
