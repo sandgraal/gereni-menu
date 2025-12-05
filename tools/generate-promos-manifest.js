@@ -6,7 +6,15 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const PROMOS_DIR = path.join(ROOT, 'assets', 'promos');
 const OUTPUT_PATH = path.join(PROMOS_DIR, 'promos.json');
-const ALLOWED_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.avif', '.svg']);
+const ALLOWED_EXTENSIONS = new Set([
+  '.png',
+  '.jpg',
+  '.jpeg',
+  '.webp',
+  '.avif',
+  '.svg',
+  '.mp4'
+]);
 
 async function ensureDirectory() {
   try {
