@@ -1,327 +1,215 @@
-(function() {
-  'use strict';
+(() => {
+  const START_BUFFER_DAYS = 2;
+  const SEASON_END_MONTH = 11; // December (0-indexed)
+  const SEASON_END_DAY = 31;
+  const STORAGE_KEYS = {
+    toastDismissed: 'gereni-holiday-toast-dismissed',
+  };
 
-  const OVERRIDE_KEY = 'gereni-holiday-mode';
-  const START_BUFFER_DAYS = 1; // day after Thanksgiving
-  const SEASON_END_MONTH = 11; // December
-  const SEASON_END_DAY = 28; // turn off on Dec 28 (exclusive)
-  const LIGHT_COLORS = ['#FAD643', '#F66D44', '#5BC0EB', '#9C89B8'];
-  const MAX_SNOWFLAKES = 80;
-  const SNOW_MIN_SIZE = 1.5;
-  const SNOW_MAX_SIZE = 3.5;
+  const isFinePointer = () => {
+    if (typeof window.matchMedia !== 'function') return false;
+    return window.matchMedia('(pointer: fine)').matches;
+  };
 
-  function safeLocalStorage() {
-    try {
-      return window.localStorage;
-    } catch (error) {
-      return null;
-    }
-  }
-
-  function getQueryOverride() {
-    try {
-      const params = new URLSearchParams(window.location.search);
-      const value = params.get('holidayMode');
-      if (value === 'on' || value === 'off') {
-        const storage = safeLocalStorage();
-        if (storage) {
-          storage.setItem(OVERRIDE_KEY, value);
-        }
-        return value;
+  const safeLocalStorage = {
+    get: key => {
+      try {
+        return window.localStorage ? window.localStorage.getItem(key) : null;
+      } catch (error) {
+        console.warn('No se pudo leer localStorage:', error);
+        return null;
       }
-    } catch (error) {
-      // ignore
-    }
-    return null;
-  }
+    },
+    set: (key, value) => {
+      try {
+        if (window.localStorage) {
+          window.localStorage.setItem(key, value);
+        }
+      } catch (error) {
+        console.warn('No se pudo escribir en localStorage:', error);
+      }
+    },
+  };
 
-  function getStoredOverride() {
-    const storage = safeLocalStorage();
-    if (!storage) return null;
-    const value = storage.getItem(OVERRIDE_KEY);
-    if (value === 'on' || value === 'off') {
-      return value;
-    }
-    return null;
-  }
+  const getThanksgivingDate = year => {
+    const novemberFirst = new Date(year, 10, 1);
+    const dayOfWeek = novemberFirst.getDay();
+    const offsetToThursday = (11 - dayOfWeek) % 7;
+    const thanksgivingDay = 22 + offsetToThursday;
+    return new Date(year, 10, thanksgivingDay);
+  };
 
-  function getThanksgivingDate(year) {
-    const date = new Date(Date.UTC(year, 10, 1)); // November 1 in UTC to avoid TZ drift
-    const dayOfWeek = date.getUTCDay();
-    const firstThursdayOffset = (4 - dayOfWeek + 7) % 7; // Thursday is 4
-    const thanksgivingUtc = 1 + firstThursdayOffset + 21; // fourth Thursday
-    return new Date(Date.UTC(year, 10, thanksgivingUtc));
-  }
-
-  function getSeasonWindow() {
+  const getSeasonWindow = () => {
     const now = new Date();
     const year = now.getFullYear();
     const thanksgiving = getThanksgivingDate(year);
     const start = new Date(thanksgiving.getTime());
-    start.setUTCDate(start.getUTCDate() + START_BUFFER_DAYS);
-    const end = new Date(Date.UTC(year, SEASON_END_MONTH, SEASON_END_DAY));
+    start.setDate(start.getDate() + START_BUFFER_DAYS);
+    const end = new Date(year, SEASON_END_MONTH, SEASON_END_DAY);
     return { start, end };
-  }
+  };
 
-  function isSeasonActive() {
-    const queryOverride = getQueryOverride();
-    if (queryOverride === 'on') return true;
-    if (queryOverride === 'off') return false;
-
-    const stored = getStoredOverride();
-    if (stored === 'on') return true;
-    if (stored === 'off') return false;
-
+  const isInSeasonWindow = () => {
     const now = new Date();
     const { start, end } = getSeasonWindow();
-    return now >= start && now < end;
-  }
+    return now >= start && now <= end;
+  };
 
-  function getCurrentLanguage() {
-    try {
-      if (window.GereniLang && typeof window.GereniLang.getCurrent === 'function') {
-        return window.GereniLang.getCurrent();
+  const createSparkles = () => {
+    if (!isFinePointer()) return () => {};
+
+    const sparkleContainer = document.createElement('div');
+    sparkleContainer.className = 'sparkle-container';
+    document.body.appendChild(sparkleContainer);
+
+    let pointerPending = null;
+    let rafId = null;
+    const createSparkle = ({ clientX, clientY }) => {
+      const sparkle = document.createElement('span');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = `${clientX}px`;
+      sparkle.style.top = `${clientY}px`;
+      sparkleContainer.appendChild(sparkle);
+      requestAnimationFrame(() => sparkle.classList.add('active'));
+      setTimeout(() => sparkle.remove(), 1000);
+    };
+
+    const processPointer = () => {
+      if (!pointerPending) return;
+      createSparkle(pointerPending);
+      pointerPending = null;
+      rafId = null;
+    };
+
+    const handlePointerMove = event => {
+      pointerPending = { clientX: event.clientX, clientY: event.clientY };
+      if (!rafId) {
+        rafId = requestAnimationFrame(processPointer);
       }
-    } catch (error) {
-      // ignore
-    }
-    const lang = document.documentElement.getAttribute('lang') || 'es';
-    return lang.startsWith('en') ? 'en' : 'es';
-  }
+    };
 
-  function prefersReducedMotion() {
-    try {
-      return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    } catch (error) {
-      return false;
-    }
-  }
+    document.addEventListener('pointermove', handlePointerMove);
 
-  function applySeasonalPalette() {
-    document.documentElement.setAttribute('data-seasonal-holiday', 'true');
-  }
+    return () => {
+      document.removeEventListener('pointermove', handlePointerMove);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      sparkleContainer.remove();
+    };
+  };
 
-  function createLightString() {
-    const lights = document.createElement('div');
-    lights.className = 'holiday-lights';
-    lights.setAttribute('aria-hidden', 'true');
-
-    for (let i = 0; i < 28; i++) {
-      const bulb = document.createElement('span');
-      bulb.className = 'holiday-lights__bulb';
-      bulb.style.setProperty('--bulb-color', LIGHT_COLORS[i % LIGHT_COLORS.length]);
-      bulb.style.animationDelay = `${(i % 8) * 120}ms`;
-      lights.appendChild(bulb);
-    }
-
-    const target = document.querySelector('.home-hero') || document.body;
-    target.prepend(lights);
-  }
-
-  function createSnowLayer() {
-    if (prefersReducedMotion()) return;
+  const createSnowCanvas = () => {
     const canvas = document.createElement('canvas');
-    canvas.className = 'holiday-snow';
-    canvas.setAttribute('aria-hidden', 'true');
+    canvas.className = 'snow-canvas';
+    const ctx = canvas.getContext('2d');
     document.body.appendChild(canvas);
 
-    const ctx = canvas.getContext('2d');
-    const flakes = [];
+    const snowflakes = Array.from({ length: 80 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 3 + 1,
+      d: Math.random() * 1 + 0.5,
+    }));
 
-    function resize() {
+    let animationFrame = null;
+    let isPaused = document.visibilityState !== 'visible';
+
+    const resize = () => {
       canvas.width = window.innerWidth;
-      canvas.height = Math.max(window.innerHeight, document.documentElement.clientHeight || 0);
-    }
+      canvas.height = window.innerHeight;
+    };
 
-    function spawnFlake() {
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * (SNOW_MAX_SIZE - SNOW_MIN_SIZE) + SNOW_MIN_SIZE,
-        d: Math.random() * 0.6 + 0.3,
-        drift: Math.random() * 1 - 0.5
-      };
-    }
-
-    function initFlakes() {
-      flakes.length = 0;
-      for (let i = 0; i < MAX_SNOWFLAKES; i++) {
-        flakes.push(spawnFlake());
-      }
-    }
-
-    function draw() {
+    const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'rgba(255,255,255,0.9)';
-      ctx.beginPath();
-      for (const flake of flakes) {
-        ctx.moveTo(flake.x, flake.y);
-        ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2, true);
-      }
-      ctx.fill();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      snowflakes.forEach(flake => {
+        ctx.beginPath();
+        ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
       update();
-      window.requestAnimationFrame(draw);
-    }
+      schedule();
+    };
 
-    function update() {
-      for (const flake of flakes) {
-        flake.y += flake.d + flake.r * 0.06;
-        flake.x += flake.drift * 0.6;
-
+    const update = () => {
+      snowflakes.forEach(flake => {
+        flake.y += flake.d;
+        flake.x += Math.sin(flake.y * 0.01) * 0.5;
         if (flake.y > canvas.height) {
-          flake.y = -flake.r;
+          flake.y = -5;
           flake.x = Math.random() * canvas.width;
         }
-        if (flake.x > canvas.width) {
-          flake.x = 0;
-        } else if (flake.x < 0) {
-          flake.x = canvas.width;
-        }
-      }
-    }
-
-    window.addEventListener('resize', resize);
-    resize();
-    initFlakes();
-    window.requestAnimationFrame(draw);
-  }
-
-  function createSparkles() {
-    if (prefersReducedMotion()) return;
-    let activeSparkles = 0;
-    const MAX_SPARKLES = 14;
-
-    function spawnSparkle(event) {
-      if (activeSparkles >= MAX_SPARKLES) return;
-      const sparkle = document.createElement('span');
-      sparkle.className = 'holiday-sparkle';
-      sparkle.style.left = `${event.clientX}px`;
-      sparkle.style.top = `${event.clientY}px`;
-      sparkle.style.setProperty('--sparkle-hue', Math.floor(Math.random() * 30) + 10);
-      document.body.appendChild(sparkle);
-      activeSparkles += 1;
-      sparkle.addEventListener('animationend', () => {
-        sparkle.remove();
-        activeSparkles -= 1;
       });
-    }
+    };
 
-    document.addEventListener('pointermove', spawnSparkle);
-  }
+    const schedule = () => {
+      if (!isPaused) {
+        animationFrame = requestAnimationFrame(draw);
+      }
+    };
 
-  function getCountdownMessage() {
-    const lang = getCurrentLanguage();
+    const handleVisibilityChange = () => {
+      const hidden = document.visibilityState !== 'visible';
+      if (hidden && animationFrame) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+      isPaused = hidden;
+      if (!hidden && !animationFrame) {
+        schedule();
+      }
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    schedule();
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+      canvas.remove();
+    };
+  };
+
+  const getCountdownMessage = () => {
+    const { end } = getSeasonWindow();
     const now = new Date();
-    const target = new Date(now.getFullYear(), 11, 24, 0, 0, 0, 0);
-    const diffDays = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
-    const isBefore = diffDays > 0;
+    const remaining = Math.max(0, end - now);
+    const days = Math.ceil(remaining / (1000 * 60 * 60 * 24));
+    if (days <= 0) return '¡Felices fiestas!';
+    return `Faltan ${days} días para terminar la temporada navideña.`;
+  };
 
-    if (isBefore) {
-      return lang === 'en'
-        ? `Countdown to Christmas Eve: ${diffDays} ${diffDays === 1 ? 'day' : 'days'}`
-        : `Cuenta regresiva para Nochebuena: ${diffDays} ${diffDays === 1 ? 'día' : 'días'}`;
-    }
-
-    return lang === 'en'
-      ? 'Happy Holidays! Seasonal treats available until Dec 27.'
-      : '¡Felices fiestas! Las sorpresas continúan hasta el 27 de diciembre.';
-  }
-
-  function addCountdownRibbon() {
+  const addCountdownRibbon = () => {
     const ribbon = document.createElement('div');
     ribbon.className = 'holiday-ribbon';
-    ribbon.role = 'status';
+    ribbon.setAttribute('role', 'status');
     ribbon.textContent = getCountdownMessage();
     document.body.prepend(ribbon);
-  }
+  };
 
-  function createHolidayActionItem(list) {
-    const existing = list.querySelector('[data-holiday-action]');
-    if (existing) return;
-    const lang = getCurrentLanguage();
-    const li = document.createElement('li');
-    li.className = 'home-actions__item';
-    li.dataset.holidayAction = 'true';
 
-    const link = document.createElement('a');
-    link.className = 'home-actions__link home-actions__link--primary holiday-action';
-    link.href = 'menu.html#holiday';
-    link.dataset.soundId = 'menu-cta';
 
-    const icon = document.createElement('span');
-    icon.className = 'home-actions__icon';
-    icon.setAttribute('aria-hidden', 'true');
-    icon.innerHTML = '<svg fill="none" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">\
-<path d="M16 4l2.47 7.6H26l-6.18 4.5 2.36 7.3L16 19.5l-6.18 3.9 2.36-7.3L6 11.6h7.53L16 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>\
-</svg>';
-
-    const content = document.createElement('span');
-    content.className = 'home-actions__content';
-
-    const title = document.createElement('span');
-    title.className = 'home-actions__title';
-    title.textContent = lang === 'en' ? 'Holiday Specials' : 'Especiales Navideños';
-    title.dataset.i18nEn = 'Holiday Specials';
-    title.dataset.i18nEs = 'Especiales Navideños';
-
-    const description = document.createElement('span');
-    description.className = 'home-actions__description';
-    description.textContent = lang === 'en'
-      ? 'Try limited-time dishes and festive drinks.'
-      : 'Prueba platillos y bebidas festivas por tiempo limitado.';
-    description.dataset.i18nEn = 'Try limited-time dishes and festive drinks.';
-    description.dataset.i18nEs = 'Prueba platillos y bebidas festivas por tiempo limitado.';
-
-    content.appendChild(title);
-    content.appendChild(description);
-    link.appendChild(icon);
-    link.appendChild(content);
-    li.appendChild(link);
-    list.appendChild(li);
-  }
-
-  function addHolidayActionTile() {
-    const list = document.querySelector('[data-home-actions]');
-    if (!list) return;
-
-    const attemptInsert = () => createHolidayActionItem(list);
-
-    if (list.getAttribute('data-home-actions-loaded') === 'true') {
-      attemptInsert();
-      return;
-    }
-
-    const observer = new MutationObserver(mutations => {
-      for (const mutation of mutations) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'data-home-actions-loaded') {
-          if (list.getAttribute('data-home-actions-loaded') === 'true') {
-            attemptInsert();
-            observer.disconnect();
-            return;
-          }
-        }
-      }
-    });
-
-    observer.observe(list, { attributes: true });
-  }
-
-  function initSeasonalMode() {
-    if (!isSeasonActive()) {
-      return;
-    }
-
-    applySeasonalPalette();
-    createLightString();
-    createSnowLayer();
-    createSparkles();
+  const initializeSeasonalMode = () => {
+    if (!isInSeasonWindow()) return;
+    const destroySparkles = createSparkles();
+    const destroySnow = createSnowCanvas();
     addCountdownRibbon();
-    addHolidayActionTile();
-  }
+
+    window.addEventListener('beforeunload', () => {
+      destroySparkles();
+      destroySnow();
+    });
+  };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSeasonalMode);
+    document.addEventListener('DOMContentLoaded', initializeSeasonalMode);
   } else {
-    initSeasonalMode();
+    initializeSeasonalMode();
   }
 })();
