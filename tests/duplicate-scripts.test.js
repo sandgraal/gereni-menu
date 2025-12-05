@@ -73,7 +73,7 @@ function runTests() {
     }
   }
   
-  console.log(`\n${passed} passed, ${failed} failed`);
+  console.log(`\n${passed} test(s) passed${failed > 0 ? `, ${failed} failed` : ''}.`);
   
   if (failed > 0) {
     process.exit(1);
