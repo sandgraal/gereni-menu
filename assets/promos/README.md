@@ -6,9 +6,10 @@ Las imágenes colocadas en `assets/promos/` se muestran automáticamente en la v
 - **JPG/JPEG**: ideal para fotografías o composiciones con muchos degradados.
 - **PNG**: úsalo cuando necesites conservar transparencias o texto muy definido.
 - **WEBP/AVIF**: preferibles cuando dispongas de la exportación, ya que ofrecen mejor compresión.
+- **MP4**: clips cortos (silenciados, en bucle) para promociones que necesiten movimiento.
 - **SVG**: solo para ilustraciones vectoriales sin efectos complejos de rasterizado.
 
-Evita GIF animados u otros formatos que puedan distraer o aumentar el peso de la página.
+Evita GIF animados u otros formatos que puedan distraer o aumentar el peso de la página. Para video, limita la duración a pocos segundos y exporta sin audio perceptible para que pueda reproducirse automáticamente.
 
 ## Dimensiones y composición
 - Diseña en orientación **vertical** con relación de aspecto entre **3:4 y 4:5** (ej. 1080 × 1440 px).

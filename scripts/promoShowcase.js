@@ -57,21 +57,35 @@
     return src.startsWith('assets/promos/');
   }
 
+  function isVideoSource(src) {
+    return src.toLowerCase().endsWith('.mp4');
+  }
+
   function createPromoElement(src, index) {
     const wrapper = document.createElement('div');
     wrapper.className = 'home-promos__item';
 
-    const img = document.createElement('img');
-    img.className = 'home-promos__image';
-    img.src = src;
-    img.alt = '';
-    img.decoding = 'async';
-    img.setAttribute('aria-hidden', 'true');
-    if (index > 0) {
-      img.loading = 'lazy';
+    const isVideo = isVideoSource(src);
+    const media = document.createElement(isVideo ? 'video' : 'img');
+    media.className = 'home-promos__media';
+    media.src = src;
+    media.setAttribute('aria-hidden', 'true');
+
+    if (isVideo) {
+      media.autoplay = true;
+      media.loop = true;
+      media.muted = true;
+      media.playsInline = true;
+      media.preload = index > 0 ? 'none' : 'metadata';
+    } else {
+      media.alt = '';
+      media.decoding = 'async';
+      if (index > 0) {
+        media.loading = 'lazy';
+      }
     }
 
-    wrapper.appendChild(img);
+    wrapper.appendChild(media);
     return wrapper;
   }
 
