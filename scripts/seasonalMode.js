@@ -193,17 +193,48 @@
     document.body.prepend(ribbon);
   };
 
+  const addHolidayToast = () => {
+    const dismissed = safeLocalStorage.get(STORAGE_KEYS.toastDismissed);
+    if (dismissed === 'true') return () => {};
 
+    const toast = document.createElement('div');
+    toast.className = 'holiday-toast';
+    toast.setAttribute('role', 'status');
+
+    const message = document.createElement('span');
+    message.textContent = '¡Celebra con nosotros esta temporada!';
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'toast-close';
+    closeButton.setAttribute('aria-label', 'Cerrar notificación');
+    closeButton.textContent = '×';
+
+    const dismiss = () => {
+      safeLocalStorage.set(STORAGE_KEYS.toastDismissed, 'true');
+      toast.remove();
+    };
+
+    closeButton.addEventListener('click', dismiss);
+    toast.append(message, closeButton);
+    document.body.appendChild(toast);
+
+    return dismiss;
+  };
 
   const initializeSeasonalMode = () => {
     if (!isInSeasonWindow()) return;
     const destroySparkles = createSparkles();
     const destroySnow = createSnowCanvas();
     addCountdownRibbon();
+    const dismissToast = addHolidayToast();
 
     window.addEventListener('beforeunload', () => {
       destroySparkles();
       destroySnow();
+      if (typeof dismissToast === 'function') {
+        dismissToast();
+      }
     });
   };
 
