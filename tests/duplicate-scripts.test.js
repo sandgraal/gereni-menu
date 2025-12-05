@@ -39,32 +39,20 @@ test('index.html should not have duplicate script tags', () => {
 });
 
 // Run all tests
-function runTests() {
-  console.log(`Running ${tests.length} test(s)...\n`);
-  
-  let passed = 0;
-  let failed = 0;
-  
-  for (const { name, fn } of tests) {
-    try {
-      fn();
-      console.log(`✓ ${name}`);
-      passed++;
-    } catch (err) {
-      console.error(`✗ ${name}`);
-      console.error(`  ${err.message}`);
-      if (err.stack) {
-        console.error(err.stack.split('\n').slice(1, 4).join('\n'));
-      }
-      failed++;
-    }
-  }
-  
-  console.log(`\n${passed} test(s) passed${failed > 0 ? `, ${failed} failed` : ''}.`);
-  
-  if (failed > 0) {
-    process.exit(1);
+let passed = 0;
+let failed = 0;
+
+for (const { name, fn } of tests) {
+  try {
+    fn();
+    console.log(`✓ ${name}`);
+    passed++;
+  } catch (err) {
+    console.error(`✗ ${name}`);
+    console.error(`  ${err.message}`);
+    failed++;
   }
 }
 
-runTests();
+console.log(`\n${passed} test(s) passed${failed > 0 ? `, ${failed} failed` : ''}.`);
+process.exit(failed > 0 ? 1 : 0);
