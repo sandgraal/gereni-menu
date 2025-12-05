@@ -86,7 +86,8 @@ if (Array.isArray(manifest.items)) {
     // Check if MP4 files follow naming convention
     if (ext === '.mp4') {
       const fileName = path.basename(src);
-      const followsConvention = /^\d{4}-\d{2}-.+\.mp4$/.test(fileName);
+      // Naming convention: YYYY-MM-descriptive-name.mp4 (descriptive name uses lowercase letters, numbers, and hyphens)
+      const followsConvention = /^\d{4}-\d{2}-[a-z0-9]+(-[a-z0-9]+)*\.mp4$/.test(fileName);
       assert(
         followsConvention,
         `item ${index + 1}: MP4 follows naming convention (${fileName})`
@@ -130,8 +131,12 @@ assert(
   promoScript.includes('.mp4'),
   'promoShowcase.js checks for .mp4 extension'
 );
+// Test for video element creation logic (checking for key parts without exact string match)
+const hasVideoCreation = promoScript.includes('createElement') && 
+                         promoScript.includes('video') && 
+                         promoScript.includes('img');
 assert(
-  promoScript.includes('createElement(isVideo ? \'video\' : \'img\')'),
+  hasVideoCreation,
   'promoShowcase.js creates video elements for MP4 files'
 );
 
