@@ -76,7 +76,7 @@
       media.loop = true;
       media.muted = true;
       media.playsInline = true;
-      media.preload = 'metadata';
+      media.preload = index > 0 ? 'none' : 'metadata';
     } else {
       media.alt = '';
       media.decoding = 'async';
