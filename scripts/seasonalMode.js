@@ -235,21 +235,6 @@
     document.body.prepend(ribbon);
   }
 
-  function addHolidayToast() {
-    const toast = document.createElement('div');
-    toast.className = 'holiday-toast';
-    const lang = getCurrentLanguage();
-    const heading = document.createElement('strong');
-    heading.textContent = lang === 'en' ? 'Holiday hours' : 'Horarios festivos';
-    const message = document.createElement('span');
-    message.textContent = lang === 'en'
-      ? 'Ask your server about special closures and seasonal dishes.'
-      : 'Pregunta por cierres especiales y platillos de temporada.';
-    toast.appendChild(heading);
-    toast.appendChild(message);
-    document.body.appendChild(toast);
-  }
-
   function createHolidayActionItem(list) {
     const existing = list.querySelector('[data-holiday-action]');
     if (existing) return;
@@ -331,7 +316,6 @@
     createSnowLayer();
     createSparkles();
     addCountdownRibbon();
-    addHolidayToast();
     addHolidayActionTile();
   }
 
