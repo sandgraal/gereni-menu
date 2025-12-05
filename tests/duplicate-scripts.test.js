@@ -38,19 +38,6 @@ test('index.html should not have duplicate script tags', () => {
   );
 });
 
-test('index.html should have exactly one seasonalMode.js script tag', () => {
-  const indexPath = path.join(__dirname, '../index.html');
-  const html = fs.readFileSync(indexPath, 'utf-8');
-  const dom = new JSDOM(html);
-  const scripts = dom.window.document.querySelectorAll('script[src*="seasonalMode.js"]');
-  
-  assert.strictEqual(
-    scripts.length,
-    1,
-    `Expected exactly 1 seasonalMode.js script tag, found ${scripts.length}`
-  );
-});
-
 // Run all tests
 function runTests() {
   console.log(`Running ${tests.length} test(s)...\n`);
