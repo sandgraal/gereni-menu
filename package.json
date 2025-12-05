@@ -8,7 +8,7 @@
     "build:fallback": "npm run build:promos && node tools/build-static-menu.js",
     "build:images": "node tools/process-images.js",
     "build:precache": "node tools/generate-precache-urls.js --only-highest",
-    "check:all": "npm run build:fallback && npm run build:precache && npm run check:prices && npm run check:menu && npm run check:social && npm run test:sync && npm run test:scroll && npm run test:a11y && npm run test:sw && npm run test:precache && npm run test:home-actions && npm run test:markdownlint",
+    "check:all": "npm run build:fallback && npm run build:precache && npm run check:prices && npm run check:menu && npm run check:social && npm run test:sync && npm run test:scroll && npm run test:a11y && npm run test:sw && npm run test:precache && npm run test:home-actions && npm run test:duplicate-scripts && npm run test:markdownlint",
     "check:menu": "node tools/check-menu-render.js",
     "check:prices": "node tools/validate-prices.js",
     "check:social": "node tools/validate-social-links.js",
@@ -20,6 +20,7 @@
     "test:sw": "node tests/service-worker.test.js",
     "test:precache": "node tests/precache-urls.test.js",
     "test:home-actions": "node tests/home-actions-i18n.test.js",
+    "test:duplicate-scripts": "node tests/duplicate-scripts.test.js",
     "test:markdownlint": "node tests/markdownlint-config.test.js"
   },
   "repository": {
