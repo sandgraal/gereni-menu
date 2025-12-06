@@ -182,21 +182,29 @@
     };
   };
 
+  const normalizeLanguage = lang => {
+    const code = (lang || '').toString().slice(0, 2).toLowerCase();
+    if (code === 'en') return 'en';
+    if (code === 'es') return 'es';
+    return 'es';
+  };
+
   const getCurrentLanguage = () => {
     if (window.GereniLang && typeof window.GereniLang.getCurrent === 'function') {
-      return window.GereniLang.getCurrent();
+      return normalizeLanguage(window.GereniLang.getCurrent());
     }
     const langAttr = document.documentElement.getAttribute('lang');
-    return langAttr === 'en' ? 'en' : 'es';
+    return normalizeLanguage(langAttr);
   };
 
   const getCountdownMessage = (lang = getCurrentLanguage()) => {
+    const normalizedLang = normalizeLanguage(lang);
     const now = new Date();
     const christmas = getChristmasDate(now.getFullYear());
     const remaining = Math.max(0, christmas - now);
     const days = Math.ceil(remaining / (1000 * 60 * 60 * 24));
-    if (days <= 0) return lang === 'en' ? 'Merry Christmas!' : '¡Feliz Navidad!';
-    return lang === 'en'
+    if (days <= 0) return normalizedLang === 'en' ? 'Merry Christmas!' : '¡Feliz Navidad!';
+    return normalizedLang === 'en'
       ? `${days} days left until Christmas.`
       : `Faltan ${days} días para Navidad.`;
   };
@@ -218,11 +226,16 @@
   };
 
   const addCountdownRibbon = () => {
-    countdownRibbon = document.createElement('div');
-    countdownRibbon.className = 'holiday-ribbon';
-    countdownRibbon.setAttribute('role', 'status');
+    countdownRibbon = document.querySelector('.holiday-ribbon') || countdownRibbon;
+
+    if (!countdownRibbon) {
+      countdownRibbon = document.createElement('div');
+      countdownRibbon.className = 'holiday-ribbon';
+      countdownRibbon.setAttribute('role', 'status');
+      document.body.prepend(countdownRibbon);
+    }
+
     countdownRibbon.textContent = getCountdownMessage();
-    document.body.prepend(countdownRibbon);
 
     return () => {
       if (countdownRibbon) {
