@@ -351,6 +351,11 @@ body.inicio main {
   transition:transform 0.4s ease;
 }
 
+.home-promos__media:is(video) {
+  object-fit:contain;
+  background-color:rgba(0, 0, 0, 0.85);
+}
+
 .home-promos__media:hover,
 .home-promos__media:focus-visible {
   transform:scale(1.01);
