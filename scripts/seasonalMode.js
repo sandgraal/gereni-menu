@@ -4,35 +4,11 @@
   const SEASON_END_DAY = 31;
   const CHRISTMAS_MONTH = 11; // December (0-indexed)
   const CHRISTMAS_DAY = 25;
-  const STORAGE_KEYS = {
-    toastDismissed: 'gereni-holiday-toast-dismissed',
-  };
-
   let countdownRibbon = null;
 
   const isFinePointer = () => {
     if (typeof window.matchMedia !== 'function') return false;
     return window.matchMedia('(pointer: fine)').matches;
-  };
-
-  const safeLocalStorage = {
-    get: key => {
-      try {
-        return window.localStorage ? window.localStorage.getItem(key) : null;
-      } catch (error) {
-        console.warn('No se pudo leer localStorage:', error);
-        return null;
-      }
-    },
-    set: (key, value) => {
-      try {
-        if (window.localStorage) {
-          window.localStorage.setItem(key, value);
-        }
-      } catch (error) {
-        console.warn('No se pudo escribir en localStorage:', error);
-      }
-    },
   };
 
   const getThanksgivingDate = year => {
@@ -260,50 +236,17 @@
     };
   };
 
-  const addHolidayToast = () => {
-    const dismissed = safeLocalStorage.get(STORAGE_KEYS.toastDismissed);
-    if (dismissed === 'true') return () => {};
-
-    const toast = document.createElement('div');
-    toast.className = 'holiday-toast';
-    toast.setAttribute('role', 'status');
-
-    const message = document.createElement('span');
-    message.textContent = '¡Celebra con nosotros esta temporada!';
-
-    const closeButton = document.createElement('button');
-    closeButton.type = 'button';
-    closeButton.className = 'toast-close';
-    closeButton.setAttribute('aria-label', 'Cerrar notificación');
-    closeButton.textContent = '×';
-
-    const dismiss = () => {
-      safeLocalStorage.set(STORAGE_KEYS.toastDismissed, 'true');
-      toast.remove();
-    };
-
-    closeButton.addEventListener('click', dismiss);
-    toast.append(message, closeButton);
-    document.body.appendChild(toast);
-
-    return dismiss;
-  };
-
   const initializeSeasonalMode = () => {
     if (!isInSeasonWindow()) return;
     const destroySparkles = createSparkles();
     const destroySnow = createSnowCanvas();
     const teardownCountdownRibbon = addCountdownRibbon();
-    const dismissToast = addHolidayToast();
 
     window.addEventListener('beforeunload', () => {
       destroySparkles();
       destroySnow();
       if (typeof teardownCountdownRibbon === 'function') {
         teardownCountdownRibbon();
-      }
-      if (typeof dismissToast === 'function') {
-        dismissToast();
       }
       if (typeof destroyRibbon === 'function') {
         destroyRibbon();
