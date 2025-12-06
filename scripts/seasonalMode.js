@@ -2,9 +2,13 @@
   const START_BUFFER_DAYS = 2;
   const SEASON_END_MONTH = 11; // December (0-indexed)
   const SEASON_END_DAY = 31;
+  const CHRISTMAS_MONTH = 11; // December (0-indexed)
+  const CHRISTMAS_DAY = 25;
   const STORAGE_KEYS = {
     toastDismissed: 'gereni-holiday-toast-dismissed',
   };
+
+  let countdownRibbon = null;
 
   const isFinePointer = () => {
     if (typeof window.matchMedia !== 'function') return false;
@@ -48,6 +52,8 @@
     const end = new Date(year, SEASON_END_MONTH, SEASON_END_DAY);
     return { start, end };
   };
+
+  const getChristmasDate = year => new Date(year, CHRISTMAS_MONTH, CHRISTMAS_DAY);
 
   const isInSeasonWindow = () => {
     const now = new Date();
@@ -287,6 +293,12 @@
       }
       if (typeof dismissToast === 'function') {
         dismissToast();
+      }
+      if (typeof destroyRibbon === 'function') {
+        destroyRibbon();
+      }
+      if (typeof unsubscribeLanguage === 'function') {
+        unsubscribeLanguage();
       }
     });
   };
