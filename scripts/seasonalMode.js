@@ -183,47 +183,31 @@
     };
   };
 
-  const getActiveLanguage = () => {
-    const storedLang = window.GereniLang?.getCurrent?.();
-    if (storedLang) return storedLang;
-    const docLang = document.documentElement.getAttribute('lang');
-    if (docLang && docLang.toLowerCase().startsWith('en')) return 'en';
+  const normalizeLanguage = lang => {
+    const code = (lang || '').toString().slice(0, 2).toLowerCase();
+    if (code === 'en') return 'en';
+    if (code === 'es') return 'es';
     return 'es';
   };
 
-  const getChristmasDate = () => {
-    const now = new Date();
-    const christmas = new Date(now.getFullYear(), 11, 25);
-    if (now > christmas) {
-      christmas.setFullYear(now.getFullYear() + 1);
+  const getCurrentLanguage = () => {
+    if (window.GereniLang && typeof window.GereniLang.getCurrent === 'function') {
+      return normalizeLanguage(window.GereniLang.getCurrent());
     }
-    return christmas;
+    const langAttr = document.documentElement.getAttribute('lang');
+    return normalizeLanguage(langAttr);
   };
 
-  const getCountdownMessage = lang => {
+  const getCountdownMessage = (lang = getCurrentLanguage()) => {
+    const normalizedLang = normalizeLanguage(lang);
     const now = new Date();
     const christmas = getChristmasDate();
     const remaining = Math.max(0, christmas - now);
     const days = Math.ceil(remaining / (1000 * 60 * 60 * 24));
-    const locale = lang === 'en' ? 'en' : 'es';
-
-    const messages = {
-      es: {
-        today: '¡Feliz Navidad! 🎄',
-        single: 'Falta 1 día para Navidad.',
-        plural: daysCount => `Faltan ${daysCount} días para Navidad.`,
-      },
-      en: {
-        today: 'Merry Christmas! 🎄',
-        single: '1 day until Christmas.',
-        plural: daysCount => `${daysCount} days until Christmas.`,
-      },
-    };
-
-    const copy = messages[locale];
-    if (days <= 0) return copy.today;
-    if (days === 1) return copy.single;
-    return copy.plural(days);
+    if (days <= 0) return normalizedLang === 'en' ? 'Merry Christmas!' : '¡Feliz Navidad!';
+    return normalizedLang === 'en'
+      ? `${days} days left until Christmas.`
+      : `Faltan ${days} días para Navidad.`;
   };
 
   const addCountdownRibbon = () => {
@@ -242,7 +226,21 @@
       updateMessage(nextLang);
     };
 
-    document.addEventListener('gereni:languagechange', handleLanguageChange);
+    document.addEventListener('gereni:languagechange', handler);
+    return () => document.removeEventListener('gereni:languagechange', handler);
+  };
+
+  const addCountdownRibbon = () => {
+    countdownRibbon = document.querySelector('.holiday-ribbon') || countdownRibbon;
+
+    if (!countdownRibbon) {
+      countdownRibbon = document.createElement('div');
+      countdownRibbon.className = 'holiday-ribbon';
+      countdownRibbon.setAttribute('role', 'status');
+      document.body.prepend(countdownRibbon);
+    }
+
+    countdownRibbon.textContent = getCountdownMessage();
 
     return () => {
       document.removeEventListener('gereni:languagechange', handleLanguageChange);
