@@ -1667,7 +1667,8 @@ footer {
   font-size:0.9rem;
 }
 
-.holiday-sparkle-container {
+.holiday-sparkle-container,
+.sparkle-container {
   position:fixed;
   inset:0;
   pointer-events:none;
@@ -1683,7 +1684,8 @@ footer {
   opacity:0.8;
 }
 
-.holiday-sparkle {
+.holiday-sparkle,
+.sparkle {
   position:fixed;
   width:10px;
   height:10px;

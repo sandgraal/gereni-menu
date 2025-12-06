@@ -211,7 +211,12 @@
   };
 
   const addCountdownRibbon = () => {
+    if (countdownRibbon?.isConnected) {
+      countdownRibbon.remove();
+    }
+
     const ribbon = document.createElement('div');
+    countdownRibbon = ribbon;
     ribbon.className = 'holiday-ribbon';
     ribbon.setAttribute('role', 'status');
     const updateMessage = lang => {
@@ -226,24 +231,32 @@
       updateMessage(nextLang);
     };
 
-    document.addEventListener('gereni:languagechange', handler);
-    return () => document.removeEventListener('gereni:languagechange', handler);
-  };
+    const handleLanguageSubscription = lang => {
+      const nextLang = lang || getActiveLanguage();
+      updateMessage(nextLang);
+    };
 
-  const addCountdownRibbon = () => {
-    countdownRibbon = document.querySelector('.holiday-ribbon') || countdownRibbon;
-
-    if (!countdownRibbon) {
-      countdownRibbon = document.createElement('div');
-      countdownRibbon.className = 'holiday-ribbon';
-      countdownRibbon.setAttribute('role', 'status');
-      document.body.prepend(countdownRibbon);
+    let unsubscribeLanguageChange = null;
+    if (window.GereniLang && typeof window.GereniLang.subscribe === 'function') {
+      const maybeUnsubscribe = window.GereniLang.subscribe(handleLanguageSubscription);
+      if (typeof maybeUnsubscribe === 'function') {
+        unsubscribeLanguageChange = maybeUnsubscribe;
+      }
     }
 
-    countdownRibbon.textContent = getCountdownMessage();
+    document.addEventListener('gereni:languagechange', handleLanguageChange);
 
     return () => {
       document.removeEventListener('gereni:languagechange', handleLanguageChange);
+      if (typeof unsubscribeLanguageChange === 'function') {
+        unsubscribeLanguageChange();
+      }
+      if (ribbon.isConnected) {
+        ribbon.remove();
+      }
+      if (countdownRibbon === ribbon) {
+        countdownRibbon = null;
+      }
     };
   };
 
