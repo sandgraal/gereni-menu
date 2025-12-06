@@ -65,14 +65,14 @@
     if (!isFinePointer()) return () => {};
 
     const sparkleContainer = document.createElement('div');
-    sparkleContainer.className = 'sparkle-container';
+    sparkleContainer.className = 'holiday-sparkle-container';
     document.body.appendChild(sparkleContainer);
 
     let pointerPending = null;
     let rafId = null;
     const createSparkle = ({ clientX, clientY }) => {
       const sparkle = document.createElement('span');
-      sparkle.className = 'sparkle';
+      sparkle.className = 'holiday-sparkle';
       sparkle.style.left = `${clientX}px`;
       sparkle.style.top = `${clientY}px`;
       sparkleContainer.appendChild(sparkle);
@@ -107,7 +107,8 @@
 
   const createSnowCanvas = () => {
     const canvas = document.createElement('canvas');
-    canvas.className = 'snow-canvas';
+    canvas.className = 'holiday-snow';
+    canvas.setAttribute('aria-hidden', 'true');
     const ctx = canvas.getContext('2d');
     document.body.appendChild(canvas);
 
@@ -182,53 +183,69 @@
     };
   };
 
-  const getCurrentLanguage = () => {
-    if (window.GereniLang && typeof window.GereniLang.getCurrent === 'function') {
-      return window.GereniLang.getCurrent();
-    }
-    const langAttr = document.documentElement.getAttribute('lang');
-    return langAttr === 'en' ? 'en' : 'es';
+  const getActiveLanguage = () => {
+    const storedLang = window.GereniLang?.getCurrent?.();
+    if (storedLang) return storedLang;
+    const docLang = document.documentElement.getAttribute('lang');
+    if (docLang && docLang.toLowerCase().startsWith('en')) return 'en';
+    return 'es';
   };
 
-  const getCountdownMessage = (lang = getCurrentLanguage()) => {
+  const getChristmasDate = () => {
     const now = new Date();
-    const christmas = getChristmasDate(now.getFullYear());
+    const christmas = new Date(now.getFullYear(), 11, 25);
+    if (now > christmas) {
+      christmas.setFullYear(now.getFullYear() + 1);
+    }
+    return christmas;
+  };
+
+  const getCountdownMessage = lang => {
+    const now = new Date();
+    const christmas = getChristmasDate();
     const remaining = Math.max(0, christmas - now);
     const days = Math.ceil(remaining / (1000 * 60 * 60 * 24));
-    if (days <= 0) return lang === 'en' ? 'Merry Christmas!' : '¡Feliz Navidad!';
-    return lang === 'en'
-      ? `${days} days left until Christmas.`
-      : `Faltan ${days} días para Navidad.`;
-  };
+    const locale = lang === 'en' ? 'en' : 'es';
 
-  const subscribeToLanguageChanges = updateFn => {
-    if (typeof updateFn !== 'function') return () => {};
-
-    if (window.GereniLang && typeof window.GereniLang.subscribe === 'function') {
-      return window.GereniLang.subscribe(updateFn);
-    }
-
-    const handler = event => {
-      const lang = event?.detail?.lang || getCurrentLanguage();
-      updateFn(lang);
+    const messages = {
+      es: {
+        today: '¡Feliz Navidad! 🎄',
+        single: 'Falta 1 día para Navidad.',
+        plural: daysCount => `Faltan ${daysCount} días para Navidad.`,
+      },
+      en: {
+        today: 'Merry Christmas! 🎄',
+        single: '1 day until Christmas.',
+        plural: daysCount => `${daysCount} days until Christmas.`,
+      },
     };
 
-    document.addEventListener('gereni:languagechange', handler);
-    return () => document.removeEventListener('gereni:languagechange', handler);
+    const copy = messages[locale];
+    if (days <= 0) return copy.today;
+    if (days === 1) return copy.single;
+    return copy.plural(days);
   };
 
   const addCountdownRibbon = () => {
-    countdownRibbon = document.createElement('div');
-    countdownRibbon.className = 'holiday-ribbon';
-    countdownRibbon.setAttribute('role', 'status');
-    countdownRibbon.textContent = getCountdownMessage();
-    document.body.prepend(countdownRibbon);
+    const ribbon = document.createElement('div');
+    ribbon.className = 'holiday-ribbon';
+    ribbon.setAttribute('role', 'status');
+    const updateMessage = lang => {
+      ribbon.textContent = getCountdownMessage(lang);
+    };
+
+    updateMessage(getActiveLanguage());
+    document.body.prepend(ribbon);
+
+    const handleLanguageChange = event => {
+      const nextLang = event?.detail?.lang || getActiveLanguage();
+      updateMessage(nextLang);
+    };
+
+    document.addEventListener('gereni:languagechange', handleLanguageChange);
 
     return () => {
-      if (countdownRibbon) {
-        countdownRibbon.remove();
-        countdownRibbon = null;
-      }
+      document.removeEventListener('gereni:languagechange', handleLanguageChange);
     };
   };
 
@@ -265,17 +282,15 @@
     if (!isInSeasonWindow()) return;
     const destroySparkles = createSparkles();
     const destroySnow = createSnowCanvas();
-    const destroyRibbon = addCountdownRibbon();
-    const unsubscribeLanguage = subscribeToLanguageChanges(lang => {
-      if (countdownRibbon) {
-        countdownRibbon.textContent = getCountdownMessage(lang);
-      }
-    });
+    const teardownCountdownRibbon = addCountdownRibbon();
     const dismissToast = addHolidayToast();
 
     window.addEventListener('beforeunload', () => {
       destroySparkles();
       destroySnow();
+      if (typeof teardownCountdownRibbon === 'function') {
+        teardownCountdownRibbon();
+      }
       if (typeof dismissToast === 'function') {
         dismissToast();
       }

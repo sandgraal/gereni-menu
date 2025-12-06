@@ -1667,11 +1667,18 @@ footer {
   font-size:0.9rem;
 }
 
+.holiday-sparkle-container {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:18;
+}
+
 .holiday-snow {
   position:fixed;
   inset:0;
   pointer-events:none;
-  z-index:0;
+  z-index:2;
   mix-blend-mode:screen;
   opacity:0.8;
 }
