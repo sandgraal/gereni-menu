@@ -68,6 +68,9 @@
     const isVideo = isVideoSource(src);
     const media = document.createElement(isVideo ? 'video' : 'img');
     media.className = 'home-promos__media';
+    if (isVideo) {
+      media.classList.add('home-promos__media--video');
+    }
     media.src = src;
     media.setAttribute('aria-hidden', 'true');
 

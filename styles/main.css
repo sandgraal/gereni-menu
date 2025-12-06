@@ -19,6 +19,7 @@
   --home-background-blend-mode:normal;
   --home-background-position:center 8%;
   --home-background-position-mobile:center 18%;
+  --home-promos-video-bg:rgba(19,19,18,0.85);
   --holiday-accent:#C41E3A;
   --holiday-accent-2:#F5B841;
   --holiday-accent-soft:rgba(196, 30, 58, 0.12);
@@ -67,6 +68,7 @@
   --home-background-blend-mode:soft-light;
   --home-background-position:center 8%;
   --home-background-position-mobile:center 18%;
+  --home-promos-video-bg:rgba(12,9,7,0.82);
 }
 
 :root[data-theme="light"] {
@@ -351,9 +353,9 @@ body.inicio main {
   transition:transform 0.4s ease;
 }
 
-.home-promos__media:is(video) {
+.home-promos__media--video {
   object-fit:contain;
-  background-color:rgba(0, 0, 0, 0.85);
+  background-color:var(--home-promos-video-bg);
 }
 
 .home-promos__media:hover,
