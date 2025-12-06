@@ -227,7 +227,12 @@
   };
 
   const addCountdownRibbon = () => {
+    if (countdownRibbon?.isConnected) {
+      countdownRibbon.remove();
+    }
+
     const ribbon = document.createElement('div');
+    countdownRibbon = ribbon;
     ribbon.className = 'holiday-ribbon';
     ribbon.setAttribute('role', 'status');
     const updateMessage = lang => {
@@ -242,10 +247,32 @@
       updateMessage(nextLang);
     };
 
+    const handleLanguageSubscription = lang => {
+      const nextLang = lang || getActiveLanguage();
+      updateMessage(nextLang);
+    };
+
+    let unsubscribeLanguageChange = null;
+    if (window.GereniLang && typeof window.GereniLang.subscribe === 'function') {
+      const maybeUnsubscribe = window.GereniLang.subscribe(handleLanguageSubscription);
+      if (typeof maybeUnsubscribe === 'function') {
+        unsubscribeLanguageChange = maybeUnsubscribe;
+      }
+    }
+
     document.addEventListener('gereni:languagechange', handleLanguageChange);
 
     return () => {
       document.removeEventListener('gereni:languagechange', handleLanguageChange);
+      if (typeof unsubscribeLanguageChange === 'function') {
+        unsubscribeLanguageChange();
+      }
+      if (ribbon.isConnected) {
+        ribbon.remove();
+      }
+      if (countdownRibbon === ribbon) {
+        countdownRibbon = null;
+      }
     };
   };
 
