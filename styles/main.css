@@ -356,6 +356,9 @@ body.inicio main {
 .home-promos__media--video {
   object-fit:contain;
   background-color:var(--home-promos-video-bg);
+  aspect-ratio:auto;
+  padding:5px;
+  box-sizing:border-box;
 }
 
 .home-promos__media:hover,
