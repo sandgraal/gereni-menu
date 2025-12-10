@@ -587,9 +587,10 @@ body.inicio main {
 
 .wifi-card__actions {
   display:flex;
-  flex-wrap:wrap;
-  gap:0.75rem;
-  margin-top:0.25rem;
+  flex-direction:column;
+  align-items:stretch;
+  gap:0.85rem;
+  margin-top:0.35rem;
 }
 
 .wifi-card__qr {
@@ -607,39 +608,112 @@ body.inicio main {
 }
 
 .wifi-card__button {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:0.75rem 1.5rem;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.12);
-  background:linear-gradient(150deg, rgba(255,255,255,0.98), rgba(245,234,215,0.92));
-  color:var(--gereni-brown);
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-start;
+  gap:clamp(0.8rem, 2vw, 1rem);
+  padding:clamp(1rem, 3vw, 1.3rem) clamp(1.1rem, 3.5vw, 1.6rem);
+  border-radius:20px;
+  border:1px solid rgba(75,106,61,0.42);
+  background:linear-gradient(140deg, rgba(75,106,61,0.94), rgba(130,161,112,0.85));
+  color:#fff;
   font-weight:700;
   font-size:0.95rem;
   text-decoration:none;
   cursor:pointer;
   transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
   min-width:0;
-  box-shadow:0 18px 40px rgba(0,0,0,0.25);
+  box-shadow:0 24px 44px rgba(75,106,61,0.3);
+  text-align:left;
+  letter-spacing:0.01em;
+  position:relative;
+  overflow:hidden;
+}
+
+.wifi-card__button::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 22% 22%, rgba(255,255,255,0.4), transparent 60%);
+  opacity:0;
+  transition:opacity 0.35s ease;
 }
 
 .wifi-card__button:hover,
 .wifi-card__button:focus-visible {
-  transform:translateY(-2px);
-  box-shadow:0 24px 48px rgba(0,0,0,0.28);
+  transform:translateY(-3px);
+  box-shadow:0 28px 52px rgba(75,106,61,0.35);
 }
 
 .wifi-card__button:focus-visible {
-  outline:3px solid rgba(255,255,255,0.35);
+  outline:3px solid rgba(255,255,255,0.32);
   outline-offset:2px;
 }
 
+.wifi-card__button:hover::after,
+.wifi-card__button:focus-visible::after {
+  opacity:1;
+}
+
+.wifi-card__button-icon {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:clamp(2.6rem, 5vw, 3rem);
+  height:clamp(2.6rem, 5vw, 3rem);
+  border-radius:16px;
+  background:rgba(255,255,255,0.18);
+  color:#0f130d;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.35), 0 14px 28px rgba(0,0,0,0.2);
+  flex-shrink:0;
+}
+
+.wifi-card__button-content {
+  display:flex;
+  flex-direction:column;
+  gap:0.25rem;
+  align-items:flex-start;
+  text-align:left;
+}
+
+.wifi-card__button-title {
+  font-size:1.05rem;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  color:#0f130d;
+  margin:0;
+}
+
+.wifi-card__button-line {
+  display:block;
+  font-size:0.95rem;
+  line-height:1.5;
+  color:#ffffff;
+}
+
+.wifi-card__button-line--muted {
+  color:rgba(255,255,255,0.86);
+  font-weight:500;
+}
+
 .wifi-card__button--secondary {
+  width:auto;
+  display:inline-flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:center;
+  gap:0.4rem;
+  padding:0.75rem 1.25rem;
+  border-radius:14px;
   background:transparent;
   color:#fff;
   border-color:rgba(255,255,255,0.4);
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.2), 0 18px 40px rgba(0,0,0,0.28);
+}
+
+.wifi-card__button--secondary::after {
+  content:none;
 }
 
 .wifi-card__button--secondary:hover,
@@ -961,6 +1035,27 @@ html[data-theme="dark"] .wifi-card {
   background:linear-gradient(150deg, rgba(26,30,24,0.95), rgba(45,52,43,0.88));
   border:1px solid rgba(234,215,192,0.18);
   box-shadow:0 28px 60px rgba(0,0,0,0.5);
+}
+
+html[data-theme="dark"] .wifi-card__button {
+  background:linear-gradient(140deg, rgba(130,161,112,0.92), rgba(90,122,74,0.82));
+  border-color:rgba(130,161,112,0.5);
+  color:#0f130d;
+  box-shadow:0 26px 50px rgba(0,0,0,0.48);
+}
+
+html[data-theme="dark"] .wifi-card__button-icon {
+  background:rgba(234,215,192,0.08);
+  color:#0f130d;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 22px rgba(0,0,0,0.35);
+}
+
+html[data-theme="dark"] .wifi-card__button-line {
+  color:#f7f8f7;
+}
+
+html[data-theme="dark"] .wifi-card__button-line--muted {
+  color:rgba(247,248,247,0.82);
 }
 
 html[data-theme="dark"] .wifi-card__instructions {
