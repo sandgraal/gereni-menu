@@ -34,6 +34,8 @@
 </script>
 <script defer="" src="scripts/seasonalMode.js">
 </script>
+<script defer="" src="scripts/vendor/qr-creator.min.js">
+</script>
 <script defer="" src="scripts/homeActions.js">
 </script>
 <script defer="" src="scripts/swRegister.js">
@@ -143,7 +145,7 @@
      </span>
     </a>
     </li>
-    <li class="home-actions__item">
+   <li class="home-actions__item">
      <a class="home-actions__link home-actions__link--primary" data-home-actions-fallback="connect-wifi" data-sound-id="menu-cta" href="https://wifi.gereni.local/portal" rel="noopener" target="_blank">
       <span aria-hidden="true" class="home-actions__icon">
        <svg fill="none" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">
@@ -159,11 +161,34 @@
            </span>
        <span class="home-actions__description" data-home-actions-fallback-description data-i18n-es="Copia el acceso invitado sin mostrar la contraseña." data-i18n-en="Copy guest Wi-Fi access without showing the password.">
             Copia el acceso invitado sin mostrar la contraseña.
-       </span>
+      </span>
      </span>
     </a>
    </li>
-   </ul>
+  </ul>
+   <section class="wifi-card" data-wifi-section data-wifi-copy="Red: Gereni&#10;Contraseña: Fesan318&#10;Seguridad: WPA2">
+    <div class="wifi-card__header">
+     <h2 class="wifi-card__title" data-i18n-es="Wi-Fi para invitados" data-i18n-en="Guest Wi-Fi">
+      Wi-Fi para invitados
+     </h2>
+     <p class="wifi-card__instructions" data-i18n-es="Copia el acceso invitado sin mostrar la contraseña." data-i18n-en="Copy guest Wi-Fi access without exposing the password." data-wifi-instructions>
+      Copia el acceso invitado sin mostrar la contraseña.
+     </p>
+    </div>
+    <div class="wifi-card__actions">
+     <button class="wifi-card__button" data-i18n-es="Copiar acceso a Wi-Fi" data-i18n-en="Copy Wi-Fi access" data-wifi-copy hidden type="button">
+      Copiar acceso a Wi-Fi
+     </button>
+     <a class="wifi-card__button wifi-card__button--secondary" data-i18n-es="Abrir portal de Wi-Fi" data-i18n-en="Open Wi-Fi portal" data-wifi-launch href="https://wifi.gereni.local/portal" rel="noopener" target="_blank">
+      Abrir portal de Wi-Fi
+     </a>
+     <canvas aria-hidden="true" class="wifi-card__qr" data-wifi-qr hidden>
+     </canvas>
+    </div>
+    <p aria-live="polite" class="wifi-card__feedback" data-i18n-es="¡Copiado! Usa el portal para completar la conexión." data-i18n-en="Copied! Use the portal to finish connecting." data-wifi-feedback hidden>
+     ¡Copiado! Usa el portal para completar la conexión.
+    </p>
+   </section>
    <div class="home-social">
     <p class="home-social__title" data-i18n-es="Conéctate con nosotros" data-i18n-en="Connect with us">
         Conéctate con nosotros

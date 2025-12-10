@@ -45,9 +45,10 @@
       "icon": "wifi",
       "wifi": {
         "ssid": {
-          "es": "Gereni Invitados",
-          "en": "Gereni Guests"
+          "es": "Gereni",
+          "en": "Gereni"
         },
+        "password": "Fesan318",
         "security": "WPA2",
         "instructions": {
           "es": "Copia las credenciales con el botón y abre el portal para completar la conexión.",

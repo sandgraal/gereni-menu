@@ -557,6 +557,20 @@ body.inicio main {
   margin-top:0.25rem;
 }
 
+.wifi-card__qr {
+  display:block;
+  width:clamp(5.25rem, 16vw, 7.5rem);
+  height:clamp(5.25rem, 16vw, 7.5rem);
+  border-radius:16px;
+  background:#fff;
+  border:1px solid rgba(91,58,41,0.12);
+  box-shadow:0 10px 22px rgba(91,58,41,0.15);
+}
+
+.wifi-card__qr[hidden] {
+  display:none;
+}
+
 .wifi-card__button {
   display:inline-flex;
   align-items:center;
@@ -926,6 +940,12 @@ html[data-theme="dark"] .wifi-card__button--secondary:hover,
 html[data-theme="dark"] .wifi-card__button--secondary:focus-visible {
   background:rgba(43,39,36,0.92);
   box-shadow:0 16px 30px rgba(0,0,0,0.36);
+}
+
+html[data-theme="dark"] .wifi-card__qr {
+  background:#ffffff;
+  border-color:rgba(234,215,192,0.4);
+  box-shadow:0 16px 32px rgba(0,0,0,0.42);
 }
 
 html[data-theme="dark"] .home-social__link {

@@ -12,7 +12,8 @@
     instructions: wifiSection.querySelector('[data-wifi-instructions]'),
     copyButton: wifiSection.querySelector('[data-wifi-copy]'),
     feedback: wifiSection.querySelector('[data-wifi-feedback]'),
-    launchLink: wifiSection.querySelector('[data-wifi-launch]')
+    launchLink: wifiSection.querySelector('[data-wifi-launch]'),
+    qrPlaceholder: wifiSection.querySelector('[data-wifi-qr]')
   } : {};
   let wifiCopyHandlerAttached = false;
   let wifiFeedbackTimeout = null;
@@ -85,6 +86,31 @@
       return result;
     } catch (error) {
       return false;
+    }
+  }
+
+  function escapeWifiValue(value) {
+    return String(value || '').replace(/([\\;,:"])/g, '\\$1');
+  }
+
+  function resetWifiQr() {
+    if (!wifiElements.qrPlaceholder) {
+      return;
+    }
+
+    wifiElements.qrPlaceholder.hidden = true;
+    wifiElements.qrPlaceholder.setAttribute('aria-hidden', 'true');
+    wifiElements.qrPlaceholder.removeAttribute('aria-label');
+
+    if (wifiElements.qrPlaceholder.tagName === 'CANVAS') {
+      const context = wifiElements.qrPlaceholder.getContext('2d');
+      if (context) {
+        const width = wifiElements.qrPlaceholder.width || wifiElements.qrPlaceholder.clientWidth;
+        const height = wifiElements.qrPlaceholder.height || wifiElements.qrPlaceholder.clientHeight;
+        context.clearRect(0, 0, width, height);
+      }
+    } else if (wifiElements.qrPlaceholder.tagName === 'IMG') {
+      wifiElements.qrPlaceholder.removeAttribute('src');
     }
   }
 
@@ -171,6 +197,37 @@
       }
     }
     ensureWifiCopyHandler();
+  }
+
+  function renderWifiQr(ssidValue, passwordValue, securityValue) {
+    if (!wifiElements.qrPlaceholder) {
+      return;
+    }
+
+    if (!ssidValue || !passwordValue || !window.QrCreator) {
+      resetWifiQr();
+      return;
+    }
+
+    const qrSecurity = securityValue || 'WPA';
+    const wifiPayload = `WIFI:S:${escapeWifiValue(ssidValue)};T:${escapeWifiValue(qrSecurity)};P:${escapeWifiValue(passwordValue)};H:false;`;
+    const size = Math.max(140, Math.min(220, Math.round(wifiElements.qrPlaceholder.clientWidth || 180)));
+    const qrLabel = getCurrentLanguage() === 'en'
+      ? `Wi-Fi QR for network ${ssidValue}`
+      : `Código QR para la red ${ssidValue}`;
+
+    window.QrCreator.render({
+      text: wifiPayload,
+      radius: 0,
+      ecLevel: 'M',
+      fill: '#231c15',
+      background: '#ffffff',
+      size
+    }, wifiElements.qrPlaceholder);
+
+    wifiElements.qrPlaceholder.hidden = false;
+    wifiElements.qrPlaceholder.removeAttribute('aria-hidden');
+    wifiElements.qrPlaceholder.setAttribute('aria-label', qrLabel);
   }
 
   function resolveActions(payload) {
@@ -346,6 +403,7 @@
     }
 
     if (!wifiConfig || typeof wifiConfig !== 'object') {
+      resetWifiQr();
       if (wifiElements.launchLink) {
         wifiElements.launchLink.hidden = !wifiElements.launchLink.href;
       }
@@ -359,7 +417,9 @@
       applyTranslationsToElement(wifiElements.instructions, wifiConfig.instructions);
     }
 
-    const ssidValue = resolveLocalizedValue(wifiConfig.ssid);
+    const ssidValue = resolveLocalizedValue(wifiConfig.ssid)
+      || resolveLocalizedValue(wifiConfig.networkName)
+      || resolveLocalizedValue(wifiConfig.network);
     const passwordValue = typeof wifiConfig.password === 'string' ? wifiConfig.password.trim() : '';
     const securityValue = typeof wifiConfig.security === 'string' ? wifiConfig.security.trim() : '';
     const lang = getCurrentLanguage();
@@ -414,6 +474,8 @@
         }
       }
     }
+
+    renderWifiQr(ssidValue, passwordValue, securityValue);
 
     ensureWifiCopyHandler();
   }
