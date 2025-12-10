@@ -25,7 +25,7 @@ Las tarjetas de "Acciones rápidas" que aparecen en `index.html` se generan auto
      "portalLabel": { "es": "Abrir portal", "en": "Open portal" }
    }
    ```
-   - `ssid`: acepta texto o un objeto con traducciones. No se expone visualmente, pero se incluye en el texto que se copia al portapapeles.
+   - `ssid`: acepta texto o un objeto con traducciones. Representa el nombre de la red (SSID) y se incluye en el texto que se copia al portapapeles. Si prefieres, puedes usar `networkName` o `network` como alias de `ssid`.
    - `password`: cadena que se copiará junto con el nombre de la red cuando el visitante pulse **Copiar acceso a Wi-Fi**.
    - `security`: describe el tipo de cifrado (WPA2, WPA3, abierto, etc.) y también se agrega al texto copiado si está presente.
    - `instructions`: texto corto que sí aparece en el panel para guiar al visitante.
@@ -33,6 +33,10 @@ Las tarjetas de "Acciones rápidas" que aparecen en `index.html` se generan auto
    - `portalLabel`: etiqueta bilingüe del botón del portal.
 
    El panel de Wi-Fi también funciona como _fallback_: si no actualizas el JSON, conservará la información de respaldo definida en `index.html`.
+
+   El HTML incluye `data-wifi-copy` con las credenciales actuales (`Gereni` / `Fesan318` / `WPA2`) para que el botón de copia siga funcionando si falla la carga del JSON. Recuerda actualizar ambas fuentes si cambian las claves.
+   
+   Si completas `ssid`, `password` y `security`, el panel mostrará un código QR con la cadena `WIFI:S:<ssid>;T:<security>;P:<password>;H:false;` junto a los botones de copia y portal. El QR permanece oculto cuando falta alguno de esos campos, ya que el nombre de la red (SSID) es indispensable para generar un QR válido.
 3. Guarda los cambios con un Commit o Pull Request. Al recargar la página, el script `scripts/homeActions.js` reconstruirá la lista automáticamente.
 
 > [!TIP]
