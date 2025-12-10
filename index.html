@@ -147,27 +147,37 @@
     </li>
   </ul>
    <section class="wifi-card" data-wifi-section data-wifi-copy="Red: Gereni&#10;Contraseña: Fesan318&#10;Seguridad: WPA2">
-    <div class="wifi-card__header">
-     <h2 class="wifi-card__title" data-i18n-es="Wi-Fi para invitados" data-i18n-en="Guest Wi-Fi">
-      Wi-Fi para invitados
-     </h2>
-     <p class="wifi-card__instructions" data-i18n-es="Copia el acceso invitado sin mostrar la contraseña." data-i18n-en="Copy guest Wi-Fi access without exposing the password." data-wifi-instructions>
-      Copia el acceso invitado sin mostrar la contraseña.
+    <span aria-hidden="true" class="wifi-card__icon">
+     <svg fill="none" height="28" viewBox="0 0 32 32" width="28" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 12.5C9.05367 7.4463 17.9463 7.4463 23 12.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+      <path d="M7.5 16C11.6421 11.8579 18.3579 11.8579 22.5 16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+      <path d="M11.5 19C13.433 17.067 16.567 17.067 18.5 19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+      <circle cx="15" cy="23" fill="currentColor" r="2"/>
+     </svg>
+    </span>
+    <div class="wifi-card__body">
+     <div class="wifi-card__header">
+      <h2 class="wifi-card__title" data-i18n-es="Wi-Fi para invitados" data-i18n-en="Guest Wi-Fi">
+       Wi-Fi para invitados
+      </h2>
+      <p class="wifi-card__instructions" data-i18n-es="Copia el acceso invitado sin mostrar la contraseña." data-i18n-en="Copy guest Wi-Fi access without exposing the password." data-wifi-instructions>
+       Copia el acceso invitado sin mostrar la contraseña.
+      </p>
+     </div>
+     <div class="wifi-card__actions">
+      <button class="wifi-card__button" data-i18n-es="Copiar acceso a Wi-Fi" data-i18n-en="Copy Wi-Fi access" data-wifi-copy hidden type="button">
+       Copiar acceso a Wi-Fi
+      </button>
+      <a class="wifi-card__button wifi-card__button--secondary" data-i18n-es="Abrir portal de Wi-Fi" data-i18n-en="Open Wi-Fi portal" data-wifi-launch href="https://wifi.gereni.local/portal" rel="noopener" target="_blank">
+       Abrir portal de Wi-Fi
+      </a>
+      <canvas aria-hidden="true" class="wifi-card__qr" data-wifi-qr hidden>
+      </canvas>
+     </div>
+     <p aria-live="polite" class="wifi-card__feedback" data-i18n-es="¡Copiado! Usa el portal para completar la conexión." data-i18n-en="Copied! Use the portal to finish connecting." data-wifi-feedback hidden>
+      ¡Copiado! Usa el portal para completar la conexión.
      </p>
     </div>
-    <div class="wifi-card__actions">
-     <button class="wifi-card__button" data-i18n-es="Copiar acceso a Wi-Fi" data-i18n-en="Copy Wi-Fi access" data-wifi-copy hidden type="button">
-      Copiar acceso a Wi-Fi
-     </button>
-     <a class="wifi-card__button wifi-card__button--secondary" data-i18n-es="Abrir portal de Wi-Fi" data-i18n-en="Open Wi-Fi portal" data-wifi-launch href="https://wifi.gereni.local/portal" rel="noopener" target="_blank">
-      Abrir portal de Wi-Fi
-     </a>
-     <canvas aria-hidden="true" class="wifi-card__qr" data-wifi-qr hidden>
-     </canvas>
-    </div>
-    <p aria-live="polite" class="wifi-card__feedback" data-i18n-es="¡Copiado! Usa el portal para completar la conexión." data-i18n-en="Copied! Use the portal to finish connecting." data-wifi-feedback hidden>
-     ¡Copiado! Usa el portal para completar la conexión.
-    </p>
    </section>
    <div class="home-social">
     <p class="home-social__title" data-i18n-es="Conéctate con nosotros" data-i18n-en="Connect with us">
